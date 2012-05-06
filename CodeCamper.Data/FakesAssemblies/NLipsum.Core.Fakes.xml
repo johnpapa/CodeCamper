@@ -1,0 +1,716 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NLipsum.Core.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:NLipsum.Core.Fakes.ShimFormatStrings">
+            <summary>Shim type of NLipsum.Core.FormatStrings</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.UnformattedGet">
+            <summary>Sets the mole of FormatStrings.get_Unformatted()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimFormatStrings.ShimParagraph">
+            <summary>Shim type of NLipsum.Core.FormatStrings+Paragraph</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.ShimParagraph.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.ShimParagraph.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.ShimParagraph.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.ShimParagraph.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.ShimParagraph.HtmlGet">
+            <summary>Sets the mole of Paragraph.get_Html()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.ShimParagraph.LineBreaksGet">
+            <summary>Sets the mole of Paragraph.get_LineBreaks()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence">
+            <summary>Shim type of NLipsum.Core.FormatStrings+Sentence</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence.ExclamationGet">
+            <summary>Sets the mole of Sentence.get_Exclamation()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence.PhraseGet">
+            <summary>Sets the mole of Sentence.get_Phrase()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimFormatStrings.ShimSentence.QuestionGet">
+            <summary>Sets the mole of Sentence.get_Question()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimLipsumGenerator">
+            <summary>Shim type of NLipsum.Core.LipsumGenerator</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsumGenerator.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsumGenerator.#ctor(NLipsum.Core.LipsumGenerator)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsumGenerator.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsumGenerator.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.Constructor">
+            <summary>Sets the mole of LipsumGenerator.LipsumGenerator()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.ConstructorStringBoolean">
+            <summary>Sets the mole of LipsumGenerator.LipsumGenerator(String rawData, Boolean isXml)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateCharactersInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateCharacters(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateHtmlInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateHtml(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateInt32">
+            <summary>Sets the mole of LipsumGenerator.Generate(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateInt32FeaturesStringString">
+            <summary>Sets the mole of LipsumGenerator.Generate(Int32 count, Features feature, String formatString, String rawText)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateInt32String">
+            <summary>Sets the mole of LipsumGenerator.Generate(Int32 count, String rawText)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateInt32StringString">
+            <summary>Sets the mole of LipsumGenerator.Generate(Int32 count, String formatString, String rawText)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateLipsumHtmlInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateLipsumHtml(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateLipsumInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateLipsum(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateLipsumInt32FeaturesString">
+            <summary>Sets the mole of LipsumGenerator.GenerateLipsum(Int32 count, Features part, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateParagraphsInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateParagraphs(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateParagraphsInt32Paragraph">
+            <summary>Sets the mole of LipsumGenerator.GenerateParagraphs(Int32 count, Paragraph options)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateParagraphsInt32String">
+            <summary>Sets the mole of LipsumGenerator.GenerateParagraphs(Int32 count, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateSentencesInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateSentences(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateSentencesInt32Sentence">
+            <summary>Sets the mole of LipsumGenerator.GenerateSentences(Int32 count, Sentence options)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateSentencesInt32String">
+            <summary>Sets the mole of LipsumGenerator.GenerateSentences(Int32 count, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.GenerateWordsInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateWords(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.LipsumTextGet">
+            <summary>Sets the mole of LipsumGenerator.get_LipsumText()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.LipsumTextSetStringBuilder">
+            <summary>Sets the mole of LipsumGenerator.set_LipsumText(StringBuilder value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.PrepareWords">
+            <summary>Sets the mole of LipsumGenerator.PrepareWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.PreparedWordsGet">
+            <summary>Sets the mole of LipsumGenerator.get_PreparedWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.PreparedWordsSetStringArray">
+            <summary>Sets the mole of LipsumGenerator.set_PreparedWords(String[] value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.RandomWord">
+            <summary>Sets the mole of LipsumGenerator.RandomWord()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateCharactersInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateCharacters(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateLipsumHtmlInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateLipsumHtml(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateLipsumInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateLipsum(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateLipsumInt32FeaturesString">
+            <summary>Sets the mole of LipsumGenerator.GenerateLipsum(Int32 count, Features part, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateParagraphsInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateParagraphs(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateParagraphsInt32Paragraph">
+            <summary>Sets the mole of LipsumGenerator.GenerateParagraphs(Int32 count, Paragraph options)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateParagraphsInt32String">
+            <summary>Sets the mole of LipsumGenerator.GenerateParagraphs(Int32 count, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateSentencesInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateSentences(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateSentencesInt32Sentence">
+            <summary>Sets the mole of LipsumGenerator.GenerateSentences(Int32 count, Sentence options)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateSentencesInt32String">
+            <summary>Sets the mole of LipsumGenerator.GenerateSentences(Int32 count, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.GenerateWordsInt32">
+            <summary>Sets the mole of LipsumGenerator.GenerateWords(Int32 count)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.LipsumTextGet">
+            <summary>Sets the mole of LipsumGenerator.get_LipsumText()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.LipsumTextSetStringBuilder">
+            <summary>Sets the mole of LipsumGenerator.set_LipsumText(StringBuilder value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.PrepareWords">
+            <summary>Sets the mole of LipsumGenerator.PrepareWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.PreparedWordsGet">
+            <summary>Sets the mole of LipsumGenerator.get_PreparedWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.PreparedWordsSetStringArray">
+            <summary>Sets the mole of LipsumGenerator.set_PreparedWords(String[] value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumGenerator.AllInstances.RandomWord">
+            <summary>Sets the mole of LipsumGenerator.RandomWord()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimLipsumUtilities">
+            <summary>Shim type of NLipsum.Core.LipsumUtilities</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsumUtilities.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsumUtilities.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsumUtilities.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumUtilities.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumUtilities.GetTextFromRawXmlString">
+            <summary>Sets the mole of LipsumUtilities.GetTextFromRawXml(String rawXml)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumUtilities.LoadXmlDocumentString">
+            <summary>Sets the mole of LipsumUtilities.LoadXmlDocument(String rawXml)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumUtilities.RandomElementStringArray">
+            <summary>Sets the mole of LipsumUtilities.RandomElement(String[] source)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumUtilities.RandomIntInt32Int32">
+            <summary>Sets the mole of LipsumUtilities.RandomInt(Int32 min, Int32 max)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumUtilities.RemoveEmptyElementsStringArray">
+            <summary>Sets the mole of LipsumUtilities.RemoveEmptyElements(String[] source)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsumUtilities.StaticConstructor">
+            <summary>Sets the mole of LipsumUtilities.LipsumUtilities()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimLipsums">
+            <summary>Shim type of NLipsum.Core.Lipsums</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsums.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsums.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimLipsums.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.ChildHaroldGet">
+            <summary>Sets the mole of Lipsums.get_ChildHarold()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.DecameronGet">
+            <summary>Sets the mole of Lipsums.get_Decameron()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.FaustGet">
+            <summary>Sets the mole of Lipsums.get_Faust()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.InDerFremdeGet">
+            <summary>Sets the mole of Lipsums.get_InDerFremde()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.LeBateauIvreGet">
+            <summary>Sets the mole of Lipsums.get_LeBateauIvre()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.LeMasqueGet">
+            <summary>Sets the mole of Lipsums.get_LeMasque()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.LoremIpsumGet">
+            <summary>Sets the mole of Lipsums.get_LoremIpsum()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.NagyonFajGet">
+            <summary>Sets the mole of Lipsums.get_NagyonFaj()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.OmagyarGet">
+            <summary>Sets the mole of Lipsums.get_Omagyar()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.RobinsonoKrusoGet">
+            <summary>Sets the mole of Lipsums.get_RobinsonoKruso()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.TheRavenGet">
+            <summary>Sets the mole of Lipsums.get_TheRaven()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimLipsums.TierrayLunaGet">
+            <summary>Sets the mole of Lipsums.get_TierrayLuna()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimParagraph">
+            <summary>Shim type of NLipsum.Core.Paragraph</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimParagraph.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimParagraph.#ctor(NLipsum.Core.Paragraph)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimParagraph.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimParagraph.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.Constructor">
+            <summary>Sets the mole of Paragraph.Paragraph()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.ConstructorUInt32UInt32">
+            <summary>Sets the mole of Paragraph.Paragraph(UInt32 minSentences, UInt32 maxSentences)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.ConstructorUInt32UInt32String">
+            <summary>Sets the mole of Paragraph.Paragraph(UInt32 minSentences, UInt32 maxSentences, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.LongGet">
+            <summary>Sets the mole of Paragraph.get_Long()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.MaximumSentencesGet">
+            <summary>Sets the mole of Paragraph.get_MaximumSentences()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.MaximumSentencesSetUInt32">
+            <summary>Sets the mole of Paragraph.set_MaximumSentences(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.MediumGet">
+            <summary>Sets the mole of Paragraph.get_Medium()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.MinimumSentencesGet">
+            <summary>Sets the mole of Paragraph.get_MinimumSentences()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.MinimumSentencesSetUInt32">
+            <summary>Sets the mole of Paragraph.set_MinimumSentences(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.SentenceOptionsGet">
+            <summary>Sets the mole of Paragraph.get_SentenceOptions()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.SentenceOptionsSetSentence">
+            <summary>Sets the mole of Paragraph.set_SentenceOptions(Sentence value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.ShortGet">
+            <summary>Sets the mole of Paragraph.get_Short()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimParagraph.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.AllInstances.MaximumSentencesGet">
+            <summary>Sets the mole of Paragraph.get_MaximumSentences()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.AllInstances.MaximumSentencesSetUInt32">
+            <summary>Sets the mole of Paragraph.set_MaximumSentences(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.AllInstances.MinimumSentencesGet">
+            <summary>Sets the mole of Paragraph.get_MinimumSentences()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.AllInstances.MinimumSentencesSetUInt32">
+            <summary>Sets the mole of Paragraph.set_MinimumSentences(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.AllInstances.SentenceOptionsGet">
+            <summary>Sets the mole of Paragraph.get_SentenceOptions()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimParagraph.AllInstances.SentenceOptionsSetSentence">
+            <summary>Sets the mole of Paragraph.set_SentenceOptions(Sentence value)</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimSentence">
+            <summary>Shim type of NLipsum.Core.Sentence</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimSentence.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimSentence.#ctor(NLipsum.Core.Sentence)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimSentence.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimSentence.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.Constructor">
+            <summary>Sets the mole of Sentence.Sentence()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.ConstructorUInt32UInt32">
+            <summary>Sets the mole of Sentence.Sentence(UInt32 minWords, UInt32 maxWords)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.ConstructorUInt32UInt32String">
+            <summary>Sets the mole of Sentence.Sentence(UInt32 minWords, UInt32 maxWords, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.FormatString">
+            <summary>Sets the mole of Sentence.Format(String text)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.LongGet">
+            <summary>Sets the mole of Sentence.get_Long()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.MaximumWordsGet">
+            <summary>Sets the mole of Sentence.get_MaximumWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.MaximumWordsSetUInt32">
+            <summary>Sets the mole of Sentence.set_MaximumWords(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.MediumGet">
+            <summary>Sets the mole of Sentence.get_Medium()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.MinimumWordsGet">
+            <summary>Sets the mole of Sentence.get_MinimumWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.MinimumWordsSetUInt32">
+            <summary>Sets the mole of Sentence.set_MinimumWords(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.ShortGet">
+            <summary>Sets the mole of Sentence.get_Short()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimSentence.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.AllInstances.FormatString">
+            <summary>Sets the mole of Sentence.Format(String text)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.AllInstances.MaximumWordsGet">
+            <summary>Sets the mole of Sentence.get_MaximumWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.AllInstances.MaximumWordsSetUInt32">
+            <summary>Sets the mole of Sentence.set_MaximumWords(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.AllInstances.MinimumWordsGet">
+            <summary>Sets the mole of Sentence.get_MinimumWords()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimSentence.AllInstances.MinimumWordsSetUInt32">
+            <summary>Sets the mole of Sentence.set_MinimumWords(UInt32 value)</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimTextFeature">
+            <summary>Shim type of NLipsum.Core.TextFeature</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimTextFeature.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimTextFeature.#ctor(NLipsum.Core.TextFeature)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimTextFeature.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimTextFeature.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.Constructor">
+            <summary>Sets the mole of TextFeature.TextFeature()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.DelimiterGet">
+            <summary>Sets the mole of TextFeature.get_Delimiter()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.DelimiterSetString">
+            <summary>Sets the mole of TextFeature.set_Delimiter(String value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.FormatString">
+            <summary>Sets the mole of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.FormatStringGet">
+            <summary>Sets the mole of TextFeature.get_FormatString()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.FormatStringSetString">
+            <summary>Sets the mole of TextFeature.set_FormatString(String value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.GetMaximum">
+            <summary>Sets the mole of TextFeature.GetMaximum()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.GetMinimum">
+            <summary>Sets the mole of TextFeature.GetMinimum()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.MaximumValueGet">
+            <summary>Sets the mole of TextFeature.get_MaximumValue()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.MaximumValueSetUInt32">
+            <summary>Sets the mole of TextFeature.set_MaximumValue(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.MinimumValueGet">
+            <summary>Sets the mole of TextFeature.get_MinimumValue()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.MinimumValueSetUInt32">
+            <summary>Sets the mole of TextFeature.set_MinimumValue(UInt32 value)</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimTextFeature.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.DelimiterGet">
+            <summary>Sets the mole of TextFeature.get_Delimiter()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.DelimiterSetString">
+            <summary>Sets the mole of TextFeature.set_Delimiter(String value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.FormatString">
+            <summary>Sets the mole of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.FormatStringGet">
+            <summary>Sets the mole of TextFeature.get_FormatString()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.FormatStringSetString">
+            <summary>Sets the mole of TextFeature.set_FormatString(String value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.GetMaximum">
+            <summary>Sets the mole of TextFeature.GetMaximum()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.GetMinimum">
+            <summary>Sets the mole of TextFeature.GetMinimum()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.MaximumValueGet">
+            <summary>Sets the mole of TextFeature.get_MaximumValue()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.MaximumValueSetUInt32">
+            <summary>Sets the mole of TextFeature.set_MaximumValue(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.MinimumValueGet">
+            <summary>Sets the mole of TextFeature.get_MinimumValue()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimTextFeature.AllInstances.MinimumValueSetUInt32">
+            <summary>Sets the mole of TextFeature.set_MinimumValue(UInt32 value)</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimWord">
+            <summary>Shim type of NLipsum.Core.Word</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimWord.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimWord.#ctor(NLipsum.Core.Word)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimWord.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.ShimWord.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.Constructor">
+            <summary>Sets the mole of Word.Word()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.ConstructorUInt32UInt32">
+            <summary>Sets the mole of Word.Word(UInt32 minWords, UInt32 maxWords)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.ConstructorUInt32UInt32String">
+            <summary>Sets the mole of Word.Word(UInt32 minWords, UInt32 maxWords, String formatString)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.LongGet">
+            <summary>Sets the mole of Word.get_Long()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.MaximumCharactersGet">
+            <summary>Sets the mole of Word.get_MaximumCharacters()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.MaximumCharactersSetUInt32">
+            <summary>Sets the mole of Word.set_MaximumCharacters(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.MediumGet">
+            <summary>Sets the mole of Word.get_Medium()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.MinimumCharactersGet">
+            <summary>Sets the mole of Word.get_MinimumCharacters()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.MinimumCharactersSetUInt32">
+            <summary>Sets the mole of Word.set_MinimumCharacters(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.ShortGet">
+            <summary>Sets the mole of Word.get_Short()</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.ShimWord.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.AllInstances.MaximumCharactersGet">
+            <summary>Sets the mole of Word.get_MaximumCharacters()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.AllInstances.MaximumCharactersSetUInt32">
+            <summary>Sets the mole of Word.set_MaximumCharacters(UInt32 value)</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.AllInstances.MinimumCharactersGet">
+            <summary>Sets the mole of Word.get_MinimumCharacters()</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.ShimWord.AllInstances.MinimumCharactersSetUInt32">
+            <summary>Sets the mole of Word.set_MinimumCharacters(UInt32 value)</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.StubLipsumGenerator">
+            <summary>Stub type of NLipsum.Core.LipsumGenerator</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubLipsumGenerator.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubLipsumGenerator.#ctor(System.String,System.Boolean)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubLipsumGenerator.InitializeStub">
+            <summary>Initializes a new instance of type StubLipsumGenerator</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubLipsumGenerator.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubLipsumGenerator.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.StubParagraph">
+            <summary>Stub type of NLipsum.Core.Paragraph</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubParagraph.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubParagraph.#ctor(System.UInt32,System.UInt32)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubParagraph.#ctor(System.UInt32,System.UInt32,System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubParagraph.Format(System.String)">
+            <summary>Sets the stub of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="F:NLipsum.Core.Fakes.StubParagraph.FormatString01">
+            <summary>Sets the stub of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubParagraph.InitializeStub">
+            <summary>Initializes a new instance of type StubParagraph</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubParagraph.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubParagraph.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.StubSentence">
+            <summary>Stub type of NLipsum.Core.Sentence</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubSentence.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubSentence.#ctor(System.UInt32,System.UInt32)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubSentence.#ctor(System.UInt32,System.UInt32,System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubSentence.Format(System.String)">
+            <summary>Sets the stub of Sentence.Format(String text)</summary>
+        </member>
+        <member name="F:NLipsum.Core.Fakes.StubSentence.FormatString01">
+            <summary>Sets the stub of Sentence.Format(String text)</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubSentence.InitializeStub">
+            <summary>Initializes a new instance of type StubSentence</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubSentence.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubSentence.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.StubTextFeature">
+            <summary>Stub type of NLipsum.Core.TextFeature</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubTextFeature.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubTextFeature.Format(System.String)">
+            <summary>Sets the stub of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="F:NLipsum.Core.Fakes.StubTextFeature.FormatString01">
+            <summary>Sets the stub of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubTextFeature.InitializeStub">
+            <summary>Initializes a new instance of type StubTextFeature</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubTextFeature.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubTextFeature.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="T:NLipsum.Core.Fakes.StubWord">
+            <summary>Stub type of NLipsum.Core.Word</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubWord.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubWord.#ctor(System.UInt32,System.UInt32)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubWord.#ctor(System.UInt32,System.UInt32,System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubWord.Format(System.String)">
+            <summary>Sets the stub of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="F:NLipsum.Core.Fakes.StubWord.FormatString01">
+            <summary>Sets the stub of TextFeature.Format(String text)</summary>
+        </member>
+        <member name="M:NLipsum.Core.Fakes.StubWord.InitializeStub">
+            <summary>Initializes a new instance of type StubWord</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubWord.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:NLipsum.Core.Fakes.StubWord.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+    </members>
+</doc>
