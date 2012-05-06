@@ -2,9 +2,7 @@
 # Ignore Visual Studio  Project #
 ###################
 *.user
-*.csproj
 *.gpState
-*.sln
 *.suo
 /bin
 /obj
