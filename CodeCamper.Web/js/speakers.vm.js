@@ -21,4 +21,4 @@ my.speakersVM = (function(ko, ds, toastr) {
         sessions: sessions,
         activate: activate
     }
-})(ko, my.sessionHttpService, toastr);
+})(ko, my.sessionDataService, toastr);

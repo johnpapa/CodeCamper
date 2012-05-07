@@ -2,7 +2,7 @@
 //	Amplify.js
 //	my.mock
 // ----------------------------------------------
-my.sessionHttpServiceMock = (function (amplify, mock) {
+my.mock.sessionDataService = (function (amplify, mock) {
 	var 
 		apply = function(){
 			amplify.request.define('getSessions', function(settings) {
