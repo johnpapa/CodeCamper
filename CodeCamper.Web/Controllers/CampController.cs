@@ -11,7 +11,7 @@ namespace CodeCamper.Web.Controllers
 {
     public class CampController : ApiControllerBase
     {
-        public CampController(ICodeCamperRepository repository)
+        public CampController(ICodeCamperDataService repository)
         {
             Repository = repository;
         }

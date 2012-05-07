@@ -25,7 +25,7 @@ namespace CodeCamper.Web
         public static void Configure(HttpConfiguration config)
         {
             var kernel = new StandardKernel();
-            kernel.Bind<ICodeCamperRepository>().To<CodeCamperRepository>();
+            kernel.Bind<ICodeCamperDataService>().To<CodeCamperDataService>();
             config.ServiceResolver.SetResolver(
                 t => kernel.TryGet(t),
                 t => kernel.GetAll(t));

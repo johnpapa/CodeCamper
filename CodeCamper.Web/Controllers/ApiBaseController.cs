@@ -8,7 +8,7 @@ namespace CodeCamper.Web.Controllers
 {
     public abstract class ApiControllerBase : ApiController
     {
-        protected ICodeCamperRepository Repository { get; set; }
+        protected ICodeCamperDataService Repository { get; set; }
 
         // base ApiController is IDisposable
         // Dispose of the repository if it is IDisposable

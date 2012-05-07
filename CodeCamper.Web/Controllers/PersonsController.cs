@@ -10,7 +10,7 @@ namespace CodeCamper.Web.Controllers.Controllers
 {
     public class PersonsController : ApiControllerBase
     {
-        public PersonsController(ICodeCamperRepository repository)
+        public PersonsController(ICodeCamperDataService repository)
         {
             Repository = repository;
         }

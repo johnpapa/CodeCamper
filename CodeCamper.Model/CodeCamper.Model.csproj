@@ -47,7 +47,7 @@
     <Compile Include="PersonSession.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="ICodeCamperRepository.cs" />
+    <Compile Include="ICodeCamperDataService.cs" />
     <Compile Include="Lookups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionBrief.cs" />
