@@ -15,12 +15,6 @@ namespace CodeCamper.Web.Controllers.Controllers
             Repository = repository;
         }
 
-        // ToDo: Remove this poor man's IoC ctor
-        public PersonsController()
-        {
-            Repository = new CodeCamperRepository();
-        }
-
         // GET /api/<controller>
         public IEnumerable<Person> Get()
         {

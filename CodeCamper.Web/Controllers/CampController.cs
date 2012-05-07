@@ -17,10 +17,10 @@ namespace CodeCamper.Web.Controllers
         }
 
         // ToDo: Remove this poor man's IoC ctor
-        public CampController()
-        {
-            Repository = new CodeCamperRepository();
-        }
+        //public CampController()
+        //{
+        //    Repository = new CodeCamperRepository();
+        //}
 
         // GET: api/events/rooms
         [ActionName("rooms")]

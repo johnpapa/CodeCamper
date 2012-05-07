@@ -16,10 +16,10 @@ namespace CodeCamper.Web.Controllers.Controllers
         }
 
         // ToDo: Remove this poor man's IoC ctor
-        public SessionsController()
-        {
-            Repository = new CodeCamperRepository();
-        }
+        //public SessionsController()
+        //{
+        //    Repository = new CodeCamperRepository();
+        //}
 
         // GET /api/<controller>
         public IEnumerable<Session> Get()

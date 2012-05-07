@@ -15,13 +15,7 @@ namespace CodeCamper.Web.Controllers.Controllers
         {
             Repository = repository;
         }
-
-        // ToDo: Remove this poor man's IoC ctor
-        public PersonSessionsController()
-        {
-            Repository = new CodeCamperRepository();
-        }
-        
+       
         // GET: api/events/sessions
         //[ActionName("personsessions")]
         //public IEnumerable<PersonSession> GetPersonSessions()

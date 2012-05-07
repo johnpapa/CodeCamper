@@ -9,6 +9,10 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Ninject;
+
+using CodeCamper.Model;
+using CodeCamper.Data;
 
 namespace CodeCamper.Web
 {
@@ -17,6 +21,16 @@ namespace CodeCamper.Web
 
     public class WebApiApplication : System.Web.HttpApplication
     {
+        ////Ward: Added Ninject IoC and registering our DataService
+        public static void Configure(HttpConfiguration config)
+        {
+            var kernel = new StandardKernel();
+            kernel.Bind<ICodeCamperRepository>().To<CodeCamperRepository>();
+            config.ServiceResolver.SetResolver(
+                t => kernel.TryGet(t),
+                t => kernel.GetAll(t));
+        }
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -60,6 +74,7 @@ namespace CodeCamper.Web
             //Database.DefaultConnectionFactory = new SqlConnectionFactory("Data Source=(localdb)\v11.0; Integrated Security=True; MultipleActiveResultSets=True");
 
             RegisterGlobalFilters(GlobalFilters.Filters);
+            Configure(GlobalConfiguration.Configuration);        ////Ward: Tell WebApi to use our IoC
             RegisterRoutes(RouteTable.Routes);
 
             BundleTable.Bundles.RegisterTemplateBundles();
