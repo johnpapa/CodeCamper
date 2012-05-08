@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using CodeCamper.Model;
 
@@ -23,9 +22,9 @@ namespace CodeCamper.Web.Controllers
 
         // GET: api/events/rooms
         [ActionName("rooms")]
-        public IEnumerable<Room> GetRooms()
+        public IQueryable<Room> GetRooms()
         {
-            return DataService.Rooms.GetAll().OrderBy(r => r.Name).ToList();
+            return DataService.Rooms.GetAll().OrderBy(r => r.Name);
         }
 
         // TODO: Delete this test action
@@ -40,23 +39,23 @@ namespace CodeCamper.Web.Controllers
 
         // GET: api/events/timeslots
         [ActionName("timeslots")]
-        public IEnumerable<TimeSlot> GetTimeSlots()
+        public IQueryable<TimeSlot> GetTimeSlots()
         {
-            return DataService.TimeSlots.GetAll().OrderBy(ts => ts.Start).ToList();
+            return DataService.TimeSlots.GetAll().OrderBy(ts => ts.Start);
         }
 
         // GET: api/events/tracks
         [ActionName("tracks")]
-        public IEnumerable<Track> GetTracks()
+        public IQueryable<Track> GetTracks()
         {
-            return DataService.Tracks.GetAll().OrderBy(t => t.Name).ToList();
+            return DataService.Tracks.GetAll().OrderBy(t => t.Name);
         }
 
         // GET: api/events/sessionbriefs
         [ActionName("sessionbriefs")]
-        public IEnumerable<SessionBrief> GetSessionBriefs()
+        public IQueryable<SessionBrief> GetSessionBriefs()
         {
-            return DataService.SessionBriefs().OrderBy(sb => sb.TimeSlotId).ToList();
+            return DataService.SessionBriefs().OrderBy(sb => sb.TimeSlotId);
         }
 
         // Lookups: aggregates the many little lookup lists in one payload
@@ -76,9 +75,9 @@ namespace CodeCamper.Web.Controllers
 
         // GET: api/events/taggroups
         [ActionName("taggroups")]
-        public IEnumerable<TagGroup> GetTagGroups()
+        public IQueryable<TagGroup> GetTagGroups()
         {
-            return DataService.TagGroups().ToList();
+            return DataService.TagGroups().AsQueryable();
         }
     }
 }

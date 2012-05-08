@@ -16,13 +16,11 @@ namespace CodeCamper.Web.Controllers.Controllers
         }
        
         // GET: api/events/sessions
-        //[ActionName("personsessions")]
-        //public IEnumerable<PersonSession> GetPersonSessions()
-        public HttpResponseMessage<IEnumerable<PersonSession>> GetPersonSessions()
+        public HttpResponseMessage<IQueryable<PersonSession>> GetPersonSessions()
         {
-            return new HttpResponseMessage<IEnumerable<PersonSession>>(HttpStatusCode.Forbidden); //security violation
+            return new HttpResponseMessage<IQueryable<PersonSession>>(HttpStatusCode.Forbidden); //security violation
             //return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            //return Repository.PersonSessions().OrderBy(ps => ps.SessionId).ToList();
+            //return Repository.PersonSessions().OrderBy(ps => ps.SessionId);
         }
 
         public IQueryable<PersonSession> GetPersonSessionsByPersonId(int id)
@@ -30,23 +28,23 @@ namespace CodeCamper.Web.Controllers.Controllers
             return DataService.PersonSessionsByPersonId(id).OrderBy(ps => ps.SessionId);
         }
         
-        //// GET /api/<controller>/5
+        //// GET /api/{controller}/
         //public string Get(int id)
         //{
         //    return "value";
         //}
 
-        //// POST /api/<controller>
-        //public void Post(string value)
+        //// POST /api/{controller}
+        //public void Post(Session value)
         //{
         //}
 
-        //// PUT /api/<controller>/5
-        //public void Put(int id, string value)
+        //// PUT /api/{controller}/
+        //public void Put(Session value)
         //{
         //}
 
-        //// DELETE /api/<controller>/5
+        //// DELETE /api/{controller}/{id}
         //public void Delete(int id)
         //{
         //}

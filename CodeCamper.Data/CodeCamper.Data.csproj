@@ -59,8 +59,8 @@
   <ItemGroup>
     <Compile Include="CodeCamperDbContext.cs" />
     <Compile Include="CodeCamperDataService.cs" />
-    <Compile Include="Curry.cs" />
     <Compile Include="FakeRepository.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodeCamperRepository.cs" />
     <Compile Include="SampleData\CodeCamperDatabaseInitializer.cs" />

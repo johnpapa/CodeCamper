@@ -13,11 +13,7 @@ namespace CodeCamper.Data
         public CodeCamperDataService()
         {
             Initialize();
-
-            //Rooms = new Repository<Room>(DbContext, (item, id) => item.Id == id));
         }
-
-        // public IRepository<Room> Rooms {get; private set;}
 
         protected void Initialize()
         {
@@ -36,43 +32,48 @@ namespace CodeCamper.Data
 
         public void Commit()
         {
-            Console.WriteLine("Committed");
+            // ToDo: Actually commit the save
+            System.Diagnostics.Debug.WriteLine("Committed");
         }
+
+        public IRepository<Room> Rooms { get { return GetRepo<Room>(); } }
+        public IRepository<TimeSlot> TimeSlots { get { return GetRepo<TimeSlot>(); } }
+        public IRepository<Track> Tracks { get { return GetRepo<Track>(); } }
+        public IRepository<Session> Sessions { get { return GetRepo<Session>(); } }
+        public IRepository<Person> Persons { get { return GetRepo<Person>(); } }
+
+        #region GetRepo and its cache of repositories
+        /// <summary>
+        /// Get or create-and-cache a <see cref="IRepository{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">
+        /// Root type of the <see cref="IRepository{T}"/>, typically an entity type.
+        /// </typeparam>
+        /// <returns></returns>
+        private IRepository<T> GetRepo<T>() where T : class
+        {
+            // Look for IRepository<T> in dictionary cache under typeof(T).
+            object repoObj;
+            if (_repos.TryGetValue(typeof(T), out repoObj))
+            {
+                return (IRepository<T>)repoObj;
+            }
+
+            // Not found; make one and add to dictionary cache
+            var repo = new CodeCamperRepository<T>(DbContext);
+            _repos[typeof(T)] = repo;
+            return repo;
+        }
+        private Dictionary<Type, object> _repos = new Dictionary<Type, object>();
+
+        #endregion
+
+        #region Custom Repositories
         //public IRepository<Foo> Foos
         //{
         //    get { return _foos ?? (_foos = new FakeRepository<Foo>()); } 
         //}
         //private IRepository<Foo> _foos;
-
-        public IRepository<Room> Rooms {
-            get { return _rooms ?? (_rooms = new CodeCamperRepository<Room>(DbContext, (item, id) => item.Id == id)); } 
-        }
-        private IRepository<Room> _rooms;
-
-        public IRepository<TimeSlot> TimeSlots
-        {
-            get { return _timeSlots ?? (_timeSlots = new CodeCamperRepository<TimeSlot>(DbContext, (item, id) => item.Id == id)); }
-        }
-        private IRepository<TimeSlot> _timeSlots;
-
-        public IRepository<Track> Tracks
-        {
-            get { return _tracks ?? (_tracks = new CodeCamperRepository<Track>(DbContext, (item, id) => item.Id == id)); }
-        }
-        private IRepository<Track> _tracks;
-
-
-        public IRepository<Session> Sessions
-        {
-            get { return _sessions ?? (_sessions = new CodeCamperRepository<Session>(DbContext, (item, id) => item.Id == id)); }
-        }
-        private IRepository<Session> _sessions;
-
-        public IRepository<Person> Persons
-        {
-            get { return _persons ?? (_persons = new CodeCamperRepository<Person>(DbContext, (item, id) => item.Id == id)); }
-        }
-        private IRepository<Person> _persons;
 
         public IQueryable<PersonSession> PersonSessions()
         {
@@ -143,6 +144,8 @@ namespace CodeCamper.Data
 
         private readonly char[] _tagDelimiter = new[] { '|' };
 
+        #endregion
+
         #region IDisposable
 
         public void Dispose()
@@ -155,7 +158,10 @@ namespace CodeCamper.Data
         {
             if (disposing)
             {
-                if (DbContext != null) DbContext.Dispose();
+                if (DbContext != null)
+                {
+                    DbContext.Dispose();
+                }
             }
         }
 

@@ -12,7 +12,7 @@ using CodeCamper.Model;
 namespace CodeCamper.Data
 {
     /// <summary>
-    /// The EF-dependent generic repository for Code Camper data access
+    /// The EF-dependent, generic repository for Code Camper data access
     /// </summary>
     /// <typeparam name="T">Type of entity for this Repository.</typeparam>
     public class CodeCamperRepository<T> : IRepository<T> where T : class
@@ -24,31 +24,18 @@ namespace CodeCamper.Data
             DbContext = dbContext;
         }
 
-        public CodeCamperRepository(CodeCamperDbContext dbContext, Expression<Func<T, int, bool>> getByIdPredicate)
-            : this(dbContext)
-        {
-            GetByIdPredicate = getByIdPredicate;
-        }
-
         protected CodeCamperDbContext DbContext { get; set; }
 
         protected DbSet<T> DbSet { get { return DbContext.Set<T>(); } }
 
-        /// <summary>
-        /// Predicate ("Where" clause) that queries by id,
-        /// </summary>
-        protected virtual Expression<Func<T, int, bool>> GetByIdPredicate { get; set; }
-
-        public virtual T GetById(int id)
-        {
-            if (GetByIdPredicate == null) throw new NotImplementedException();
-            var selector = GetByIdPredicate.ToSelector(id);
-            return DbSet.FirstOrDefault(selector);
-        }
-
         public virtual IQueryable<T> GetAll()
         {
             return DbContext.Set<T>();
+        }
+
+        public virtual T GetById(int id)
+        {
+            return DbSet.FirstOrDefault(PredicateBuilder.GetByIdPredicate<T>(id));
         }
 
         public virtual void Add(T entity)
@@ -90,7 +77,6 @@ namespace CodeCamper.Data
 
         public virtual void Delete(int id)
         {
-            if (GetByIdPredicate == null) throw new NotImplementedException();
             var entity = GetById(id);
             if (entity == null) return; // not found; assume already deleted.
             Delete(entity);
