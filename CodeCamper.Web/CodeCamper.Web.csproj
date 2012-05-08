@@ -138,13 +138,29 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\styles.css" />
+    <Content Include="Content\logo.png" />
+    <Content Include="Content\toastr-responsive.css" />
+    <Content Include="Content\toastr.css" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="js\bootstrapper.js" />
+    <Content Include="js\vm.sessions.js" />
+    <Content Include="js\vm.favorites.js" />
+    <Content Include="js\mock.js" />
+    <Content Include="js\mock.dataservice.session.js" />
+    <Content Include="js\router.js" />
+    <Content Include="js\dataservice.session.js" />
+    <Content Include="js\vm.speakers.js" />
+    <Content Include="Scripts\amplify.core.js" />
+    <Content Include="Scripts\amplify.request.js" />
+    <Content Include="Scripts\amplify.store.js" />
     <Content Include="Scripts\jquery-1.7.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.mockjson.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -155,6 +171,8 @@
     <Content Include="Scripts\knockout.debug.js" />
     <Content Include="Scripts\knockout.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\sammy.js" />
+    <Content Include="Scripts\toastr.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -167,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -181,6 +198,18 @@
       <Project>{f4931817-0522-4814-a629-88d47230c8fa}</Project>
       <Name>CodeCamper.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\favorites.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\speakers.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\sessions.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

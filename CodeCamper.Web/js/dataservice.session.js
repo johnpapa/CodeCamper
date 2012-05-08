@@ -2,17 +2,20 @@
 //	Amplify.js
 //	my.mock
 // ----------------------------------------------
-my.sessionDataService = (function (amplify, mock) {
+var my = my || {};
+my.dataservice = my.dataservice || {}
+
+my.dataservice.session = (function (amplify, mock) {
     var
         init = function() {
             amplify.request.define('getSessions', 'ajax', {
-                url: '/mail',
+                url: '/sessions',
                 dataType: 'json',
                 type: 'GET'
                 //cache: 
             })
             if(mock.useMocks) {
-                mock.sessionDataService.apply()
+                mock.dataservice.session.apply()
             }
         },
         getSessions = function(sessionType, callbacks) {
@@ -36,4 +39,4 @@ my.sessionDataService = (function (amplify, mock) {
         getSessions: getSessions,
         getSession: getSession
     }
-})(amplify, mock);
+})(amplify, my.mock);

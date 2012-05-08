@@ -1,0 +1,151 @@
+﻿/* 1 RESET - http://meyerweb.com/eric/tools/css/reset
+--------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	border: 0;
+	font: inherit;
+	font-size: 100%;
+	margin: 0;
+	outline: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* 2.1 LAYOUT
+--------------------------------------------------------- */
+html {
+	background: -webkit-radial-gradient(center, ellipse, #72e1fd -10%,#0a8ad5 100%);
+	height: 100%;
+	padding-left: 7%;
+	padding-right: 7%;
+}
+
+body {
+	font-size: 18px;
+	margin: 7% auto;
+	max-width: 1100px;
+}
+
+	body > header > h1 {
+		background: url(logo.png) no-repeat bottom;
+		background-size: 100%;
+		color: transparent;
+		height: 49px;
+		font-size: 0%;
+		margin-bottom: 3%;
+		max-height: 49px;
+		max-width: 413px;
+	}
+
+	body > header > nav {
+		border-bottom: solid 1px rgba(255, 255, 255, .2);
+		border-top: solid 1px rgba(255, 255, 255, .2);
+		font-family: 'Segoe UI Light';
+		font-size: 150%;
+		margin-bottom: 4%;
+		padding-bottom: .3%;
+		text-shadow: rgba(0,0,0,.4) 1px 1px 1px;
+		text-transform: lowercase;
+	}
+
+		body > header > nav > ul > li {
+			display: inline;
+			margin-right: 4%;
+		}
+
+		body > header > nav > ul > li:last-child {
+			margin-right: 0;
+		}
+
+			body > header > nav > ul > li > a {
+				color: white;
+				line-height: 200%;
+				text-decoration: none;
+			}
+
+			body > header > nav > ul > li > span {
+				color: white;
+				cursor: default;
+				font-family: 'Segoe UI';
+			}
+
+	body > section > nav {
+		background: rgba(255,255,255,.1);
+		float: left;
+		margin-right: 3%;
+		padding: 2%;
+		text-align: right;
+		text-transform: lowercase;
+		width: 15%;
+	}
+
+		body > section > nav > ul {
+			list-style-type: none;
+		}
+
+		body > section > nav > ul > li > a {
+			color: white;
+			font-family: 'Segoe UI Light';
+			line-height: 200%;
+			text-decoration: none;
+		}
+
+
+	body > section > h1 {
+		color: white;
+		font-family: 'Segoe UI Light';
+		font-size: 200%;
+		line-height: 70%;
+		margin-bottom: 2%;
+		text-shadow: rgba(0,0,0,.3) 1px 1px 0px;
+	}
+
+/* 2.2 LINK STYLES
+--------------------------------------------------------- */
+a {
+	padding-bottom: 2px;
+	text-decoration: none;
+}
+
+	a:hover {
+		opacity: .6;
+	}
+
+	a:active, a:focus {
+		position: relative;
+		top: 1px;
+	}
+
+
+/* 2.2 RESPONSIVENESS
+--------------------------------------------------------- */
+@media only screen and (max-width: 768px) {
+	body {
+		font-size: 14px;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	body {
+		font-size: 12px;
+	}
+
+	body > section > nav {
+		float: none;
+		margin-right: 0;
+		width: 100%%;
+	}
+}
+
+
+/* 3.0 CUSTOM
+--------------------------------------------------------- */
+.view { display: none; }

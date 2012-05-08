@@ -5,9 +5,10 @@
 //	All mock data is exposed through data  property
 // 	toggle mock usage on and off through useMocks property
 // ----------------------------------------------
+var my = my || {};
 my.mock = (function ($) {
     var 
-		useMocks = false,
+		useMocks = true,
         sessions = function () {
             return $.mockJSON.generateFromTemplate({
                     'sessions|10-20': [{
@@ -25,6 +26,7 @@ my.mock = (function ($) {
         }
     return {
 		useMocks: useMocks,
-        data: {sessions: sessions}
+		models: { sessions: sessions },
+		dataservice : {}
     }
 })(jQuery);

@@ -1,13 +1,14 @@
 ﻿// Depends on 
 //	Knockout
 // 	toastr
-//	my.sessionHttpService
+//	my.dataservice.session
 // ----------------------------------------------
-my.favoritesVM = (function(ko, ds, toastr) {
+my.vm = my.vm || {}
+my.vm.speakers = (function (ko, ds, toastr) {
     var 
         sessions = ko.observable(),
         activate = function(routeData) {
-            ds.getSessions('favorites',
+            ds.getSessions('speakers',
                 {
                     success: loadSessions,
                     error: function() { toastr.error('oops!'); }
@@ -21,4 +22,4 @@ my.favoritesVM = (function(ko, ds, toastr) {
         sessions: sessions,
         activate: activate
     }
-})(ko, my.sessionDataService, toastr);
+})(ko, my.dataservice.session, toastr);

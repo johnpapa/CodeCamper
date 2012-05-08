@@ -2,15 +2,16 @@
 //	Amplify.js
 //	my.mock
 // ----------------------------------------------
-my.mock.sessionDataService = (function (amplify, mock) {
+var my = my || {};
+my.mock.dataservice.session = (function (amplify, mock) {
 	var 
 		apply = function(){
 			amplify.request.define('getSessions', function(settings) {
-				settings.success(mock.data.sessions())
+				settings.success(mock.models.sessions())
 			})
 
 			amplify.request.define('getSession', function(settings) {
-				settings.success(mock.data.sessions()[0])
+			    settings.success(mock.models.sessions()[0])
 			})
 		}
 	return {

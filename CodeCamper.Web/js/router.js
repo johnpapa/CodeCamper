@@ -1,11 +1,15 @@
 ﻿// Depends on 
 //	Sammy.js
+//  jQuery
 //
 // Conventions
-//	All Views must implement css class .view
-// 	Before registering routes, viewmodels must exist
+//	1) All Views must have their HTML element tags 
+//      include a CSS class named .view.
+// 	2) Before registering routes with router, 
+//      the viewmodels should exist.
 // ----------------------------------------------
-my.routeService = (function(Sammy) {
+var my = my || {};
+my.router = (function ($, Sammy) {
     var sammy = new Sammy.Application(),
         register = function(options) {
             var 
@@ -15,6 +19,10 @@ my.routeService = (function(Sammy) {
                 hash = route !== undefined ? (route.length ? '#/' + route : '#/') : '#/' + view,
                 hashWildcard = new RegExp('#\\/' + view + '.*'),
                 $element = $('#' + view)
+
+            if (!viewModel) {
+                throw Error('viewModel must be specified.')
+            }
 
             if (viewModel) {
                 ko.applyBindings(viewModel, $element.get(0))
@@ -37,4 +45,4 @@ my.routeService = (function(Sammy) {
         register: register,
         run: run
     }
-})(Sammy)
+})(jQuery, Sammy)

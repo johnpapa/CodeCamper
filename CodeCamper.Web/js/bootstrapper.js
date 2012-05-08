@@ -1,16 +1,25 @@
-﻿var my = my || {};
+﻿// Depends on
+//	router
+//  dataservice
+//
+// Conventions
+//	1) All routes must be registered with router
+//	2) All dataservices must be initialized
+// ----------------------------------------------
+var my = my || {};
 
-my.bootstrapper = (function() {
+my.bootstrapper = (function (router, dataservice, vm) {
     var run = function() {
-        my.sessionDataService.init();
-        my.router.register({ view: 'favorites', viewModel: my.favoritesVM});
-        my.router.register({ view: 'speakers', viewModel: my.speakersVM });
-        my.router.run('#/favorites');
+        dataservice.session.init();
+        router.register({ view: 'favorites', viewModel: vm.favorites });
+        router.register({ view: 'sessions', viewModel: vm.sessions});
+        router.register({ view: 'speakers', viewModel: vm.speakers });
+        router.run('#/favorites');
     }
     return {
         run: run
     }
-})()
+})(my.router, my.dataservice, my.vm)
 
 $(function() {
     my.bootstrapper.run();
