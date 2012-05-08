@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CodeCamper.Data;
 using CodeCamper.Model;
 
 namespace CodeCamper.Web.Controllers.Controllers
@@ -13,7 +12,7 @@ namespace CodeCamper.Web.Controllers.Controllers
     {
         public PersonSessionsController(ICodeCamperDataService repository)
         {
-            Repository = repository;
+            DataService = repository;
         }
        
         // GET: api/events/sessions
@@ -26,9 +25,9 @@ namespace CodeCamper.Web.Controllers.Controllers
             //return Repository.PersonSessions().OrderBy(ps => ps.SessionId).ToList();
         }
 
-        public IEnumerable<PersonSession> GetPersonSessionsByPersonId(int id)
+        public IQueryable<PersonSession> GetPersonSessionsByPersonId(int id)
         {
-            return Repository.PersonSessionsByPersonId(id).OrderBy(ps => ps.SessionId).ToList();
+            return DataService.PersonSessionsByPersonId(id).OrderBy(ps => ps.SessionId);
         }
         
         //// GET /api/<controller>/5

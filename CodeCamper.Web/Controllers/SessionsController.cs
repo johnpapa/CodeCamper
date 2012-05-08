@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CodeCamper.Data;
 using CodeCamper.Model;
 
 namespace CodeCamper.Web.Controllers.Controllers
@@ -12,7 +12,7 @@ namespace CodeCamper.Web.Controllers.Controllers
     {
        public SessionsController(ICodeCamperDataService repository)
         {
-            Repository = repository;
+            DataService = repository;
         }
 
         // ToDo: Remove this poor man's IoC ctor
@@ -24,13 +24,15 @@ namespace CodeCamper.Web.Controllers.Controllers
         // GET /api/<controller>
         public IEnumerable<Session> Get()
         {
-            return Repository.Sessions().OrderBy(s => s.TimeSlotId).ToList();
+            return DataService.Sessions.GetAll().OrderBy(s => s.TimeSlotId).ToList();
         }
 
         // GET /api/<controller>/5
         public Session Get(int id)
         {
-            return Repository.Sessions().Where(s => s.Id == id).First();
+            var session = DataService.Sessions.GetById(id);
+            if (session != null) return session;
+            throw new HttpResponseException(HttpStatusCode.NotFound);
         }
     }
 }

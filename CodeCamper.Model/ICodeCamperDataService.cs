@@ -5,16 +5,13 @@ namespace CodeCamper.Model
 {
     public interface ICodeCamperDataService
     {
-        Room RoomById(int id); // ToDo: for early exploration; remove promptly
-        IQueryable<Room> Rooms();
-        IQueryable<TimeSlot> TimeSlots(); 
-        IQueryable<Track> Tracks();
+        void Commit();
 
-        IQueryable<Session> Sessions();
-        Session SessionById(int id);
-
-        IQueryable<Person> Persons();
-        Person PersonById(int id);
+        IRepository<Person> Persons { get; }
+        IRepository<Room> Rooms { get; }
+        IRepository<Session> Sessions { get; }
+        IRepository<TimeSlot> TimeSlots { get; }
+        IRepository<Track> Tracks { get; }
 
         IQueryable<PersonSession> PersonSessions();
         IQueryable<PersonSession> PersonSessionsByPersonId(int id);

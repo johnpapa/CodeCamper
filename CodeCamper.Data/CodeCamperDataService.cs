@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data
@@ -12,65 +13,66 @@ namespace CodeCamper.Data
         public CodeCamperDataService()
         {
             Initialize();
+
+            //Rooms = new Repository<Room>(DbContext, (item, id) => item.Id == id));
         }
+
+        // public IRepository<Room> Rooms {get; private set;}
 
         protected void Initialize()
         {
             DbContext = new CodeCamperDbContext();
 
-            // Uncomment following if do NOT want proxied entities. Let's assume they are ok for now
-            //var objectContext = (DbContext as IObjectContextAdapter).ObjectContext;
-            //objectContext.ContextOptions.ProxyCreationEnabled = false;
+            // Do NOT enable proxied entities, else serialization fails
             DbContext.Configuration.ProxyCreationEnabled = false;
+
+            // Load navigation properties explicitly (avoid serialization trouble)
+            DbContext.Configuration.LazyLoadingEnabled = false;
 
             // Upshot does the following. We won't for now
             //DbContext.Configuration.ValidateOnSaveEnabled = false;
             //DbContext.Configuration.AutoDetectChangesEnabled = false;
-
-            // Load navigation properties explicitly (avoid serialization trouble)
-            DbContext.Configuration.LazyLoadingEnabled = false;
         }
 
-        // ToDo: for early exploration; remove promptly
-        public Room RoomById(int id)
+        public void Commit()
         {
-            return DbContext.Rooms.FirstOrDefault(r => r.Id == id);
+            Console.WriteLine("Committed");
         }
+        //public IRepository<Foo> Foos
+        //{
+        //    get { return _foos ?? (_foos = new FakeRepository<Foo>()); } 
+        //}
+        //private IRepository<Foo> _foos;
 
-        public IQueryable<Room> Rooms()
-        {
-            return DbContext.Rooms;
+        public IRepository<Room> Rooms {
+            get { return _rooms ?? (_rooms = new CodeCamperRepository<Room>(DbContext, (item, id) => item.Id == id)); } 
         }
+        private IRepository<Room> _rooms;
 
-        public IQueryable<TimeSlot> TimeSlots()
+        public IRepository<TimeSlot> TimeSlots
         {
-            return DbContext.TimeSlots;
+            get { return _timeSlots ?? (_timeSlots = new CodeCamperRepository<TimeSlot>(DbContext, (item, id) => item.Id == id)); }
         }
+        private IRepository<TimeSlot> _timeSlots;
 
-        public IQueryable<Track> Tracks()
+        public IRepository<Track> Tracks
         {
-            return DbContext.Tracks;
+            get { return _tracks ?? (_tracks = new CodeCamperRepository<Track>(DbContext, (item, id) => item.Id == id)); }
         }
+        private IRepository<Track> _tracks;
 
-        public IQueryable<Session> Sessions()
-        {
-            return DbContext.Sessions;
-        }
 
-        public Session SessionById(int id)
+        public IRepository<Session> Sessions
         {
-            return DbContext.Sessions.FirstOrDefault(s => s.Id == id);
+            get { return _sessions ?? (_sessions = new CodeCamperRepository<Session>(DbContext, (item, id) => item.Id == id)); }
         }
+        private IRepository<Session> _sessions;
 
-        public IQueryable<Person> Persons()
+        public IRepository<Person> Persons
         {
-            return DbContext.Persons;
+            get { return _persons ?? (_persons = new CodeCamperRepository<Person>(DbContext, (item, id) => item.Id == id)); }
         }
-
-        public Person PersonById(int id)
-        {
-            return DbContext.Persons.FirstOrDefault(p => p.Id == id);
-        }
+        private IRepository<Person> _persons;
 
         public IQueryable<PersonSession> PersonSessions()
         {

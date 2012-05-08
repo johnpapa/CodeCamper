@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CodeCamper.Data;
 using CodeCamper.Model;
 
 namespace CodeCamper.Web.Controllers
@@ -13,7 +12,7 @@ namespace CodeCamper.Web.Controllers
     {
         public CampController(ICodeCamperDataService repository)
         {
-            Repository = repository;
+            DataService = repository;
         }
 
         // ToDo: Remove this poor man's IoC ctor
@@ -26,28 +25,38 @@ namespace CodeCamper.Web.Controllers
         [ActionName("rooms")]
         public IEnumerable<Room> GetRooms()
         {
-            return Repository.Rooms().OrderBy(r => r.Name).ToList();
+            return DataService.Rooms.GetAll().OrderBy(r => r.Name).ToList();
+        }
+
+        // TODO: Delete this test action
+        // GET: api/events/room
+        [ActionName("room")]
+        public Room GetRoomById(int id)
+        {
+            var room = DataService.Rooms.GetById(id);
+            if (room != null) return room;
+            throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
         // GET: api/events/timeslots
         [ActionName("timeslots")]
         public IEnumerable<TimeSlot> GetTimeSlots()
         {
-            return Repository.TimeSlots().OrderBy(ts => ts.Start).ToList();
+            return DataService.TimeSlots.GetAll().OrderBy(ts => ts.Start).ToList();
         }
 
         // GET: api/events/tracks
         [ActionName("tracks")]
         public IEnumerable<Track> GetTracks()
         {
-            return Repository.Tracks().OrderBy(t => t.Name).ToList();
+            return DataService.Tracks.GetAll().OrderBy(t => t.Name).ToList();
         }
 
         // GET: api/events/sessionbriefs
         [ActionName("sessionbriefs")]
         public IEnumerable<SessionBrief> GetSessionBriefs()
         {
-            return Repository.SessionBriefs().OrderBy(sb => sb.TimeSlotId).ToList();
+            return DataService.SessionBriefs().OrderBy(sb => sb.TimeSlotId).ToList();
         }
 
         // Lookups: aggregates the many little lookup lists in one payload
@@ -69,7 +78,7 @@ namespace CodeCamper.Web.Controllers
         [ActionName("taggroups")]
         public IEnumerable<TagGroup> GetTagGroups()
         {
-            return Repository.TagGroups().ToList();
+            return DataService.TagGroups().ToList();
         }
     }
 }
