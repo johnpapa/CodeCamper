@@ -10,9 +10,9 @@ namespace CodeCamper.Web.Controllers.Controllers
 {
     public class PersonSessionsController : ApiControllerBase
     {
-        public PersonSessionsController(ICodeCamperDataService repository)
+        public PersonSessionsController(ICodeCamperDataService dataService)
         {
-            DataService = repository;
+            DataService = dataService;
         }
        
         // GET: api/events/sessions

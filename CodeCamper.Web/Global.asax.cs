@@ -50,6 +50,9 @@ namespace CodeCamper.Web
                 defaults: new { controller = "Camp", id = RouteParameter.Optional }
             );
 
+            // PAPA: The names in the templates MATTER
+            //       The name {id} matters and will match the signature of GetById param
+            //       AND will match the "Id" property of an entity.
             // This route will work for the type per controller
             routes.MapHttpRoute(
                 name: "DefaultApi",

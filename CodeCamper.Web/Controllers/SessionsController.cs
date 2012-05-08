@@ -10,9 +10,9 @@ namespace CodeCamper.Web.Controllers.Controllers
 {
     public class SessionsController : ApiControllerBase
     {
-       public SessionsController(ICodeCamperDataService repository)
+       public SessionsController(ICodeCamperDataService dataService)
         {
-            DataService = repository;
+            DataService = dataService;
         }
 
         // ToDo: Remove this poor man's IoC ctor
