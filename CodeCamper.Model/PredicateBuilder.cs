@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
 
-namespace CodeCamper.Data
+namespace CodeCamper.Model
 {
     public static class PredicateBuilder
     {
