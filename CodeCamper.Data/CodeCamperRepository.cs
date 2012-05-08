@@ -22,15 +22,16 @@ namespace CodeCamper.Data
             if (dbContext == null) 
                 throw new ArgumentNullException("dbContext");
             DbContext = dbContext;
+            DbSet = DbContext.Set<T>();
         }
 
         protected CodeCamperDbContext DbContext { get; set; }
 
-        protected DbSet<T> DbSet { get { return DbContext.Set<T>(); } }
+        protected DbSet<T> DbSet { get; set; }
 
         public virtual IQueryable<T> GetAll()
         {
-            return DbContext.Set<T>();
+            return DbSet;
         }
 
         public virtual T GetById(int id)
