@@ -27,16 +27,6 @@ namespace CodeCamper.Web.Controllers
             return DataService.Rooms.GetAll().OrderBy(r => r.Name);
         }
 
-        // TODO: Delete this test action
-        // GET: api/events/room
-        [ActionName("room")]
-        public Room GetRoomById(int id)
-        {
-            var room = DataService.Rooms.GetById(id);
-            if (room != null) return room;
-            throw new HttpResponseException(HttpStatusCode.NotFound);
-        }
-
         // GET: api/events/timeslots
         [ActionName("timeslots")]
         public IQueryable<TimeSlot> GetTimeSlots()
@@ -49,13 +39,6 @@ namespace CodeCamper.Web.Controllers
         public IQueryable<Track> GetTracks()
         {
             return DataService.Tracks.GetAll().OrderBy(t => t.Name);
-        }
-
-        // GET: api/events/sessionbriefs
-        [ActionName("sessionbriefs")]
-        public IQueryable<SessionBrief> GetSessionBriefs()
-        {
-            return DataService.Sessions.SessionBriefs().OrderBy(sb => sb.TimeSlotId);
         }
 
         // Lookups: aggregates the many little lookup lists in one payload
@@ -71,6 +54,13 @@ namespace CodeCamper.Web.Controllers
                 Tracks = GetTracks().ToList(),
             };
             return lookups;
+        }
+
+        // GET: api/events/sessionbriefs
+        [ActionName("sessionbriefs")]
+        public IQueryable<SessionBrief> GetSessionBriefs()
+        {
+            return DataService.Sessions.SessionBriefs().OrderBy(sb => sb.TimeSlotId);
         }
 
         // GET: api/events/taggroups

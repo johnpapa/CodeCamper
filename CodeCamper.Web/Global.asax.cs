@@ -51,8 +51,8 @@ namespace CodeCamper.Web
             routes.MapHttpRoute(
                 name: "CampApi", 
                 //routeTemplate: "api/{controller}/{action}/{id}",
-                routeTemplate: "api/camp/{action}/{id}",
-                defaults: new { controller = "Camp", id = RouteParameter.Optional }
+                routeTemplate: "api/camp/{action}",
+                defaults: new { controller = "Camp"}
             );
 
             // PAPA: The names in the templates MATTER
