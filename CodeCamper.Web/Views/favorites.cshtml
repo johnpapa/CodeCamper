@@ -9,17 +9,17 @@
             </ul>
         </nav>
         <h1>Sunday May 2</h1>
+        <!-- ko foreach: sessions -->
         <article>
-            <table> 
-                <thead><tr><th>Title</th><th colspan="2">Speaker</th><th>Track</th></tr></thead>
-                <tbody data-bind="foreach: sessions">
-                    <tr data-bind=""> 
-                        <td data-bind="text: title"></td>
-                        <td data-bind="text: speaker.firstName"></td>
-                        <td data-bind="text: speaker.lastName"></td>
-                        <td data-bind="text: track"></td>
-                    </tr>     
-                </tbody>
-            </table>
+				<img data-bind="attr: {src: imageUrl}"/>
+				<time datetime="11:00" data-bind="text:shortTimeSlot"></time>
+				<h1 data-bind="text: title"></h1>
+				<address data-bind="text: speaker().fullName"></address>
         </article>
+        <!-- /ko -->
+        <div>
+            <h4 class="caption">Sessions JSON</h4>
+            <pre data-bind="text:debugInfo">
+            </pre>
+        </div>
     </section>
