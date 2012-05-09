@@ -60,6 +60,8 @@
     <Compile Include="CodeCamperDbContext.cs" />
     <Compile Include="CodeCamperDataService.cs" />
     <Compile Include="CodeCamperRepositoryProvider.cs" />
+    <Compile Include="SessionConfiguration.cs" />
+    <Compile Include="PersonSessionConfiguration.cs" />
     <Compile Include="SessionsRepository.cs" />
     <Compile Include="IRepositoryProvider.cs" />
     <Compile Include="PersonSessionsRepository.cs" />

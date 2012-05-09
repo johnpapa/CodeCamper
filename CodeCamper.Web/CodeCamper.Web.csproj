@@ -127,7 +127,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CampController.cs" />
+    <Compile Include="Controllers\LookupsController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PersonSessionsController.cs" />
