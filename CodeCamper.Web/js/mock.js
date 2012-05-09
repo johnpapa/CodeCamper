@@ -11,7 +11,7 @@ var my = my || {};
 //$.mockJSON.random = false;
 $.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward'];
 $.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell'];
-$.mockJSON.data.DATE_TODAY = [Date.create().format('{Weekday} {Month} {d}')];
+$.mockJSON.data.DATE_TODAY = [moment().format('MMMM DD YYYY')];
 //$.mockJSON.data.DATE_NOW = [Date.create().format('{Weekday} {Month} {d} {hh}:{mm} {tt} {yyyy}')];
 $.mockJSON.data.TAG = ['JavaScript', 'Knockout', 'MVVM', 'HTML5', 'Keynote', 'SQL', 'CSS', 'Metro', 'UX'];
 $.mockJSON.data.TRACK = ['Windows 8', 'JavaScript', 'ASP.NET', '.NET', 'Data', 'Mobile', 'Cloud', 'Practices', 'Design'];
@@ -43,7 +43,7 @@ my.mock = (function ($) {
                     title: '@TITLE',
                     description: '@LOREM_IPSUM',
                     track: '@TRACK',
-                    date: '@DATE_TODAY @TIME_HH:@TIME_MM:@TIME_SS +0000 2012',
+                    date: '@DATE_TODAY @TIME_HH:@TIME_MM:@TIME_SS +0000',
                     'tags|1-5': '@TAG ,' 
                 }]
             })

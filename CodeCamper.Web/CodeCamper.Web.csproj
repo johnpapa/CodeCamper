@@ -164,8 +164,6 @@
     <Content Include="Scripts\jquery-1.7.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.js" />
-    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
     <Content Include="Scripts\jquery.mockjson.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -177,6 +175,10 @@
     <Content Include="Scripts\knockout.debug.js" />
     <Content Include="Scripts\knockout.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js">
+      <DependentUpon>moment.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\sammy.js" />
     <Content Include="Scripts\sugar-1.2.5.js" />
     <Content Include="Scripts\toastr.js" />
