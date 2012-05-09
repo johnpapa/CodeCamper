@@ -55,7 +55,7 @@ namespace CodeCamper.Web.Controllers
         [ActionName("sessionbriefs")]
         public IQueryable<SessionBrief> GetSessionBriefs()
         {
-            return DataService.SessionBriefs().OrderBy(sb => sb.TimeSlotId);
+            return DataService.Sessions.SessionBriefs().OrderBy(sb => sb.TimeSlotId);
         }
 
         // Lookups: aggregates the many little lookup lists in one payload
@@ -77,7 +77,7 @@ namespace CodeCamper.Web.Controllers
         [ActionName("taggroups")]
         public IQueryable<TagGroup> GetTagGroups()
         {
-            return DataService.TagGroups().AsQueryable();
+            return DataService.Sessions.TagGroups().AsQueryable();
         }
     }
 }

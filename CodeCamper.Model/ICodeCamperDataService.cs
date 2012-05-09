@@ -9,23 +9,10 @@ namespace CodeCamper.Model
 
         IRepository<Person> Persons { get; }
         IRepository<Room> Rooms { get; }
-        IRepository<Session> Sessions { get; }
+        ISessionsRepository Sessions { get; }
         IRepository<TimeSlot> TimeSlots { get; }
         IRepository<Track> Tracks { get; }
+        IPersonSessionsRepository PersonSessions { get; }
 
-        IQueryable<PersonSession> PersonSessions();
-        IQueryable<PersonSession> PersonSessionsByPersonId(int id);
-            
-        /// <summary>
-        /// Get the unique tags from sessions
-        /// as a list of <see cref="TagGroup"/>.
-        /// </summary>
-        IQueryable<SessionBrief> SessionBriefs();
-
-        /// <summary>
-        /// Get the unique tags from sessions
-        /// as a list of <see cref="TagGroup"/>.
-        /// </summary>
-        IEnumerable<TagGroup> TagGroups();
     }
 }

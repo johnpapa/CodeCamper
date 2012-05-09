@@ -21,11 +21,16 @@ namespace CodeCamper.Web
 
     public class WebApiApplication : System.Web.HttpApplication
     {
-        ////Ward: Added Ninject IoC and registering our DataService
         public static void Configure(HttpConfiguration config)
         {
-            var kernel = new StandardKernel();
+            var kernel = new StandardKernel(); // Ninject IoC
+
+            // These registrations are per instance request.
+            // See http://blog.bobcravens.com/2010/03/ninject-life-cycle-management-or-scoping/
             kernel.Bind<ICodeCamperDataService>().To<CodeCamperDataService>();
+            kernel.Bind<IRepositoryProvider>().To<CodeCamperRepositoryProvider>();
+
+            // Tell WebApi how to use our Ninject IoC
             config.ServiceResolver.SetResolver(
                 t => kernel.TryGet(t),
                 t => kernel.GetAll(t));

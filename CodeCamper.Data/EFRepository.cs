@@ -12,12 +12,12 @@ using CodeCamper.Model;
 namespace CodeCamper.Data
 {
     /// <summary>
-    /// The EF-dependent, generic repository for Code Camper data access
+    /// The EF-dependent, generic repository for data access
     /// </summary>
     /// <typeparam name="T">Type of entity for this Repository.</typeparam>
-    public class CodeCamperRepository<T> : IRepository<T> where T : class
+    public class EFRepository<T> : IRepository<T> where T : class
     {
-        public CodeCamperRepository(CodeCamperDbContext dbContext)
+        public EFRepository(DbContext dbContext)
         {
             if (dbContext == null) 
                 throw new ArgumentNullException("dbContext");
@@ -25,7 +25,7 @@ namespace CodeCamper.Data
             DbSet = DbContext.Set<T>();
         }
 
-        protected CodeCamperDbContext DbContext { get; set; }
+        protected DbContext DbContext { get; set; }
 
         protected DbSet<T> DbSet { get; set; }
 

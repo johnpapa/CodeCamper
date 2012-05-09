@@ -25,7 +25,7 @@ namespace CodeCamper.Web.Controllers.Controllers
 
         public IQueryable<PersonSession> GetPersonSessionsByPersonId(int id)
         {
-            return DataService.PersonSessionsByPersonId(id).OrderBy(ps => ps.SessionId);
+            return DataService.PersonSessions.GetByPersonId(id).OrderBy(ps => ps.SessionId);
         }
         
         //// GET /api/{controller}/

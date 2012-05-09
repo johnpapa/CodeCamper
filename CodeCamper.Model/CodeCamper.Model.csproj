@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Foo.cs" />
+    <Compile Include="IPersonSessionsRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="ISessionsRepository.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="TimeSlot.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="Room.cs" />
