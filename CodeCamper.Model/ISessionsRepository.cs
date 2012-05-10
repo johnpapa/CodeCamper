@@ -6,11 +6,25 @@ namespace CodeCamper.Model
     public interface ISessionsRepository : IRepository<Session>
     {
         /// <summary>
-        /// Get a brief version of the <see cref="Session"/> entities,
-        /// a subset of properties suitable for quick client-side
-        /// filtering and presentation.
+        /// Get <see cref="SessionBrief"/>s, 
+        /// a cutdown version of <see cref="Session"/> entities.
         /// </summary>
-        IQueryable<CodeCamper.Model.SessionBrief> SessionBriefs();
+        /// <remarks>
+        /// <see cref="SessionBrief"/> is a subset of  
+        /// <see cref="Session"/> properties suitable for 
+        /// quick client-side filtering and presentation.
+        /// </remarks>
+        IQueryable<SessionBrief> SessionBriefs {get;}
+
+        /// <summary>
+        /// Get <see cref="Speaker"/>s at sessions.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="Speaker"/> is a subset of  
+        /// <see cref="Person"/> properties suitable for 
+        /// quick client-side filtering and presentation.
+        /// </remarks>
+        IQueryable<Speaker> Speakers { get; }
 
         /// <summary>
         /// Get the unique tags from all of the sessions
@@ -25,6 +39,6 @@ namespace CodeCamper.Model
         /// Each item in the list is a <see cref="TagGroup"/> consisting 
         /// of a tag and an array of ids of sessions with that tag.
         /// </remarks>
-        IEnumerable<CodeCamper.Model.TagGroup> TagGroups();
+        IEnumerable<TagGroup> TagGroups { get; }
     }
 }

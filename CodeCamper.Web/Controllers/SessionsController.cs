@@ -5,7 +5,7 @@ using System.Net;
 using System.Web.Http;
 using CodeCamper.Model;
 
-namespace CodeCamper.Web.Controllers.Controllers
+namespace CodeCamper.Web.Controllers
 {
     public class SessionsController : ApiControllerBase
     {
@@ -42,14 +42,28 @@ namespace CodeCamper.Web.Controllers.Controllers
         [ActionName("briefs")]
         public IQueryable<SessionBrief> GetSessionBriefs()
         {
-            return DataService.Sessions.SessionBriefs().OrderBy(sb => sb.TimeSlotId);
+            return DataService.Sessions.SessionBriefs.OrderBy(sb => sb.TimeSlotId);
+        }
+
+        // GET: api/sessions/speakers
+        [ActionName("speakers")]
+        public IQueryable<Speaker> GetSpeakers()
+        {
+            return DataService.Sessions.Speakers.OrderBy(s => s.FirstName);
         }
 
         // GET: api/sessions/taggroups
         [ActionName("taggroups")]
         public IQueryable<TagGroup> GetTagGroups()
         {
-            return DataService.Sessions.TagGroups().AsQueryable();
+            return DataService.Sessions.TagGroups.AsQueryable();
+        }
+
+        // GET: api/sessions/{sessionId}/attendancelinks
+        [ActionName(Names.Actions.AttendanceLinks)]
+        public IQueryable<AttendanceLink> GetAttendanceLinkBySessionId(int sessionId)
+        {
+            return DataService.AttendanceLinks.GetBySessionId(sessionId).OrderBy(ps => ps.Person.FirstName);
         }
 
         #endregion

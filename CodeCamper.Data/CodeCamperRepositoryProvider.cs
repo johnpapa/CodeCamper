@@ -17,8 +17,8 @@ namespace CodeCamper.Data
             SetRepositoryFactory<ISessionsRepository>(
                 dbContext => new SessionsRepository(dbContext));
 
-           SetRepositoryFactory<IPersonSessionsRepository>(
-               dbContext => new PersonSessionsRepository(dbContext));
+           SetRepositoryFactory<IAttendanceLinksRepository>(
+               dbContext => new AttendanceLinksRepository(dbContext));
 
 	    }
     }

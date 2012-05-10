@@ -127,10 +127,11 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Names.cs" />
     <Compile Include="Controllers\LookupsController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
-    <Compile Include="Controllers\PersonSessionsController.cs" />
+    <Compile Include="Controllers\AttendanceLinksController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

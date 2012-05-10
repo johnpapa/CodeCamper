@@ -4,9 +4,9 @@ using CodeCamper.Model;
 
 namespace CodeCamper.Data
 {
-    class PersonSessionConfiguration : EntityTypeConfiguration<PersonSession>
+    class AttendanceLinkConfiguration : EntityTypeConfiguration<AttendanceLink>
     {
-        public PersonSessionConfiguration()
+        public AttendanceLinkConfiguration()
         {
             HasKey(ps => new { ps.SessionId, ps.PersonId });
 

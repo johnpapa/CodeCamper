@@ -16,11 +16,12 @@ namespace CodeCamper.Model
         public string Email { get; set; }
         public string Blog { get; set; }
         public string Twitter { get; set; }
+
         [StringLength(1,MinimumLength = 1) ]
         public string Gender { get; set; }
         public string Bio { get; set; }
 
         public virtual ICollection<Session> SpeakerSessions { get; set; }
-        public virtual ICollection<PersonSession> AttendingSessions { get; set; }
+        public virtual ICollection<AttendanceLink> AttendingSessions { get; set; }
     }
 }

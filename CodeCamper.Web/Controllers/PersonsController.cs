@@ -5,7 +5,7 @@ using System.Net;
 using System.Web.Http;
 using CodeCamper.Model;
 
-namespace CodeCamper.Web.Controllers.Controllers
+namespace CodeCamper.Web.Controllers
 {
     public class PersonsController : ApiControllerBase
     {
@@ -35,5 +35,15 @@ namespace CodeCamper.Web.Controllers.Controllers
             DataService.Commit();
         }
 
+        #region Actions (RPC methods)
+
+        // GET: api/persons/{personId}/attendancelinks
+        [ActionName(Names.Actions.AttendanceLinks)]
+        public IQueryable<AttendanceLink> GetAttendanceLinkByPersonId(int personId)
+        {
+            return DataService.AttendanceLinks.GetByPersonId(personId).OrderBy(ps => ps.Session.Title);
+        }
+
+        #endregion
     }
 }

@@ -10,12 +10,6 @@ namespace CodeCamper.Model
     /// </remarks>
     public class TagGroup
     {
-        public TagGroup() { } 
-        public TagGroup(string tag, ICollection<int> ids)
-        {
-            Tag = tag;
-            Ids = ids;
-        }
         public string Tag { get; set; }
         public ICollection<int> Ids { get; set; } 
     }

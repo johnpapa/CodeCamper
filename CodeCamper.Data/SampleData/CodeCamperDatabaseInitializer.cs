@@ -24,7 +24,7 @@ namespace CodeCamper.SampleData
             var timeSlots = AddTimeSlots(context);
             var persons = AddPersons(context, 100);
             var sessions = AddSessions(context, persons, rooms, timeSlots, tracks);
-            AddPersonSessions(context, sessions, persons.Take(2).ToArray());
+            AddAttendanceLinks(context, sessions, persons.Take(2).ToArray());
         }
 
         private List<Room> _roomsForGeneratedSessions;
@@ -428,40 +428,45 @@ namespace CodeCamper.SampleData
         }
         private int _sessionCodeNumberSeed = 142;
 
-        private void AddPersonSessions(CodeCamperDbContext context, List<Session> sessions, IEnumerable<Person> attendees)
+        private void AddAttendanceLinks(CodeCamperDbContext context, List<Session> sessions, IEnumerable<Person> attendees)
         {
             var rand = new Random();
             var textGenerator = new SampleTextGenerator();
             var textSource = SampleTextGenerator.SourceNames.Faust;
 
-            var sessionIxs = Enumerable.Range(0, sessions.Count - 1).ToArray();
-            var personSessions = new List<PersonSession>();
+            // Indexes for the 3rd through nth sessions (sessions #1 and #2 are forced in manually).
+            var sessionIxs = Enumerable.Range(2, sessions.Count - 1).ToArray();
+            var attendanceLinks = new List<AttendanceLink>();
 
             foreach(var person in attendees)
             {
-                // Pick between 8 and 13 "random" indexes of sessions
-                var ixs = sessionIxs.OrderBy(_ => Guid.NewGuid()).Take(rand.Next(8, 13));
-                var evalCount = 3; // person evals the first 'n' sessions attended
+                // indexes of attended sessions
+                var ixs = new List<int>(new []{0,1}); // Sessions #1 and #2 are always attended
+
+                // Add between 8 and 13 "random" session indexes
+                ixs.AddRange(sessionIxs.OrderBy(_ => Guid.NewGuid()).Take(rand.Next(8, 13)));
+
+                var evalCount = 4; // person evals the first 'n' sessions attended
                 foreach (var i in ixs)
                 {
-                    var personSession =
-                        new PersonSession
+                    var attendanceLink =
+                        new AttendanceLink
                             {
                                 PersonId = person.Id,
                                 SessionId = sessions[i].Id,
                             };
-                    personSessions.Add(personSession);
+                    attendanceLinks.Add(attendanceLink);
 
                     if (evalCount <= 0) continue;
 
-                    personSession.Rating = rand.Next(1, 6);
-                    personSession.Text = textGenerator.GenSentences(10, textSource);
+                    attendanceLink.Rating = rand.Next(1, 6);
+                    attendanceLink.Text = textGenerator.GenSentences(10, textSource);
                     evalCount--;
                 }
             }
 
-            // Done populating PersonSessions
-            personSessions.ForEach(ps => context.PersonSessions.Add(ps));
+            // Done populating AttendanceLinks
+            attendanceLinks.ForEach(ps => context.AttendanceLinks.Add(ps));
             context.SaveChanges();
         }
     

@@ -6,6 +6,7 @@
     /// </summary>
     /// <remarks>
     /// This is a DTO, not an entity backed by a database object
+    /// although it derives from <see cref="Session"/>
     /// </remarks>
     public class SessionBrief
     {

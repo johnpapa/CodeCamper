@@ -12,24 +12,51 @@ namespace CodeCamper.Data
         public SessionsRepository(DbContext context) : base(context) { }
 
         /// <summary>
-        /// Get a brief version of the <see cref="Session"/> entities,
-        /// a subset of properties suitable for quick client-side
-        /// filtering and presentation.
+        /// Get <see cref="SessionBrief"/>s, 
+        /// a cutdown version of <see cref="Session"/> entities.
         /// </summary>
-        public IQueryable<SessionBrief> SessionBriefs()
+        ///<remarks>
+        ///See <see cref="ISessionsRepository.SessionBriefs"/> for details.
+        ///</remarks>
+        public IQueryable<SessionBrief> SessionBriefs
         {
-            return DbSet.Select(s => new SessionBrief
-                {
-                    Id = s.Id,
-                    Title = s.Title,
-                    Code = s.Code,
-                    SpeakerId = s.SpeakerId,
-                    TrackId = s.TrackId,
-                    TimeSlotId = s.TimeSlotId,
-                    RoomId = s.RoomId,
-                    Level = s.Level,
-                    Tags = s.Tags,
-                });
+            get { 
+                return DbSet.Select(s => 
+                    new SessionBrief
+                        {    
+                             Id = s.Id,
+                             Title = s.Title,
+                             Code = s.Code,
+                             SpeakerId = s.SpeakerId,
+                             TrackId = s.TrackId,
+                             TimeSlotId = s.TimeSlotId,
+                             RoomId = s.RoomId,
+                             Level = s.Level,
+                             Tags = s.Tags,
+                        });
+                }
+        }
+
+        /// <summary>
+        /// Get <see cref="Speaker"/>s at sessions.
+        /// </summary>
+        ///<remarks>
+        ///See <see cref="ISessionsRepository.Speakers"/> for details.
+        ///</remarks>
+
+        public IQueryable<Speaker> Speakers
+        {
+            get { 
+                return DbSet
+                    .Select(session => session.Speaker)
+                    .Distinct().Select(s =>
+                        new Speaker
+                            {    
+                                 PersonId = s.Id,
+                                 FirstName = s.FirstName,
+                                 LastName = s.LastName,
+                            });
+                }        
         }
 
         /// <summary>
@@ -39,7 +66,12 @@ namespace CodeCamper.Data
         /// <remarks>
         ///See <see cref="ISessionRepository.TagGroups"/> for details.
         /// </remarks>
-        public IEnumerable<TagGroup> TagGroups()
+        public IEnumerable<TagGroup> TagGroups
+        {
+            get { return GetTagGroupsQuery(); }
+        }
+
+        private IEnumerable<TagGroup> GetTagGroupsQuery()
         {
             // extract the delimited tags string and session id from all sessions
             var sessionTags = DbSet.Select(s => new { s.Tags, s.Id })
@@ -58,7 +90,11 @@ namespace CodeCamper.Data
 
                 // project the group into TagGroup instances
                 // ensuring that ids array in each array are unique
-                .Select(tg => new TagGroup(tg.Key, tg.Distinct().ToArray()))
+                .Select(tg => new TagGroup 
+                                {
+                                    Tag = tg.Key, 
+                                    Ids = tg.Distinct().ToArray(),
+                                })
                 .OrderBy(tg => tg.Tag);
 
             return sessionTags;
