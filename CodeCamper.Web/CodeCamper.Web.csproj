@@ -143,6 +143,7 @@
     <Content Include="Content\hans.jpg" />
     <Content Include="Content\icon.png" />
     <Content Include="Content\john.jpg" />
+    <Content Include="Content\qunit.css" />
     <Content Include="Content\scott.jpg" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\toastr-responsive.css" />
@@ -180,6 +181,7 @@
     <Content Include="Scripts\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\qunit.js" />
     <Content Include="Scripts\sammy.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Web.config" />
