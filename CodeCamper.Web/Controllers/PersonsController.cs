@@ -39,9 +39,9 @@ namespace CodeCamper.Web.Controllers
 
         // GET: api/persons/{personId}/attendancelinks
         [ActionName(Names.Actions.AttendanceLinks)]
-        public IQueryable<PersonSession> GetAttendanceLinkByPersonId(int personId)
+        public IQueryable<AttendanceLink> GetAttendanceLinkByPersonId(int personId)
         {
-            return DataService.PersonSessions.GetByPersonId(personId).OrderBy(ps => ps.Session.Title);
+            return DataService.AttendanceLinks.GetByPersonId(personId).OrderBy(ps => ps.Session.Title);
         }
 
         #endregion

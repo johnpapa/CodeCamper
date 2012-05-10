@@ -16,17 +16,17 @@ namespace CodeCamper.Web.Controllers
         }
        
         // GET: api/attendancelinks
-        public HttpResponseMessage<IQueryable<PersonSession>> GetPersonSessions()
+        public HttpResponseMessage<IQueryable<AttendanceLink>> GetAttendanceLinks()
         {
-            return new HttpResponseMessage<IQueryable<PersonSession>>(DataService.PersonSessions.GetAll());
-            //return new HttpResponseMessage<IQueryable<PersonSession>>(HttpStatusCode.Forbidden); //security violation
+            return new HttpResponseMessage<IQueryable<AttendanceLink>>(DataService.AttendanceLinks.GetAll());
+            //return new HttpResponseMessage<IQueryable<AttendanceLink>>(HttpStatusCode.Forbidden); //security violation
         }
 
         // GET: api/attendancelinks/pid,sid
-        public PersonSession GetPersonSessions(int pid, int sid)
+        public AttendanceLink GetAttendanceLinks(int pid, int sid)
         {
-            var link = DataService.PersonSessions.GetByIds(pid, sid);
-            if (link != null) return link;
+            var attendanceLink = DataService.AttendanceLinks.GetByIds(pid, sid);
+            if (attendanceLink != null) return attendanceLink;
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
