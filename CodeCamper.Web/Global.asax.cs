@@ -80,19 +80,6 @@ namespace CodeCamper.Web
                 constraints: new { id = @"^\d+$" } // id must be all digits
             );
 
-            // With this route we fetch a single AttendanceLink by its key, a pair of ids.
-            // This is a controller-per-type route, pinned to a specific controller,
-            // the AttendanceLinksController.
-            //
-            //  ex: api/attendancelinks/?pid=2,sid=1
-            //  ex: api/attendancelinks/2,1
-            routes.MapHttpRoute(
-                name: "ApiGetAttendanceLinkByCompositeKey",
-                routeTemplate: "api/attendancelinks/{pid},{sid}",
-                defaults: new { controller = Names.Controllers.AttendanceLinks },
-                constraints: new { pid = @"^\d+$", sid = @"^\d+$" } // both ids must be all digits
-            );
-
             // This controller-per-type route lets us fetch a single resource by numeric id
             // It finds the appropriate method on the controller using WebAPI conventions
             // The {id} is not optional, must be an integer, and 

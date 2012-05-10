@@ -15,92 +15,145 @@
     <script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script> 
      -->
 
- <script>
-
-     $(document).ready(function () {
-
-         module("WebAPI GET async tests");
-         
-         var lookups = ["rooms", "tracks", "timeslots"];
-         var len = lookups.length;
-         var lookupsUrl = "/api/lookups/";
-
-         for (var i = 0; i < len; i++) {
-             var lookupsActionUrl = lookupsUrl + lookups[i];
-             test(lookupsActionUrl, function () {
-                 stop();
-                 $.ajax({
-                     url: lookupsActionUrl,
-                     dataType: "json",
-                     success: function (data) {
-                         ok(data.length, "Got " + lookupsActionUrl);
-                         start();
-                     },
-                     error: function (data) {
-                         ok(false, "Failed with: " + data.responseText);
-                         start();
-                     }
-                 });
-             });
-         }
-
-         test(lookupsUrl , function () {
-             stop();
-             $.ajax({
-                 url: lookupsUrl,
-                 dataType: "json",
-                 success: function (data) {
-                     ok(!!data.Rooms && !!data.Tracks && !!data.TimeSlots,
-                         "Got " + lookupsUrl);
-                     start();
-                 },
-                 error: function (data) {
-                     ok(false, "Failed with: " + data.responseText);
-                     start();
-                 }
-             });
-         });
-
-
-         /* Boiler plate demo code from QUnit documentation
-
-         module("Module A");
-
-         test("a basic test example", function () {
-             ok(true, "this test is fine");
-             var value = "hello";
-             equal(value, "hello", "We expect value to be hello");
-         });
-
-         test("first test within module", function () {
-             ok(true, "all pass");
-         });
-
-         test("second test within module", function () {
-             ok(true, "all pass");
-         });
-
-         module("Module B");
-
-         test("some other test", function () {
-             expect(2);
-             equal(true, false, "failing test");
-             equal(true, true, "passing test");
-
-         });
-*/
-     });
-</script>
- 
-  
 </head>
 <!-- Test Harness Display Area -->
 <body>
-<h1 id="qunit-header">Code Camper is running with QUnit Test</h1>
+<h1 id="qunit-header">Code Camper WebAPI Async Tests  </h1>
     <h2 id="qunit-banner"></h2>
     <div id="qunit-testrunner-toolbar"></div>
     <h2 id="qunit-userAgent"></h2>
     <ol id="qunit-tests"></ol>
     <div id="qunit-fixture">test markup, will be hidden</div>
 </body>
+
+<!-- Tests -->
+<script>
+
+    var myTests = window.myTests || {};
+
+    myTests.webApiGetEndpointsRespondOk = function () {
+
+        module("WebAPI GET endpoints respond successfully");
+
+        var apiUrls = [
+            //"/api/BAD_ENDPOINT",
+            "/api/lookups",
+            "/api/lookups/rooms",
+            "/api/lookups/tracks",
+            "/api/lookups/timeslots/?$filter=id%20eq%203",
+
+            "/api/persons/?$top=3", // 'top 3' makes test 0.2 secs faster
+            "/api/persons/1",
+            "/api/persons/2/attendancelinks",
+
+            "/api/sessions/briefs",
+            "/api/sessions/speakers",
+            "/api/sessions/taggroups/",
+
+            "/api/sessions/2/attendancelinks",
+            "/api/sessions/2",
+            "/api/sessions/?$top=3", // 'top 3' makes test ~1 second faster
+
+            "/api/attendancelinks",
+            "/api/attendancelinks/?$filter=personId%20eq%202",
+
+            // These variations find the link with personId==2 && sessionId==1
+            "/api/attendancelinks/?$filter=personId%20eq%202%20and%20sessionId%20eq%201",
+            "/api/attendancelinks/?pid=1&sid=2" // preferred
+        ];
+
+        var apiUrlslen = apiUrls.length;
+
+        // Test only that the WebAPI responded to the request with 'success'
+        var endpointTest = function (url) {
+            stop();
+            $.ajax({
+                url: url,
+                dataType: "json",
+                success: function (data) {
+                    start();
+                },
+                error: function (data) {
+                    ok(false, "Failed with: " + data.responseText);
+                    start();
+                }
+            });
+        };
+
+        // Returns an endpointTest function for a given URL
+        var endpointTestGenerator = function (url) {
+            return function () { endpointTest(url); };
+        };
+
+        // Test each endpoint in apiUrls
+        // These tests don't show up in the test harness count
+        // because of they are async within the 'for' loop
+        for (var i = 0; i < apiUrlslen; i++) {
+            var url = apiUrls[i];
+            test(url, endpointTestGenerator(url));
+        };
+    }
+
+    myTests.webApiGetResultsHaveExpectedShapes = function () {
+
+        module("WebAPI GET result has expected shape");
+
+        test("Lookups url should return array of Rooms, Tracks, TimeSlots",
+            function () {
+                stop();
+                $.ajax({
+                    url: "/api/lookups",
+                    dataType: "json",
+                    success: function (data) {
+                        ok(!!data.Rooms && !!data.Tracks && !!data.TimeSlots,
+                            "Got Rooms, Tracks, TimeSlots");
+                        start();
+                    },
+                    error: function (data) {
+                        ok(false, "Failed with: " + data.responseText);
+                        start();
+                    }
+                });
+            }
+        );
+    };
+
+    $(function () {
+            myTests.webApiGetEndpointsRespondOk();
+            myTests.webApiGetResultsHaveExpectedShapes();
+        }
+    );
+
+
+    /* Boiler plate demo code from QUnit documentation
+
+    module("Module A");
+
+    test("a basic test example", function () {
+        ok(true, "this test is fine");
+        var value = "hello";
+        equal(value, "hello", "We expect value to be hello");
+    });
+
+    test("first test within module", function () {
+        ok(true, "all pass");
+    });
+
+    test("second test within module", function () {
+        ok(true, "all pass");
+    });
+
+    module("Module B");
+
+    test("some other test", function () {
+        expect(2);
+        equal(true, false, "failing test");
+        equal(true, true, "passing test");
+
+    });
+*/
+
+</script>
+ 
+  
 </html>
