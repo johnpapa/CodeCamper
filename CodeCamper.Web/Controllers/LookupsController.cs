@@ -21,6 +21,13 @@ namespace CodeCamper.Web.Controllers
             return DataService.Rooms.GetAll().OrderBy(r => r.Name);
         }
 
+        // GET: api/lookups/speakers
+        [ActionName("speakers")]
+        public IQueryable<Speaker> GetSpeakers()
+        {
+            return DataService.Sessions.Speakers.OrderBy(s => s.FirstName);
+        }
+
         // GET: api/lookups/timeslots
         [ActionName("timeslots")]
         public IQueryable<TimeSlot> GetTimeSlots()
@@ -38,7 +45,7 @@ namespace CodeCamper.Web.Controllers
         // Lookups: aggregates the many little lookup lists in one payload
         // to reduce roundtrips when the client launches.
         // GET: api/lookups/lookups
-        [ActionName("lookups")]
+        //[ActionName(Names.Actions.Lookups)]
         public Lookups GetLookups()
         {
             var lookups = new Lookups

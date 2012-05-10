@@ -13,6 +13,7 @@ using Ninject;
 
 using CodeCamper.Model;
 using CodeCamper.Data;
+using CodeCamper.Web.Controllers;
 
 namespace CodeCamper.Web
 {
@@ -46,42 +47,71 @@ namespace CodeCamper.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            ////PAPA: Added this specific route.
-            //        Routes with {action} definitions follow the RPC pattern.
-            //        This one routes {action} values to the LookupsController 
-            //        They match methods marked with the [ActionName(...)] attribute.
+            //PAPA: Revised all routes.
+
+            // Routes without {action} tokens rely on Web API conventions
+            // to find the matching method(s)
+
+            // Routes with {action} tokens follow the RPC pattern;
+            // WebAPI looks for a controller method that matches the {action}
+            // typically a method decorated with [ActionName("token")]
+
+            // ex: api/persons/2/attendancelinks
+            // The {personId} is not optional, must be an integer, and 
+            // must match a method with a parameter named "personId" (case insensitive)
             routes.MapHttpRoute(
-                name: "LookupsApi", 
-                routeTemplate: "api/lookups/{action}",
-                defaults: new { controller = "lookups", action="lookups"}
+                 name: "PersonAttendanceLinksApi",
+                routeTemplate: "api/persons/{personId}/{action}",
+                defaults: new { controller = Names.Controllers.Persons },
+                // only match integer ids, action must be specified w/ non-digit
+                constraints: new { personId = @"\d+" }
             );
 
-            // Ward: Action route to return SessionBriefs from Sessions controller
-            //       The route is fully specified and must match exactly
-            //       The tokens are well-known names to Web API
+            // ex: api/sessions/2/attendancelinks
+            // The {sessionId} is not optional, must be an integer, and 
+            // must match a method with a parameter named "sessionId" (case insensitive)
             routes.MapHttpRoute(
-                 name: "SessionBriefsApi",
-                routeTemplate: "api/sessions/briefs",
-                defaults: new { controller = "sessions", action = "briefs" }
+                name: "SessionAttendanceLinksApi",
+                routeTemplate: "api/sessions/{sessionId}/{action}",
+                defaults: new { controller = Names.Controllers.Sessions },
+                // only match integer ids, action must be specified w/ non-digit
+                constraints: new { sessionId = @"\d+" }
             );
 
-            // Ward: Action route to return TagGroups from Sessions controller
-            routes.MapHttpRoute(
-                 name: "SessionTagGroupsApi",
-                routeTemplate: "api/sessions/taggroups",
-                defaults: new { controller = "sessions", action = "taggroups" }
-            );
+            //PAPA: This ReSTful route finds the method on the controller using WebAPI conventions
+            //The {id} is not optional, must be an integer, and 
+            //must match a method with a parameter named "id" (case insensitive)
 
-            // PAPA: This route works for the type per controller
-            //       It is the default and should come after all more specific routes
-            //       The spelling of token names in {...} in the templates really MATTER
-            //       The name, {id} will match the param name 'id' in the GetById method
-            //       AND will match the "Id" property (yes, uppercase) of an entity.
-
+            // ex: api/sessions/1
             routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "ApiNumericId",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { },
+                constraints: new { id = @"^\d+$" } // only match digits
+            );
+
+            // ex: api/attendancelinks/?pid=2,sid=1
+            // ex: api/attendancelinks/2,1
+            routes.MapHttpRoute(
+                name: "AttendanceLinksByIds",
+                routeTemplate: "api/attendancelinks/{pid},{sid}",
+                defaults: new { controller = Names.Controllers.AttendanceLinks },
+                constraints: new { pid = @"^\d+$", sid = @"^\d+$" } // only match digits
+            );
+
+            // ex: api/sessions/briefs
+            //This RPC route finds the method on the controller 
+            routes.MapHttpRoute(
+                name: "ApiAction",
+                routeTemplate: "api/{controller}/{action}"
+            );
+
+            // ex: api/sessions
+            //This default ReSTful route finds the method on the controller using WebAPI conventions
+            //The template has no parameters.
+            routes.MapHttpRoute(
+                name: "ApiControllerOnly",
+                routeTemplate: "api/{controller}"
             );
 
             //PAPA: Commented this out because we wont be using MVC views

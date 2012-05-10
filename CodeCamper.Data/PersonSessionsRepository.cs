@@ -16,10 +16,16 @@ namespace CodeCamper.Data
             throw new InvalidOperationException("Cannot return a single PersonSessions object by id.");
         }
 
+        public PersonSession GetByIds(int personId, int sessionId)
+        {
+            return DbSet.FirstOrDefault(ps => ps.PersonId == personId && ps.SessionId == sessionId);
+        }
+
         public IQueryable<PersonSession> GetByPersonId(int id)
         {
             return DbSet.Where(ps => ps.PersonId == id);
         }
+
         public IQueryable<PersonSession> GetBySessionId(int id)
         {
             return DbSet.Where(ps => ps.SessionId == id);

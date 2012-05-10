@@ -9,5 +9,6 @@ namespace CodeCamper.Model
     {
         IQueryable<PersonSession> GetByPersonId(int id);
         IQueryable<PersonSession> GetBySessionId(int id);
+        PersonSession GetByIds(int personId, int sessionId);
     }
 }
