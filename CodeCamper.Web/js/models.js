@@ -30,9 +30,7 @@ my.models.Session = function () {
     self.date = ko.observable();
     self.tags = ko.observable();
     self.shortTimeSlot = ko.computed(function () {
-        var shortFormat = '{Weekday} {hh}:{mm} {tt}';
-        var sugarDate = Date.create(self.date());
-        return sugarDate.format(shortFormat);
+        return moment(self.date()).format('dddd hh:mm a');
     }, self);
     return self;
 };
