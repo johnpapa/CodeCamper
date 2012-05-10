@@ -1,9 +1,106 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Code Camper</title>
+
+    <title>Code Camper Tests</title>
+
+    <script type="text/javascript" src="Scripts/jquery-1.7.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="Content/qunit.css" /> 
+    <script type="text/javascript" src="Scripts/qunit.js"></script>
+
+    <!-- http://docs.jquery.com/QUnit -->
+    <!-- 
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script> 
+     -->
+
+ <script>
+
+     $(document).ready(function () {
+
+         module("WebAPI GET async tests");
+         
+         var lookups = ["rooms", "tracks", "timeslots"];
+         var len = lookups.length;
+         var lookupsUrl = "/api/lookups/";
+
+         for (var i = 0; i < len; i++) {
+             var lookupsActionUrl = lookupsUrl + lookups[i];
+             test(lookupsActionUrl, function () {
+                 stop();
+                 $.ajax({
+                     url: lookupsActionUrl,
+                     dataType: "json",
+                     success: function (data) {
+                         ok(data.length, "Got " + lookupsActionUrl);
+                         start();
+                     },
+                     error: function (data) {
+                         ok(false, "Failed with: " + data.responseText);
+                         start();
+                     }
+                 });
+             });
+         }
+
+         test(lookupsUrl , function () {
+             stop();
+             $.ajax({
+                 url: lookupsUrl,
+                 dataType: "json",
+                 success: function (data) {
+                     ok(!!data.Rooms && !!data.Tracks && !!data.TimeSlots,
+                         "Got " + lookupsUrl);
+                     start();
+                 },
+                 error: function (data) {
+                     ok(false, "Failed with: " + data.responseText);
+                     start();
+                 }
+             });
+         });
+
+
+         /* Boiler plate demo code from QUnit documentation
+
+         module("Module A");
+
+         test("a basic test example", function () {
+             ok(true, "this test is fine");
+             var value = "hello";
+             equal(value, "hello", "We expect value to be hello");
+         });
+
+         test("first test within module", function () {
+             ok(true, "all pass");
+         });
+
+         test("second test within module", function () {
+             ok(true, "all pass");
+         });
+
+         module("Module B");
+
+         test("some other test", function () {
+             expect(2);
+             equal(true, false, "failing test");
+             equal(true, true, "passing test");
+
+         });
+*/
+     });
+</script>
+ 
+  
 </head>
+<!-- Test Harness Display Area -->
 <body>
-    <h1>Code Camper is running.</h1>
+<h1 id="qunit-header">Code Camper is running with QUnit Test</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="qunit-fixture">test markup, will be hidden</div>
 </body>
 </html>
