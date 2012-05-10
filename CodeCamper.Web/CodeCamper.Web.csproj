@@ -180,7 +180,6 @@
       <DependentUpon>moment.js</DependentUpon>
     </Content>
     <Content Include="Scripts\sammy.js" />
-    <Content Include="Scripts\sugar-1.2.5.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
