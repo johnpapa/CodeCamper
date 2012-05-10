@@ -46,85 +46,88 @@ namespace CodeCamper.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            //
-            //PAPA: Revised all routes.
-            //
 
-            // Routes without {action} tokens rely on Web API conventions
-            // to find the matching method(s)
-            //
-            // Routes with {action} tokens follow the RPC pattern;
-            // WebAPI looks for a controller method that matches the {action}
-            // typically a method decorated with [ActionName("token")]
-            //
-            // The {personId} is not optional, must be an integer, and 
-            // must match a method with a parameter named "personId" (case insensitive)
-            //
-            // This exists so we can fetch AttendanceLinks by PersonId
-            //  ex: api/persons/2/attendancelinks
-            routes.MapHttpRoute(
-                 name: "PersonAttendanceLinksApi",
-                routeTemplate: "api/persons/{personId}/{action}",
-                defaults: new { controller = Names.Controllers.Persons },
-                // only match integer ids, action must be specified w/ non-digit
-                constraints: new { personId = @"\d+" }
-            );
+            /****************************************************
+             * PAPA: Revised all routes.
+             * 
+             * The most detailed and specific routes are first, 
+             * followed by less specific, ending in a final, "default" route.
+             * 
+             * Routes without {action} tokens rely on Web API conventions
+             * to find the matching method(s)
+             *
+             * Routes with {action} tokens follow the RPC pattern;
+             * WebAPI looks for a controller method that matches the {action},
+             * typically a method decorated with [ActionName("token")]
+            ******************************************************/
 
+            // Use the following route in CodeCamper to get 
+            // the AttendanceLinks of a particular Person, e.g.
+            // to find all sessions attended by the current user.
+            // 
+            // It matches an {action} (e.g., "attendencelink") to a method
+            // of the controller (e.g., "AttendenceLinksController").
+            // That method identifies a single parent entity (e.g., Person or Session)
+            // by a {id}. The {id} is not optional, must be an integer, and 
+            // must match the {action} method with a parameter named "Id" (case insensitive)
+            //
+            // ex: api/persons/2/attendancelinks
             // ex: api/sessions/2/attendancelinks
-            // The {sessionId} is not optional, must be an integer, and 
-            // must match a method with a parameter named "sessionId" (case insensitive)
-            //
-            // This exists so we can fetch AttendanceLinks by SessionId
             routes.MapHttpRoute(
-                name: "SessionAttendanceLinksApi",
-                routeTemplate: "api/sessions/{sessionId}/{action}",
-                defaults: new { controller = Names.Controllers.Sessions },
-                // only match integer ids, action must be specified w/ non-digit
-                constraints: new { sessionId = @"\d+" }
+                name: "ApiGetParentAttendanceLinks",
+                routeTemplate: "api/{controller}/{id}/{action}",
+                defaults: new { },
+                constraints: new { id = @"^\d+$" } // id must be all digits
             );
 
-            // This ReSTful route finds the method on the controller using WebAPI conventions
+            // With this route we fetch a single AttendanceLink by its key, a pair of ids.
+            // This is a controller-per-type route, pinned to a specific controller,
+            // the AttendanceLinksController.
+            //
+            //  ex: api/attendancelinks/?pid=2,sid=1
+            //  ex: api/attendancelinks/2,1
+            routes.MapHttpRoute(
+                name: "ApiGetAttendanceLinkByCompositeKey",
+                routeTemplate: "api/attendancelinks/{pid},{sid}",
+                defaults: new { controller = Names.Controllers.AttendanceLinks },
+                constraints: new { pid = @"^\d+$", sid = @"^\d+$" } // both ids must be all digits
+            );
+
+            // This controller-per-type route lets us fetch a single resource by numeric id
+            // It finds the appropriate method on the controller using WebAPI conventions
             // The {id} is not optional, must be an integer, and 
             // must match a method with a parameter named "id" (case insensitive)
             //
-            // This exists so we can fetch Controller Per Type , by id
             //  ex: api/sessions/1
-            //      api/persons/1
+            //  ex: api/persons/1
             routes.MapHttpRoute(
-                name: "ApiNumericId",
+                name: "ApiGetItemByIntegerId",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { },
-                constraints: new { id = @"^\d+$" } // only match digits
+                constraints: new { id = @"^\d+$" } // id must be all digits
             );
 
+            // The integer id constraint is necessary to distinguish this route
+            // from the next route. For example, this route handles
+            // "api/sessions/1" whereas the next route handles
+            // "api/sessions/speakers"
 
-            // This exists so we can fetch AttendanceLinks by the pair of id's
-            // This is also controller by type, albeit a type with a pair of id's.
-            //  ex: api/attendancelinks/?pid=2,sid=1
-            //      api/attendancelinks/2,1
-            routes.MapHttpRoute(
-                name: "ApiAttendanceLinksByIds",
-                routeTemplate: "api/attendancelinks/{pid},{sid}",
-                defaults: new { controller = Names.Controllers.AttendanceLinks },
-                constraints: new { pid = @"^\d+$", sid = @"^\d+$" } // only match digits
-            );
-
-            //This RPC route finds the method on the controller 
+            // This RPC style route is great for lookups and custom calls
+            // It matches the {action} to a method on the controller 
             //
-            // This exists so we can fetch RPC style. Great for lookups and custom calls
-            //  ex: api/sessions/briefs
+            // ex: api/sessions/briefs
+            // ex: api/lookups/rooms
             routes.MapHttpRoute(
                 name: "ApiAction",
                 routeTemplate: "api/{controller}/{action}"
             );
 
-            // This default ReSTful route finds the method on the controller using WebAPI conventions
+            // This default controller-per-type route is ideal for GetAll calls.
+            // It finds the method on the controller using WebAPI conventions
             // The template has no parameters.
             //
-            // This exists so we can fetch controller per type, without passing ids. 
-            // This is ideal for GetAll calls.
-            //  ex: api/sessions
-            //  ex: api/persons
+            // ex: api/sessions
+            // ex: api/persons
             routes.MapHttpRoute(
                 name: "ApiControllerOnly",
                 routeTemplate: "api/{controller}"
