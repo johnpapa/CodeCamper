@@ -40,6 +40,9 @@
             "/api/lookups",
             "/api/lookups/rooms",
             "/api/lookups/tracks",
+            "/api/lookups/timeslots/",
+
+            // Demo OData-ish filtering
             "/api/lookups/timeslots/?$filter=id%20eq%203",
 
             "/api/persons/?$top=3", // 'top 3' makes test 0.2 secs faster
@@ -71,10 +74,11 @@
                 url: url,
                 dataType: "json",
                 success: function (data) {
+                    ok(true, "GET succeeded for " + url);
                     start();
                 },
                 error: function (data) {
-                    ok(false, "Failed with: " + data.responseText);
+                    ok(false, "GET on "+ url + " failed: " + data.responseText);
                     start();
                 }
             });
@@ -86,8 +90,6 @@
         };
 
         // Test each endpoint in apiUrls
-        // These tests don't show up in the test harness count
-        // because of they are async within the 'for' loop
         for (var i = 0; i < apiUrlslen; i++) {
             var url = apiUrls[i];
             test(url, endpointTestGenerator(url));
