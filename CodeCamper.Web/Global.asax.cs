@@ -46,19 +46,22 @@ namespace CodeCamper.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            //
             //PAPA: Revised all routes.
+            //
 
             // Routes without {action} tokens rely on Web API conventions
             // to find the matching method(s)
-
+            //
             // Routes with {action} tokens follow the RPC pattern;
             // WebAPI looks for a controller method that matches the {action}
             // typically a method decorated with [ActionName("token")]
-
-            // ex: api/persons/2/attendancelinks
+            //
             // The {personId} is not optional, must be an integer, and 
             // must match a method with a parameter named "personId" (case insensitive)
+            //
+            // This exists so we can fetch AttendanceLinks by PersonId
+            //  ex: api/persons/2/attendancelinks
             routes.MapHttpRoute(
                  name: "PersonAttendanceLinksApi",
                 routeTemplate: "api/persons/{personId}/{action}",
@@ -70,6 +73,8 @@ namespace CodeCamper.Web
             // ex: api/sessions/2/attendancelinks
             // The {sessionId} is not optional, must be an integer, and 
             // must match a method with a parameter named "sessionId" (case insensitive)
+            //
+            // This exists so we can fetch AttendanceLinks by SessionId
             routes.MapHttpRoute(
                 name: "SessionAttendanceLinksApi",
                 routeTemplate: "api/sessions/{sessionId}/{action}",
@@ -78,11 +83,13 @@ namespace CodeCamper.Web
                 constraints: new { sessionId = @"\d+" }
             );
 
-            //PAPA: This ReSTful route finds the method on the controller using WebAPI conventions
-            //The {id} is not optional, must be an integer, and 
-            //must match a method with a parameter named "id" (case insensitive)
-
-            // ex: api/sessions/1
+            // This ReSTful route finds the method on the controller using WebAPI conventions
+            // The {id} is not optional, must be an integer, and 
+            // must match a method with a parameter named "id" (case insensitive)
+            //
+            // This exists so we can fetch Controller Per Type , by id
+            //  ex: api/sessions/1
+            //      api/persons/1
             routes.MapHttpRoute(
                 name: "ApiNumericId",
                 routeTemplate: "api/{controller}/{id}",
@@ -90,25 +97,34 @@ namespace CodeCamper.Web
                 constraints: new { id = @"^\d+$" } // only match digits
             );
 
-            // ex: api/attendancelinks/?pid=2,sid=1
-            // ex: api/attendancelinks/2,1
+
+            // This exists so we can fetch AttendanceLinks by the pair of id's
+            // This is also controller by type, albeit a type with a pair of id's.
+            //  ex: api/attendancelinks/?pid=2,sid=1
+            //      api/attendancelinks/2,1
             routes.MapHttpRoute(
-                name: "AttendanceLinksByIds",
+                name: "ApiAttendanceLinksByIds",
                 routeTemplate: "api/attendancelinks/{pid},{sid}",
                 defaults: new { controller = Names.Controllers.AttendanceLinks },
                 constraints: new { pid = @"^\d+$", sid = @"^\d+$" } // only match digits
             );
 
-            // ex: api/sessions/briefs
             //This RPC route finds the method on the controller 
+            //
+            // This exists so we can fetch RPC style. Great for lookups and custom calls
+            //  ex: api/sessions/briefs
             routes.MapHttpRoute(
                 name: "ApiAction",
                 routeTemplate: "api/{controller}/{action}"
             );
 
-            // ex: api/sessions
-            //This default ReSTful route finds the method on the controller using WebAPI conventions
-            //The template has no parameters.
+            // This default ReSTful route finds the method on the controller using WebAPI conventions
+            // The template has no parameters.
+            //
+            // This exists so we can fetch controller per type, without passing ids. 
+            // This is ideal for GetAll calls.
+            //  ex: api/sessions
+            //  ex: api/persons
             routes.MapHttpRoute(
                 name: "ApiControllerOnly",
                 routeTemplate: "api/{controller}"
