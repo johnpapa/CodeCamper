@@ -75,6 +75,7 @@
                 dataType: "json",
                 success: function (data) {
                     ok(true, "GET succeeded for " + url);
+                    ok(data, 'GET retrieved some data');
                     start();
                 },
                 error: function (data) {
