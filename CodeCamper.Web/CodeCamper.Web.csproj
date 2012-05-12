@@ -153,6 +153,7 @@
     <Content Include="index.html" />
     <Content Include="js\bootstrapper.js" />
     <Content Include="js\models.js" />
+    <Content Include="js\presenter.js" />
     <Content Include="js\vm.sessions.js" />
     <Content Include="js\vm.favorites.js" />
     <Content Include="js\mock.js" />
