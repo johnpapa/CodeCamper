@@ -14,12 +14,12 @@ namespace CodeCamper.Web.Controllers
         {
             DataService = dataService;
         }
-       
+
         // GET: api/attendancelinks
-        public HttpResponseMessage<IQueryable<AttendanceLink>> GetAttendanceLinks()
+        public IQueryable<AttendanceLink> GetAttendanceLinks()
         {
-            return new HttpResponseMessage<IQueryable<AttendanceLink>>(DataService.AttendanceLinks.GetAll());
-            //return new HttpResponseMessage<IQueryable<AttendanceLink>>(HttpStatusCode.Forbidden); //security violation
+            return DataService.AttendanceLinks.GetAll();
+            //throw new HttpResponseException(HttpStatusCode.Forbidden); //security violation
         }
 
         // GET: api/attendancelinks/pid,sid
