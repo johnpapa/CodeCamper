@@ -25,6 +25,12 @@ namespace CodeCamper.Web
         // PAPA: Added "Configure" in order to introduce IoC
         public static void Configure(HttpConfiguration config)
         {
+            ConfigureIoC(config);
+            ConfigureSerializer(config);
+        }
+
+        private static void ConfigureIoC(HttpConfiguration config) 
+        {
             var kernel = new StandardKernel(); // Ninject IoC
 
             // These registrations are "per instance request".
@@ -36,6 +42,14 @@ namespace CodeCamper.Web
             config.ServiceResolver.SetResolver(
                 t => kernel.TryGet(t),
                 t => kernel.GetAll(t));
+        }
+
+        private static void ConfigureSerializer(HttpConfiguration config)
+        {
+            // The first formatter is known to be the JsonFormatter.
+            // Per http://blogs.msdn.com/b/henrikn/archive/2012/02/18/using-json-net-with-asp-net-web-api.aspx
+            // Could play it safe and search for it but we'll take the easy route
+            config.Formatters[0] = new JsonNetFormatter();
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
