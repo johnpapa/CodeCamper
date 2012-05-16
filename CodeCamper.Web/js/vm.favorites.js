@@ -7,7 +7,7 @@ my.vm = my.vm || {}
 
 my.vm.favorites = (function(ko, ds, toastr) {
     var
-        sessions = ko.observable(),
+        sessions = ko.observableArray(),
         isActive = ko.observable(false),
         activate = function (routeData) { //TODO: routeData is not used. Remove it later.
             isActive(true);

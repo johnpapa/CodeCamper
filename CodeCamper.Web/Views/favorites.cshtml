@@ -1,29 +1,29 @@
 ﻿<section id="favorites" class="view">
-        <nav>
-            <ul>
-                <li><a href="#">Right Now</a></li>
-                <li><a href="#">Saturday May 1</a></li>
-                <li><a href="#">Sunday May 2</a></li>
-                <li><a href="#">Monday May 3</a></li>
-                <li><a href="#">Tuesday May 4</a></li>
-            </ul>
-        </nav>
-        <div>
-			<input placeholder="filter by speaker, title, tag, time slot, track" type="text">
-		</div>
-        <!-- ko foreach: sessions -->
-        <article>
-            <img data-bind="attr: {src: imageUrl}"/>
-            <time datetime="11:00" data-bind="text:shortTimeSlot"></time>
-            <h1 data-bind="text: title"></h1>
-            <input data-bind="attr: {id: 'session_' + id()}" type="checkbox"/><label data-bind="attr: {for: 'session_' + id()}"></label>
-            <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
-            <address data-bind="text: speaker().fullName"></address>
-        </article>
-        <!-- /ko -->
-        <div>
-            <h4 class="caption">Sessions JSON</h4>
-            <pre data-bind="text:debugInfo">
-            </pre>
-        </div>
-    </section>
+    <nav>
+        <ul>
+            <li><a href="#">Right Now</a></li>
+            <li><a href="#">Saturday May 1</a></li>
+            <li><a href="#">Sunday May 2</a></li>
+            <li><a href="#">Monday May 3</a></li>
+            <li><a href="#">Tuesday May 4</a></li>
+        </ul>
+    </nav>
+    <div>
+		<input placeholder="filter by speaker, title, tag, time slot, track" type="text">
+	</div>
+    <!-- ko foreach: sessions -->
+    <article>
+        <img data-bind="attr: {src: imageUrl}"/>
+        <time datetime="11:00" data-bind="text:shortTimeSlot"></time>
+        <h1 data-bind="text: title"></h1>
+        <input data-bind="attr: {id: 'session_' + id()}" type="checkbox"/><label data-bind="attr: {for: 'session_' + id()}"></label>
+        <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
+        <address data-bind="text: speaker().fullName"></address>
+    </article>
+    <!-- /ko -->
+    <div>
+        <h4 class="caption">Sessions JSON</h4>
+        <pre data-bind="text:debugInfo">
+        </pre>
+    </div>
+</section>

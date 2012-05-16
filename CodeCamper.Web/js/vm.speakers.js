@@ -6,7 +6,7 @@
 my.vm = my.vm || {}
 my.vm.speakers = (function (ko, ds, toastr) {
     var 
-        sessions = ko.observable(),
+        speakers = ko.observableArray(),
         activate = function(routeData) {
             ds.getSessions('speakers',
                 {
@@ -16,10 +16,10 @@ my.vm.speakers = (function (ko, ds, toastr) {
         },
         loadSessions = function(data) {
             toastr.success('received with ' + data.sessions.length + ' elements');
-            sessions(data.sessions);
+            speakers(data.speakers);
         };
     return {
-        sessions: sessions,
+        speakers: speakers,
         activate: activate
     }
 })(ko, my.dataservice.session, toastr);

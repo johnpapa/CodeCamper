@@ -157,6 +157,7 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="js\bootstrapper.js" />
+    <Content Include="js\vm.session.js" />
     <Content Include="js\models.js" />
     <Content Include="js\presenter.js" />
     <Content Include="js\vm.sessions.js" />
@@ -227,6 +228,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\sessions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\session.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

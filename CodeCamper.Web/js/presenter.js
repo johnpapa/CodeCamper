@@ -10,9 +10,10 @@
 // 	my.presenter.transitionTo('#A');
 // ----------------------------------------------
 var my = my || {};
-my.presenter = (function($) {
+
+my.presenter = (function ($) {
     var
-        options = {
+        transitionOptions = {
             fadeOut: 100,
             floatIn: 500,
             offset: '15px',
@@ -20,7 +21,7 @@ my.presenter = (function($) {
         },
         resetViews = function() {
             $('.view').css({
-                marginLeft: options.offset,
+                marginLeft: transitionOptions.offset,
                 opacity: 0
             })
         },
@@ -31,12 +32,12 @@ my.presenter = (function($) {
             }).addClass('view-active').animate({
                 marginLeft: 0,
                 opacity: 1
-            }, options.floatIn, options.ease);
+            }, transitionOptions.floatIn, transitionOptions.ease);
         },
         transitionTo = function($view, route) {
             var $activeViews = $('.view-active');
             if ($activeViews.length){
-                $activeViews .fadeOut(options.fadeOut, function() {
+                $activeViews.fadeOut(transitionOptions.fadeOut, function () {
                     resetViews();
                     entranceThemeTransition($view);
                 });
@@ -47,13 +48,15 @@ my.presenter = (function($) {
             }
             
             // Reset top level nav links
-            $('header > nav a[href].activeNav').removeClass('activeNav');
+            //$('header > nav a[href].activeNav').removeClass('activeNav');
+            $('nav a[href].activeNav').removeClass('activeNav');
             if (route) {
-                $('a[href="' + route + '"]').addClass('activeNav');
+                // Highlight the selected nav that matches the route
+                $('nav a[href="' + route + '"]').addClass('activeNav');
             }
-        };
+        }
     return {
-        options: options,
+        transitionOptions: transitionOptions,
         transitionTo: transitionTo
     }
 })(jQuery);

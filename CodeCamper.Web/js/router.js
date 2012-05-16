@@ -10,40 +10,29 @@
 //      the viewmodels should exist.
 // ----------------------------------------------
 var my = my || {};
-my.router = (function ($, Sammy, presenter) {
-    var sammy = new Sammy.Application(),
-        prevViewModel,
-        register = function(options) {
-            var 
-                view = options.view,
-                route = options.route,
-                viewModel = options.viewModel,
-                hash = route !== undefined ? (route.length ? '#/' + route : '#/') : '#/' + view,
-                hashWildcard = new RegExp('#\\/' + view + '.*'),
-                $element = $('#' + view)
 
-            if (!viewModel) {
-                throw Error('viewModel must be specified.')
+my.router = (function ($, sammy, presenter) {
+    var
+        register = function (options) {
+            if (options.routes) {
+                options.routes.forEach(function (route) {
+                    registerRoute(route.route, route.callback, options.view)
+                })
+                return
             }
 
-            if (viewModel) {
-                ko.applyBindings(viewModel, $element.get(0))
+            registerRoute(options.route, options.callback, options.view)
+        },
+        registerRoute = function (route, callback, view) {
+            if (!callback) {
+                throw Error('callback must be specified.')
             }
 
-            sammy.before(hashWildcard, function () {
-                $('.view').hide()
-                //$element.show()
-                presenter.transitionTo($element, hash)
-            })
-
-            sammy.get(hash, function () {
-                if (prevViewModel && prevViewModel.deactivate) {
-                    prevViewModel.deactivate();                   
-                }
-                if (viewModel.activate) {
-                    viewModel.activate(this.params)
-                }
-                prevViewModel = viewModel // TODO: Do I even need prevViewModel ???
+            sammy.get(route, function () {
+                callback(this.params)
+                $('body > section').hide()
+                //$('.view').hide()
+                presenter.transitionTo($(view), route)
             })
         },
         run = function(startUrl) {
@@ -53,4 +42,4 @@ my.router = (function ($, Sammy, presenter) {
         register: register,
         run: run
     }
-})(jQuery, Sammy, my.presenter)
+})(jQuery, new Sammy.Application(), my.presenter)
