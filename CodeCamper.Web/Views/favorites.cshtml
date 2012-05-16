@@ -8,13 +8,17 @@
                 <li><a href="#">Tuesday May 4</a></li>
             </ul>
         </nav>
-        <h1>Sunday May 2</h1>
+        <div>
+			<input placeholder="filter by speaker, title, tag, time slot, track" type="text">
+		</div>
         <!-- ko foreach: sessions -->
         <article>
             <img data-bind="attr: {src: imageUrl}"/>
             <time datetime="11:00" data-bind="text:shortTimeSlot"></time>
             <h1 data-bind="text: title"></h1>
-            <input data-bind="attr: {id: 'session_' + id()}" type="checkbox"/><label data-bind="attr: {for: 'session_' + id()}"></label>            <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>            <address data-bind="text: speaker().fullName"></address>
+            <input data-bind="attr: {id: 'session_' + id()}" type="checkbox"/><label data-bind="attr: {for: 'session_' + id()}"></label>
+            <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
+            <address data-bind="text: speaker().fullName"></address>
         </article>
         <!-- /ko -->
         <div>

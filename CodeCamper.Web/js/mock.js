@@ -22,6 +22,11 @@ $.mockJSON.data.TITLE = [
     'Introduction to Building Windows 8 Metro Applications',
     'Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery',
     'jQuery Fundamentals',
+    'jQuery Tips and Tricks',
+    'JavaScript for .NET Developers',
+    'jQuery Mobile',
+    'Bootstrap',
+    'Responsive Web Design',
     'Structuring JavaScript Code',
     'Keynote'
 ];
@@ -42,6 +47,7 @@ my.mock = (function ($) {
                     code: '@LOREM',
                     level: '@LEVEL',
                     title: '@TITLE',
+                    'isFavorite|0-1': true,
                     description: '@LOREM_IPSUM',
                     track: '@TRACK',
                     date: '@DATE_TODAY @TIME_HH:@TIME_MM:@TIME_SS +0000',

@@ -53,6 +53,7 @@ my.modelMappers = (function () {
                 .description(raw.description)
                 .track(raw.track)
                 .date(raw.date)
+                .isFavorite(raw.isFavorite)
                 .tags(raw.tags);
         };
     return {
