@@ -19,11 +19,15 @@ my.vm.sessions = (function (ko, ds, toastr) {
             sessions(data.sessions);
         },
         loadByDate = function (data) {
-            toastr.success('load by date');
+            toastr.info('load by date');
+        },
+        loadByTrack= function (data) {
+            toastr.info('load by track');
         };
     return {
         sessions: sessions,
         activate: activate,
-        loadByDate: loadByDate
+        loadByDate: loadByDate,
+        loadByTrack: loadByTrack
     }
 })(ko, my.dataservice.session, toastr);

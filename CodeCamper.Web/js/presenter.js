@@ -49,10 +49,14 @@ my.presenter = (function ($) {
             
             // Reset top level nav links
             //$('header > nav a[href].activeNav').removeClass('activeNav');
-            $('nav a[href].activeNav').removeClass('activeNav');
+            //var $prevNavElements = $('nav a[href].activeNav')
+            //$prevNavElements = $('nav > ul > li > a[href]')
+            //var $prevNavElements = $('nav > ul > li > a[href="' + route + '"]').closest('nav').has('a.activeNav').find('a.activeNav')
+            var $prevNavElements = $('nav > ul > li > a[href="' + route + '"]').closest('nav').find('a.activeNav')
+            $prevNavElements.removeClass('activeNav');
             if (route) {
                 // Highlight the selected nav that matches the route
-                $('nav a[href="' + route + '"]').addClass('activeNav');
+                $('nav > ul > li > a[href="' + route + '"]').addClass('activeNav');
             }
         }
     return {

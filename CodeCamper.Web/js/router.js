@@ -27,12 +27,16 @@ my.router = (function ($, sammy, presenter) {
             if (!callback) {
                 throw Error('callback must be specified.')
             }
+            //var hash = new RegExp('#\\/' + route + '.*')
+            //var hash = new RegExp('\\^' + route + '$.*')
 
-            sammy.get(route, function () {
-                callback(this.params)
+            sammy.get(route, function (context) {
+                //context is this
+                callback(context.params)
                 $('body > section').hide()
                 //$('.view').hide()
-                presenter.transitionTo($(view), route)
+                presenter.transitionTo($(view), context.path)
+                //context.$element().append('<h1>hello</h1>') //TODO: for testing
             })
         },
         run = function(startUrl) {
