@@ -8,12 +8,17 @@ my.vm = my.vm || {}
 my.vm.favorites = (function(ko, ds, toastr) {
     var
         sessions = ko.observable(),
+        isActive = ko.observable(false),
         activate = function (routeData) { //TODO: routeData is not used. Remove it later.
+            isActive(true);
             ds.getSessions('favorites',
                 {
                     success: loadSessions,
                     error: function () { toastr.error('oops!'); }
                 })
+        },
+        deactivate = function () {
+            isActive(false);
         },
         loadSessions = function (data) {
             sessions(data.sessions.map(function (s) { return my.modelMappers.mapSession(s) }));
@@ -26,6 +31,7 @@ my.vm.favorites = (function(ko, ds, toastr) {
     return {
         sessions: sessions,
         activate: activate,
+        deactivate: deactivate,
         debugInfo: debugInfo
     }
 })(ko, my.dataservice.session, toastr);

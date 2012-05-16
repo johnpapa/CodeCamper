@@ -9,6 +9,7 @@ var my = my || {};
 
 // Adding the @SPEAKER_FIRST_NAME keyword
 //$.mockJSON.random = false;
+$.mockJSON.log = false;
 $.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward'];
 $.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell'];
 $.mockJSON.data.DATE_TODAY = [moment().format('MMMM DD YYYY')];

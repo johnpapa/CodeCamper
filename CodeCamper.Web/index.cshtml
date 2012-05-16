@@ -15,8 +15,8 @@
     <header>
         <h1>Code Camper</h1>
         <nav>
-				<ul>
-					<li><a href="#/favorites">Favorites</a></li>
+				<ul data-bind="if: $data">
+                    <li><a href="#/favorites" >My</a></li>
 					<li><a href="#/sessions">Sessions</a></li>
 					<li><a href="#/speakers">Speakers</a></li>
 				</ul>

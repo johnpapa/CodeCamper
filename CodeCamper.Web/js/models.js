@@ -29,6 +29,7 @@ my.models.Session = function () {
     self.track = ko.observable();
     self.date = ko.observable();
     self.tags = ko.observable();
+    self.isFavorite = ko.observable();
     self.shortTimeSlot = ko.computed(function () {
         return moment(self.date()).format('dddd hh:mm a');
     }, self);

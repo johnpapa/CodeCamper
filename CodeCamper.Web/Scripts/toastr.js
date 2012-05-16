@@ -1,10 +1,10 @@
-// By: Hans Fjällemark and John Papa
-// https://github.com/KnockedUp/toastr
+// By: Hans Fjï¿½llemark and John Papa
+// https://github.com/CodeSeven/toastr
 // 
 // Modified to support css styling instead of inline styling
-// Based on original version at https://github.com/Srirangan/notifer.js/
+// Inspired by https://github.com/Srirangan/notifer.js/
 
-(function(window, $) {
+;(function(window, $) {
     window.toastr = (function() {
         var 
             defaults = {
@@ -89,6 +89,9 @@
                 }
 
                 var fadeAway = function() {
+                    if ($(':focus', $toastElement).length > 0)
+                		return
+                	
                     var fade = function() {
                         return $toastElement.fadeOut(options.fadeOut)
                     }
@@ -153,4 +156,4 @@
             warning: warning
         }
     })()
-} (window, jQuery))
+} (window, jQuery));

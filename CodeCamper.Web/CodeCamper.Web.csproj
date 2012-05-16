@@ -149,6 +149,7 @@
     <Content Include="Content\john.jpg" />
     <Content Include="Content\qunit.css" />
     <Content Include="Content\scott.jpg" />
+    <Content Include="Content\search.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Content\toastr.css" />

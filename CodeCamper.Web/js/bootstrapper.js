@@ -8,7 +8,7 @@
 // ----------------------------------------------
 var my = my || {};
 
-my.bootstrapper = (function (router, dataservice, vm) {
+my.bootstrapper = (function (ko, router, dataservice, vm) {
     var run = function() {
         dataservice.session.init();
         router.register({ view: 'favorites', viewModel: vm.favorites });
@@ -19,7 +19,7 @@ my.bootstrapper = (function (router, dataservice, vm) {
     return {
         run: run
     }
-})(my.router, my.dataservice, my.vm)
+})(ko, my.router, my.dataservice, my.vm)
 
 $(function() {
     my.bootstrapper.run();

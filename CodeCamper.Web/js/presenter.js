@@ -33,8 +33,7 @@ my.presenter = (function($) {
                 opacity: 1
             }, options.floatIn, options.ease);
         },
-        transitionTo = function(view) {
-            var $view = $(view);
+        transitionTo = function($view, route) {
             var $activeViews = $('.view-active');
             if ($activeViews.length){
                 $activeViews .fadeOut(options.fadeOut, function() {
@@ -45,6 +44,12 @@ my.presenter = (function($) {
             }else{
                 resetViews();
                 entranceThemeTransition($view);
+            }
+            
+            // Reset top level nav links
+            $('header > nav a[href].activeNav').removeClass('activeNav');
+            if (route) {
+                $('a[href="' + route + '"]').addClass('activeNav');
             }
         };
     return {
