@@ -31,7 +31,7 @@ my.bootstrapper = (function (ko, router, presenter, dataservice, vm) {
         //router.register({ route: /^#\/session\/:id/, callback: vm.sessions.activate, view: '#session' })
         //router.register({ route: /^#\/speakers/, callback: vm.speakers.activate, view: '#speakers' })
 
-                
+        //TODO: Shorten these up with root route prefixes
         router.register({
             routes:
                 [{ route: '#/favorites', callback: vm.favorites.activate },
@@ -46,7 +46,8 @@ my.bootstrapper = (function (ko, router, presenter, dataservice, vm) {
                 { route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack }],
             view: '#sessions'
         })
-        router.register({ route: '#/session/:id', callback: vm.sessions.activate, view: '#session' })
+        router.register({ route: '#/sessions/:id', callback: vm.sessions.activate, view: '#session' })
+
         router.register({ route: '#/speakers', callback: vm.speakers.activate, view: '#speakers' })
 
         // Catch invalid routes
