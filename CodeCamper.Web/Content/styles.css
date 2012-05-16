@@ -26,21 +26,8 @@ input {
 /* 2.1 LAYOUT
 --------------------------------------------------------- */
 html {
-	background: #72e1fd; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover,  #72e1fd 0%, #0a8ad5 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#72e1fd), color-stop(100%,#0a8ad5)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover,  #72e1fd 0%,#0a8ad5 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover,  #72e1fd 0%,#0a8ad5 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover,  #72e1fd 0%,#0a8ad5 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover,  #72e1fd 0%,#0a8ad5 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#72e1fd', endColorstr='#0a8ad5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	color: white;
 	padding: 0 7%;
-
-	background: -webkit-radial-gradient(right top, ellipse farthest-corner, #ffffff 0%, #eeeeee 100%);
-	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%, #eeeeee 100%); /* Chrome10+,Safari5.1+ */
-
-    background: -webkit-radial-gradient(top right, ellipse farthest-corner, #ffffff -50%, #14649E 50%); /* Chrome10+,Safari5.1+ */
 	background: #14649E;
 }
 
