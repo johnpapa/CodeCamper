@@ -1,10 +1,13 @@
 ﻿<section id="favorites" class="view">
     <nav>
-        <ul>
+        <ul data-bind="foreach: days">
+            <li><a data-bind="attr: {href: '#/favorites/date/' + dateOnly }, text: formattedDate"></a></li>
+        </ul>
+@*        <ul>
             <li><a href="#/favorites/date/20120518">Right Now</a></li>
             <li><a href="#/favorites/date/20120519">Saturday May 19</a></li>
             <li><a href="#/favorites/date/20120520">Sunday May 20</a></li>
-        </ul>
+        </ul>*@
     </nav>
     <div>
 		<input placeholder="filter by speaker, title, tag, time slot, track" type="text">

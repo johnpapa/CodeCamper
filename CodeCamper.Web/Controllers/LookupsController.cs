@@ -44,7 +44,7 @@ namespace CodeCamper.Web.Controllers
 
         // Lookups: aggregates the many little lookup lists in one payload
         // to reduce roundtrips when the client launches.
-        // GET: api/lookups/lookups
+        // GET: api/lookups
         //[ActionName(Names.Actions.Lookups)]
         public Lookups GetLookups()
         {

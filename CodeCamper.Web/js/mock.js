@@ -57,7 +57,7 @@ my.mock = (function ($) {
         }
     return {
 		useMocks: useMocks,
-		models: { sessions: sessions },
+		model: { sessions: sessions },
 		dataservice : {}
     }
 })(jQuery);

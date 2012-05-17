@@ -147,6 +147,10 @@
     <Content Include="Content\hans.jpg" />
     <Content Include="Content\icon.png" />
     <Content Include="Content\john.jpg" />
+    <Content Include="js\model.mapper.js" />
+    <Content Include="js\datacontext.js" />
+    <Content Include="js\dataprimer.js" />
+    <Content Include="js\dataservice.lookup.js" />
     <Content Include="test\qunit\qunit.css" />
     <Content Include="Content\scott.jpg" />
     <Content Include="Content\search.png" />
@@ -158,7 +162,7 @@
     <Content Include="test\webapi-tests.html" />
     <Content Include="js\bootstrapper.js" />
     <Content Include="js\vm.session.js" />
-    <Content Include="js\models.js" />
+    <Content Include="js\model.js" />
     <Content Include="js\presenter.js" />
     <Content Include="js\vm.sessions.js" />
     <Content Include="js\vm.favorites.js" />
