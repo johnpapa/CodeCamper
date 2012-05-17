@@ -146,11 +146,16 @@
     <Content Include="Content\dan.jpg" />
     <Content Include="Content\hans.jpg" />
     <Content Include="Content\icon.png" />
+    <Content Include="Content\jim.jpg" />
     <Content Include="Content\john.jpg" />
     <Content Include="js\model.mapper.js" />
     <Content Include="js\datacontext.js" />
     <Content Include="js\dataprimer.js" />
     <Content Include="js\dataservice.lookup.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\json2.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="test\qunit\qunit.css" />
     <Content Include="Content\scott.jpg" />
     <Content Include="Content\search.png" />

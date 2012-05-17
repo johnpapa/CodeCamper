@@ -10,8 +10,8 @@ var my = my || {};
 // Adding the @SPEAKER_FIRST_NAME keyword
 //$.mockJSON.random = false;
 $.mockJSON.log = false;
-$.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward'];
-$.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell'];
+$.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward', 'Jim'];
+$.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell', 'Cowart'];
 $.mockJSON.data.DATE_TODAY = [moment().format('MMMM DD YYYY')];
 //$.mockJSON.data.DATE_NOW = [Date.create().format('{Weekday} {Month} {d} {hh}:{mm} {tt} {yyyy}')];
 $.mockJSON.data.TAG = ['JavaScript', 'Knockout', 'MVVM', 'HTML5', 'Keynote', 'SQL', 'CSS', 'Metro', 'UX'];

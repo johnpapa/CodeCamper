@@ -10,19 +10,22 @@ my.vm.favorites = (function (ko, toastr, datacontext, dataservice, model) {
         sessions = ko.observableArray(),
         timeslots = ko.observableArray(),
         days = ko.computed(function () {
-            var index = { },
-                result = []
+            var
+                result = _.reduce(timeslots(), function (memo, slot) {
+                    var
+                    date = moment(moment(slot.start()).format('MM-DD-YYYY')).toDate(),
+                    day = moment(date).format('ddd MMM DD')
+                    if (!memo.index[day.toString()]) {
+                        memo.index[day.toString()] = true
+                        memo.slots.push({
+                            date: date,
+                            day: day
+                        })
+                    }
+                    return memo
+                }, { index: {}, slots: [] })
 
-            ko.utils.arrayForEach(timeslots(), function(slot) {
-                var date = moment(moment(slot.start()).format('YYYY MM DD')).toDate(),
-                    day = moment(date).format('ddd MMM DD').toString()
-                if (!index[day]) {
-                    result.push({date: date,day: day})
-                    index[day] = true
-                }
-                //return result
-            })
-            sortedDays = result.sort(function (a, b) { return a.date > b.date })
+            sortedDays = result.slots.sort(function (a, b) { return a.date > b.date })
             console.log(sortedDays)
             return sortedDays
         }),

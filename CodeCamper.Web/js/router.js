@@ -15,7 +15,8 @@ my.router = (function ($, sammy, presenter) {
     var
         register = function (options) {
             if (options.routes) {
-                options.routes.forEach(function (route) {
+                //options.routes.forEach(function (route) {
+                _.each(options.routes, function (route) {
                     registerRoute(route.route, route.callback, options.view)
                 })
                 return
