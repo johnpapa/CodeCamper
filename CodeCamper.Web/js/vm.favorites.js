@@ -10,21 +10,21 @@ my.vm.favorites = (function (ko, toastr, datacontext, dataservice, model) {
         sessions = ko.observableArray(),
         timeslots = ko.observableArray(),
         days = ko.computed(function () {
-            var temp = []
-            for (var i = 0; i < timeslots().length; i++) {
-                if (temp.indexOf(timeslots()[i].dateOnly()) < 0) {
-                    temp.push(timeslots()[i].dateOnly())
+            var index = { },
+                result = []
+
+            ko.utils.arrayForEach(timeslots(), function(slot) {
+                var date = moment(moment(slot.start()).format('YYYY MM DD')).toDate(),
+                    day = moment(date).format('ddd MMM DD').toString()
+                if (!index[day]) {
+                    result.push({date: date,day: day})
+                    index[day] = true
                 }
-            }
-            justdays = ko.utils.arrayGetDistinctValues(temp).sort()
-            for (var i = 0; i < justdays.length; i++) {
-                oldVal = justdays[i]
-                justdays[i] = {
-                    dateOnly: oldVal,
-                    formattedDate: moment(oldVal).format('ddd MMM DD')
-                }
-            }
-            return justdays
+                //return result
+            })
+            sortedDays = result.sort(function (a, b) { return a.date > b.date })
+            console.log(sortedDays)
+            return sortedDays
         }),
         activate = function (routeData) { //TODO: routeData is not used. Remove it later.
 
