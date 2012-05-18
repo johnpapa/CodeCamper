@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq.Expressions;
-using System.Linq;
-using System.Text;
 
-namespace CodeCamper.Model
+namespace CodeCamper.Data
 {
     public static class PredicateBuilder
     {

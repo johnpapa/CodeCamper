@@ -45,7 +45,6 @@
     <Compile Include="IAttendanceLinksRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISessionsRepository.cs" />
-    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="TimeSlot.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="Room.cs" />

@@ -60,6 +60,7 @@
     <Compile Include="CodeCamperDbContext.cs" />
     <Compile Include="CodeCamperDataService.cs" />
     <Compile Include="CodeCamperRepositoryProvider.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="SessionConfiguration.cs" />
     <Compile Include="AttendanceLinkConfiguration.cs" />
     <Compile Include="SessionsRepository.cs" />
