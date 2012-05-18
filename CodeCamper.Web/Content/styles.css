@@ -29,6 +29,10 @@ html {
 	color: white;
 	padding: 0 7%;
 	background: #14649E;
+    -moz-box-shadow: inset 0px 0px 250px #000000;
+    -webkit-box-shadow: inset 0px 0px 250px #3C3C3C;
+    -o-box-shadow: inset 0px 0px 250px #000000;
+    box-shadow: inset 0px 0px 250px #3C3C3C;
 }
 
 body {
