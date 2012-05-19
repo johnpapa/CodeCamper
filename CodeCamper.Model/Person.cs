@@ -8,7 +8,7 @@ namespace CodeCamper.Model
     {
         public Person()
         {
-            Gender = " "; // make not assumption
+            Gender = " "; // make no assumption
         }
         public int Id { get; set; }
         public string FirstName { get; set; }
