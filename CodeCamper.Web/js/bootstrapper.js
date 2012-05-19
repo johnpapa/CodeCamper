@@ -13,8 +13,14 @@
 // ----------------------------------------------
 var my = my || {};
 
-my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer) {
+my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config, dataservice) {
     var
+        dataserviceInit = function () {
+            dataservice.session.init()
+            dataservice.lookup.init()
+            //TODO: turn mocks on or off
+            config.dataserviceInit()
+        },
         bindViewModelsToViews = function () {
             ko.applyBindings(vm.session, $('#session').get(0))
             ko.applyBindings(vm.sessions, $('#sessions').get(0))
@@ -25,6 +31,7 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer) {
         registerRoutes = function () {
             // Bind the views to the view models
             //TODO: Shorten these up with root route prefixes
+            // Favorites routes
             router.register({
                 routes:
                     [{ route: '#/favorites', callback: vm.favorites.activate },
@@ -32,6 +39,7 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer) {
                     { route: '#/favorites/track/:track', callback: vm.favorites.loadByTrack }],
                 view: '#favorites'
             })
+            // Sessions routes
             router.register({
                 routes:
                     [{ route: '#/sessions', callback: vm.sessions.activate },
@@ -39,8 +47,10 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer) {
                     { route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack }],
                 view: '#sessions'
             })
+            // Session details routes
             router.register({ route: '#/sessions/:id', callback: vm.sessions.activate, view: '#session' })
 
+            // Speakers list routes
             router.register({ route: '#/speakers', callback: vm.speakers.activate, view: '#speakers' })
 
             // Catch invalid routes
@@ -52,20 +62,18 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer) {
         run = function () {
             toastr.options.timeOut = 2000 //TODO: Just for testing
 
+            // Set up the dataservice for "how it is going to roll" ... Ward Bell
+            dataserviceInit()
             // prime the data services and eager load the lookups
-            dataprimer.init()
             $.when(dataprimer.fetchlookups())
                 //.then(function(){toastr.info('hi')})
                 .then(bindViewModelsToViews)
                 .then(registerRoutes)
-            //dataprimer.fetchlookups()
-            //bindViewModelsToViews()
-            //registerRoutes()
         }
     return {
         run: run
     }
-})(jQuery, ko, toastr, my.router, my.vm, my.dataprimer)
+})(jQuery, ko, toastr, my.router, my.vm, my.dataprimer, my.config, my.dataservice)
 
 $(function() {
     my.bootstrapper.run();

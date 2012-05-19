@@ -3,6 +3,7 @@
 // 	toastr
 //	my.dataservice.session
 // ----------------------------------------------
+var my = my || {};
 my.vm = my.vm || {}
 
 my.vm.favorites = (function (ko, toastr, datacontext, dataservice, model) {
@@ -13,25 +14,30 @@ my.vm.favorites = (function (ko, toastr, datacontext, dataservice, model) {
             var
                 result = _.reduce(timeslots(), function (memo, slot) {
                     var
-                    date = moment(moment(slot.start()).format('MM-DD-YYYY')).toDate(),
-                    day = moment(date).format('ddd MMM DD')
+                        date = moment(moment(slot.start()).format('MM-DD-YYYY')).toDate(),
+                        day = moment(date).format('ddd MMM DD')
+
                     if (!memo.index[day.toString()]) {
-                        memo.index[day.toString()] = true
-                        memo.slots.push({
-                            date: date,
-                            day: day
-                        })
+                        memo.index[day.toString()] = true // This is created so i dont have to loop through the array each time again
+                        memo.slots.push({ date: date, day: day })
                     }
                     return memo
                 }, { index: {}, slots: [] })
 
             sortedDays = result.slots.sort(function (a, b) { return a.date > b.date })
-            console.log(sortedDays)
             return sortedDays
         }),
         activate = function (routeData) { //TODO: routeData is not used. Remove it later.
 
-            //timeslots(datacontext.timeslots())
+            // TODO: do we point to datacontext or copy it?
+            // Just point to and filter the timeslots from the datacontext. Let's try this.
+            // Option 1) set the observableArray to an observableArray
+            // timeslots = datacontext.timeslots
+            // Option 2) other option is to filter them
+            //  timeslots = ko.computed(function () {
+            //      return datacontext.timeslots // add a filter
+            //  })
+            // Option 3) Right now I am copying the timeslots from the datacontext to this viewmodel
             timeslots(datacontext.timeslots().map(function (ts) { return model.mapper.mapTimeSlot(ts) }))
 
             dataservice.session.getSessions('favorites',
@@ -45,10 +51,10 @@ my.vm.favorites = (function (ko, toastr, datacontext, dataservice, model) {
             toastr.success('received with ' + sessions().length + ' elements');
         },
         loadByDate = function (data) {
-            toastr.info('load by date');
+            toastr.warning('load by date not implemented');
         },
         loadByTrack = function (data) {
-            toastr.info('load by track');
+            toastr.warning('load by track not implemented');
         },
         debugInfo = ko.computed(function () {
             return JSON.stringify(ko.toJS(timeslots), null, 2)

@@ -148,6 +148,8 @@
     <Content Include="Content\icon.png" />
     <Content Include="Content\jim.jpg" />
     <Content Include="Content\john.jpg" />
+    <Content Include="Content\Ryan.jpg" />
+    <Content Include="js\config.js" />
     <Content Include="js\model.mapper.js" />
     <Content Include="js\datacontext.js" />
     <Content Include="js\dataprimer.js" />
@@ -171,8 +173,8 @@
     <Content Include="js\presenter.js" />
     <Content Include="js\vm.sessions.js" />
     <Content Include="js\vm.favorites.js" />
-    <Content Include="js\mock.js" />
-    <Content Include="js\mock.dataservice.session.js" />
+    <Content Include="js\mock\mock.js" />
+    <Content Include="js\mock\mock.dataservice.session.js" />
     <Content Include="js\router.js" />
     <Content Include="js\dataservice.session.js" />
     <Content Include="js\vm.speakers.js" />

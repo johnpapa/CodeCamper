@@ -11,10 +11,6 @@ var my = my || {}
 
 my.dataprimer = (function (toastr, dataservice, datacontext) {
     var
-        init = function () {
-            dataservice.session.init()
-            dataservice.lookup.init()
-        },
         fetchLookups = function () {
             // Eager-Fetch lookup data
             //var def = $.Deferred()
@@ -24,8 +20,9 @@ my.dataprimer = (function (toastr, dataservice, datacontext) {
                         success:
                             function (data) {
                                 datacontext.rooms = data.Rooms
-                                datacontext.timeslots(data.TimeSlots)
+                                datacontext.timeslots(data.TimeSlots) //TODO: This guy should use my.model.mapper
                                 datacontext.tracks = data.Tracks
+                                //TODO: need to get SessionBrief and Attendance and Speaker (which is brief of Person)
                                 def.resolve(data)
                             },
                         error: function () {
@@ -34,22 +31,8 @@ my.dataprimer = (function (toastr, dataservice, datacontext) {
                         }
                     })
             }).promise();
-
-            //dataservice.lookup.getLookups(
-            //    {
-            //        success:
-            //            function (data) {
-            //                datacontext.rooms = data.Rooms
-            //                datacontext.timeslots(data.TimeSlots)
-            //                datacontext.tracks = data.Tracks
-            //            },
-            //        error: function () {
-            //            toastr.error('problem fetching lookup data');
-            //        }
-            //    })
         }
     return {
-        init: init,
         fetchlookups: fetchLookups
     }
 })(toastr, my.dataservice, my.datacontext)

@@ -2,7 +2,7 @@
 //	jQuery
 // 	Knockout
 // ----------------------------------------------
-
+var my = my || {};
 my.model = my.model || {};
 
 my.model.TimeSlot = function () {
@@ -19,6 +19,8 @@ my.model.TimeSlot = function () {
     self.dayStart = ko.computed(function () {
         return moment(self.start()).format('dddd MMM Do');
     }, self);
+    // Reach into datacontext and get the sessions for this, and then map them ???
+    //self.sessions = ko.computed(function () {  });
     return self;
 };
 
