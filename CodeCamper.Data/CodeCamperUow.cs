@@ -71,11 +71,11 @@ namespace CodeCamper.Data
 
         private IRepository<T> GetStandardRepo<T>() where T : class
         {
-            return RepositoryProvider.GetStandardRepo<T>();
+            return RepositoryProvider.GetRepositoryForEntityType<T>();
         }
         private T GetRepo<T>() where T : class
         {
-            return RepositoryProvider.GetRepo<T>();
+            return RepositoryProvider.GetRepository<T>();
         }
 
         private CodeCamperDbContext DbContext { get; set; }

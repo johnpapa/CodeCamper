@@ -8,7 +8,7 @@ using CodeCamper.Model;
 namespace CodeCamper.Data
 {
     /// <summary>
-    /// A maker of Repositories.
+    /// A maker of Code Camper Repositories.
     /// </summary>
     /// <remarks>
     /// An instance of this class contains repository factory functions for different types.
@@ -18,44 +18,69 @@ namespace CodeCamper.Data
     /// Designed to be a "Singleton", configured at web application start with
     /// all of the factory functions needed to create any type of repository.
     /// Should be thread-safe to use because it is configured at app start,
-    /// before any request for a factory, and is immutable thereafter.
+    /// before any request for a factory, and should be immutable thereafter.
     /// </para>
     /// </remarks>
-    public abstract class RepositoryFactories
+    public class RepositoryFactories
     {
-        public RepositoryFactories( )
+        /// <summary>
+        /// Return the runtime Code Camper repository factory functions,
+        /// each one is a factory for a repository of a particular type.
+        /// </summary>
+        /// <remarks>
+        /// MODIFY THIS METHOD TO ADD CUSTOM CODE CAMPER FACTORY FUNCTIONS
+        /// </remarks>
+        private IDictionary<Type, Func<DbContext, object>> GetCodeCamperFactories()
         {
-            _repositoryFactories = 
-                new Dictionary<Type, Func<DbContext, object>>(GetInitialFactoryFunctions());
+            return new Dictionary<Type, Func<DbContext, object>>
+                {
+                   {typeof(IAttendanceRepository), dbContext => new AttendanceRepository(dbContext)},
+                   {typeof(IPersonsRepository), dbContext => new PersonsRepository(dbContext)},
+                   {typeof(ISessionsRepository), dbContext => new SessionsRepository(dbContext)},
+                };
         }
 
         /// <summary>
-        /// Return the dictionary of repository factory functions,
-        /// each the factory for a repository of a particular type.
+        /// Constructor that initializes with runtime Code Camper repository factories
         /// </summary>
-        /// <remarks>
-        /// The initializing dictionary of repository factory functions.
-        /// If contents are copied into the base class's private dictionary;
-        /// the derived class can not (easily) alter the base class's private factories.
-        /// This is necessary to preserve the immutability guarantee that
-        /// supports thread safety.
-        /// </remarks>
-        protected abstract IDictionary<Type, Func<DbContext, object>> GetInitialFactoryFunctions();
+        public RepositoryFactories()  
+        {
+            _repositoryFactories = GetCodeCamperFactories();
+        }
 
         /// <summary>
-        /// Get the repository factory object for the given factory type.
+        /// Constructor that initializes with an arbitrary collection of factories
         /// </summary>
-        /// <param name="factoryType">Typically the repository type.</param>
-        /// <returns>The repository object if found, else null.</returns>
-        public Func<DbContext, object> GetRepositoryFactory(Type factoryType)
+        /// <param name="factories">
+        /// The repository factory functions for this instance. 
+        /// </param>
+        /// <remarks>
+        /// This ctor is primarily useful for testing this class
+        /// </remarks>
+        public RepositoryFactories(IDictionary<Type, Func<DbContext, object>> factories )
         {
+            _repositoryFactories = factories;
+        }
+
+        /// <summary>
+        /// Get the repository factory function for the type.
+        /// </summary>
+        /// <typeparam name="T">Type serving as the repository factory lookup key.</typeparam>
+        /// <returns>The repository function if found, else null.</returns>
+        /// <remarks>
+        /// The type parameter, T, is typically the repository type 
+        /// but could be any type (e.g., an entity type)
+        /// </remarks>
+        public Func<DbContext, object> GetRepositoryFactory<T>()
+        {
+       
             Func<DbContext, object> factory;
-            _repositoryFactories.TryGetValue(factoryType, out factory);
+            _repositoryFactories.TryGetValue(typeof(T), out factory);
             return factory;
         }
 
         /// <summary>
-        /// Get the factory for a standard <see cref="IRepository{T}"/>
+        /// Get the factory for <see cref="IRepository{T}"/> where T is an entity type.
         /// </summary>
         /// <typeparam name="T">The root type of the repository, typically an entity type.</typeparam>
         /// <returns>
@@ -63,34 +88,34 @@ namespace CodeCamper.Data
         /// </returns>
         /// <remarks>
         /// Looks first for a custom factory in <see cref="_repositoryFactories"/>.
-        /// If not, falls back to the <see cref="DefaultStandardRepositoryFactory"/>.
+        /// If not, falls back to the <see cref="DefaultEntityRepositoryFactory"/>.
         /// You can substitute an alternative factory for the default one by adding
         /// a repository factory for type "T" to <see cref="_repositoryFactories"/>.
         /// </remarks>
-        public virtual Func<DbContext, object> GetStandardRepositoryFactory<T>() where T : class
+        public Func<DbContext, object> GetRepositoryFactoryForEntityType<T>() where T : class
         {
-            return GetRepositoryFactory(typeof(T)) ?? DefaultStandardRepositoryFactory<T>();
+            return GetRepositoryFactory<T>() ?? DefaultEntityRepositoryFactory<T>();
         }
 
         /// <summary>
-        /// Default factory for any of the "standard" <see cref="IRepository{T}"/>
+        /// Default factory for a <see cref="IRepository{T}"/> where T is an entity.
         /// </summary>
         /// <typeparam name="T">Type of the repository's root entity</typeparam>
-        protected virtual Func<DbContext, object> DefaultStandardRepositoryFactory<T>() where T : class
+        protected virtual Func<DbContext, object> DefaultEntityRepositoryFactory<T>() where T : class
         {
             return dbContext => new EFRepository<T>(dbContext);
         }
 
         /// <summary>
-        /// Get the dictionary of Repository factories, keyed by a type, typically the repository type.
+        /// Get the dictionary of repository factory functions.
         /// </summary>
         /// <remarks>
-        /// A repository factory takes a <see cref="DbContext"/> argument and returns
+        /// A dictionary key is a System.Type, typically a repository type.
+        /// A value is a repository factory function
+        /// that takes a <see cref="DbContext"/> argument and returns
         /// a repository object. Caller must know how to cast it.
-        /// <p>This is an extension point. You can register factories here including
-        /// repository factory that supercedes the default <see cref="StandardRepositoryFactory"/>.</p>
         /// </remarks>
-        private IDictionary<Type, Func<DbContext, object>> _repositoryFactories;
+        private readonly IDictionary<Type, Func<DbContext, object>> _repositoryFactories;
 
     }
 }

@@ -14,7 +14,7 @@ namespace CodeCamper.Data
     /// Caches repositories of a given type so that repositories are only created once per provider.
     /// Code Camper creates a new provider per client request.
     /// </remarks>
-    public class RepositoryProvider : CodeCamper.Data.IRepositoryProvider
+    public class RepositoryProvider : IRepositoryProvider
     {
         public RepositoryProvider(RepositoryFactories repositoryFactories)
         {
@@ -29,17 +29,18 @@ namespace CodeCamper.Data
         public DbContext DbContext { get; set; }
 
         /// <summary>
-        /// Get or create-and-cache a <see cref="IRepository{T}"/>.
+        /// Get or create-and-cache the default <see cref="IRepository{T}"/> for an entity of type T.
         /// </summary>
         /// <typeparam name="T">
-        /// Root type of the <see cref="IRepository{T}"/>, typically an entity type.
+        /// Root entity type of the <see cref="IRepository{T}"/>.
         /// </typeparam>
         /// <remarks>
-        /// If can't find in cache, asks for a "standard" factory to create one.
+        /// If can't find repository in cache, use a factory to create one.
         /// </remarks>
-        public IRepository<T> GetStandardRepo<T>() where T : class
+        public IRepository<T> GetRepositoryForEntityType<T>() where T : class
         {
-            return GetRepo<IRepository<T>>(_repositoryFactories.GetStandardRepositoryFactory<T>());
+            return GetRepository<IRepository<T>>(
+                _repositoryFactories.GetRepositoryFactoryForEntityType<T>());
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace CodeCamper.Data
         /// Looks for the requested repository in its cache, returning if found.
         /// If not found, tries to make one using <see cref="MakeRepository{T}"/>.
         /// </remarks>
-        public virtual T GetRepo<T>(Func<DbContext, object> factory = null) where T : class
+        public virtual T GetRepository<T>(Func<DbContext, object> factory = null) where T : class
         {
             // Look for T dictionary cache under typeof(T).
             object repoObj;
@@ -94,7 +95,7 @@ namespace CodeCamper.Data
         /// <returns></returns>
         protected virtual T MakeRepository<T>(Func<DbContext, object> factory, DbContext dbContext)
         {
-            var f = factory ?? _repositoryFactories.GetRepositoryFactory(typeof(T));
+            var f = factory ?? _repositoryFactories.GetRepositoryFactory<T>();
             if (f == null)
             {
                 throw new NotImplementedException("No factory for repository type, " + typeof(T).FullName);
