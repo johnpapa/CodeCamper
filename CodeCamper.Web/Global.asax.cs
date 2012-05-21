@@ -35,7 +35,7 @@ namespace CodeCamper.Web
 
             // These registrations are "per instance request".
             // See http://blog.bobcravens.com/2010/03/ninject-life-cycle-management-or-scoping/
-            kernel.Bind<RepositoryFactories>().To<CodeCamperRepositoryFactories>().InSingletonScope();
+            kernel.Bind<RepositoryFactories>().To<RepositoryFactories>().InSingletonScope();
             kernel.Bind<IRepositoryProvider>().To<RepositoryProvider>();
             kernel.Bind<ICodeCamperUow>().To<CodeCamperUow>();
 

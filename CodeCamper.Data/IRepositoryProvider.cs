@@ -22,12 +22,12 @@ namespace CodeCamper.Data
         DbContext DbContext { get; set; }
 
         /// <summary>
-        /// Get an <see cref="IRepository{T}"/>.
+        /// Get an <see cref="IRepository{T}"/> for entity type, T.
         /// </summary>
         /// <typeparam name="T">
-        /// Root type of the <see cref="IRepository{T}"/>, typically an entity type.
+        /// Root entity type of the <see cref="IRepository{T}"/>.
         /// </typeparam>
-        IRepository<T> GetStandardRepo<T>() where T : class;
+        IRepository<T> GetRepositoryForEntityType<T>() where T : class;
 
         /// <summary>
         /// Get a repository of type T.
@@ -44,7 +44,7 @@ namespace CodeCamper.Data
         /// If not found, tries to make one with the factory, fallingback to 
         /// a default factory if the factory parameter is null.
         /// </remarks>
-        T GetRepo<T>(Func<DbContext, object> factory = null) where T : class;
+        T GetRepository<T>(Func<DbContext, object> factory = null) where T : class;
 
 
         /// <summary>

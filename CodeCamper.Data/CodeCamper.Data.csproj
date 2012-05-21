@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="CodeCamperDbContext.cs" />
     <Compile Include="CodeCamperUow.cs" />
-    <Compile Include="CodeCamperRepositoryFactories.cs" />
     <Compile Include="RepositoryFactories.cs" />
     <Compile Include="PersonsRepository.cs" />
     <Compile Include="PredicateBuilder.cs" />
