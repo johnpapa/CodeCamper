@@ -29,10 +29,10 @@ html {
 	color: white;
 	padding: 0 7%;
 	background: #14649E;
-    -moz-box-shadow: inset 0px 0px 250px #000000;
-    -webkit-box-shadow: inset 0px 0px 250px #3C3C3C;
-    -o-box-shadow: inset 0px 0px 250px #000000;
-    box-shadow: inset 0px 0px 250px #3C3C3C;
+    /*-moz-box-shadow: inset 0px 50px 250px -50px #FFFFFF;
+    -webkit-box-shadow: inset 50px 250px -50px #FFFFFF;
+    -o-box-shadow: inset 0px 50px 250px -50px #FFFFFF;
+    box-shadow: inset 0px 50px 250px -50px #FFFFFF;*/
 }
 
 body {
@@ -82,14 +82,14 @@ body {
 				text-decoration: none;
 			}
 
-			.activeNav 
+            
             /* PAPA */
-            /*, body > header > nav > ul > li > span*/ {
+            /*body > header > nav > ul > li > span {
 				cursor: default;
 				color: #f58a00;
 				font-family: "Segoe UI",Arial,Helvetica,sans-serif;
-			}
-			
+			}*/
+
 	body > section {
 		margin-top: 3%;
 	}
@@ -152,12 +152,13 @@ body {
 			background: rgba(0,0,0,.05);
 			cursor: pointer;
 		}
-		
-		body > section > nav > ul > li > span {
+
+        /*PAPA*/
+		/*body > section > nav > ul > li > span { 
 			cursor: default;
 			color: white;
 			background: #f58a00;
-		}
+		}*/
 
 	body > section > article {
 		border-bottom: solid 1px rgba(0, 0, 0, .1);
@@ -255,6 +256,29 @@ input {
 }
 
 
+/* 3.0 CUSTOM
+--------------------------------------------------------- */
+.view { display: none; }
+/*.view-active {} */
+
+
+.route-active.route-top > a {
+/* PAPA */
+/* body > header > nav > ul > li > span */
+	cursor: default;
+	color: #f58a00;
+	font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+.route-active.route-left > a {
+/* PAPA */
+/*, body > header > nav > ul > li > span*/ 
+	cursor: default;
+	color: #ffffff;
+	background: #f58a00;
+}
+
+
 /* 3.1 RESPONSIVENESS
 --------------------------------------------------------- */
 @media only screen and (max-width: 1000px) {
@@ -284,7 +308,7 @@ input {
 	body > section > nav > ul {
 		float: none;
 		margin: 0 0 7% 0;
-		width: 100%%;
+		width: 100%;
 	}
 		
 		body > section > nav > ul > li > :after {
@@ -338,7 +362,3 @@ input {
 		}
 }
 
-/* 3.0 CUSTOM
---------------------------------------------------------- */
-.view { display: none; }
-/*.view-active {} */

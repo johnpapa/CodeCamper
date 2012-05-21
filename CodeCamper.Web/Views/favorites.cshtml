@@ -1,7 +1,9 @@
 ﻿<section id="favorites" class="view">
     <nav>
         <ul data-bind="foreach: days">
-            <li><a data-bind="attr: {href: '#/favorites/date/' + date }, text: day"></a></li>
+            <li class="route-left">
+                <a data-bind="attr: {href: '#/favorites/date/' + date }, text: day"></a>
+            </li>
         </ul>
     </nav>
     <div>
@@ -9,10 +11,9 @@
 	</div>
     <!-- ko foreach: sessions -->
     <article>
-        <img data-bind="attr: {src: imageUrl}"/>
-        <time datetime="11:00" data-bind="text:shortTimeSlot"></time>
+        <img data-bind="attr: {src: speaker().imageName}"/>
+        <time datetime="11:00" data-bind="text:timeslot().fullStart"></time>
         <h1 data-bind="text: title"></h1>
-        <input data-bind="attr: {id: 'session_' + id()}" type="checkbox"/><label data-bind="attr: {for: 'session_' + id()}"></label>
         <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
         <address data-bind="text: speaker().fullName"></address>
     </article>

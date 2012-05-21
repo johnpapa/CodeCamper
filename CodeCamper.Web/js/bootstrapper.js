@@ -15,12 +15,6 @@ var my = my || {};
 
 my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config, dataservice) {
     var
-        dataserviceInit = function () {
-            dataservice.session.init()
-            dataservice.lookup.init()
-            //TODO: turn mocks on or off
-            config.dataserviceInit()
-        },
         bindViewModelsToViews = function () {
             ko.applyBindings(vm.session, $('#session').get(0))
             ko.applyBindings(vm.sessions, $('#sessions').get(0))
@@ -34,24 +28,24 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config, data
             // Favorites routes
             router.register({
                 routes:
-                    [{ route: '#/favorites', callback: vm.favorites.activate },
-                    { route: '#/favorites/date/:date', callback: vm.favorites.loadByDate },
-                    { route: '#/favorites/track/:track', callback: vm.favorites.loadByTrack }],
+                    [{ route: '#/favorites', callback: vm.favorites.activate, group: '.route-top' },
+                    { route: '#/favorites/date/:date', callback: vm.favorites.loadByDate, group: '.route-left' },
+                    { route: '#/favorites/track/:track', callback: vm.favorites.loadByTrack, group: '.route-left' }],
                 view: '#favorites'
             })
             // Sessions routes
             router.register({
                 routes:
-                    [{ route: '#/sessions', callback: vm.sessions.activate },
-                    { route: '#/sessions/date/:date', callback: vm.sessions.loadByDate },
-                    { route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack }],
+                    [{ route: '#/sessions', callback: vm.sessions.activate, group: '.route-top' },
+                    { route: '#/sessions/date/:date', callback: vm.sessions.loadByDate, group: '.route-left' },
+                    { route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack, group: '.route-left' }],
                 view: '#sessions'
             })
             // Session details routes
-            router.register({ route: '#/sessions/:id', callback: vm.sessions.activate, view: '#session' })
+            router.register({ route: '#/sessions/:id', callback: vm.sessions.activate, view: '#session', group: '.route-left' })
 
             // Speakers list routes
-            router.register({ route: '#/speakers', callback: vm.speakers.activate, view: '#speakers' })
+            router.register({ route: '#/speakers', callback: vm.speakers.activate, view: '#speakers', group: '.route-top' })
 
             // Catch invalid routes
             router.register({ route: /.*/, callback: function () { toastr.error('invalid route') }, view: '' })
@@ -63,9 +57,13 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config, data
             toastr.options.timeOut = 2000 //TODO: Just for testing
 
             // Set up the dataservice for "how it is going to roll" ... Ward Bell
-            dataserviceInit()
+            config.dataserviceInit()
             // prime the data services and eager load the lookups
-            $.when(dataprimer.fetchlookups())
+            $.when(dataprimer.fetchlookups(),
+                dataprimer.fetchSpeakers(),
+                dataprimer.fetchSessionBriefs()
+                )
+                //.pipe(dataprimer.fetchSessionBriefs())
                 //.then(function(){toastr.info('hi')})
                 .then(bindViewModelsToViews)
                 .then(registerRoutes)

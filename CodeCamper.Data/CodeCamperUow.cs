@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,6 +8,9 @@ namespace CodeCamper.Data
 {
     /// <summary>
     /// The Code Camper "Unit of Work"
+    ///     1) decouples the repos from the controllers
+    ///     2) decouples the DbContext and EF from the controllers
+    ///     3) manages the UoW
     /// </summary>
     /// <remarks>
     /// This class implements the "Unit of Work" pattern in which
