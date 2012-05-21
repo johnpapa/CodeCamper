@@ -56,7 +56,7 @@ namespace CodeCamper.SampleData
             var slots = 
                 new List<TimeSlot>
                     {
-                        // Sat March 31, 2012 - Registration
+                        // Sat May 18, 2013 - Registration
                         new TimeSlot {Start = seed1, Duration = 45, IsSessionSlot = false},
                         new TimeSlot {Start = seed1 = seed1.AddMinutes(60), Duration = 60},
                         new TimeSlot {Start = seed1 = seed1.AddMinutes(70), Duration = 60},
@@ -69,7 +69,7 @@ namespace CodeCamper.SampleData
                         // Close
                         new TimeSlot {Start = seed1.AddMinutes(70), Duration = 30, IsSessionSlot = false},
 
-                        // Sun April 1, 2012 - Registration
+                        // Sun May 19, 2013 - Registration
                         new TimeSlot {Start = seed2, Duration = 45, IsSessionSlot = false},
                         new TimeSlot {Start = seed2 = seed2.AddMinutes(60), Duration = 60},
                         new TimeSlot {Start = seed2 = seed2.AddMinutes(70), Duration = 60},
