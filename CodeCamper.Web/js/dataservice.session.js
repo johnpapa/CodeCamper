@@ -1,12 +1,11 @@
 ﻿// Depends on 
 //	Amplify.js
-//	my.mock
 // ----------------------------------------------
 var my = my || {};
 
 my.dataservice = my.dataservice || {}
 
-my.dataservice.session = (function (amplify, mock) {
+my.dataservice.session = (function (amplify) {
     var
         init = function() {
             amplify.request.define('mysessions', 'ajax', {
@@ -21,15 +20,18 @@ my.dataservice.session = (function (amplify, mock) {
                 type: 'GET'
                 //cache:
             })
+            amplify.request.define('session-briefs', 'ajax', {
+                url: '/api/sessions/briefs',
+                dataType: 'json',
+                type: 'GET'
+                //cache:
+            })
             amplify.request.define('session', 'ajax', {
                 url: '/api/sessions/{id}',
                 dataType: 'json',
                 type: 'GET'
                 //cache:
             })
-            if (mock.useMocks) {
-                mock.dataservice.session.apply()
-            }
         },
         getMySessions = function(userId, callbacks) {
             return amplify.request({
@@ -47,6 +49,14 @@ my.dataservice.session = (function (amplify, mock) {
                 error: callbacks.error
             })
         },
+        getSessionBriefs = function (callbacks) {
+            return amplify.request({
+                resourceId: "session-briefs",
+                //data: { sessionType: sessionType }, //TODO: dont need it ?
+                success: callbacks.success,
+                error: callbacks.error
+            })
+        },
         getSession = function (id, callbacks) {
             return amplify.request({
                 resourceId: "session",
@@ -58,6 +68,9 @@ my.dataservice.session = (function (amplify, mock) {
     return {
         init: init,
         getSessions: getSessions,
+        getSessionBriefs: getSessionBriefs,
         getSession: getSession
     }
-})(amplify, my.mock);
+})(amplify);
+
+my.dataservice.session.init();

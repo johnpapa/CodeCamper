@@ -1,12 +1,11 @@
 ﻿// Depends on 
 //	Amplify.js
-//	my.mock
 // ----------------------------------------------
 var my = my || {};
 
 my.dataservice = my.dataservice || {}
 
-my.dataservice.lookup = (function (amplify, mock) {
+my.dataservice.lookup = (function (amplify) {
     var
         init = function () {
             amplify.request.define('lookups', 'ajax', {
@@ -27,4 +26,6 @@ my.dataservice.lookup = (function (amplify, mock) {
         init: init,
         getLookups: getLookups
     }
-})(amplify, my.mock);
+})(amplify);
+
+my.dataservice.lookup.init()

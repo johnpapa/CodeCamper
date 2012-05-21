@@ -17,14 +17,14 @@ my.router = (function ($, sammy, presenter) {
             if (options.routes) {
                 //options.routes.forEach(function (route) {
                 _.each(options.routes, function (route) {
-                    registerRoute(route.route, route.callback, options.view)
+                    registerRoute(route.route, route.callback, options.view, route.group)
                 })
                 return
             }
 
-            registerRoute(options.route, options.callback, options.view)
+            registerRoute(options.route, options.callback, options.view, options.group)
         },
-        registerRoute = function (route, callback, view) {
+        registerRoute = function (route, callback, view, group) {
             if (!callback) {
                 throw Error('callback must be specified.')
             }
@@ -32,11 +32,11 @@ my.router = (function ($, sammy, presenter) {
             //var hash = new RegExp('\\^' + route + '$.*')
 
             sammy.get(route, function (context) {
-                //context is this
+                //context is 'this'
                 callback(context.params)
-                $('body > section').hide()
-                //$('.view').hide()
-                presenter.transitionTo($(view), context.path)
+                //$('body > section').hide()
+                $('.view').hide()
+                presenter.transitionTo($(view), context.path, group)
                 //context.$element().append('<h1>hello</h1>') //TODO: for testing
             })
         },

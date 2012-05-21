@@ -3,11 +3,17 @@
 //
 // Conventions
 //  1) all HTML tags that represent views must use the CSS class .view
+//      Active views will have .view-active class added to them.
+//  2) all immediate parent containers of all nav links/routes must have 
+//      a class to group them, so they can be styled. 
+//      ex: route-top or route-left
+//      Active routes will have .viewroute active class added to them.
 //
 // Example:
 // 	$('#showA').click(function() { my.presenter.transitionTo('#A') } );
 // 	$('#showB').click(function() { my.presenter.transitionTo('#B') } );
 // 	my.presenter.transitionTo('#A');
+//
 // ----------------------------------------------
 var my = my || {};
 
@@ -34,7 +40,7 @@ my.presenter = (function ($) {
                 opacity: 1
             }, transitionOptions.floatIn, transitionOptions.ease);
         },
-        transitionTo = function($view, route) {
+        transitionTo = function($view, route, group) {
             var $activeViews = $('.view-active');
             if ($activeViews.length){
                 $activeViews.fadeOut(transitionOptions.fadeOut, function () {
@@ -48,16 +54,17 @@ my.presenter = (function ($) {
             }
             
             // Reset top level nav links
-            var $prevNavElements = $('nav > ul > li > a[href="' + route + '"]')
-                .closest('nav')
-                .find('a.activeNav')
-                .removeClass('activeNav');
+            //var $prevNavElements = $('nav > ul > li > a[href="' + route + '"]')
+            //    .closest('nav')
+            //    .find('a.route-active')
+            //    .removeClass('route-active');
             //TODO: find all NAV links by CSS classname instead. "It's impenetrable and brittle" ... Ward Bell
-            // $('.wardbells').removeClass('activeNav')
+            $(group + '.route-active').removeClass('route-active')
             if (route) {
                 // Highlight the selected nav that matches the route
                 // TODO: same thing here. add the .wardbell CSS class
-                $('nav > ul > li > a[href="' + route + '"]').addClass('activeNav');
+                //$('nav > ul > li > a[href="' + route + '"]').addClass('route-active');
+                $(group).has('a[href="' + route + '"]').addClass('route-active');
             }
         }
     return {
