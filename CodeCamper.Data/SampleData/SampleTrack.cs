@@ -9,10 +9,10 @@ namespace CodeCamper.SampleData
             new List<SampleTrack>()
                 {
                    new SampleTrack("Windows 8", "WIN","Windows", "XAML", "WinRT", "C++", "C#", "VB","HTML5", "Metro"),
-                   new SampleTrack("JavaScript", "JVS","JavaScript", "jQuery", "Knockout","JsRender", "MVVM","HTML5", "SPA", "Amplify"),
+                   new SampleTrack("JavaScript", "JVS","JavaScript", "jQuery", "Knockout","JsRender", "MVVM","HTML5", "SPA", "Amplify", "Underscore", "Backbone"),
                    new SampleTrack("ASP.NET", "ASP","MVC","Web Matrix","HTML5","SignalR", "Web Forms"),
                    new SampleTrack(".NET", "NET","Memory", "Debugging","WCF", "Silverlight", "WPF", "XAML"),
-                   new SampleTrack("Data", "DAT","Entity Framework", "SQL Server", "OData", "BI", "Oracle"),
+                   new SampleTrack("Data", "DAT","Entity Framework", "SQL Server", "OData", "BI", "Oracle", "ORM"),
                    new SampleTrack("Mobile", "MOB","Mobile","WP7", "PhoneGap", "Android", "iPad", "iOS", "Xamarin","Kinect", "XNA"),
                    new SampleTrack("Cloud", "CLD","Cloud", "Node.js","Azure","Amazon", "EC2", "Service Bus", "SkyDrive"),
                    new SampleTrack("Practices", "PRC","Practices", "Agility","TDD","Testing", "Mocks", "Scrum", "Lean"),
