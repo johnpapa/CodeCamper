@@ -14,7 +14,7 @@ namespace CodeCamper.SampleData
                    new SampleTrack(".NET", "NET","Memory", "Debugging","WCF", "Silverlight", "WPF", "XAML"),
                    new SampleTrack("Data", "DAT","Entity Framework", "SQL Server", "OData", "BI", "Oracle", "ORM"),
                    new SampleTrack("Mobile", "MOB","Mobile","WP7", "PhoneGap", "Android", "iPad", "iOS", "Xamarin","Kinect", "XNA"),
-                   new SampleTrack("Cloud", "CLD","Cloud", "Node.js","Azure","Amazon", "EC2", "Service Bus", "SkyDrive"),
+                   new SampleTrack("Cloud", "CLD","Cloud", "Node","Azure","Amazon", "EC2", "Service Bus", "SkyDrive"),
                    new SampleTrack("Practices", "PRC","Practices", "Agility","TDD","Testing", "Mocks", "Scrum", "Lean"),
                    new SampleTrack("Design", "DSN","Design", "Animation","3D","UX", "Metro", "SketchFlow"),
                 };

@@ -19,8 +19,8 @@ namespace CodeCamper.SampleData
             {
                 FirstName = "John",
                 LastName = "Papa",
-                Email = "john@johnpapa.net",
-                Blog = "http://johnpapa.net",
+                Email = "johnp@contoso.com",
+                Blog = "http://johnp.contoso.com",
                 Twitter = "https://twitter.com/#!/john_papa",
                 Gender = "M",
                 Bio = "Husband and father enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author for MSDN Magazine and Pluralsight.",
@@ -29,8 +29,8 @@ namespace CodeCamper.SampleData
             {
                 FirstName = "Dan",
                 LastName = "Wahlin",
-                Email = "dwahlin@xmlforasp.net",
-                Blog = "http://www.TheWahlinGroup.com",
+                Email = "danw@contoso.com",
+                Blog = "http://danw.contoso.com",
                 Twitter = "https://twitter.com/#!/danwahlin",
                 Gender = "M",
                 Bio = "Chief Architect at Wahlin Consulting. Provide consulting & training on jQuery, HTML5, ASP.NET, SharePoint. Husband & father, like to write and record music.",
@@ -39,8 +39,8 @@ namespace CodeCamper.SampleData
             {
                 FirstName = "Ward",
                 LastName = "Bell",
-                Email = "wardb@ideablade.com",
-                Blog = "http://www.neverindoubtnet.blogspot.com",
+                Email = "wardb@contoso.com",
+                Blog = "http://wardb.contoso.com",
                 Twitter = "https://twitter.com/#!/wardbell",
                 Gender = "M",
                 Bio = "V.P. of Technology at IdeaBlade. Speaks often on client application development issues to anyone who will listen. Likes sociology, history, poetry, and ridiculous clothes.",
@@ -49,8 +49,8 @@ namespace CodeCamper.SampleData
             {
                 FirstName = "Hans",
                 LastName = "Fjällemark",
-                Email = "hans@tellurian.se",
-                Blog = "http://www.keepitslickstupid.com",
+                Email = "hansf@contoso.com",
+                Blog = "http://hansf.contoso.com",
                 Twitter = "https://twitter.com/#!/hfjallemark",
                 Gender = "M",
                 Bio = "Freelancing developer & designer based in Sweden. I spend most of my time implementing usable and attractive UX in HTML5 or Silverli.. no wait, just HTML5:) ",
@@ -59,8 +59,8 @@ namespace CodeCamper.SampleData
             {
                 FirstName = "Jim",
                 LastName = "Cowart",
-                Email = "",
-                Blog = "http://freshbrewedcode.com/jimcowart/",
+                Email = "jimc@contoso.com",
+                Blog = "http://jimc.contoso.com",
                 Twitter = "https://twitter.com/#!/ifandelse",
                 Gender = "M",
                 Bio = "Husband, father, architect, developer, tea drinker. Opinions are my own. Unless they're good",
@@ -69,8 +69,8 @@ namespace CodeCamper.SampleData
             {
                 FirstName = "Ryan",
                 LastName = "Niemeyer",
-                Email = "",
-                Blog = "http://www.knockmeout.net/",
+                Email = "ryann@contoso.com",
+                Blog = "http://ryann.contoso.com/",
                 Twitter = "https://twitter.com/#!/rpniemeyer",
                 Gender = "M",
                 Bio = "Coder, tester, father, and husband. Never short on ideas. Love to learn and collaborate.",
@@ -79,8 +79,8 @@ namespace CodeCamper.SampleData
             {
                 FirstName = "Scott",
                 LastName = "Guthrie",
-                Email = "",
-                Blog = "http://weblogs.asp.net/scottgu",
+                Email = "scottg@contoso.com",
+                Blog = "http://scottg.contoso.com",
                 Twitter = "https://twitter.com/#!/scottgu",
                 Gender = "M",
                 Bio = "I live in Seattle and build a few products for Microsoft",
@@ -225,14 +225,14 @@ namespace CodeCamper.SampleData
                     "You need a good set of tools to be a rock star JavaScript developer. What does Ward use to write, test and debug? Come to this session and find out.",
             });
 
-            // Hans Fajallemark
-            var hansFajallemark = _theChosen[3];
+            // Hans Fjällemark
+            var hansFjallemark = _theChosen[3];
             roomId = roomsForSessions[3].Id;
             sessions.Add(new Session
             {
-                Title = "Fajallemark Magic 1",
+                Title = "Fjällemark Magic 1",
                 Code = "ASP331",
-                SpeakerId = hansFajallemark.Id,
+                SpeakerId = hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = timeSlots[4].Id,
                 RoomId = roomId,
@@ -242,9 +242,9 @@ namespace CodeCamper.SampleData
             });
             sessions.Add(new Session
             {
-                Title = "Fajallemark Magic 2",
+                Title = "Fjällemark Magic 2",
                 Code = "JVS132",
-                SpeakerId = hansFajallemark.Id,
+                SpeakerId = hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[6].Id,
                 RoomId = roomId,
@@ -255,9 +255,9 @@ namespace CodeCamper.SampleData
             });
             sessions.Add(new Session
             {
-                Title = "Fajallemark Magic 3",
+                Title = "Fjällemark Magic 3",
                 Code = "JVS233",
-                SpeakerId = hansFajallemark.Id,
+                SpeakerId = hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[10].Id,
                 RoomId = roomId,
@@ -363,6 +363,31 @@ namespace CodeCamper.SampleData
                 Level = levels[1],
                 Tags = "Keynote",
                 Description = "",
+            });
+            sessions.Add(new Session
+            {
+                Title = "MVC 4 in Perspective",
+                Code = "ASP162",
+                SpeakerId = scottGuthrie.Id,
+                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                TimeSlotId = timeSlots[1].Id,
+                RoomId = roomId,
+                Level = levels[1],
+                Tags = "ASP|MVC",
+                Description = 
+                    "MVC 4 enables a wider variety of web applications than ever before. The libraries that are easily managed through Nuget and are truly opens source. Learn about the new capabilities and how you can contribute to ASP.NET MVC's evolution.",
+            });
+            sessions.Add(new Session
+            {
+                Title = "Azure: the agnostic cloud",
+                Code = "CLD163",
+                SpeakerId = scottGuthrie.Id,
+                TrackId = tracks.First(t => t.Name == "Cloud").Id,
+                TimeSlotId = timeSlots[3].Id,
+                RoomId = roomId,
+                Level = levels[1],
+                Tags = "Cloud|Azure|Node",
+                Description = "Windows Azure offers reliable, affordable cloud computing for almost any application of any scale, built with any technology. Scott demonstates with examples of both Windows and non-Windows applications.",
             });
         }
     }

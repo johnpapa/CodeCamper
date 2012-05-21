@@ -48,6 +48,7 @@ namespace CodeCamper.SampleData
             return rooms;
         }
 
+        private TimeSlot _keyNoteTimeSlot;
         private List<TimeSlot> AddTimeSlots(CodeCamperDbContext context)
         {
 
@@ -58,7 +59,7 @@ namespace CodeCamper.SampleData
                     {
                         // Sat May 18, 2013 - Registration
                         new TimeSlot {Start = seed1, Duration = 45, IsSessionSlot = false},
-                        new TimeSlot {Start = seed1 = seed1.AddMinutes(60), Duration = 60},
+                        (_keyNoteTimeSlot = new TimeSlot {Start = seed1 = seed1.AddMinutes(60), Duration = 60}),
                         new TimeSlot {Start = seed1 = seed1.AddMinutes(70), Duration = 60},
                         new TimeSlot {Start = seed1 = seed1.AddMinutes(70), Duration = 60},
                         // Lunch
@@ -180,7 +181,7 @@ namespace CodeCamper.SampleData
             TheChosen.AddSessions(
                 sessions, slots, tracks, _levels, _roomsForWellKnownSessions);
 
-            AddGeneratedSessions(sessions, persons, slots, tracks);
+            AddGeneratedSessions(sessions, persons, slots , tracks);
 
             // Done populating sessions
             sessions.ForEach(s => context.Sessions.Add(s));
@@ -205,7 +206,7 @@ namespace CodeCamper.SampleData
             var trackCount = tracks.Count;
             var trackIx = 0;
 
-            var slots = timeSlots.Where(t => t.IsSessionSlot).ToArray();
+            var slots = timeSlots.Where(t => t != _keyNoteTimeSlot).ToArray();
             var slotsCount = slots.Length;
  
             var personsCount = persons.Count;
