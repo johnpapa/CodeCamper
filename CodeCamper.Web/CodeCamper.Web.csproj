@@ -177,7 +177,7 @@
     <Content Include="js\presenter.js" />
     <Content Include="js\vm.sessions.js" />
     <Content Include="js\vm.favorites.js" />
-    <Content Include="js\mock\mock.js" />
+    <Content Include="js\mock\mock.generator.js" />
     <Content Include="js\mock\mock.dataservice.session.js" />
     <Content Include="js\router.js" />
     <Content Include="js\dataservice.session.js" />

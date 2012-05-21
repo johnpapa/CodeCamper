@@ -41,10 +41,10 @@ my.dataservice.session = (function (amplify) {
                 error: callbacks.error
             })
         },
-        getSessions = function (sessionType, callbacks) {
+        getSessions = function (callbacks) { //sessionType, callbacks) {
             return amplify.request({
                 resourceId: "sessions",
-                data: { sessionType: sessionType }, //TODO: dont need it ?
+                //data: { sessionType: sessionType }, //TODO: dont need it ?
                 success: callbacks.success,
                 error: callbacks.error
             })

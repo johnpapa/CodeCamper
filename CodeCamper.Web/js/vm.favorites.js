@@ -1,14 +1,14 @@
 ﻿// Depends on 
 //	Knockout
 // 	toastr
-//	my.dataservice.session
+//	my.datacontext
 // ----------------------------------------------
 var my = my || {};
 my.vm = my.vm || {}
 
-my.vm.favorites = (function (ko, toastr, datacontext, dataservice) {
+my.vm.favorites = (function (ko, toastr, datacontext) {
     var
-        sessions = ko.observableArray(),
+        sessions = datacontext.sessions, //ko.observableArray(),
         timeslots = datacontext.timeslots, //ko.observableArray(),
         days = ko.computed(function () {
             var
@@ -38,31 +38,25 @@ my.vm.favorites = (function (ko, toastr, datacontext, dataservice) {
             //  timeslots = ko.computed(function () {
             //      return datacontext.timeslots // add a filter
             //  })
-            // Option 3) Right now I am copying the timeslots from the datacontext to this viewmodel
+            // Option 3) copy the timeslots from the datacontext to this viewmodel. ick
             //timeslots(datacontext.timeslots().map(function (ts) { return model.mapper.mapTimeSlot(ts) }))
-            timeslots = datacontext.timeslots
-        },
-        getSessions = function () {
-            dataservice.session.getSessions('favorites',
-                {
-                    success: getSessionsCallback,
-                    error: function () { toastr.error('oops!'); }
-                })
-        },
-        getSessionsCallback = function (rawsessions) {
-            sessions(rawsessions.map(function (s) { return my.model.mapper.mapSession(s) }));
-            toastr.success('received with ' + sessions().length + ' elements');
+            //timeslots = datacontext.timeslots
+
+            datacontext.getTimeslots(timeslots)
+
+            datacontext.getSessions(sessions)
         },
         loadByDate = function (data) {
             // filter the filteredSessions by date
-            getSessions();
+            datacontext.getSessions(sessions)
+            //sessions = ko.utils.arrayFilter(sessions(), function (s) { return s.date === data.chosenDate; })
             toastr.warning('load by date not implemented');
         },
         loadByTrack = function (data) {
             toastr.warning('load by track not implemented');
         },
         debugInfo = ko.computed(function () {
-            //return JSON.stringify(ko.toJS(timeslots), null, 2)
+            //new in KO 2.1. it used to be JSON.stringify(ko.toJS(timeslots), null, 2)
             return ko.toJSON(my.vm.favorites, null, 2)
         });
     return {
@@ -74,4 +68,4 @@ my.vm.favorites = (function (ko, toastr, datacontext, dataservice) {
         loadByDate: loadByDate,
         debugInfo: debugInfo
     }
-})(ko, toastr, my.datacontext, my.dataservice);
+})(ko, toastr, my.datacontext);

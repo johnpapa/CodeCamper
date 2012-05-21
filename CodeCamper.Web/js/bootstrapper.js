@@ -61,8 +61,8 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config) {
             config.dataserviceInit()
             // prime the data services and eager load the lookups
             $.when(dataprimer.fetchlookups(),
-                dataprimer.fetchSpeakers(),
-                dataprimer.fetchSessionBriefs()
+                dataprimer.fetchSpeakers()
+                //dataprimer.fetchSessionBriefs()
                 )
                 //.pipe(dataprimer.fetchSessionBriefs())
                 //.then(function(){toastr.info('hi')})
