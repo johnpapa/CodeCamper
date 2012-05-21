@@ -49,7 +49,7 @@ namespace CodeCamper.Data
         public IRepository<Track> Tracks { get { return GetStandardRepo<Track>(); } }
         public ISessionsRepository Sessions { get { return GetRepo<ISessionsRepository>(); } }
         public IRepository<Person> Persons { get { return GetStandardRepo<Person>(); } }
-        public IAttendanceLinksRepository AttendanceLinks { get { return GetRepo<IAttendanceLinksRepository>(); } }
+        public IAttendanceRepository Attendance { get { return GetRepo<IAttendanceRepository>(); } }
 
         public void Commit()
         {

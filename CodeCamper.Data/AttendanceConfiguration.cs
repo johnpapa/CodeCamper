@@ -4,19 +4,19 @@ using CodeCamper.Model;
 
 namespace CodeCamper.Data
 {
-    class AttendanceLinkConfiguration : EntityTypeConfiguration<AttendanceLink>
+    class AttendanceConfiguration : EntityTypeConfiguration<Attendance>
     {
-        public AttendanceLinkConfiguration()
+        public AttendanceConfiguration()
         {
             HasKey(ps => new { ps.SessionId, ps.PersonId });
 
             HasRequired(ps => ps.Session)
-                .WithMany(s => s.AttendeeSessions)
+                .WithMany(s => s.AttendanceList)
                 .HasForeignKey(ps => ps.SessionId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(ps => ps.Person)
-                .WithMany(p => p.AttendingSessions)
+                .WithMany(p => p.AttendanceList)
                 .HasForeignKey(ps => ps.PersonId)
                 .WillCascadeOnDelete(false);
         }

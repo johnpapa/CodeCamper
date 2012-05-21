@@ -13,7 +13,7 @@ namespace CodeCamper.Web.Controllers
         /// </summary>
         public static class Actions
         {
-            public const string AttendanceLinks = "attendancelinks";
+            public const string Attendance = "attendance";
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace CodeCamper.Web.Controllers
         /// </summary>
         public static class Controllers
         {
-            public const string AttendanceLinks = "attendancelinks";
+            public const string Attendance = "attendance";
             public const string Persons = "persons";
             public const string Sessions = "sessions";
         }

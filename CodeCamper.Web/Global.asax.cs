@@ -76,19 +76,19 @@ namespace CodeCamper.Web
             ******************************************************/
 
             // Use the following route in CodeCamper to get 
-            // the AttendanceLinks of a particular Person, e.g.
+            // the Attendance of a particular Person, e.g.
             // to find all sessions attended by the current user.
             // 
-            // It matches an {action} (e.g., "attendencelink") to a method
-            // of the controller (e.g., "AttendenceLinksController").
+            // It matches an {action} (e.g., "attendence") to a method
+            // of the controller (e.g., "SessionsController").
             // That method identifies a single parent entity (e.g., Person or Session)
             // by a {id}. The {id} is not optional, must be an integer, and 
             // must match the {action} method with a parameter named "Id" (case insensitive)
             //
-            // ex: api/persons/2/attendancelinks
-            // ex: api/sessions/2/attendancelinks
+            // ex: api/persons/2/attendance
+            // ex: api/sessions/2/attendance
             routes.MapHttpRoute(
-                name: "ApiGetParentAttendanceLinks",
+                name: "ApiGetAttendance",
                 routeTemplate: "api/{controller}/{id}/{action}",
                 defaults: new { },
                 constraints: new { id = @"^\d+$" } // id must be all digits

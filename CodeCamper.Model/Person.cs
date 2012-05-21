@@ -22,6 +22,6 @@ namespace CodeCamper.Model
         public string Bio { get; set; }
 
         public virtual ICollection<Session> SpeakerSessions { get; set; }
-        public virtual ICollection<AttendanceLink> AttendingSessions { get; set; }
+        public virtual ICollection<Attendance> AttendanceList { get; set; }
     }
 }

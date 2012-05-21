@@ -9,7 +9,7 @@ namespace CodeCamper.Model
     /// A many-to-many link between <see cref="Person"/> and <see cref="Session"/>
     /// with a session evaluation payload.
     /// </summary>
-    public class AttendanceLink
+    public class Attendance
     {
         public int SessionId { get; set; }
         public Session Session { get; set; }

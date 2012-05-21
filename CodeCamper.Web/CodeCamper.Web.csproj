@@ -134,7 +134,7 @@
     <Compile Include="Controllers\LookupsController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
-    <Compile Include="Controllers\AttendanceLinksController.cs" />
+    <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

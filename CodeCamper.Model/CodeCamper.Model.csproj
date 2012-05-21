@@ -48,7 +48,7 @@
     <Compile Include="TimeSlot.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="Room.cs" />
-    <Compile Include="AttendanceLink.cs" />
+    <Compile Include="Attendance.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="ICodeCamperDataService.cs" />

@@ -24,7 +24,7 @@ namespace CodeCamper.SampleData
             var timeSlots = AddTimeSlots(context);
             var persons = AddPersons(context, 100);
             var sessions = AddSessions(context, persons, rooms, timeSlots, tracks);
-            AddAttendanceLinks(context, sessions, persons.Take(2).ToArray());
+            AddAttendance(context, sessions, persons.Take(2).ToArray());
         }
 
         private List<Room> _roomsForGeneratedSessions;
@@ -428,7 +428,7 @@ namespace CodeCamper.SampleData
         }
         private int _sessionCodeNumberSeed = 142;
 
-        private void AddAttendanceLinks(CodeCamperDbContext context, List<Session> sessions, IEnumerable<Person> attendees)
+        private void AddAttendance(CodeCamperDbContext context, List<Session> sessions, IEnumerable<Person> attendees)
         {
             var rand = new Random();
             var textGenerator = new SampleTextGenerator();
@@ -436,7 +436,7 @@ namespace CodeCamper.SampleData
 
             // Indexes for the 3rd through nth sessions (sessions #1 and #2 are forced in manually).
             var sessionIxs = Enumerable.Range(2, sessions.Count - 1).ToArray();
-            var attendanceLinks = new List<AttendanceLink>();
+            var AttendanceList = new List<Attendance>();
 
             foreach(var person in attendees)
             {
@@ -449,24 +449,24 @@ namespace CodeCamper.SampleData
                 var evalCount = 4; // person evals the first 'n' sessions attended
                 foreach (var i in ixs)
                 {
-                    var attendanceLink =
-                        new AttendanceLink
+                    var attendance =
+                        new Attendance
                             {
                                 PersonId = person.Id,
                                 SessionId = sessions[i].Id,
                             };
-                    attendanceLinks.Add(attendanceLink);
+                    AttendanceList.Add(attendance);
 
                     if (evalCount <= 0) continue;
 
-                    attendanceLink.Rating = rand.Next(1, 6);
-                    attendanceLink.Text = textGenerator.GenSentences(10, textSource);
+                    attendance.Rating = rand.Next(1, 6);
+                    attendance.Text = textGenerator.GenSentences(10, textSource);
                     evalCount--;
                 }
             }
 
-            // Done populating AttendanceLinks
-            attendanceLinks.ForEach(ps => context.AttendanceLinks.Add(ps));
+            // Done populating Attendance
+            AttendanceList.ForEach(ps => context.Attendance.Add(ps));
             context.SaveChanges();
         }
     

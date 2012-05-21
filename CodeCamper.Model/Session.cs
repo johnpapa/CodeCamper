@@ -22,6 +22,6 @@ namespace CodeCamper.Model
         public virtual TimeSlot TimeSlot { get; set; }
         public virtual Room Room { get; set; }
 
-        public virtual ICollection<AttendanceLink> AttendeeSessions { get; set; }
+        public virtual ICollection<Attendance> AttendanceList { get; set; }
     }
 }

@@ -37,11 +37,11 @@ namespace CodeCamper.Web.Controllers
 
         #region Actions (RPC methods)
 
-        // GET: api/persons/{personId}/attendancelinks
-        [ActionName(Names.Actions.AttendanceLinks)]
-        public IQueryable<AttendanceLink> GetAttendanceLinksByPersonId(int id)
+        // GET: api/persons/{personId}/attendance
+        [ActionName(Names.Actions.Attendance)]
+        public IQueryable<Attendance> GetAttendanceByPersonId(int id)
         {
-            return DataService.AttendanceLinks.GetByPersonId(id).OrderBy(ps => ps.Session.Title);
+            return DataService.Attendance.GetByPersonId(id).OrderBy(ps => ps.Session.Title);
         }
 
         #endregion

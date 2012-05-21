@@ -59,11 +59,11 @@ namespace CodeCamper.Web.Controllers
             return DataService.Sessions.TagGroups.AsQueryable();
         }
 
-        // GET: api/sessions/{sessionId}/attendancelinks
-        [ActionName(Names.Actions.AttendanceLinks)]
-        public IQueryable<AttendanceLink> GetAttendanceLinksBySessionId(int id)
+        // GET: api/sessions/{sessionId}/attendance
+        [ActionName(Names.Actions.Attendance)]
+        public IQueryable<Attendance> GetAttendanceBySessionId(int id)
         {
-            return DataService.AttendanceLinks.GetBySessionId(id).OrderBy(ps => ps.Person.FirstName);
+            return DataService.Attendance.GetBySessionId(id).OrderBy(ps => ps.Person.FirstName);
         }
 
         #endregion

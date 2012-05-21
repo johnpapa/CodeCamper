@@ -12,7 +12,7 @@ namespace CodeCamper.Model
         ISessionsRepository Sessions { get; }
         IRepository<TimeSlot> TimeSlots { get; }
         IRepository<Track> Tracks { get; }
-        IAttendanceLinksRepository AttendanceLinks { get; }
+        IAttendanceRepository Attendance { get; }
 
     }
 }
