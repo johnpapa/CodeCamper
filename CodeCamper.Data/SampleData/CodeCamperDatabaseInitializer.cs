@@ -35,7 +35,7 @@ namespace CodeCamper.SampleData
             var names = new[] { 
                 "Surf A", "Surf B", "Mendocino A", "Mendocino B", "Mendocino C",
                 "Chico", "Levenworth", "Pelham Bay", "San Quentin", "Alcatraz", "Folsom", 
-                "Aqueduct", "Saratoga", "Golden Gate",
+                "Aqueduct", "Saratoga", "Golden Gate", "Santa Anita", "Monmouth Park", "Caliente"
             };
             var rooms = new List<Room>();
             Array.ForEach(names, name =>
@@ -193,9 +193,31 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "I live in Seattle and build a few products for Microsoft",
             });
+            persons.Add(_JimCowart = new Person
+            {
+                FirstName = "Jim",
+                LastName = "Cowart",
+                Email = "",
+                Blog = "http://freshbrewedcode.com/jimcowart/",
+                Twitter = "https://twitter.com/#!/ifandelse",
+                Gender = "M",
+                Bio = "Husband, father, architect, developer, tea drinker. Opinions are my own. Unless they're good",
+            });
+            persons.Add(_RyanNiemeyer = new Person
+            {
+                FirstName = "Ryan",
+                LastName = "Niemeyer",
+                Email = "",
+                Blog = "http://www.knockmeout.net/",
+                Twitter = "https://twitter.com/#!/rpniemeyer",
+                Gender = "M",
+                Bio = "Coder, tester, father, and husband. Never short on ideas. Love to learn and collaborate.",
+            });
         }
 
-        private Person _JohnPapa, _WardBell, _DanWahlin, _HansFajallemark,_ScottGuthrie;
+        private Person 
+            _JohnPapa, _WardBell, _DanWahlin, _HansFajallemark,
+            _ScottGuthrie, _JimCowart, _RyanNiemeyer;
 
         /// <summary>Add everyone else, some of whom may be speakers.</summary>
         private void AddTheCrowd(int count, List<Person> persons)
@@ -250,6 +272,8 @@ namespace CodeCamper.SampleData
         private void AddWellKnownSessions(List<Session> sessions, IList<TimeSlot> timeSlots, IList<Track> tracks)
         {
             // John Papa
+            int roomId = _roomsForWellKnownSessions[0].Id;
+
             sessions.Add(new Session
                 {
                     Title = "Building HTML and JavaScript Apps with KnockoutJS and MVVM",
@@ -257,7 +281,7 @@ namespace CodeCamper.SampleData
                     SpeakerId = _JohnPapa.Id,
                     TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                     TimeSlotId = timeSlots[2].Id,
-                    RoomId = _roomsForWellKnownSessions[0].Id,
+                    RoomId = roomId,
                     Level = _levels[2],
                     Tags = "JavaScript|Knockout|MVVM|HTML5",
                     Description =
@@ -270,7 +294,7 @@ namespace CodeCamper.SampleData
                     SpeakerId = _JohnPapa.Id,
                     TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                     TimeSlotId = timeSlots[4].Id,
-                    RoomId = _roomsForWellKnownSessions[0].Id,
+                    RoomId = roomId,
                     Level = _levels[1],
                     Tags = "JavaScript|JsRender",
                     Description =
@@ -283,7 +307,7 @@ namespace CodeCamper.SampleData
                    SpeakerId = _JohnPapa.Id,
                    TrackId = tracks.First(t => t.Name == "Windows 8").Id,
                    TimeSlotId = timeSlots[7].Id,
-                   RoomId = _roomsForWellKnownSessions[0].Id,
+                   RoomId = roomId,
                    Level = _levels[0],
                    Tags = "Windows|Metro",
                    Description =
@@ -291,6 +315,7 @@ namespace CodeCamper.SampleData
                });
 
            // Dan Wahlin
+           roomId = _roomsForWellKnownSessions[1].Id;
            sessions.Add(new Session
                {
                    Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
@@ -298,7 +323,7 @@ namespace CodeCamper.SampleData
                    SpeakerId = _DanWahlin.Id,
                    TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                    TimeSlotId = timeSlots[5].Id,
-                   RoomId = _roomsForWellKnownSessions[1].Id,
+                   RoomId = roomId,
                    Level = _levels[2],
                    Tags = "MVC|HTML5|Entity Framework|jQuery",
                    Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
@@ -310,7 +335,7 @@ namespace CodeCamper.SampleData
                    SpeakerId = _DanWahlin.Id,
                    TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                    TimeSlotId = timeSlots[7].Id,
-                   RoomId = _roomsForWellKnownSessions[1].Id,
+                   RoomId = roomId,
                    Level = _levels[0],
                    Tags = "jQuery|JavaScript",
                    Description =
@@ -323,7 +348,130 @@ namespace CodeCamper.SampleData
                    SpeakerId = _DanWahlin.Id,
                    TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                    TimeSlotId = timeSlots[11].Id,
-                   RoomId = _roomsForWellKnownSessions[1].Id,
+                   RoomId = roomId,
+                   Level = _levels[1],
+                   Tags = "Web Forms|ASP",
+                   Description =
+                       "This session walks through several key patterns that can be used to encapsulate and modularize JavaScript code. Throughout the course you’ll learn how closures and other techniques can be used to better organize your JavaScript code and make it easier to re-use and maintain in HTML5 applications.",
+               });
+
+           // Ward Bell
+           roomId = _roomsForWellKnownSessions[2].Id;
+           sessions.Add(new Session
+               {
+                   Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
+                   Code = "ASP315",
+                   SpeakerId = _WardBell.Id,
+                   TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                   TimeSlotId = timeSlots[5].Id,
+                   RoomId = roomId,
+                   Level = _levels[2],
+                   Tags = "MVC|HTML5|Entity Framework|jQuery",
+                   Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
+               });
+            sessions.Add(new Session
+               {
+                   Title = "jQuery Fundamentals",
+                   Code = "JVS116",
+                   SpeakerId = _WardBell.Id,
+                   TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                   TimeSlotId = timeSlots[7].Id,
+                   RoomId = roomId,
+                   Level = _levels[0],
+                   Tags = "jQuery|JavaScript",
+                   Description =
+                       "This session guides you through the features of the jQuery \"write less, do more\" library",
+               });
+            sessions.Add(new Session
+               {
+                   Title = "Structuring JavaScript Code",
+                   Code = "JVS217",
+                   SpeakerId = _WardBell.Id,
+                   TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                   TimeSlotId = timeSlots[11].Id,
+                   RoomId = roomId,
+                   Level = _levels[1],
+                   Tags = "Web Forms|ASP",
+                   Description =
+                       "This session walks through several key patterns that can be used to encapsulate and modularize JavaScript code. Throughout the course you’ll learn how closures and other techniques can be used to better organize your JavaScript code and make it easier to re-use and maintain in HTML5 applications.",
+               });
+
+           // Jim Cowart
+           roomId = _roomsForWellKnownSessions[3].Id;
+           sessions.Add(new Session
+               {
+                   Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
+                   Code = "ASP315",
+                   SpeakerId = _JimCowart.Id,
+                   TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                   TimeSlotId = timeSlots[5].Id,
+                   RoomId = roomId,
+                   Level = _levels[2],
+                   Tags = "MVC|HTML5|Entity Framework|jQuery",
+                   Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
+               });
+            sessions.Add(new Session
+               {
+                   Title = "jQuery Fundamentals",
+                   Code = "JVS116",
+                   SpeakerId = _JimCowart.Id,
+                   TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                   TimeSlotId = timeSlots[7].Id,
+                   RoomId = roomId,
+                   Level = _levels[0],
+                   Tags = "jQuery|JavaScript",
+                   Description =
+                       "This session guides you through the features of the jQuery \"write less, do more\" library",
+               });
+            sessions.Add(new Session
+               {
+                   Title = "Structuring JavaScript Code",
+                   Code = "JVS217",
+                   SpeakerId = _JimCowart.Id,
+                   TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                   TimeSlotId = timeSlots[11].Id,
+                   RoomId = roomId,
+                   Level = _levels[1],
+                   Tags = "Web Forms|ASP",
+                   Description =
+                       "This session walks through several key patterns that can be used to encapsulate and modularize JavaScript code. Throughout the course you’ll learn how closures and other techniques can be used to better organize your JavaScript code and make it easier to re-use and maintain in HTML5 applications.",
+               });
+
+           // Ryan Niemeyer
+           roomId = _roomsForWellKnownSessions[4].Id;
+           sessions.Add(new Session
+               {
+                   Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
+                   Code = "ASP315",
+                   SpeakerId = _RyanNiemeyer.Id,
+                   TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                   TimeSlotId = timeSlots[5].Id,
+                   RoomId = roomId,
+                   Level = _levels[2],
+                   Tags = "MVC|HTML5|Entity Framework|jQuery",
+                   Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
+               });
+            sessions.Add(new Session
+               {
+                   Title = "jQuery Fundamentals",
+                   Code = "JVS116",
+                   SpeakerId = _RyanNiemeyer.Id,
+                   TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                   TimeSlotId = timeSlots[7].Id,
+                   RoomId = roomId,
+                   Level = _levels[0],
+                   Tags = "jQuery|JavaScript",
+                   Description =
+                       "This session guides you through the features of the jQuery \"write less, do more\" library",
+               });
+            sessions.Add(new Session
+               {
+                   Title = "Structuring JavaScript Code",
+                   Code = "JVS217",
+                   SpeakerId = _RyanNiemeyer.Id,
+                   TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                   TimeSlotId = timeSlots[11].Id,
+                   RoomId = roomId,
                    Level = _levels[1],
                    Tags = "Web Forms|ASP",
                    Description =
@@ -331,6 +479,7 @@ namespace CodeCamper.SampleData
                });
 
             // Scott Guthrie
+            roomId = _roomsForWellKnownSessions[5].Id;
             sessions.Add(new Session
                {
                    Title = "Keynote",
@@ -338,13 +487,12 @@ namespace CodeCamper.SampleData
                    SpeakerId = _ScottGuthrie.Id,
                    TrackId = tracks.First(t => t.Name == ".NET").Id,
                    TimeSlotId = timeSlots[0].Id,
-                   RoomId = _roomsForWellKnownSessions[4].Id,
+                   RoomId = roomId,
                    Level = _levels[1],
                    Tags = "Keynote",
                    Description = "",
                });
         }
-
         #endregion
 
         private void AddGeneratedSessions(List<Session> sessions, IList<Person> persons,  IEnumerable<TimeSlot> timeSlots, IList<Track> tracks)

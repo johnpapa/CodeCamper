@@ -10,7 +10,7 @@ namespace CodeCamper.Web.Controllers
 {
     public class AttendanceController : ApiControllerBase
     {
-        public AttendanceController(ICodeCamperDataService dataService)
+        public AttendanceController(ICodeCamperUow dataService)
         {
             DataService = dataService;
         }

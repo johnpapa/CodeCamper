@@ -9,7 +9,7 @@ namespace CodeCamper.Web.Controllers
 {
     public class SessionsController : ApiControllerBase
     {
-       public SessionsController(ICodeCamperDataService dataService)
+       public SessionsController(ICodeCamperUow dataService)
         {
             DataService = dataService;
         }
@@ -42,21 +42,14 @@ namespace CodeCamper.Web.Controllers
         [ActionName("briefs")]
         public IQueryable<SessionBrief> GetSessionBriefs()
         {
-            return DataService.Sessions.SessionBriefs.OrderBy(sb => sb.TimeSlotId);
-        }
-
-        // GET: api/sessions/speakers
-        [ActionName("speakers")]
-        public IQueryable<Speaker> GetSpeakers()
-        {
-            return DataService.Sessions.Speakers.OrderBy(s => s.FirstName);
+            return DataService.Sessions.GetSessionBriefs().OrderBy(sb => sb.TimeSlotId);
         }
 
         // GET: api/sessions/taggroups
         [ActionName("taggroups")]
-        public IQueryable<TagGroup> GetTagGroups()
+        public IEnumerable<TagGroup> GetTagGroups()
         {
-            return DataService.Sessions.TagGroups.AsQueryable();
+            return DataService.Sessions.GetTagGroups();
         }
 
         // GET: api/sessions/{sessionId}/attendance

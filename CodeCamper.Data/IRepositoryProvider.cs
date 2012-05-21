@@ -56,14 +56,5 @@ namespace CodeCamper.Data
         /// implementation of the object returned by a repository of type T.
         /// </remarks>
         void SetRepository<T>(T repository);
-
-        /// <summary>
-        /// Set the repository factory for a type, typically the repository type.
-        /// </summary>
-        /// <remarks>
-        /// Set a factory for each custom repository that this
-        /// provider should be able to create.
-        /// </remarks>
-        void SetRepositoryFactory<T>(Func<DbContext, object> factory);
     }
 }

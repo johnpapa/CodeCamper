@@ -9,7 +9,7 @@ namespace CodeCamper.Web.Controllers
 {
     public class LookupsController : ApiControllerBase
     {
-        public LookupsController(ICodeCamperDataService dataService)
+        public LookupsController(ICodeCamperUow dataService)
         {
             DataService = dataService;
         }
@@ -19,13 +19,6 @@ namespace CodeCamper.Web.Controllers
         public IQueryable<Room> GetRooms()
         {
             return DataService.Rooms.GetAll().OrderBy(r => r.Name);
-        }
-
-        // GET: api/lookups/speakers
-        [ActionName("speakers")]
-        public IQueryable<Speaker> GetSpeakers()
-        {
-            return DataService.Sessions.Speakers.OrderBy(s => s.FirstName);
         }
 
         // GET: api/lookups/timeslots

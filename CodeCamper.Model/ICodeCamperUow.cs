@@ -3,11 +3,16 @@ using System.Linq;
 
 namespace CodeCamper.Model
 {
-    public interface ICodeCamperDataService
+    /// <summary>
+    /// Interface for the Code Camper "Unit of Work"
+    /// </summary>
+    public interface ICodeCamperUow
     {
+        // Save pending changes to the data store.
         void Commit();
 
-        IRepository<Person> Persons { get; }
+        // Repositories
+        IPersonsRepository Persons { get; }
         IRepository<Room> Rooms { get; }
         ISessionsRepository Sessions { get; }
         IRepository<TimeSlot> TimeSlots { get; }

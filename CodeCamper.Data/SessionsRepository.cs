@@ -16,14 +16,12 @@ namespace CodeCamper.Data
         /// a cutdown version of <see cref="Session"/> entities.
         /// </summary>
         ///<remarks>
-        ///See <see cref="ISessionsRepository.SessionBriefs"/> for details.
+        ///See <see cref="ISessionsRepository.GetSessionBriefs"/> for details.
         ///</remarks>
-        public IQueryable<SessionBrief> SessionBriefs
+        public IQueryable<SessionBrief> GetSessionBriefs()
         {
-            get { 
-                return DbSet.Select(s => 
-                    new SessionBrief
-                        {    
+            return DbSet.Select(s => new SessionBrief
+                         {
                              Id = s.Id,
                              Title = s.Title,
                              Code = s.Code,
@@ -33,30 +31,7 @@ namespace CodeCamper.Data
                              RoomId = s.RoomId,
                              Level = s.Level,
                              Tags = s.Tags,
-                        });
-                }
-        }
-
-        /// <summary>
-        /// Get <see cref="Speaker"/>s at sessions.
-        /// </summary>
-        ///<remarks>
-        ///See <see cref="ISessionsRepository.Speakers"/> for details.
-        ///</remarks>
-
-        public IQueryable<Speaker> Speakers
-        {
-            get { 
-                return DbSet
-                    .Select(session => session.Speaker)
-                    .Distinct().Select(s =>
-                        new Speaker
-                            {    
-                                 PersonId = s.Id,
-                                 FirstName = s.FirstName,
-                                 LastName = s.LastName,
-                            });
-                }        
+                         });
         }
 
         /// <summary>
@@ -66,38 +41,35 @@ namespace CodeCamper.Data
         /// <remarks>
         ///See <see cref="ISessionRepository.TagGroups"/> for details.
         /// </remarks>
-        public IEnumerable<TagGroup> TagGroups
+        public IEnumerable<TagGroup> GetTagGroups()
         {
-            get { return GetTagGroupsQuery(); }
-        }
 
-        private IEnumerable<TagGroup> GetTagGroupsQuery()
-        {
-            // extract the delimited tags string and session id from all sessions
-            var sessionTags = DbSet.Select(s => new { s.Tags, s.Id })
-                .ToArray() // we'll process them in memory.
+            var tagGroups = 
+                // extract the delimited tags string and session id from all sessions
+                DbSet.Select(s => new { s.Tags, s.Id })
+                    .ToArray() // we'll process them in memory.
 
-                // split the "Tags" string into individual tags 
-                // and flatten into {tag, id} pairs
-                .SelectMany(
-                    s =>
-                    s.Tags.Split(_tagDelimiter, StringSplitOptions.RemoveEmptyEntries)
-                        .Select(t => new { Tag = t, s.Id })
-                )
+                    // split the "Tags" string into individual tags 
+                    // and flatten into {tag, id} pairs
+                    .SelectMany(
+                        s =>
+                        s.Tags.Split(_tagDelimiter, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(t => new { Tag = t, s.Id })
+                    )
 
-                // group {tag, id} by tag into unique {tag, [session-id-array]}
-                .GroupBy(g => g.Tag, data => data.Id)
+                    // group {tag, id} by tag into unique {tag, [session-id-array]}
+                    .GroupBy(g => g.Tag, data => data.Id)
 
-                // project the group into TagGroup instances
-                // ensuring that ids array in each array are unique
-                .Select(tg => new TagGroup 
-                                {
-                                    Tag = tg.Key, 
-                                    Ids = tg.Distinct().ToArray(),
-                                })
-                .OrderBy(tg => tg.Tag);
+                    // project the group into TagGroup instances
+                    // ensuring that ids array in each array are unique
+                    .Select(tg => new TagGroup 
+                                    {
+                                        Tag = tg.Key, 
+                                        Ids = tg.Distinct().ToArray(),
+                                    })
+                    .OrderBy(tg => tg.Tag);
 
-            return sessionTags;
+            return tagGroups;
         }
 
         private readonly char[] _tagDelimiter = new[] { '|' };

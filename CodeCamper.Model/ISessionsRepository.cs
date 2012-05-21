@@ -14,17 +14,7 @@ namespace CodeCamper.Model
         /// <see cref="Session"/> properties suitable for 
         /// quick client-side filtering and presentation.
         /// </remarks>
-        IQueryable<SessionBrief> SessionBriefs {get;}
-
-        /// <summary>
-        /// Get <see cref="Speaker"/>s at sessions.
-        /// </summary>
-        /// <remarks>
-        /// <see cref="Speaker"/> is a subset of  
-        /// <see cref="Person"/> properties suitable for 
-        /// quick client-side filtering and presentation.
-        /// </remarks>
-        IQueryable<Speaker> Speakers { get; }
+        IQueryable<SessionBrief> GetSessionBriefs();
 
         /// <summary>
         /// Get the unique tags from all of the sessions
@@ -39,6 +29,6 @@ namespace CodeCamper.Model
         /// Each item in the list is a <see cref="TagGroup"/> consisting 
         /// of a tag and an array of ids of sessions with that tag.
         /// </remarks>
-        IEnumerable<TagGroup> TagGroups { get; }
+        IEnumerable<TagGroup> GetTagGroups();
     }
 }

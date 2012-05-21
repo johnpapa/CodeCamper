@@ -7,12 +7,19 @@ using CodeCamper.Model;
 
 namespace CodeCamper.Data
 {
+    /// <summary>
+    /// Provides an <see cref="IRepository{T}"/> for a client request.
+    /// </summary>
+    /// <remarks>
+    /// Caches repositories of a given type so that repositories are only created once per provider.
+    /// Code Camper creates a new provider per client request.
+    /// </remarks>
     public class RepositoryProvider : CodeCamper.Data.IRepositoryProvider
     {
-        public RepositoryProvider()
+        public RepositoryProvider(RepositoryFactories repositoryFactories)
         {
+            _repositoryFactories = repositoryFactories;
             Repositories = new Dictionary<Type, object>();
-            RepositoryFactories = new Dictionary<Type, Func<DbContext, object>>();
         }
 
         /// <summary>
@@ -27,9 +34,12 @@ namespace CodeCamper.Data
         /// <typeparam name="T">
         /// Root type of the <see cref="IRepository{T}"/>, typically an entity type.
         /// </typeparam>
+        /// <remarks>
+        /// If can't find in cache, asks for a "standard" factory to create one.
+        /// </remarks>
         public IRepository<T> GetStandardRepo<T>() where T : class
         {
-            return GetRepo<IRepository<T>>(GetStandardRepositoryFactory<T>());
+            return GetRepo<IRepository<T>>(_repositoryFactories.GetStandardRepositoryFactory<T>());
         }
 
         /// <summary>
@@ -40,7 +50,9 @@ namespace CodeCamper.Data
         /// </typeparam>
         /// <param name="factory">
         /// An optional repository creation function that takes a DbContext argument
-        /// and returns a repository of T. Used if the repository must be created.
+        /// and returns a repository of T. Used if the repository must be created and
+        /// caller wants to specify the specific factory to use rather than one
+        /// of the injected <see cref="RepositoryFactories"/>.
         /// </param>
         /// <remarks>
         /// Looks for the requested repository in its cache, returning if found.
@@ -61,31 +73,6 @@ namespace CodeCamper.Data
         }
 
         /// <summary>
-        /// Set the repository to return from this provider.
-        /// </summary>
-        /// <remarks>
-        /// Set a repository if you don't want this provider to create one.
-        /// Useful in testing and when developing without a backend
-        /// implementation of the object returned by a repository of type T.
-        /// </remarks>
-        public void SetRepository<T>(T repository)
-        {
-            Repositories[typeof(T)] = repository;
-        }
-
-        /// <summary>
-        /// Set the repository factory for a type, typically the repository type.
-        /// </summary>
-        /// <remarks>
-        /// Set a factory for each custom repository that this
-        /// provider should be able to create.
-        /// </remarks>
-        public void SetRepositoryFactory<T>(Func<DbContext, object> factory)
-        {
-            RepositoryFactories[typeof(T)] = factory;
-        }
-
-        /// <summary>
         /// Get the dictionary of repository objects, keyed by repository type.
         /// </summary>
         /// <remarks>
@@ -102,12 +89,12 @@ namespace CodeCamper.Data
         /// </param>        
         /// <param name="factory">
         /// Factory with <see cref="DbContext"/> argument. Used to make the repository.
-        /// If null, gets factory from <see cref="GetRepositoryFactory"/>.
+        /// If null, gets factory from <see cref="_repositoryFactories"/>.
         /// </param>
         /// <returns></returns>
         protected virtual T MakeRepository<T>(Func<DbContext, object> factory, DbContext dbContext)
         {
-            var f = factory ?? GetRepositoryFactory(typeof(T));
+            var f = factory ?? _repositoryFactories.GetRepositoryFactory(typeof(T));
             if (f == null)
             {
                 throw new NotImplementedException("No factory for repository type, " + typeof(T).FullName);
@@ -118,50 +105,25 @@ namespace CodeCamper.Data
         }
 
         /// <summary>
-        /// Get the repository factory object for the given factory type.
+        /// Set the repository for type T that this provider should return.
         /// </summary>
-        /// <param name="factoryType">Typically the repository type.</param>
-        /// <returns>The repository object if found, else null.</returns>
-        protected Func<DbContext, object> GetRepositoryFactory(Type factoryType)
+        /// <remarks>
+        /// Plug in a custom repository if you don't want this provider to create one.
+        /// Useful in testing and when developing without a backend
+        /// implementation of the object returned by a repository of type T.
+        /// </remarks>
+        public void SetRepository<T>(T repository)
         {
-            Func<DbContext, object> factory;
-            RepositoryFactories.TryGetValue(factoryType, out factory);
-            return factory;
+            Repositories[typeof(T)] = repository;
         }
 
         /// <summary>
-        /// Get the factory for a standard <see cref="IRepository{T}"/>
-        /// </summary>
-        /// <typeparam name="T">The root type of the repository, typically an entity type.</typeparam>
-        /// <returns>
-        /// A factory that creates the <see cref="IRepository{T}"/>, given an EF <see cref="DbContext"/>.
-        /// </returns>
-        /// <remarks>
-        /// Looks first for a custom factory in <see cref="RepositoryFactories"/>.
-        /// If not, falls back to the <see cref="DefaultStandardRepositoryFactory"/>.
-        /// You can substitute an alternative factory for the default one by adding
-        /// a repository factory for type "T" to <see cref="RepositoryFactories"/>.
-        /// </remarks>
-        protected virtual Func<DbContext, object> GetStandardRepositoryFactory<T>() where T : class
-        {
-            return GetRepositoryFactory(typeof(T)) ?? DefaultStandardRepositoryFactory<T>();
-        }
-
-        protected virtual Func<DbContext, object> DefaultStandardRepositoryFactory<T>() where T : class
-        {
-            return dbContext => new EFRepository<T>(dbContext);
-        }
-
-        /// <summary>
-        /// Get the dictionary of Repository factories, keyed by a type, typically the repository type.
+        /// The <see cref="RepositoryFactories"/> with which to create a new repository.
         /// </summary>
         /// <remarks>
-        /// A repository factory takes a <see cref="DbContext"/> argument and returns
-        /// a repository object. Caller must know how to cast it.
-        /// <p>This is an extension point. You can register factories here including
-        /// repository factory that supercedes the default <see cref="StandardRepositoryFactory"/>.</p>
+        /// Should be initialized by constructor injection
         /// </remarks>
-        protected Dictionary<Type, Func<DbContext, object>> RepositoryFactories { get; private set; }
+        private RepositoryFactories _repositoryFactories;
 
     }
 }

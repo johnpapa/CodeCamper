@@ -9,7 +9,7 @@ namespace CodeCamper.Web.Controllers
 {
     public class PersonsController : ApiControllerBase
     {
-        public PersonsController(ICodeCamperDataService dataService)
+        public PersonsController(ICodeCamperUow dataService)
         {
             DataService = dataService;
         }
@@ -36,6 +36,13 @@ namespace CodeCamper.Web.Controllers
         }
 
         #region Actions (RPC methods)
+
+        // GET: api/sessions/speakers
+        [ActionName("speakers")]
+        public IQueryable<Speaker> GetSpeakers()
+        {
+            return DataService.Persons.GetSpeakers().OrderBy(s => s.FirstName);
+        }
 
         // GET: api/persons/{personId}/attendance
         [ActionName(Names.Actions.Attendance)]

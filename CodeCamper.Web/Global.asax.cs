@@ -35,8 +35,9 @@ namespace CodeCamper.Web
 
             // These registrations are "per instance request".
             // See http://blog.bobcravens.com/2010/03/ninject-life-cycle-management-or-scoping/
-            kernel.Bind<ICodeCamperDataService>().To<CodeCamperDataService>();
-            kernel.Bind<IRepositoryProvider>().To<CodeCamperRepositoryProvider>();
+            kernel.Bind<RepositoryFactories>().To<CodeCamperRepositoryFactories>().InSingletonScope();
+            kernel.Bind<IRepositoryProvider>().To<RepositoryProvider>();
+            kernel.Bind<ICodeCamperUow>().To<CodeCamperUow>();
 
             // Tell WebApi how to use our Ninject IoC
             config.ServiceResolver.SetResolver(
