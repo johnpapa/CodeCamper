@@ -6,6 +6,12 @@ using CodeCamper.Model;
 
 namespace CodeCamper.Data
 {
+    /// <summary>
+    /// The CodeCamperDataService: 
+    ///     1) decouples the repos from the controllers
+    ///     2) decouples the DbContext and EF from the controllers
+    ///     3) manages the UoW
+    /// </summary>
     public class CodeCamperDataService : ICodeCamperDataService, IDisposable
     {
         private CodeCamperDbContext DbContext { get; set; }
