@@ -9,7 +9,7 @@
 // ----------------------------------------------
 var my = my || {}
 
-my.dataprimer = (function (toastr, dataservice, datacontext, model) {
+my.dataprimer = (function ($, toastr, dataservice, datacontext, model) {
     var
         fetchLookups = function () {
             // Eager-Fetch lookup data
@@ -68,4 +68,4 @@ my.dataprimer = (function (toastr, dataservice, datacontext, model) {
         fetchSessionBriefs: fetchSessionBriefs,
         fetchSpeakers: fetchSpeakers
     }
-})(toastr, my.dataservice, my.datacontext, my.model)
+})(jQuery, toastr, my.dataservice, my.datacontext, my.model)

@@ -7,37 +7,36 @@
 // ----------------------------------------------
 var my = my || {};
 
-// Adding the @SPEAKER_FIRST_NAME keyword
-//$.mockJSON.random = false;
-$.mockJSON.log = false;
-$.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward', 'Jim', 'Ryan'];
-$.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell', 'Cowart', 'Niemeyer'];
-$.mockJSON.data.DATE_TODAY = [moment().format('MMMM DD YYYY')];
-//$.mockJSON.data.DATE_FULL = [Date.create().format('{Weekday} {Month} {d} {hh}:{mm} {tt} {yyyy}')];
-$.mockJSON.data.DATE_FULL = [new Date()];
-$.mockJSON.data.TAG = ['JavaScript', 'Knockout', 'MVVM', 'HTML5', 'Keynote', 'SQL', 'CSS', 'Metro', 'UX'];
-$.mockJSON.data.TRACK = ['Windows 8', 'JavaScript', 'ASP.NET', '.NET', 'Data', 'Mobile', 'Cloud', 'Practices', 'Design'];
-$.mockJSON.data.TITLE = [
-    'Building HTML and JavaScript Apps with KnockoutJS and MVVM',
-    'JsRender Fundamentals',
-    'Introduction to Building Windows 8 Metro Applications',
-    'Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery',
-    'jQuery Fundamentals',
-    'jQuery Tips and Tricks',
-    'JavaScript for .NET Developers',
-    'jQuery Mobile',
-    'Bootstrap',
-    'Responsive Web Design',
-    'Structuring JavaScript Code',
-    'Keynote'
-];
-$.mockJSON.data.LEVEL = ["Beginner", "Intermediate", "Advanced"];
-$.mockJSON.data.Twitter = ['john_papa', 'danwahlin', 'ifthenelse', 'scottgu', 'wardbell'];
-$.mockJSON.data.URL = ['http://www.johnpapa.net', 'http://www.pluralsight.com'];
-$.mockJSON.data.Gender = ['F', 'M'];
-
 my.mock = (function ($) {
     var
+        init = function () {
+            //$.mockJSON.random = false;
+            $.mockJSON.log = false;
+            $.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward', 'Jim', 'Ryan'];
+            $.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell', 'Cowart', 'Niemeyer'];
+            $.mockJSON.data.DATE_TODAY = [moment().format('MMMM DD YYYY')];
+            $.mockJSON.data.DATE_FULL = [new Date()];
+            $.mockJSON.data.TAG = ['JavaScript', 'Knockout', 'MVVM', 'HTML5', 'Keynote', 'SQL', 'CSS', 'Metro', 'UX'];
+            $.mockJSON.data.TRACK = ['Windows 8', 'JavaScript', 'ASP.NET', '.NET', 'Data', 'Mobile', 'Cloud', 'Practices', 'Design'];
+            $.mockJSON.data.TITLE = [
+                'Building HTML and JavaScript Apps with KnockoutJS and MVVM',
+                'JsRender Fundamentals',
+                'Introduction to Building Windows 8 Metro Applications',
+                'Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery',
+                'jQuery Fundamentals',
+                'jQuery Tips and Tricks',
+                'JavaScript for .NET Developers',
+                'jQuery Mobile',
+                'Bootstrap',
+                'Responsive Web Design',
+                'Structuring JavaScript Code',
+                'Keynote'
+                        ];
+            $.mockJSON.data.LEVEL = ["Beginner", "Intermediate", "Advanced"];
+            $.mockJSON.data.TWITTER = ['john_papa', 'danwahlin', 'ifthenelse', 'scottgu', 'wardbell'];
+            $.mockJSON.data.URL = ['http://www.johnpapa.net', 'http://www.pluralsight.com'];
+            $.mockJSON.data.GENDER = ['F', 'M'];
+        },
         generateRooms = function () {
             return $.mockJSON.generateFromTemplate({
                 'rooms|10-20': [{
@@ -81,8 +80,8 @@ my.mock = (function ($) {
                     LastName: '@SPEAKER_LAST_NAME',
                     Email: '@EMAIL',
                     Blog: '@URL',
-                    Twitter: 'http://twitter.com/@' + '@TWITTER',
-                    Gender: '@GENDER',
+                    TWITTER: 'http://twitter.com/@' + '@TWITTER',
+                    GENDER: '@GENDER',
                     Bio: '@LOREM_IPSUM'
                     //imageName: '../content/' + '@SPEAKER_FIRST_NAME' + '.jpg' //TODO: do in the mapping
                 }]
@@ -106,6 +105,7 @@ my.mock = (function ($) {
             })
         };
     return {
+        init: init,
         model: {
             generateRooms: generateRooms,
             generateSessions: generateSessions,
@@ -116,3 +116,5 @@ my.mock = (function ($) {
 		dataservice : {}
     }
 })(jQuery);
+
+my.mock.init();

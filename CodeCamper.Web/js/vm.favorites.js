@@ -6,7 +6,7 @@
 var my = my || {};
 my.vm = my.vm || {}
 
-my.vm.favorites = (function (ko, toastr, datacontext, dataservice, model) {
+my.vm.favorites = (function (ko, toastr, datacontext, dataservice) {
     var
         sessions = ko.observableArray(),
         timeslots = datacontext.timeslots, //ko.observableArray(),
@@ -74,4 +74,4 @@ my.vm.favorites = (function (ko, toastr, datacontext, dataservice, model) {
         loadByDate: loadByDate,
         debugInfo: debugInfo
     }
-})(ko, toastr, my.datacontext, my.dataservice, my.model);
+})(ko, toastr, my.datacontext, my.dataservice);

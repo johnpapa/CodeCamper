@@ -3,6 +3,7 @@
 //  knockout
 //  toastr
 //	router
+//  vm (view models)
 //  viewmodels
 //  dataPrimer
 //
@@ -13,7 +14,7 @@
 // ----------------------------------------------
 var my = my || {};
 
-my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config, dataservice) {
+my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config) {
     var
         bindViewModelsToViews = function () {
             ko.applyBindings(vm.session, $('#session').get(0))
@@ -71,7 +72,7 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config, data
     return {
         run: run
     }
-})(jQuery, ko, toastr, my.router, my.vm, my.dataprimer, my.config, my.dataservice)
+})(jQuery, ko, toastr, my.router, my.vm, my.dataprimer, my.config)
 
 $(function() {
     my.bootstrapper.run();

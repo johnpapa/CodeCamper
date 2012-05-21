@@ -1,6 +1,5 @@
-﻿// Depends on 
-//	jQuery
-// 	Knockout
+﻿// Depends on
+//
 // ----------------------------------------------
 
 my.model = my.model || {};

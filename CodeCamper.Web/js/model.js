@@ -1,7 +1,6 @@
 ﻿// Depends on 
-//	jQuery
-// 	Knockout
 //  my.datacontext (for reference links)
+//
 // ----------------------------------------------
 var my = my || {};
 my.model = my.model || {};
