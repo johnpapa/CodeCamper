@@ -6,10 +6,19 @@
 var my = my || {};
 my.vm = my.vm || {}
 
+// vm.favorites is the ViewModel for a view displaying just the sessions
+// that the current user has marked as favorites.
+// The user can further filter this subset of Sessions by additional criteria,
+// the same filter criteria that can be applied to all sessions.
 my.vm.favorites = (function (ko, toastr, datacontext) {
-    var
-        sessions = datacontext.sessions, //ko.observableArray(),
-        timeslots = datacontext.timeslots, //ko.observableArray(),
+
+    // sessionFilter always limits to favorite sessions of the current user
+    var sessionFilter = (new my.filters.SessionFilter()).favoriteOnly = true;
+       
+    var sessions = ko.observableArray();
+    sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
+
+    var timeslots = datacontext.timeslots, //ko.observableArray(),
         days = ko.computed(function () {
             var
                 result = _.reduce(timeslots(), function (memo, slot) {
