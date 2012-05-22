@@ -19,18 +19,21 @@ my.datacontext = (function (ko, toastr, dataservice, model) {
         //TODO: filter these
         speakers = ko.observableArray(),
         
-        getSessions = function (sessionsOut) {
+        getSessions = function (callback) {
             if (sessions().length) {
-                sessionsOut = sessions;
-                return sessions;
+                callback(sessions);
+                //return sessions;
             }
             else {
                 dataservice.session.getSessions({
                     success: function (rawsessions) {
                         sessions(rawsessions.map(function (s) { return model.mapper.mapSession(s) }));
-                        sessionsOut = sessions;
-                        return sessions;
+                        //sessionsOut(sessions());
+                        //sessionsOut = sessions;
+                        //obj.ref = sessions;
+                        callback(sessions);
                         toastr.success('received with ' + sessions().length + ' elements');
+                        //return sessions;
                     },
                     error: function () { toastr.error('oops! sessions could not be retrieved'); }
                 })
@@ -42,7 +45,7 @@ my.datacontext = (function (ko, toastr, dataservice, model) {
                 return timeslots;
             }
             else {
-                ds.lookup.getTimeslots({
+                dataservice.lookup.getTimeslots({
                     success: function (rawtimeslots) {
                         timeslots(rawtimeslots.map(function (s) { return model.mapper.mapTimeSlot(ts) }));
                         timeslotsOut = timeslots;
