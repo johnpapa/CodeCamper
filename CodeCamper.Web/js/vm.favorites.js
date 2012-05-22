@@ -2,23 +2,26 @@
 //	Knockout
 // 	toastr
 //	my.datacontext
+//
+// Description
+//  vm.favorites is the ViewModel for a view displaying just the sessions
+//  that the current user has marked as favorites.
+//  The user can further filter this subset of Sessions by additional criteria,
+//  the same filter criteria that can be applied to all sessions.
+//
 // ----------------------------------------------
 var my = my || {};
 my.vm = my.vm || {}
 
-// vm.favorites is the ViewModel for a view displaying just the sessions
-// that the current user has marked as favorites.
-// The user can further filter this subset of Sessions by additional criteria,
-// the same filter criteria that can be applied to all sessions.
 my.vm.favorites = (function (ko, toastr, datacontext) {
 
     // sessionFilter always limits to favorite sessions of the current user
-    var sessionFilter = (new my.filters.SessionFilter()).favoriteOnly = true;
-       
-    var sessions = ko.observableArray();
-    sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
+    //var sessionFilter = (new my.filters.SessionFilter()).favoriteOnly = true;
+    
+    //sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
 
     var timeslots = datacontext.timeslots, //ko.observableArray(),
+        sessions = datacontext.sessions, // ko.observableArray(), //
         days = ko.computed(function () {
             var
                 result = _.reduce(timeslots(), function (memo, slot) {
@@ -52,8 +55,12 @@ my.vm.favorites = (function (ko, toastr, datacontext) {
             //timeslots = datacontext.timeslots
 
             datacontext.getTimeslots(timeslots)
-
-            datacontext.getSessions(sessions)
+            //sessions = datacontext.getSessions({ref: sessions})
+            datacontext.getSessions(setSessions)
+        },
+        setSessions = function (ref) {
+            sessions = ref;
+            sessions.valueHasMutated();
         },
         loadByDate = function (data) {
             // filter the filteredSessions by date
