@@ -22,7 +22,7 @@ namespace CodeCamper.Web
 
     public class WebApiApplication : System.Web.HttpApplication
     {
-        // PAPA: Added "Configure" in order to introduce IoC
+        // PAPA: Added "Configure" in order to introduce IoC and JsonNet serializer
         public static void Configure(HttpConfiguration config)
         {
             ConfigureIoC(config);
@@ -47,10 +47,8 @@ namespace CodeCamper.Web
 
         private static void ConfigureSerializer(HttpConfiguration config)
         {
-            // The first formatter is known to be the JsonFormatter.
-            // Per http://blogs.msdn.com/b/henrikn/archive/2012/02/18/using-json-net-with-asp-net-web-api.aspx
-            // Could play it safe and search for it but we'll take the easy route
-            config.Formatters[0] = new JsonNetFormatter();
+            // put replacement json formatter first in line
+            config.Formatters.Insert(0, new JsonNetFormatter()); 
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -91,7 +89,7 @@ namespace CodeCamper.Web
             routes.MapHttpRoute(
                 name: "ApiGetAttendance",
                 routeTemplate: "api/{controller}/{id}/{action}",
-                defaults: new { },
+                defaults: null,
                 constraints: new { id = @"^\d+$" } // id must be all digits
             );
 
@@ -105,7 +103,7 @@ namespace CodeCamper.Web
             routes.MapHttpRoute(
                 name: "ApiGetItemByIntegerId",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { },
+                defaults: null,
                 constraints: new { id = @"^\d+$" } // id must be all digits
             );
 
@@ -147,12 +145,12 @@ namespace CodeCamper.Web
         {
             AreaRegistration.RegisterAllAreas();
 
-            //PAPA: Commented out because we use our own DB and repository
-            // Use LocalDB for Entity Framework by default
-            //Database.DefaultConnectionFactory = new SqlConnectionFactory("Data Source=(localdb)\v11.0; Integrated Security=True; MultipleActiveResultSets=True");
+            //PAPA: Commented out next 2 lines because we use our own DB and repository
+            //   Use LocalDB for Entity Framework by default
+            //   Database.DefaultConnectionFactory = new SqlConnectionFactory("Data Source=(localdb)\v11.0; Integrated Security=True; MultipleActiveResultSets=True");
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            Configure(GlobalConfiguration.Configuration);   //Ward: Tells WebApi to use our IoC
+            Configure(GlobalConfiguration.Configuration);   // Tell WebApi to use our custom configuration
             RegisterRoutes(RouteTable.Routes);
 
             BundleTable.Bundles.RegisterTemplateBundles();

@@ -9,9 +9,9 @@ namespace CodeCamper.Web.Controllers
 {
     public class SessionsController : ApiControllerBase
     {
-       public SessionsController(ICodeCamperUow dataService)
+       public SessionsController(ICodeCamperUow uow)
         {
-            DataService = dataService;
+            Uow = uow;
         }
 
         // ToDo: Remove this poor man's IoC ctor
@@ -20,16 +20,16 @@ namespace CodeCamper.Web.Controllers
         //    Repository = new CodeCamperRepository();
         //}
 
-       // GET /api/{controller}
+       // GET /api/sessions
         public IQueryable<Session> Get()
         {
-            return DataService.Sessions.GetAll().OrderBy(s => s.TimeSlotId);
+            return Uow.Sessions.GetAll().OrderBy(s => s.TimeSlotId);
         }
 
-        // GET /api/{controller}/5
+        // GET /api/sessions/5
         public Session Get(int id)
         {
-            var session = DataService.Sessions.GetById(id);
+            var session = Uow.Sessions.GetById(id);
             if (session != null) return session;
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
@@ -42,21 +42,21 @@ namespace CodeCamper.Web.Controllers
         [ActionName("briefs")]
         public IQueryable<SessionBrief> GetSessionBriefs()
         {
-            return DataService.Sessions.GetSessionBriefs().OrderBy(sb => sb.TimeSlotId);
+            return Uow.Sessions.GetSessionBriefs().OrderBy(sb => sb.TimeSlotId);
         }
 
         // GET: api/sessions/taggroups
         [ActionName("taggroups")]
         public IEnumerable<TagGroup> GetTagGroups()
         {
-            return DataService.Sessions.GetTagGroups();
+            return Uow.Sessions.GetTagGroups();
         }
 
         // GET: api/sessions/{sessionId}/attendance
-        [ActionName(Names.Actions.Attendance)]
+        [ActionName("attendance")]
         public IQueryable<Attendance> GetAttendanceBySessionId(int id)
         {
-            return DataService.Attendance.GetBySessionId(id).OrderBy(ps => ps.Person.FirstName);
+            return Uow.Attendance.GetBySessionId(id).OrderBy(ps => ps.Person.FirstName);
         }
 
         #endregion

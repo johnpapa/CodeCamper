@@ -9,30 +9,30 @@ namespace CodeCamper.Web.Controllers
 {
     public class PersonsController : ApiControllerBase
     {
-        public PersonsController(ICodeCamperUow dataService)
+        public PersonsController(ICodeCamperUow uow)
         {
-            DataService = dataService;
+            Uow = uow;
         }
 
-        // GET /api/{controller}
+        // GET /api/persons
         public IQueryable<Person> Get()
         {
-            return DataService.Persons.GetAll().OrderBy(p => p.FirstName);
+            return Uow.Persons.GetAll().OrderBy(p => p.FirstName);
         }
 
-        // GET /api/{controller}/5
+        // GET /api/persons/5
         public Person Get(int id)
         {
-            var person = DataService.Persons.GetById(id);
+            var person = Uow.Persons.GetById(id);
             if (person != null) return person;
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
-        // PUT /api/{controller}/
+        // PUT /api/persons/
         public void Put(Person person)
         {
-            DataService.Persons.Update(person);
-            DataService.Commit();
+            Uow.Persons.Update(person);
+            Uow.Commit();
         }
 
         #region Actions (RPC methods)
@@ -41,14 +41,14 @@ namespace CodeCamper.Web.Controllers
         [ActionName("speakers")]
         public IQueryable<Speaker> GetSpeakers()
         {
-            return DataService.Persons.GetSpeakers().OrderBy(s => s.FirstName);
+            return Uow.Persons.GetSpeakers().OrderBy(s => s.FirstName);
         }
 
         // GET: api/persons/{personId}/attendance
-        [ActionName(Names.Actions.Attendance)]
+        [ActionName("attendance")]
         public IQueryable<Attendance> GetAttendanceByPersonId(int id)
         {
-            return DataService.Attendance.GetByPersonId(id).OrderBy(ps => ps.Session.Title);
+            return Uow.Attendance.GetByPersonId(id).OrderBy(ps => ps.Session.Title);
         }
 
         #endregion

@@ -10,22 +10,22 @@ namespace CodeCamper.Web.Controllers
 {
     public class AttendanceController : ApiControllerBase
     {
-        public AttendanceController(ICodeCamperUow dataService)
+        public AttendanceController(ICodeCamperUow uow)
         {
-            DataService = dataService;
+            Uow = uow;
         }
 
         // GET: api/attendance
         public IQueryable<Attendance> GetAttendance()
         {
-            return DataService.Attendance.GetAll();
+            return Uow.Attendance.GetAll();
             //throw new HttpResponseException(HttpStatusCode.Forbidden); //security violation
         }
 
         // GET: api/attendance/pid,sid
         public Attendance GetAttendance(int pid, int sid)
         {
-            var attendance = DataService.Attendance.GetByIds(pid, sid);
+            var attendance = Uow.Attendance.GetByIds(pid, sid);
             if (attendance != null) return attendance;
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }

@@ -8,16 +8,16 @@ namespace CodeCamper.Web.Controllers
 {
     public abstract class ApiControllerBase : ApiController
     {
-        protected ICodeCamperUow DataService { get; set; }
+        protected ICodeCamperUow Uow { get; set; }
 
         // base ApiController is IDisposable
         // Dispose of the repository if it is IDisposable
         protected override void Dispose(bool disposing)
         {
-            if (DataService != null && DataService is IDisposable)
+            if (Uow != null && Uow is IDisposable)
             {
-                ((IDisposable)DataService).Dispose();
-                DataService = null;
+                ((IDisposable)Uow).Dispose();
+                Uow = null;
             }
             base.Dispose(disposing);
         }
