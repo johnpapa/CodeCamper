@@ -215,7 +215,7 @@ body {
 
         label > input[type=checkbox] + span {
 		/*input[type=checkbox] + label {*/
-		   background: url(heart.png);
+		   background: url(bookmark.png);
 		   cursor: pointer;
 		   display: inline-block;
 		   float: right;

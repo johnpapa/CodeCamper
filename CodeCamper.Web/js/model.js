@@ -15,7 +15,7 @@ my.model.Room = function () {
 
 my.model.roomNullo = new my.model.Room()
                 .id(0)
-                .name("Not a room");
+                .name('Not a room');
 
 my.model.Track = function () {
     var self = this;
@@ -27,7 +27,7 @@ my.model.Track = function () {
 
 my.model.trackNullo = new my.model.Track()
                 .id(0)
-                .name("Not a track");
+                .name('Not a track');
 
 my.model.TimeSlot = function () {
     var self = this;
@@ -40,6 +40,9 @@ my.model.TimeSlot = function () {
     }, self);
     self.fullStart = ko.computed(function () {
         return moment(self.start()).format('dddd hh:mm a');
+    }, self);
+    self.shortStart = ko.computed(function () {
+        return moment(self.start()).format('ddd hh:mm a');
     }, self);
     self.dayStart = ko.computed(function () {
         return moment(self.start()).format('dddd MMM Do');
@@ -74,13 +77,13 @@ my.model.Speaker = function () {
 
 my.model.speakerNullo = new my.model.Speaker()
                 .id(0)
-                .firstName("Not a")
-                .lastName("Person")
-                .email("")
-                .blog("")
-                .twitter("")
-                .gender("M")
-                .bio("");
+                .firstName('Not a')
+                .lastName('Person')
+                .email('')
+                .blog('')
+                .twitter('')
+                .gender('M')
+                .bio('');
 
 my.model.Session = function () {
     var self = this;
@@ -101,16 +104,16 @@ my.model.Session = function () {
 
 my.model.sessionNullo = new my.model.Session()
                 .id(0)
-                .title("Not a Session")
-                .code("XYZ123")
+                .title('Not a Session')
+                .code('XYZ123')
                 .speakerId(0)
                 .trackId(0)
                 .timeslotId(0)
                 .roomId(0)
-                .description("")
+                .description('')
                 .isFavorite(false) //TODO: fix this
-                .level("")
-                .tags("");
+                .level('')
+                .tags('');
 
 my.model.Session.prototype = function () {
     var

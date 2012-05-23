@@ -142,13 +142,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bookmark-light.png" />
-    <Content Include="Content\bookmark.png" />
-    <Content Include="Content\bookmarkchecked-light.png" />
+    <Content Include="Content\bookmark-white.png" />
+    <Content Include="Content\bookmarkchecked-blue.png" />
     <Content Include="Content\bookmarkchecked.png" />
     <Content Include="Content\dan.jpg" />
     <Content Include="Content\hans.jpg" />
-    <Content Include="Content\icon.png" />
+    <Content Include="Content\bookmark.png" />
     <Content Include="Content\jim.jpg" />
     <Content Include="Content\john.jpg" />
     <Content Include="Content\Ryan.jpg" />
@@ -162,6 +161,7 @@
     <Content Include="js\datacontext.js" />
     <Content Include="js\dataservice.lookup.js" />
     <Content Include="js\utils.js" />
+    <Content Include="Scripts\activity-indicator.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />

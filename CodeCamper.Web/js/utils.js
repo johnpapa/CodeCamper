@@ -18,3 +18,4 @@ my.utils = (function () {
         hasProperties: hasProperties
     }
 })();
+
