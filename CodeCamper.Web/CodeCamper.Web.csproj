@@ -142,12 +142,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bookmark-light.png" />
+    <Content Include="Content\bookmark.png" />
+    <Content Include="Content\bookmarkchecked-light.png" />
+    <Content Include="Content\bookmarkchecked.png" />
     <Content Include="Content\dan.jpg" />
     <Content Include="Content\hans.jpg" />
     <Content Include="Content\icon.png" />
     <Content Include="Content\jim.jpg" />
     <Content Include="Content\john.jpg" />
     <Content Include="Content\Ryan.jpg" />
+    <Content Include="Content\icon-blue.png" />
     <Content Include="js\config.js" />
     <Content Include="js\sessionFilter.js" />
     <Content Include="js\dataservice.person.js" />
@@ -213,7 +218,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>

@@ -15,11 +15,13 @@
     <header>
         <h1>Code Camper</h1>
         <nav>
-				<ul data-bind="if: $data">
-                    <li class="route-top"><a href="#/favorites">My</a></li>
-					<li class="route-top"><a href="#/sessions">Sessions</a></li>
-					<li class="route-top"><a href="#/speakers">Speakers</a></li>
-				</ul>
+            <div class="accent accent-top"></div>
+            <div class="accent accent-left"></div>
+            <ul data-bind="if: $data">
+                <li class="route-top"><a href="#/favorites">My</a></li>
+                <li class="route-top"><a href="#/sessions">Sessions</a></li>
+                <li class="route-top"><a href="#/speakers">Speakers</a></li>
+            </ul>
         </nav>
     </header>
     @RenderPage("Views/favorites.cshtml")
