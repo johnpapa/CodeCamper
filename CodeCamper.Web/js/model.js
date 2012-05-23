@@ -13,6 +13,10 @@ my.model.Room = function () {
     return self;
 };
 
+my.model.roomNullo = new my.model.Room()
+                .id(0)
+                .name("Not a room");
+
 my.model.Track = function () {
     var self = this;
     self.datacontext = my.datacontext;
@@ -20,6 +24,10 @@ my.model.Track = function () {
     self.name = ko.observable();
     return self;
 };
+
+my.model.trackNullo = new my.model.Track()
+                .id(0)
+                .name("Not a track");
 
 my.model.TimeSlot = function () {
     var self = this;
@@ -38,6 +46,11 @@ my.model.TimeSlot = function () {
     }, self);
     return self;
 };
+
+my.model.timeSlotNullo = new my.model.TimeSlot()
+                .id(0)
+                .start(new Date(2012, 4, 18, 1, 0, 0, 0))
+                .duration(60);
 
 my.model.Speaker = function () {
     var self = this;
@@ -59,6 +72,16 @@ my.model.Speaker = function () {
     return self;
 };
 
+my.model.speakerNullo = new my.model.Speaker()
+                .id(0)
+                .firstName("Not a")
+                .lastName("Person")
+                .email("")
+                .blog("")
+                .twitter("")
+                .gender("M")
+                .bio("");
+
 my.model.Session = function () {
     var self = this;
     self.datacontext = my.datacontext;
@@ -75,6 +98,19 @@ my.model.Session = function () {
     self.isFavorite = ko.observable(); //TODO: fix isFavorite
     return self;
 };
+
+my.model.sessionNullo = new my.model.Session()
+                .id(0)
+                .title("Not a Session")
+                .code("XYZ123")
+                .speakerId(0)
+                .trackId(0)
+                .timeslotId(0)
+                .roomId(0)
+                .description("")
+                .isFavorite(false) //TODO: fix this
+                .level("")
+                .tags("");
 
 my.model.Session.prototype = function () {
     var

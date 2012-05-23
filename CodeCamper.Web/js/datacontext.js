@@ -104,11 +104,11 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
         //}(),
         
 
-        ContextList = function (getFunction, mapperFunction) {
+        ContextList = function (getFunction, mapperFunction, nullo) {
             var 
                 items = {},
                 getById = function (id) {
-                    return !!id && !!items[id] ? items[id] : null;
+                    return !!id && !!items[id] ? items[id] : nullo;
                 },
                 getData = function (options) {
                     var results = options && options.results,
@@ -139,11 +139,11 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
             }
         },
 
-        sessions = new ContextList(dataservice.session.getSessions, model.mapper.mapSession),
-        speakers = new ContextList(dataservice.person.getSpeakers, model.mapper.mapSpeaker),
-        rooms = new ContextList(dataservice.lookup.getRooms, model.mapper.mapRoom),
-        timeslots = new ContextList(dataservice.lookup.getTimeslots, model.mapper.mapTimeSlot),
-        tracks = new ContextList(dataservice.lookup.getTracks, model.mapper.mapTrack),
+        sessions = new ContextList(dataservice.session.getSessions, model.mapper.mapSession, model.sessionNullo),
+        speakers = new ContextList(dataservice.person.getSpeakers, model.mapper.mapSpeaker, model.speakerNullo),
+        rooms = new ContextList(dataservice.lookup.getRooms, model.mapper.mapRoom, model.roomNullo),
+        timeslots = new ContextList(dataservice.lookup.getTimeslots, model.mapper.mapTimeSlot, model.timeSlotNullo),
+        tracks = new ContextList(dataservice.lookup.getTracks, model.mapper.mapTrack, model.trackNullo),
 
 
         //TODO: handle persons
