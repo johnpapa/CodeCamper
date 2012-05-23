@@ -153,6 +153,7 @@
     <Content Include="Content\Ryan.jpg" />
     <Content Include="Content\icon-blue.png" />
     <Content Include="js\config.js" />
+    <Content Include="js\debug.helpers.js" />
     <Content Include="js\sessionFilter.js" />
     <Content Include="js\dataservice.person.js" />
     <Content Include="js\mock\mock.dataservice.lookup.js" />
