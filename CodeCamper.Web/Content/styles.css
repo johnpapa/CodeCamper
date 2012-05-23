@@ -289,7 +289,6 @@ input {
 /*#119EDA blue accent
 #f58a00 orange accent*/
 
-
 .accent{
     position: absolute;
     background: #119EDA;
@@ -322,6 +321,15 @@ input {
 	body {
 		font-size: 14px;
 	}
+    .accent-top {
+        width: 160px;
+        height: 20px;
+    }
+
+    .accent-left {
+        width: 20px;
+        height: 160px;
+    }
 }
 
 @media only screen and (max-width: 800px) {
@@ -391,5 +399,15 @@ input {
 			height: 20px;
 			width: 20px;
 		}
+
+    .accent-top {
+        width: 120px;
+        height: 10px;
+    }
+
+    .accent-left {
+        width: 10px;
+        height: 120px;
+    }
 }
 
