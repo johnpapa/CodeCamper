@@ -5,16 +5,17 @@
 //	router
 //  vm (view models)
 //  viewmodels
-//  dataPrimer
+//  datacontext
 //
 // Conventions
-//	1) dataservices must be initialized via dataPrimer
+//	1) dataservices must be initialized via config
 //  2) viewmodels must be married to views
 //	3) routes must be registered with router
+//  4) datacontext must be primed
 // ----------------------------------------------
 var my = my || {};
 
-my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config) {
+my.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
     var
         bindViewModelsToViews = function () {
             ko.applyBindings(vm.session, $('#session').get(0))
@@ -30,8 +31,7 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config) {
             router.register({
                 routes:
                     [{ route: '#/favorites', callback: vm.favorites.activate, group: '.route-top' },
-                    { route: '#/favorites/date/:date', callback: vm.favorites.loadByDate, group: '.route-left' },
-                    { route: '#/favorites/track/:track', callback: vm.favorites.loadByTrack, group: '.route-left' }],
+                    { route: '#/favorites/date/:date', callback: vm.favorites.loadByDate, group: '.route-left' }],
                 view: '#favorites'
             })
             // Sessions routes
@@ -60,8 +60,10 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config) {
             // Set up the dataservice for "how it is going to roll" ... Ward Bell
             config.dataserviceInit()
             // prime the data services and eager load the lookups
-            $.when(dataprimer.fetchlookups(),
-                dataprimer.fetchSpeakers()
+            $.when(datacontext.rooms.getData(),
+                datacontext.timeslots.getData(),
+                datacontext.tracks.getData(),
+                datacontext.speakers.getData()
                 //dataprimer.fetchSessionBriefs()
                 )
                 //.pipe(dataprimer.fetchSessionBriefs())
@@ -72,7 +74,7 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, dataprimer, config) {
     return {
         run: run
     }
-})(jQuery, ko, toastr, my.router, my.vm, my.dataprimer, my.config)
+})(jQuery, ko, toastr, my.router, my.vm, my.datacontext, my.config)
 
 $(function() {
     my.bootstrapper.run();

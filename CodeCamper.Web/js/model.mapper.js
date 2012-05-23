@@ -6,16 +6,16 @@ my.model = my.model || {};
 
 my.model.mapper = (function () {
     var
-        mapRoom = function (raw) {
-            return new my.model.Room()
+        mapRoom = function (raw, item) {
+            item = item || new my.model.Room().id(raw.Id);
+            return item
                 .id(raw.Id)
                 .name(raw.Name);
         },
-        mapSession = function (raw) {
-                return new my.model.Session()
-                .id(raw.Id)
-                //.speaker(mapSpeaker(raw.speaker))
-                //.imageName(raw.imageName)
+        mapSession = function (raw, item) {
+            // Always assume raw has been passed
+            item = item || new my.model.Session().id(raw.Id);
+            return item
                 .title(raw.Title)
                 .code(raw.Code)
                 .speakerId(raw.SpeakerId)
@@ -27,9 +27,9 @@ my.model.mapper = (function () {
                 .level(raw.Level)
                 .tags(raw.Tags);
         },
-        mapSpeaker = function (raw) {
-            return new my.model.Speaker()
-                .id(raw.Id)
+        mapSpeaker = function (raw, item) {
+            item = item || new my.model.Speaker().id(raw.Id);
+            return item
                 .firstName(raw.FirstName)
                 .lastName(raw.LastName)
                 .email(raw.Email)
@@ -38,14 +38,16 @@ my.model.mapper = (function () {
                 .gender(raw.Gender)
                 .bio(raw.Bio);
         },
-        mapTimeSlot = function (raw) {
-            return new my.model.TimeSlot()
+        mapTimeSlot = function (raw, item) {
+            item = item || new my.model.TimeSlot().id(raw.Id);
+            return item
                 .id(raw.Id)
                 .start(raw.Start)
                 .duration(raw.Duration);
         },
-        mapTrack = function (raw) {
-            return new my.model.Track()
+        mapTrack = function (raw, item) {
+            item = item || new my.model.Track().id(raw.Id);
+            return item
                     .id(raw.Id)
                     .name(raw.Name);
         };

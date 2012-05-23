@@ -155,8 +155,8 @@
     <Content Include="js\mock\mock.dataservice.person.js" />
     <Content Include="js\model.mapper.js" />
     <Content Include="js\datacontext.js" />
-    <Content Include="js\dataprimer.js" />
     <Content Include="js\dataservice.lookup.js" />
+    <Content Include="js\utils.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
