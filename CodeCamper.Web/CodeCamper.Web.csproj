@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -142,7 +142,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Content\dan_wahlin.jpg" />
     <Content Include="Content\felix_fanboi.jpg" />
     <Content Include="Content\hans_fjällemark.jpg" />
@@ -154,18 +153,11 @@
     <Content Include="Content\sue_menot.jpg" />
     <Content Include="Content\unknown_person.jpg" />
     <Content Include="Content\ward_bell.jpg" />
-=======
     <Content Include="Content\bookmark-white.png" />
     <Content Include="Content\bookmarkchecked-blue.png" />
     <Content Include="Content\bookmarkchecked.png" />
-    <Content Include="Content\dan.jpg" />
-    <Content Include="Content\hans.jpg" />
     <Content Include="Content\bookmark.png" />
-    <Content Include="Content\jim.jpg" />
-    <Content Include="Content\john.jpg" />
-    <Content Include="Content\Ryan.jpg" />
     <Content Include="Content\icon-blue.png" />
->>>>>>> 75dae9f634004e5335953c17577e932dd557a6e8
     <Content Include="js\config.js" />
     <Content Include="js\debug.helpers.js" />
     <Content Include="js\sessionFilter.js" />
