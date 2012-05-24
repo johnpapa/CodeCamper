@@ -86,6 +86,9 @@ namespace CodeCamper.SampleData
                 Bio = "I live in Seattle and build a few products for Microsoft",
             });
 
+            _theChosen.ForEach(p => p.ImageSource = 
+                (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
+
             persons.AddRange(_theChosen);
         }
 

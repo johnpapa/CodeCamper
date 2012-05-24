@@ -82,6 +82,7 @@ my.mock = (function ($) {
                     Blog: '@URL',
                     TWITTER: 'http://twitter.com/@' + '@TWITTER',
                     GENDER: '@GENDER',
+                    ImageSource: '@SPEAKER_FIRST_NAME' + "_" + '@SPEAKER_LAST_NAME' + ".jpg",
                     Bio: '@LOREM_IPSUM'
                     //imageName: '../content/' + '@SPEAKER_FIRST_NAME' + '.jpg' //TODO: do in the mapping
                 }]

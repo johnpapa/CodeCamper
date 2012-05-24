@@ -5,6 +5,9 @@
 var my = my || {};
 my.model = my.model || {};
 
+my.model.imageBasePath = "../content/";
+my.model.unknownPersonImageSource = "unknown_person.jpg";
+
 my.model.Room = function () {
     var self = this;
     self.datacontext = my.datacontext;
@@ -61,13 +64,19 @@ my.model.Speaker = function () {
     self.fullName = ko.computed(function () {
         return self.firstName() + ' ' + self.lastName();
     }, self);
-    self.imageName = ko.computed(function () {
-        return '../content/' + self.firstName() + '.jpg';
-    }, self);
+
     self.email = ko.observable();
     self.blog = ko.observable();
     self.twitter = ko.observable();
     self.gender = ko.observable();
+    self.imageSource = ko.observable();
+    self.imageName = ko.computed(function () {
+        var source = self.imageSource();
+        if (!source) {
+            source = my.model.unknownPersonImageSource;
+        }
+        return my.model.imageBasePath + source;
+    }, self);
     self.bio = ko.observable();
     return self;
 };
@@ -80,6 +89,7 @@ my.model.speakerNullo = new my.model.Speaker()
                 .blog("")
                 .twitter("")
                 .gender("M")
+                .imageSource("")
                 .bio("");
 
 my.model.Session = function () {

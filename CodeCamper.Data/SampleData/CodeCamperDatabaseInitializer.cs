@@ -127,6 +127,7 @@ namespace CodeCamper.SampleData
                 Blog = "http://loveeverythingapple.com",
                 Twitter = "@FelixDaBoy",
                 Gender = "M",
+                ImageSource = "felix_fanboi.jpg",
                 Bio = bioTextGenerator.GenSentences(12, bioTextSource),
             });
             persons.Add(new Person
@@ -137,6 +138,7 @@ namespace CodeCamper.SampleData
                 Blog = "http://tortsblog.com/",
                 Twitter = "@Menotany",
                 Gender = "F",
+                ImageSource = "sue_menot.jpg",
                 Bio = bioTextGenerator.GenSentences(20, bioTextSource),
             });
         }

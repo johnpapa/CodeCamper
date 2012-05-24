@@ -142,12 +142,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\dan.jpg" />
-    <Content Include="Content\hans.jpg" />
+    <Content Include="Content\dan_wahlin.jpg" />
+    <Content Include="Content\felix_fanboi.jpg" />
+    <Content Include="Content\hans_fjällemark.jpg" />
     <Content Include="Content\icon.png" />
-    <Content Include="Content\jim.jpg" />
-    <Content Include="Content\john.jpg" />
-    <Content Include="Content\Ryan.jpg" />
+    <Content Include="Content\jim_cowart.jpg" />
+    <Content Include="Content\john_papa.jpg" />
+    <Content Include="Content\ryan_niemeyer.jpg" />
+    <Content Include="Content\scott_guthrie.jpg" />
+    <Content Include="Content\sue_menot.jpg" />
+    <Content Include="Content\unknown_person.jpg" />
+    <Content Include="Content\ward_bell.jpg" />
     <Content Include="js\config.js" />
     <Content Include="js\sessionFilter.js" />
     <Content Include="js\dataservice.person.js" />
@@ -163,12 +168,10 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="test\qunit\qunit.css" />
-    <Content Include="Content\scott.jpg" />
     <Content Include="Content\search.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Content\toastr.css" />
-    <Content Include="Content\ward.jpg" />
     <Content Include="Global.asax" />
     <Content Include="test\webapi-tests.html" />
     <Content Include="js\bootstrapper.js" />

@@ -9,6 +9,7 @@ namespace CodeCamper.Model
         public Person()
         {
             Gender = " "; // make no assumption
+            ImageSource = string.Empty;
         }
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -19,6 +20,7 @@ namespace CodeCamper.Model
 
         [StringLength(1,MinimumLength = 1) ]
         public string Gender { get; set; }
+        public string ImageSource { get; set; }
         public string Bio { get; set; }
 
         public virtual ICollection<Session> SpeakerSessions { get; set; }

@@ -36,6 +36,7 @@ my.model.mapper = (function () {
                 .blog(raw.Blog)
                 .twitter(raw.Twitter)
                 .gender(raw.Gender)
+                .imageSource(raw.ImageSource)
                 .bio(raw.Bio);
         },
         mapTimeSlot = function (raw, item) {
