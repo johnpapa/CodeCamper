@@ -3,8 +3,8 @@
 // 	toastr
 //	my.dataservice.session
 // ----------------------------------------------
-my.vm = my.vm || {}
-my.vm.sessions = (function (ko, ds, toastr) {
+app.vm = app.vm || {}
+app.vm.sessions = (function (ko, ds, toastr) {
     var 
         sessions = ko.observableArray(),
         activate = function(routeData) {
@@ -29,4 +29,4 @@ my.vm.sessions = (function (ko, ds, toastr) {
         loadByDate: loadByDate,
         loadByTrack: loadByTrack
     }
-})(ko, my.dataservice.session, toastr);
+})(ko, app.dataservice.session, toastr);

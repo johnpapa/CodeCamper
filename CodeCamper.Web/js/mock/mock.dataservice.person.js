@@ -2,8 +2,8 @@
 //	Amplify.js
 //	my.mock
 // ----------------------------------------------
-var my = my || {};
-my.mock.dataservice.person = (function (amplify, mock) {
+var app = app || {};
+app.mock.dataservice.person = (function (amplify, mock) {
 	var 
 		apply = function(){
 
@@ -20,4 +20,4 @@ my.mock.dataservice.person = (function (amplify, mock) {
 	return {
 		apply : apply
 	}
-})(amplify, my.mock);
+})(amplify, app.mock);

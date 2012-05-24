@@ -4,9 +4,9 @@
 //  my.dataservice
 //  my.model
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.datacontext = (function(ko, toastr, dataservice, model) {
+app.datacontext = (function(ko, toastr, dataservice, model) {
     var
         itemsToArray = function (obj, observableArray) {
             if (!observableArray) return;
@@ -31,83 +31,6 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
             toastr.success('received with ' + dtoList.length + ' elements');
             return items; // must return these
         },
-        //rooms = ko.observableArray(),
-        //tracks = ko.observableArray(),
-        //timeslots = ko.observableArray(),
-        //sessions = function () {
-        //    var self = this,
-        //        items = {},
-        //        getById = function (id) {
-        //            // Could return a "NULLO" if it dont exist (an empty object)
-        //            return !!id && !!items[id] ? items[id] : null;
-        //        },
-        //        getData = function (options) { //filterFunction, forceRefresh) {
-        //            var results = options.results,
-        //                filterFunction = options.filterFunction,
-        //                forceRefresh = options.forceRefresh,
-        //                callbacks = options.callbacks
-        //            if (!items || !my.utils.hasProperties(items) || forceRefresh) {
-        //                // TODO: deal with the filter
-        //                dataservice.session.getSessions({
-        //                    success: function (dtoList) {
-        //                        items = mapToContext(dtoList, items, results, model.mapper.mapSession);
-        //                        if (callbacks && callbacks.success) {
-        //                            callbacks.success();
-        //                        }
-        //                    },
-        //                    error: function () {
-        //                         toastr.error('oops! sessions could not be retrieved');
-        //                         if (callbacks && callbacks.error) {
-        //                             callbacks.error();
-        //                         }
-        //                    }
-        //                })
-        //            }
-        //            else {
-        //                itemsToArray(items, results);
-        //            }
-        //        };
-        //    return {
-        //        getById: getById,
-        //        getData: getData
-        //    }
-        //}(),
-        //speakers = function () {
-        //    var self = this,
-        //        items = {},
-        //        getById = function (id) {
-        //            return !!id && !!items[id] ? items[id] : null;
-        //        },
-        //        getData = function (options) { //filterFunction, forceRefresh) {
-        //            var results = options.results,
-        //                filterFunction = options.filterFunction,
-        //                forceRefresh = options.forceRefresh,
-        //                callbacks = options.callbacks
-        //       //getData = function (callback, results, filterFunction, forceRefresh) {
-        //            if (!items || !my.utils.hasProperties(items) || forceRefresh) {
-        //                // TODO: deal with the filter
-        //                dataservice.person.getSpeakers({
-        //                    success: function (dtoList) {
-        //                        items = mapToContext(dtoList, items, results, model.mapper.mapSpeaker);
-        //                        if (callbacks && callbacks.success) { callbacks.success(); }
-        //                    },
-        //                    error: function () {
-        //                        toastr.error('oops! speakers could not be retrieved');
-        //                        if (callbacks && callbacks.error) { callbacks.error(); }
-        //                    }
-        //                })
-        //            }
-        //            else {
-        //                itemsToArray(items, results);
-        //            }
-        //        };
-        //    return {
-        //        getById: getById,
-        //        getData: getData
-        //    }
-        //}(),
-        
-
         ContextList = function (getFunction, mapperFunction, nullo) {
             var 
                 items = {},
@@ -119,7 +42,7 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
                     var results = options && options.results,
                         filterFunction = options && options.filterFunction,
                         forceRefresh = options && options.forceRefresh
-                    if (!items || !my.utils.hasProperties(items) || forceRefresh) {
+                    if (!items || !app.utils.hasProperties(items) || forceRefresh) {
                         // TODO: deal with the filter
                         return $.Deferred(function (def) {
                             getFunction({
@@ -151,11 +74,8 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
         timeslots = new ContextList(dataservice.lookup.getTimeslots, model.mapper.mapTimeSlot, model.timeSlotNullo),
         tracks = new ContextList(dataservice.lookup.getTracks, model.mapper.mapTrack, model.trackNullo),
 
-
         //TODO: handle persons
         persons = ko.observableArray()
-
-
 
     return {
         rooms: rooms,
@@ -165,5 +85,4 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
         persons: persons,
         speakers: speakers
     }
-})(ko, toastr, my.dataservice, my.model);
-
+})(ko, toastr, app.dataservice, app.model);

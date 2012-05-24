@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -180,7 +180,7 @@
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Global.asax" />
-    <Content Include="test\webapi-tests.html" />
+    <Content Include="test\webapi.test.html" />
     <Content Include="js\bootstrapper.js" />
     <Content Include="js\vm.session.js" />
     <Content Include="js\model.js" />
@@ -216,6 +216,7 @@
     <Content Include="test\qunit\qunit.js" />
     <Content Include="Scripts\sammy.js" />
     <Content Include="Scripts\toastr.js" />
+    <Content Include="test\webapi.test.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

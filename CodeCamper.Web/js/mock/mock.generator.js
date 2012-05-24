@@ -5,9 +5,9 @@
 //	All mock data is exposed through data  property
 // 	toggle mock usage on and off through useMocks property
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.mock = (function ($) {
+app.mock = (function ($) {
     var
         init = function () {
             //$.mockJSON.random = false;
@@ -118,4 +118,4 @@ my.mock = (function ($) {
     }
 })(jQuery);
 
-my.mock.init();
+app.mock.init();

@@ -1,9 +1,9 @@
 ﻿// Depends on 
 //
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.utils = (function () {
+app.utils = (function () {
     var
         hasProperties = function (obj) {
             for (var prop in obj) {

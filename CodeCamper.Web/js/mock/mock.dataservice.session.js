@@ -1,9 +1,9 @@
 ﻿// Depends on 
 //	Amplify.js
-//	my.mock
+//	app.mock
 // ----------------------------------------------
-var my = my || {};
-my.mock.dataservice.session = (function (amplify, mock) {
+var app = app || {};
+app.mock.dataservice.session = (function (amplify, mock) {
 	var 
 		apply = function(){
 		    amplify.request.define('mysessions', function (settings) {
@@ -25,4 +25,4 @@ my.mock.dataservice.session = (function (amplify, mock) {
 	return {
 		apply : apply
 	}
-})(amplify, my.mock);
+})(amplify, app.mock);

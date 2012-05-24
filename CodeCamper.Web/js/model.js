@@ -1,40 +1,40 @@
 ﻿// Depends on 
-//  my.datacontext (for reference links)
+//  app.datacontext (for reference links)
 //
 // ----------------------------------------------
-var my = my || {};
-my.model = my.model || {};
+var app = app || {};
+app.model = app.model || {};
 
-my.model.imageBasePath = "../content/";
-my.model.unknownPersonImageSource = "unknown_person.jpg";
+app.model.imageBasePath = "../content/";
+app.model.unknownPersonImageSource = "unknown_person.jpg";
 
-my.model.Room = function () {
+app.model.Room = function () {
     var self = this;
-    self.datacontext = my.datacontext;
+    self.datacontext = app.datacontext;
     self.id = ko.observable();
     self.name = ko.observable();
     return self;
 };
 
-my.model.roomNullo = new my.model.Room()
+app.model.roomNullo = new app.model.Room()
                 .id(0)
                 .name('Not a room');
 
-my.model.Track = function () {
+app.model.Track = function () {
     var self = this;
-    self.datacontext = my.datacontext;
+    self.datacontext = app.datacontext;
     self.id = ko.observable();
     self.name = ko.observable();
     return self;
 };
 
-my.model.trackNullo = new my.model.Track()
+app.model.trackNullo = new app.model.Track()
                 .id(0)
                 .name('Not a track');
 
-my.model.TimeSlot = function () {
+app.model.TimeSlot = function () {
     var self = this;
-    self.datacontext = my.datacontext;
+    self.datacontext = app.datacontext;
     self.id = ko.observable();
     self.start = ko.observable();
     self.duration = ko.observable();
@@ -53,14 +53,14 @@ my.model.TimeSlot = function () {
     return self;
 };
 
-my.model.timeSlotNullo = new my.model.TimeSlot()
+app.model.timeSlotNullo = new app.model.TimeSlot()
                 .id(0)
                 .start(new Date(2012, 4, 18, 1, 0, 0, 0))
                 .duration(60);
 
-my.model.Speaker = function () {
+app.model.Speaker = function () {
     var self = this;
-    self.datacontext = my.datacontext;
+    self.datacontext = app.datacontext;
     self.id = ko.observable();
     self.firstName = ko.observable();
     self.lastName = ko.observable();
@@ -76,15 +76,15 @@ my.model.Speaker = function () {
     self.imageName = ko.computed(function () {
         var source = self.imageSource();
         if (!source) {
-            source = my.model.unknownPersonImageSource;
+            source = app.model.unknownPersonImageSource;
         }
-        return my.model.imageBasePath + source;
+        return app.model.imageBasePath + source;
     }, self);
     self.bio = ko.observable();
     return self;
 };
 
-my.model.speakerNullo = new my.model.Speaker()
+app.model.speakerNullo = new app.model.Speaker()
                 .id(0)
                 .firstName("Not a")
                 .lastName("Person")
@@ -95,9 +95,9 @@ my.model.speakerNullo = new my.model.Speaker()
                 .imageSource("")
                 .bio("");
 
-my.model.Session = function () {
+app.model.Session = function () {
     var self = this;
-    self.datacontext = my.datacontext;
+    self.datacontext = app.datacontext;
     self.id = ko.observable();
     self.title = ko.observable();
     self.code = ko.observable();
@@ -112,7 +112,7 @@ my.model.Session = function () {
     return self;
 };
 
-my.model.sessionNullo = new my.model.Session()
+app.model.sessionNullo = new app.model.Session()
                 .id(0)
                 .title('Not a Session')
                 .code('XYZ123')
@@ -125,7 +125,7 @@ my.model.sessionNullo = new my.model.Session()
                 .level('')
                 .tags('');
 
-my.model.Session.prototype = function () {
+app.model.Session.prototype = function () {
     var
         speaker = function () {
             return this.datacontext.speakers.getById(this.speakerId());

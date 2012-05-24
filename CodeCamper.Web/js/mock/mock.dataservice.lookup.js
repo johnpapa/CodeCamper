@@ -2,8 +2,8 @@
 //	Amplify.js
 //	my.mock
 // ----------------------------------------------
-var my = my || {};
-my.mock.dataservice.lookup = (function (amplify, mock) {
+var app = app || {};
+app.mock.dataservice.lookup = (function (amplify, mock) {
 	var 
 		apply = function(){
 
@@ -26,4 +26,4 @@ my.mock.dataservice.lookup = (function (amplify, mock) {
 	return {
 		apply : apply
 	}
-})(amplify, my.mock);
+})(amplify, app.mock);

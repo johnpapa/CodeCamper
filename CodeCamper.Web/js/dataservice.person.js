@@ -1,11 +1,11 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.dataservice = my.dataservice || {}
+app.dataservice = app.dataservice || {}
 
-my.dataservice.person = (function (amplify) {
+app.dataservice.person = (function (amplify) {
     var
         init = function () {
             amplify.request.define('persons', 'ajax', {
@@ -44,4 +44,4 @@ my.dataservice.person = (function (amplify) {
     }
 })(amplify);
 
-my.dataservice.person.init();
+app.dataservice.person.init();

@@ -10,14 +10,14 @@
 //      Active routes will have .viewroute active class added to them.
 //
 // Example:
-// 	$('#showA').click(function() { my.presenter.transitionTo('#A') } );
-// 	$('#showB').click(function() { my.presenter.transitionTo('#B') } );
-// 	my.presenter.transitionTo('#A');
+// 	$('#showA').click(function() { app.presenter.transitionTo('#A') } );
+// 	$('#showB').click(function() { app.presenter.transitionTo('#B') } );
+// 	app.presenter.transitionTo('#A');
 //
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.presenter = (function ($) {
+app.presenter = (function ($) {
     var
         transitionOptions = {
             fadeOut: 100,

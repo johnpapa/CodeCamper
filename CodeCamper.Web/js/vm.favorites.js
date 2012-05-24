@@ -10,14 +10,14 @@
 //  the same filter criteria that can be applied to all sessions.
 //
 // ----------------------------------------------
-var my = my || {};
-my.vm = my.vm || {}
+var app = app || {};
+app.vm = app.vm || {}
 
-my.vm.favorites = (function (ko, toastr, datacontext) {
+app.vm.favorites = (function (ko, toastr, datacontext) {
 
     //TODO: setup filters
     // sessionFilter always limits to favorite sessions of the current user
-    //var sessionFilter = (new my.filters.SessionFilter()).favoriteOnly = true;
+    //var sessionFilter = (new app.filters.SessionFilter()).favoriteOnly = true;
     
     //sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
 
@@ -56,7 +56,7 @@ my.vm.favorites = (function (ko, toastr, datacontext) {
 
 
         },
-        debugInfo = my.debugInfo(sessions);
+        debugInfo = app.debugInfo(sessions);
     return {
         sessions: sessions,
         timeslots: timeslots,
@@ -65,4 +65,4 @@ my.vm.favorites = (function (ko, toastr, datacontext) {
         loadByDate: loadByDate,
         debugInfo: debugInfo
     }
-})(ko, toastr, my.datacontext);
+})(ko, toastr, app.datacontext);

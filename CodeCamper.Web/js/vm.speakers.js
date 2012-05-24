@@ -1,10 +1,10 @@
 ﻿// Depends on 
 //	Knockout
 // 	toastr
-//	my.dataservice.session
+//	app.dataservice.session
 // ----------------------------------------------
-my.vm = my.vm || {}
-my.vm.speakers = (function (ko, ds, toastr) {
+app.vm = app.vm || {}
+app.vm.speakers = (function (ko, ds, toastr) {
     var 
         speakers = ko.observableArray(),
         activate = function(routeData) {
@@ -22,4 +22,4 @@ my.vm.speakers = (function (ko, ds, toastr) {
         speakers: speakers,
         activate: activate
     }
-})(ko, my.dataservice.session, toastr);
+})(ko, app.dataservice.session, toastr);

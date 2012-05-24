@@ -2,19 +2,19 @@
 //
 // ----------------------------------------------
 
-my.model = my.model || {};
+app.model = app.model || {};
 
-my.model.mapper = (function () {
+app.model.mapper = (function () {
     var
         mapRoom = function (raw, item) {
-            item = item || new my.model.Room().id(raw.Id);
+            item = item || new app.model.Room().id(raw.Id);
             return item
                 .id(raw.Id)
                 .name(raw.Name);
         },
         mapSession = function (raw, item) {
             // Always assume raw has been passed
-            item = item || new my.model.Session().id(raw.Id);
+            item = item || new app.model.Session().id(raw.Id);
             return item
                 .title(raw.Title)
                 .code(raw.Code)
@@ -28,7 +28,7 @@ my.model.mapper = (function () {
                 .tags(raw.Tags);
         },
         mapSpeaker = function (raw, item) {
-            item = item || new my.model.Speaker().id(raw.Id);
+            item = item || new app.model.Speaker().id(raw.Id);
             return item
                 .firstName(raw.FirstName)
                 .lastName(raw.LastName)
@@ -40,14 +40,14 @@ my.model.mapper = (function () {
                 .bio(raw.Bio);
         },
         mapTimeSlot = function (raw, item) {
-            item = item || new my.model.TimeSlot().id(raw.Id);
+            item = item || new app.model.TimeSlot().id(raw.Id);
             return item
                 .id(raw.Id)
                 .start(raw.Start)
                 .duration(raw.Duration);
         },
         mapTrack = function (raw, item) {
-            item = item || new my.model.Track().id(raw.Id);
+            item = item || new app.model.Track().id(raw.Id);
             return item
                     .id(raw.Id)
                     .name(raw.Name);

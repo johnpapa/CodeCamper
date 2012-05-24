@@ -9,9 +9,9 @@
 // 	2) Before registering routes with router, 
 //      the viewmodels should exist.
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.router = (function ($, sammy, presenter) {
+app.router = (function ($, sammy, presenter) {
     var
         register = function (options) {
             if (options.routes) {
@@ -47,4 +47,4 @@ my.router = (function ($, sammy, presenter) {
         register: register,
         run: run
     }
-})(jQuery, new Sammy.Application(), my.presenter)
+})(jQuery, new Sammy.Application(), app.presenter)

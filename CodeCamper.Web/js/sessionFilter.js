@@ -1,23 +1,23 @@
 ﻿// Depends on
 //  Knockout
 // 	toastr
-//  my.dataservice
-//  my.model
+//  app.dataservice
+//  app.model
 // ----------------------------------------------
-var my = my || {};
-my.filters = my.filters || {};
+var app = app || {};
+app.filters = app.filters || {};
 
 (function (ko) {
 
     // Ctor for a SessionFilter
-    my.filters.SessionFilter = function () {
+    app.filters.SessionFilter = function () {
         this.self = this;
         self.searchText = ko.observable("");
         self.minTimeSlot = ko.observable();
         self.maxTimeSlot = ko.observable();
         self.favoriteOnly = ko.observable(false);
         // assume user is ko.observable
-        self.currentUserId = ko.computed( function() { return my.CurrentUser().Id() }); 
+        self.currentUserId = ko.computed( function() { return app.CurrentUser().Id() }); 
     }
 
     var tagDelimiter = "|",
@@ -58,7 +58,7 @@ my.filters = my.filters || {};
         };
 
     // result is a ko.observableArray, updated by the filter execution
-    my.filters.SessionFilter.execute = function (dataContext, result) {
+    app.filters.SessionFilter.execute = function (dataContext, result) {
         var sessions = dataContext.sessions; // ToDo: prepare for async
         result(ko.utils.arrayFilter(sessions, function (session) {
             return predicate(self, session);

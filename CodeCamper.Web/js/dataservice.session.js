@@ -1,11 +1,11 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.dataservice = my.dataservice || {}
+app.dataservice = app.dataservice || {}
 
-my.dataservice.session = (function (amplify) {
+app.dataservice.session = (function (amplify) {
     var
         init = function() {
             amplify.request.define('mysessions', 'ajax', {
@@ -73,4 +73,4 @@ my.dataservice.session = (function (amplify) {
     }
 })(amplify);
 
-my.dataservice.session.init();
+app.dataservice.session.init();

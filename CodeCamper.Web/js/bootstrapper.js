@@ -13,9 +13,9 @@
 //	3) routes must be registered with router
 //  4) datacontext must be primed
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
+app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
     var
         bindViewModelsToViews = function () {
             ko.applyBindings(vm.session, $('#session').get(0))
@@ -74,8 +74,8 @@ my.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
     return {
         run: run
     }
-})(jQuery, ko, toastr, my.router, my.vm, my.datacontext, my.config)
+})(jQuery, ko, toastr, app.router, app.vm, app.datacontext, app.config)
 
 $(function() {
-    my.bootstrapper.run();
+    app.bootstrapper.run();
 })

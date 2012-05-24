@@ -1,11 +1,11 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-var my = my || {};
+var app = app || {};
 
-my.dataservice = my.dataservice || {}
+app.dataservice = app.dataservice || {}
 
-my.dataservice.lookup = (function (amplify) {
+app.dataservice.lookup = (function (amplify) {
     var
         init = function () {
             amplify.request.define('lookups', 'ajax', {
@@ -70,4 +70,4 @@ my.dataservice.lookup = (function (amplify) {
     }
 })(amplify);
 
-my.dataservice.lookup.init()
+app.dataservice.lookup.init()
