@@ -42,7 +42,7 @@ app.model.mapper = (function () {
             item = item || new app.model.TimeSlot().id(raw.Id);
             return item
                 .id(raw.Id)
-                .start(raw.Start)
+                .start(new Date(raw.Start))
                 .duration(raw.Duration);
         },
         mapTrack = function (raw, item) {

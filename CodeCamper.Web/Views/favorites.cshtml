@@ -9,17 +9,19 @@
     </nav>
 
     <!-- Knockout Debugging -->
+    <!-- TODO: remove -->
     Reevaluation Count: <span data-bind="text: sessions.reevaluationCount"></span>
     <!-- Knockout Debugging -->
 
     <div>
-        <input placeholder="filter by speaker, title, tag, time slot, track" type="text">
+        <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" />
+@*        <input placeholder="filter by speaker, tag, title, or track" type="text" data-bind="value:searchText" />*@
     </div>
     
     <!-- ko foreach: sessions -->
     <article>
         <img data-bind="attr: {src: speaker().imageName}"/>
-        <time datetime="11:00" data-bind="text:timeslot().shortStart"></time>
+        <span data-bind="text:timeslot().shortStart"></span>
         <h1 data-bind="text: title"></h1>
         <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
         <address data-bind="text: speaker().fullName"></address>

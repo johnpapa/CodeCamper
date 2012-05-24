@@ -13,18 +13,14 @@
 app.vm = app.vm || {}
 
 app.vm.favorites = (function (ko, toastr, datacontext) {
-
-    //TODO: setup filters
-    // sessionFilter always limits to favorite sessions of the current user
-    //var sessionFilter = (new app.filters.SessionFilter()).favoriteOnly = true;
-    
-    //sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
-
-    var timeslots = ko.observableArray(),
+    var
+        sessionFilter = new app.filter.SessionFilter(),
+        timeslots = ko.observableArray(),
         sessions = ko.observableArray(), //.trackReevaluations(),
+        searchText = ko.observable(),
         days = ko.computed(function() {
             var result = _.reduce(timeslots(), function(memo, slot) {
-                var date = moment(moment(slot.start()).format('MM-DD-YYYY')).toDate(),
+                var date = moment(slot.start()).format('MM-DD-YYYY'), //.toDate(),
                     day = moment(date).format('ddd MMM DD')
 
                 if (!memo.index[day.toString()]) {
@@ -41,13 +37,25 @@ app.vm.favorites = (function (ko, toastr, datacontext) {
         activate = function() { //routeData) { //TODO: routeData is not used. Remove it later.
             datacontext.timeslots.getData({ results: timeslots });
         },
-        loadByDate = function(data) {
-            //TODO: filter the filteredSessions by date
-            datacontext.sessions.getData({ results: sessions });
-            toastr.warning('TODO: load by date still needs a filter');
+        setFilter = function () {
+            var day = new Date(data.date);
+            sessionFilter.favoriteOnly(true) //TODO: implement this
+            sessionFilter.minTimeSlot(day)
+            var maxDate = moment(new Date(day)).add('days', 1).add('seconds', -1).toDate()
+            sessionFilter.maxTimeSlot(maxDate)
+            sessionFilter.searchText(searchText())
+        },
+        loadByDate = function (data) {
+            // sessionFilter always limits to favorite sessions of the current user
+            setFilter()
+            
+            sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
 
+            //datacontext.sessions.getData({ results: sessions });
+
+            //TODO: implement activity indicator (if needed)
             //$('#busy1').activity();
-            //$.when(datacontext.sessions.getData({ results: sessions }))
+            //$.when(sessionFilter.execute(datacontext, sessions))
             //    .always(function() {
             //        toastr.success('done loading')
             //        $('#busy1').activity(false);
@@ -59,9 +67,10 @@ app.vm.favorites = (function (ko, toastr, datacontext) {
     return {
         sessions: sessions,
         timeslots: timeslots,
+        searchText: searchText,
         days: days,
         activate: activate,
         loadByDate: loadByDate,
-        debugInfo: debugInfo
+        debugInfo: debugInfo,
     }
 })(ko, toastr, app.datacontext);
