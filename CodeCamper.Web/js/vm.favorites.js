@@ -22,38 +22,41 @@ my.vm.favorites = (function (ko, toastr, datacontext) {
     //sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
 
     var timeslots = ko.observableArray(),
-        sessions = ko.observableArray(), 
-        days = ko.computed(function () {
-            var
-                result = _.reduce(timeslots(), function (memo, slot) {
-                    var
-                        date = moment(moment(slot.start()).format('MM-DD-YYYY')).toDate(),
-                        day = moment(date).format('ddd MMM DD')
+        sessions = ko.observableArray(), //.trackReevaluations(),
+        days = ko.computed(function() {
+            var result = _.reduce(timeslots(), function(memo, slot) {
+                var date = moment(moment(slot.start()).format('MM-DD-YYYY')).toDate(),
+                    day = moment(date).format('ddd MMM DD')
 
-                    if (!memo.index[day.toString()]) {
-                        // This is created so i dont have to loop through the array each time again
-                        memo.index[day.toString()] = true 
-                        memo.slots.push({ date: date, day: day })
-                    }
-                    return memo
-                }, { index: {}, slots: [] })
+                if (!memo.index[day.toString()]) {
+                    // This is created so i dont have to loop through the array each time again
+                    memo.index[day.toString()] = true
+                    memo.slots.push({ date: date, day: day })
+                }
+                return memo
+            }, { index: { }, slots: [] })
 
-            sortedDays = result.slots.sort(function (a, b) { return a.date > b.date })
+            sortedDays = result.slots.sort(function(a, b) { return a.date > b.date })
             return sortedDays
         }),
-        activate = function () { //routeData) { //TODO: routeData is not used. Remove it later.
+        activate = function() { //routeData) { //TODO: routeData is not used. Remove it later.
             datacontext.timeslots.getData({ results: timeslots });
-            datacontext.sessions.getData({ results: sessions }); 
         },
-        loadByDate = function (data) {
+        loadByDate = function(data) {
             //TODO: filter the filteredSessions by date
-            datacontext.sessions.getData({ results: sessions }); 
+            datacontext.sessions.getData({ results: sessions });
             toastr.warning('TODO: load by date still needs a filter');
+
+            //$('#busy1').activity();
+            //$.when(datacontext.sessions.getData({ results: sessions }))
+            //    .always(function() {
+            //        toastr.success('done loading')
+            //        $('#busy1').activity(false);
+            //    })
+
+
         },
-        debugInfo = ko.computed(function () {
-            //new in KO 2.1. it used to be JSON.stringify(ko.toJS(timeslots), null, 2)
-            return ko.toJSON(my.vm.favorites, null, 2)
-        });
+        debugInfo = my.debugInfo(sessions);
     return {
         sessions: sessions,
         timeslots: timeslots,

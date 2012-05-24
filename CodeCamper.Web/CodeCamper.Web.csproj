@@ -142,6 +142,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Content Include="Content\dan_wahlin.jpg" />
     <Content Include="Content\felix_fanboi.jpg" />
     <Content Include="Content\hans_fjällemark.jpg" />
@@ -153,7 +154,20 @@
     <Content Include="Content\sue_menot.jpg" />
     <Content Include="Content\unknown_person.jpg" />
     <Content Include="Content\ward_bell.jpg" />
+=======
+    <Content Include="Content\bookmark-white.png" />
+    <Content Include="Content\bookmarkchecked-blue.png" />
+    <Content Include="Content\bookmarkchecked.png" />
+    <Content Include="Content\dan.jpg" />
+    <Content Include="Content\hans.jpg" />
+    <Content Include="Content\bookmark.png" />
+    <Content Include="Content\jim.jpg" />
+    <Content Include="Content\john.jpg" />
+    <Content Include="Content\Ryan.jpg" />
+    <Content Include="Content\icon-blue.png" />
+>>>>>>> 75dae9f634004e5335953c17577e932dd557a6e8
     <Content Include="js\config.js" />
+    <Content Include="js\debug.helpers.js" />
     <Content Include="js\sessionFilter.js" />
     <Content Include="js\dataservice.person.js" />
     <Content Include="js\mock\mock.dataservice.lookup.js" />
@@ -162,6 +176,7 @@
     <Content Include="js\datacontext.js" />
     <Content Include="js\dataservice.lookup.js" />
     <Content Include="js\utils.js" />
+    <Content Include="Scripts\activity-indicator.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
@@ -216,7 +231,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>

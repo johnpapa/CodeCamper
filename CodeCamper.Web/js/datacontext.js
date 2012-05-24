@@ -8,13 +8,17 @@ var my = my || {};
 
 my.datacontext = (function(ko, toastr, dataservice, model) {
     var
-        itemsToArray = function (obj, observables) {
-            if (!observables) return;
+        itemsToArray = function (obj, observableArray) {
+            if (!observableArray) return;
+            var underlyingArray = observableArray();
+            
             for (var prop in obj) {
                 if (obj.hasOwnProperty(prop)) {
-                    observables.push(obj[prop]);
+                    underlyingArray.push(obj[prop]);
+                    //observables.push(obj[prop]);
                 }
             }
+            observableArray.valueHasMutated();
         },
         mapToContext = function(dtoList, items, results, mapperFunction) {
             // Loop through the raw dto list and populate a dictionary of the items
@@ -111,6 +115,7 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
                     return !!id && !!items[id] ? items[id] : nullo;
                 },
                 getData = function (options) {
+                //return $.Deferred(function (def) {
                     var results = options && options.results,
                         filterFunction = options && options.filterFunction,
                         forceRefresh = options && options.forceRefresh
@@ -131,15 +136,16 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
                     }
                     else {
                         itemsToArray(items, results);
+                        //def.resolve(results)
                     }
+                //}).promise();
                 };
             return {
                 getById: getById,
                 getData: getData
             }
         },
-
-        sessions = new ContextList(dataservice.session.getSessions, model.mapper.mapSession, model.sessionNullo),
+        sessions = new ContextList(dataservice.session.getSessionBriefs, model.mapper.mapSession, model.sessionNullo);
         speakers = new ContextList(dataservice.person.getSpeakers, model.mapper.mapSpeaker, model.speakerNullo),
         rooms = new ContextList(dataservice.lookup.getRooms, model.mapper.mapRoom, model.roomNullo),
         timeslots = new ContextList(dataservice.lookup.getTimeslots, model.mapper.mapTimeSlot, model.timeSlotNullo),
@@ -160,3 +166,4 @@ my.datacontext = (function(ko, toastr, dataservice, model) {
         speakers: speakers
     }
 })(ko, toastr, my.dataservice, my.model);
+

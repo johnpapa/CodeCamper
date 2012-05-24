@@ -1,4 +1,5 @@
 ﻿<section id="favorites" class="view">
+    <div id="busy1"></div>
     <nav>
         <ul data-bind="foreach: days">
             <li class="route-left">
@@ -6,19 +7,26 @@
             </li>
         </ul>
     </nav>
+
+    <!-- Knockout Debugging -->
+    Reevaluation Count: <span data-bind="text: sessions.reevaluationCount"></span>
+    <!-- Knockout Debugging -->
+
     <div>
-		<input placeholder="filter by speaker, title, tag, time slot, track" type="text">
-	</div>
+        <input placeholder="filter by speaker, title, tag, time slot, track" type="text">
+    </div>
+    
     <!-- ko foreach: sessions -->
     <article>
         <img data-bind="attr: {src: speaker().imageName}"/>
-        <time datetime="11:00" data-bind="text:timeslot().fullStart"></time>
+        <time datetime="11:00" data-bind="text:timeslot().shortStart"></time>
         <h1 data-bind="text: title"></h1>
         <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
         <address data-bind="text: speaker().fullName"></address>
     </article>
     <!-- /ko -->
-    <div>
+
+    <div style="display:block">
         <h4 class="caption">Sessions JSON</h4>
         <pre data-bind="text:debugInfo">
         </pre>
