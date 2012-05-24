@@ -1,7 +1,6 @@
 ﻿// Depends on
 //
 // ----------------------------------------------
-
 app.model = app.model || {};
 
 app.model.mapper = (function () {

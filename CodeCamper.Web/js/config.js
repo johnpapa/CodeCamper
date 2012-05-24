@@ -3,8 +3,6 @@
 //
 // Conventions
 // ----------------------------------------------
-var app = app || {};
-
 app.config = (function () {
     var
         // properties

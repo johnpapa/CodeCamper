@@ -13,8 +13,6 @@
 //	3) routes must be registered with router
 //  4) datacontext must be primed
 // ----------------------------------------------
-var app = app || {};
-
 app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
     var
         bindViewModelsToViews = function () {

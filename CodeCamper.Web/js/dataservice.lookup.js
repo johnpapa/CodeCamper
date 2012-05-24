@@ -1,8 +1,6 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-var app = app || {};
-
 app.dataservice = app.dataservice || {}
 
 app.dataservice.lookup = (function (amplify) {

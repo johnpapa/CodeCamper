@@ -15,8 +15,6 @@
 // 	app.presenter.transitionTo('#A');
 //
 // ----------------------------------------------
-var app = app || {};
-
 app.presenter = (function ($) {
     var
         transitionOptions = {

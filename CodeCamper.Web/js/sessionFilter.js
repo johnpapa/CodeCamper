@@ -4,7 +4,6 @@
 //  app.dataservice
 //  app.model
 // ----------------------------------------------
-var app = app || {};
 app.filters = app.filters || {};
 
 (function (ko) {

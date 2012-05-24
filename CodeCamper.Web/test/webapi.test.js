@@ -1,4 +1,6 @@
-﻿var myTests = window.myTests || {};
+﻿var app = window["app"] = {};
+app.test = app.test || {};
+//var myTests = window.myTests || {};
 
 // ToDo: Consider making this a utility
 // Stole from http://stackoverflow.com/questions/1038746/equivalent-of-string-format-in-jquery
@@ -6,7 +8,7 @@
 //   format("i can speak {language} since i was {age}",{language:'javascript',age:10}); 
 //
 //   format("i can speak {0} since i was {1}",'javascript',10}); 
-myTests.format = function (str, col) {
+app.test.format = function (str, col) {
     col = typeof col === 'object' ? col : Array.prototype.slice.call(arguments, 1);
 
     return str.replace(/\{\{|\}\}|\{(\w+)\}/g, function (m, n) {
@@ -16,7 +18,7 @@ myTests.format = function (str, col) {
     });
 };
 
-myTests.webApiGetEndpointsRespondOk = function () {
+app.test.webApiGetEndpointsRespondOk = function () {
 
     module('WebAPI GET endpoints respond successfully');
 
@@ -83,7 +85,7 @@ myTests.webApiGetEndpointsRespondOk = function () {
     };
 }
 
-myTests.webApiGetResultsHaveExpectedShapes = function () {
+app.test.webApiGetResultsHaveExpectedShapes = function () {
 
     module('WebAPI GET result has expected shape');
 
@@ -108,8 +110,8 @@ myTests.webApiGetResultsHaveExpectedShapes = function () {
 };
 
 $(function () {
-    myTests.webApiGetEndpointsRespondOk();
-    myTests.webApiGetResultsHaveExpectedShapes();
+    app.test.webApiGetEndpointsRespondOk();
+    app.test.webApiGetResultsHaveExpectedShapes();
 });
 
 

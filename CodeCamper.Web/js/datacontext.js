@@ -4,8 +4,6 @@
 //  my.dataservice
 //  my.model
 // ----------------------------------------------
-var app = app || {};
-
 app.datacontext = (function(ko, toastr, dataservice, model) {
     var
         itemsToArray = function (obj, observableArray) {

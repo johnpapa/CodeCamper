@@ -1,4 +1,6 @@
-﻿var app = app || {};
+﻿// Depends on
+//	Knockout
+// ----------------------------------------------
 
 //track the number of re-evaluations for a computed observable
 ko.observableArray.fn.trackReevaluations = function () {

@@ -1,7 +1,9 @@
-﻿// Depends on 
-//
+﻿// Description
+//  Defines namespace and common utilities
+// Depends on
+//  None
 // ----------------------------------------------
-var app = app || {};
+var app = window["app"] = {};
 
 app.utils = (function () {
     var

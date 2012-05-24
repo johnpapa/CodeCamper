@@ -2,7 +2,6 @@
 //  app.datacontext (for reference links)
 //
 // ----------------------------------------------
-var app = app || {};
 app.model = app.model || {};
 
 app.model.imageBasePath = "../content/";

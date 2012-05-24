@@ -10,7 +10,6 @@
 //  the same filter criteria that can be applied to all sessions.
 //
 // ----------------------------------------------
-var app = app || {};
 app.vm = app.vm || {}
 
 app.vm.favorites = (function (ko, toastr, datacontext) {
