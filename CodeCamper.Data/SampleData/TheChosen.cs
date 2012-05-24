@@ -7,15 +7,18 @@ namespace CodeCamper.SampleData
 {
     public static class TheChosen
     {
-
         private static List<Person> _theChosen;
 
-        /// <summary>Add the "well-known" _theChosen</summary>
+        private static Person 
+            _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
+            _jimCowart, _ryanNiemeyer, _scottGuthrie;
+
+        /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
         {
             _theChosen = new List<Person>();
 
-            _theChosen.Add(new Person
+            _theChosen.Add(_johnPapa = new Person
             {
                 FirstName = "John",
                 LastName = "Papa",
@@ -25,7 +28,7 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "Husband and father enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author for MSDN Magazine and Pluralsight.",
             });
-            _theChosen.Add(new Person
+            _theChosen.Add(_danWahlin =new Person
             {
                 FirstName = "Dan",
                 LastName = "Wahlin",
@@ -35,7 +38,7 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "Chief Architect at Wahlin Consulting. Provide consulting & training on jQuery, HTML5, ASP.NET, SharePoint. Husband & father, like to write and record music.",
             });
-            _theChosen.Add(new Person
+            _theChosen.Add(_wardBell = new Person
             {
                 FirstName = "Ward",
                 LastName = "Bell",
@@ -45,7 +48,7 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "V.P. of Technology at IdeaBlade. Speaks often on client application development issues to anyone who will listen. Likes sociology, history, poetry, and ridiculous clothes.",
             });
-            _theChosen.Add(new Person
+            _theChosen.Add(_hansFjallemark = new Person
             {
                 FirstName = "Hans",
                 LastName = "Fjällemark",
@@ -55,7 +58,7 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "Freelancing developer & designer based in Sweden. I spend most of my time implementing usable and attractive UX in HTML5 or Silverli.. no wait, just HTML5:) ",
             });
-            _theChosen.Add(new Person
+            _theChosen.Add(_jimCowart = new Person
             {
                 FirstName = "Jim",
                 LastName = "Cowart",
@@ -65,7 +68,7 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "Husband, father, architect, developer, tea drinker. Opinions are my own. Unless they're good",
             });
-            _theChosen.Add(new Person
+            _theChosen.Add(_ryanNiemeyer = new Person
             {
                 FirstName = "Ryan",
                 LastName = "Niemeyer",
@@ -75,7 +78,7 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "Coder, tester, father, and husband. Never short on ideas. Love to learn and collaborate.",
             });
-            _theChosen.Add(new Person
+            _theChosen.Add(_scottGuthrie = new Person
             {
                 FirstName = "Scott",
                 LastName = "Guthrie",
@@ -89,6 +92,8 @@ namespace CodeCamper.SampleData
             _theChosen.ForEach(p => p.ImageSource = 
                 (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
 
+            _hansFjallemark.ImageSource = "hans_fjallemark.jpg"; // get rid of 'ä'
+
             persons.AddRange(_theChosen);
         }
 
@@ -101,14 +106,13 @@ namespace CodeCamper.SampleData
         {
 
             // John Papa
-            var johnPapa = _theChosen[0];
             int roomId = roomsForSessions[0].Id;
 
             sessions.Add(new Session
             {
                 Title = "Building HTML and JavaScript Apps with KnockoutJS and MVVM",
                 Code = "JVS300",
-                SpeakerId = johnPapa.Id,
+                SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[2].Id,
                 RoomId = roomId,
@@ -121,7 +125,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "JsRender Fundamentals",
                 Code = "JVS201",
-                SpeakerId = johnPapa.Id,
+                SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[4].Id,
                 RoomId = roomId,
@@ -134,7 +138,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Introduction to Building Windows 8 Metro Applications",
                 Code = "WIN102",
-                SpeakerId = johnPapa.Id,
+                SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "Windows 8").Id,
                 TimeSlotId = timeSlots[7].Id,
                 RoomId = roomId,
@@ -145,13 +149,12 @@ namespace CodeCamper.SampleData
             });
 
             // Dan Wahlin
-            var danWahlin = _theChosen[1];
             roomId = roomsForSessions[1].Id;
             sessions.Add(new Session
             {
                 Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
                 Code = "ASP310",
-                SpeakerId = danWahlin.Id,
+                SpeakerId = _danWahlin.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = timeSlots[5].Id,
                 RoomId = roomId,
@@ -163,7 +166,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "jQuery Fundamentals",
                 Code = "JVS111",
-                SpeakerId = danWahlin.Id,
+                SpeakerId = _danWahlin.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[7].Id,
                 RoomId = roomId,
@@ -176,7 +179,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Structuring JavaScript Code",
                 Code = "JVS212",
-                SpeakerId = danWahlin.Id,
+                SpeakerId = _danWahlin.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[11].Id,
                 RoomId = roomId,
@@ -187,13 +190,12 @@ namespace CodeCamper.SampleData
             });
 
             // Ward Bell
-            var wardBell = _theChosen[2];
             roomId = roomsForSessions[2].Id;
             sessions.Add(new Session
             {
                 Title = "Dressing for Success",
                 Code = "DSN320",
-                SpeakerId = wardBell.Id,
+                SpeakerId = _wardBell.Id,
                 TrackId = tracks.First(t => t.Name == "Design").Id,
                 TimeSlotId = timeSlots[5].Id,
                 RoomId = roomId,
@@ -205,7 +207,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Entity Framework for Poets",
                 Code = "DAT121",
-                SpeakerId = wardBell.Id,
+                SpeakerId = _wardBell.Id,
                 TrackId = tracks.First(t => t.Name == "Data").Id,
                 TimeSlotId = timeSlots[7].Id,
                 RoomId = roomId,
@@ -218,7 +220,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "A JavaScript Toolbox",
                 Code = "JVS222",
-                SpeakerId = wardBell.Id,
+                SpeakerId = _wardBell.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[11].Id,
                 RoomId = roomId,
@@ -229,13 +231,12 @@ namespace CodeCamper.SampleData
             });
 
             // Hans Fjällemark
-            var hansFjallemark = _theChosen[3];
             roomId = roomsForSessions[3].Id;
             sessions.Add(new Session
             {
                 Title = "Fjällemark Magic 1",
                 Code = "ASP331",
-                SpeakerId = hansFjallemark.Id,
+                SpeakerId = _hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = timeSlots[4].Id,
                 RoomId = roomId,
@@ -247,7 +248,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Fjällemark Magic 2",
                 Code = "JVS132",
-                SpeakerId = hansFjallemark.Id,
+                SpeakerId = _hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[6].Id,
                 RoomId = roomId,
@@ -260,7 +261,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Fjällemark Magic 3",
                 Code = "JVS233",
-                SpeakerId = hansFjallemark.Id,
+                SpeakerId = _hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[10].Id,
                 RoomId = roomId,
@@ -271,13 +272,12 @@ namespace CodeCamper.SampleData
             });
 
             // Jim Cowart
-            var jimCowart = _theChosen[4];
             roomId = roomsForSessions[4].Id;
             sessions.Add(new Session
             {
                 Title = "Jim Cowart Underscores",
                 Code = "JVS340",
-                SpeakerId = jimCowart.Id,
+                SpeakerId = _jimCowart.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[4].Id,
                 RoomId = roomId,
@@ -289,7 +289,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Straighten Your Backbone with Jim Coward",
                 Code = "JVS141",
-                SpeakerId = jimCowart.Id,
+                SpeakerId = _jimCowart.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[6].Id,
                 RoomId = roomId,
@@ -302,7 +302,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Going for the Knockout",
                 Code = "JVS242",
-                SpeakerId = jimCowart.Id,
+                SpeakerId = _jimCowart.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[9].Id,
                 RoomId = roomId,
@@ -313,13 +313,12 @@ namespace CodeCamper.SampleData
             });
 
             // Ryan Niemeyer
-            var ryanNiemeyer = _theChosen[5];
             roomId = roomsForSessions[5].Id;
             sessions.Add(new Session
             {
                 Title = "Knockback a few cold ones",
                 Code = "JVS351",
-                SpeakerId = ryanNiemeyer.Id,
+                SpeakerId = _ryanNiemeyer.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = timeSlots[3].Id,
                 RoomId = roomId,
@@ -331,7 +330,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Knockout Performance Gotchas",
                 Code = "JVS152",
-                SpeakerId = ryanNiemeyer.Id,
+                SpeakerId = _ryanNiemeyer.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[4].Id,
                 RoomId = roomId,
@@ -343,7 +342,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "The Expert jsFiddler",
                 Code = "JVS253",
-                SpeakerId = ryanNiemeyer.Id,
+                SpeakerId = _ryanNiemeyer.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[6].Id,
                 RoomId = roomId,
@@ -353,13 +352,12 @@ namespace CodeCamper.SampleData
             });
 
             // Scott Guthrie
-            var scottGuthrie = _theChosen[6];
             roomId = roomsForSessions[6].Id;
             sessions.Add(new Session
             {
                 Title = "Keynote",
                 Code = "KEY001",
-                SpeakerId = scottGuthrie.Id,
+                SpeakerId = _scottGuthrie.Id,
                 TrackId = tracks.First(t => t.Name == ".NET").Id,
                 TimeSlotId = timeSlots[0].Id,
                 RoomId = roomId,
@@ -371,7 +369,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "MVC 4 in Perspective",
                 Code = "ASP162",
-                SpeakerId = scottGuthrie.Id,
+                SpeakerId = _scottGuthrie.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = timeSlots[1].Id,
                 RoomId = roomId,
@@ -384,7 +382,7 @@ namespace CodeCamper.SampleData
             {
                 Title = "Azure: the agnostic cloud",
                 Code = "CLD163",
-                SpeakerId = scottGuthrie.Id,
+                SpeakerId = _scottGuthrie.Id,
                 TrackId = tracks.First(t => t.Name == "Cloud").Id,
                 TimeSlotId = timeSlots[3].Id,
                 RoomId = roomId,

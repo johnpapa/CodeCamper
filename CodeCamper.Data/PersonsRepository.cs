@@ -29,6 +29,7 @@ namespace CodeCamper.Data
                                 PersonId = s.Id,
                                 FirstName = s.FirstName,
                                 LastName = s.LastName,
+                                ImageSource = s.ImageSource,
                         });
        
         }

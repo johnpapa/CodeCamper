@@ -144,7 +144,7 @@
   <ItemGroup>
     <Content Include="Content\dan_wahlin.jpg" />
     <Content Include="Content\felix_fanboi.jpg" />
-    <Content Include="Content\hans_fjällemark.jpg" />
+    <Content Include="Content\hans_fjallemark.jpg" />
     <Content Include="Content\icon.png" />
     <Content Include="Content\jim_cowart.jpg" />
     <Content Include="Content\john_papa.jpg" />

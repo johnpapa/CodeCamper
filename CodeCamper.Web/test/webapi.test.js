@@ -36,6 +36,7 @@ app.test.webApiGetEndpointsRespondOk = function () {
             '/api/persons/1',
             '/api/persons/2/attendance',
             '/api/persons/speakers',
+            '/api/persons/speakers/?$filter=firstName%20eq%20\'Hans\'',
 
             '/api/sessions/?$top=3', // 'top 3' makes test ~1 second faster
             '/api/sessions/2',
@@ -107,6 +108,29 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
                 });
             }
         );
+
+    test('Find Hans among speakers and his ImageSource is as expected',
+        function() {
+            stop();
+            $.ajax({
+                url: '/api/persons/speakers/?$filter=firstName%20eq%20\'Hans\'',
+                dataType: 'json',
+                success: function(data) {
+                    ok(!!data, "Got data when searching for Hans");
+                    ok(data.length === 1 && data[0].FirstName === 'Hans',
+                        "Got exactly one speaker w/ firstName = 'Hans'");
+                    var expectedHansImageSource = "hans_fjallemark.jpg";
+                    ok(data[0].ImageSource === expectedHansImageSource,
+                        "Got expected ImageSource = " + expectedHansImageSource);
+                    start();
+                },
+                error: function(data) {
+                    ok(false, 'Failed with: ' + data.responseText);
+                    start();
+                }
+            });
+        }
+    );
 };
 
 $(function () {
