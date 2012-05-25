@@ -61,9 +61,9 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             $.when(datacontext.rooms.getData(),
                 datacontext.timeslots.getData(),
                 datacontext.tracks.getData(),
+                datacontext.attendance.getData({param: app.currentUser().id()}),
                 datacontext.speakers.getData(),
-                datacontext.sessions.getData(),
-                datacontext.attendance.getData({param: app.currentUser().id()})
+                datacontext.sessions.getData()
                 )
                 //.pipe(dataprimer.fetchSessionBriefs())
                 //.then(function(){toastr.info('hi')})

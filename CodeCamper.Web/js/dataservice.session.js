@@ -6,12 +6,12 @@ app.dataservice = app.dataservice || {}
 app.dataservice.session = (function (amplify) {
     var
         init = function() {
-            amplify.request.define('mysessions', 'ajax', {
-                url: '/api/sessions/?$filter=id%20eq%203', // /api/lookups/timeslots/?$filter=id%20eq%203
-                dataType: 'json',
-                type: 'GET'
-                //cache:
-            })
+            //amplify.request.define('mysessions', 'ajax', {
+            //    url: '/api/sessions/?$filter=id%20eq%203', // /api/lookups/timeslots/?$filter=id%20eq%203
+            //    dataType: 'json',
+            //    type: 'GET'
+            //    //cache:
+            //})
             amplify.request.define('sessions', 'ajax', {
                 url: '/api/sessions',
                 dataType: 'json',
@@ -31,14 +31,14 @@ app.dataservice.session = (function (amplify) {
                 //cache:
             })
         },
-        getMySessions = function(userId, callbacks) {
-            return amplify.request({
-                resourceId: "mysessions",
-                data: { userId: userId }, 
-                success: callbacks.success,
-                error: callbacks.error
-            })
-        },
+        //getMySessions = function(userId, callbacks) {
+        //    return amplify.request({
+        //        resourceId: "mysessions",
+        //        data: { userId: userId }, 
+        //        success: callbacks.success,
+        //        error: callbacks.error
+        //    })
+        //},
         getSessions = function (callbacks) { //sessionType, callbacks) {
             return amplify.request({
                 resourceId: "sessions",

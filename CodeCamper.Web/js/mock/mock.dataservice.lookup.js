@@ -15,12 +15,18 @@ app.mock.dataservice.lookup = (function (amplify, mock) {
 		                Tracks: mock.model.generateTracks().tracks,
 		            }
 		        })
-			})
-		    amplify.request.define('lookups', 'ajax', {
-		        url: '/api/lookups',
-		        dataType: 'json',
-		        type: 'GET'
-		        //cache:
+            })
+		    
+		    amplify.request.define('rooms', function (settings) {
+		        settings.success(mock.model.generateRooms().rooms)
+		    })
+		    
+		    amplify.request.define('timeslots', function (settings) {
+		        settings.success(mock.model.generateTimeslots().timeslots)
+		    })
+		    
+		    amplify.request.define('tracks', function (settings) {
+		        settings.success(mock.model.generateTracks().tracks)
 		    })
 		}
 	return {

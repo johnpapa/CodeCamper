@@ -58,17 +58,16 @@ app.mock = (function ($) {
         },
         generateSessions = function () {
             return $.mockJSON.generateFromTemplate({
-                'sessions|10-20': [{
+                'sessions|100-120': [{
                     'Id|+1': 1,
                     Title: '@TITLE',
                     Code: '@LOREM',
-                    'SpeakerId|+1': 1,
-                    'TrackId|+1': 1,
-                    'TimeSlotId|+1': 1,
-                    'RoomId|+1': 1,
+                    'SpeakerId|1-50': 1,
+                    'TrackId|1-10': 1,
+                    'TimeSlotId|1-15': 1,
+                    'RoomId|1-10': 1,
                     Level: '@LEVEL',
                     'Tags|1-5': '@TAG ,',
-                    'IsFavorite|0-1': true, //TODO fix this
                     Description: '@LOREM_IPSUM'
                 }]
             })
@@ -91,7 +90,7 @@ app.mock = (function ($) {
         },
         generateTimeslots = function () {
             return $.mockJSON.generateFromTemplate({
-                'TimeSlots|10-20': [{
+                'timeslots|15-20': [{
                     'Id|+1': 1,
                     Start: '@DATE_FULL',
                     Duration: 60
@@ -100,7 +99,7 @@ app.mock = (function ($) {
         },
         generateTracks = function () {
             return $.mockJSON.generateFromTemplate({
-                'Tracks|10-20': [{
+                'tracks|10-15': [{
                     'Id|+1': 1,
                     Name: '@LOREM'
                 }]

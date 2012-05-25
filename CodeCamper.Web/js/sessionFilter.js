@@ -32,12 +32,7 @@ app.filter = app.filter || {};
             },
             favoriteTest = function(favoriteOnly, session) {
                 if (favoriteOnly) {
-                    //var list = session.attendance();
-                    //for (var i = 0; i < list.length; i++) {
-                    //    if (list[i].personId() === userId) return true;
-                    //}
                     return session.isFavorite()
-                    //return session.attendance().personId() === userId
                 } else {
                     return true; // don't care if favorite or not
                 }
@@ -49,38 +44,13 @@ app.filter = app.filter || {};
                 return true;
             },
             predicate = function (self, session) {
-                var match = false;
                 // Return true if all of these meet the filter criteria. Otherwise, return false
-                if (searchTest(self.searchText(), session)
-                    && (favoriteTest(self.favoriteOnly(), session))
-                    && (timeSlotTest(self.minTimeSlot(), self.maxTimeSlot(), session))) {
-                    match = true;
-                }
+                var matchSearch = searchTest(self.searchText(), session),
+                    matchFavorite = favoriteTest(self.favoriteOnly(), session),
+                    matchTimeslot =  timeSlotTest(self.minTimeSlot(), self.maxTimeSlot(), session),
+                    match = matchSearch && matchFavorite && matchTimeslot
                 return match;
             };
-            //execute2 = function (datacontext, result) {
-            //    var
-            //        sessions = ko.observableArray([]),
-            //        self = this;
-
-            //    $.when(datacontext.sessions.getData({
-            //        results: sessions,
-            //        sortFunction: app.sort.sessionSort
-            //    }))
-            //    .done(function () {
-            //        // using underscore, as another option
-            //        //var filteredArray = _.filter(sessions(), function (session) {
-            //        //    return predicate(self, session);
-            //        //})
-            //        var filteredArray = ko.utils.arrayFilter(sessions(), function (session) {
-            //            var match = predicate(self, session);
-            //            return match;
-            //        });
-            //        result(filteredArray);
-            //        toastr.info(sessions().length + ' filtered down to ' + filteredArray.length)
-            //        return self;
-            //    })
-            //};
         return {
             predicate: predicate
         }
