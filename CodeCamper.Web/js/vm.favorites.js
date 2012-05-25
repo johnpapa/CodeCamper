@@ -37,17 +37,19 @@ app.vm.favorites = (function (ko, toastr, datacontext) {
         activate = function() { //routeData) { //TODO: routeData is not used. Remove it later.
             datacontext.timeslots.getData({ results: timeslots });
         },
-        setFilter = function () {
-            var day = new Date(data.date);
+        setFilter = function (data) {
+            if(data && data.date) {
+                var day = new Date(data.date)
+                sessionFilter.minTimeSlot(day)
+                var maxDate = moment(new Date(day)).add('days', 1).add('seconds', -1).toDate()
+                sessionFilter.maxTimeSlot(maxDate)
+            }
             sessionFilter.favoriteOnly(true) //TODO: implement this
-            sessionFilter.minTimeSlot(day)
-            var maxDate = moment(new Date(day)).add('days', 1).add('seconds', -1).toDate()
-            sessionFilter.maxTimeSlot(maxDate)
             sessionFilter.searchText(searchText())
         },
         loadByDate = function (data) {
             // sessionFilter always limits to favorite sessions of the current user
-            setFilter()
+            setFilter(data)
             
             sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
 
