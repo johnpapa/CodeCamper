@@ -32,27 +32,34 @@ app.test.dataservicesReturnData = function () {
             });
         })
 
+    var retrievalTest = function (t) {
+        stop();
+        var params = [];
+        if (t.args) {
+            params = t.args;
+        }
+        params.push({
+            success: function (data) {
+                var prefix = 'Test \"' + t.name + '" retrieved ';
+                if (!!data && data.length > 0) {
+                    ok(true, prefix + data.length+' items.');
+                } else {
+                    ok(!!data, prefix + 'one item.');
+                }
+                start();
+            },
+            error: function (data) {
+                ok(false, 'Failed with: ' + data.responseText);
+                start();
+            }
+        });
+        t.delegate.apply({ }, params);
+    };
+    
     for (var i = 0; i < retrievalTests.length; i++) {
         var t = retrievalTests[i];
         test(t.name,
-            function() {
-                stop();
-                var params = [];
-                if (t.args) {
-                    params = t.args;
-                }
-                params.unshift({
-                        success: function(data) {
-                            ok(!!data, 'Retrieved some data');
-                            start();
-                        },
-                        error: function(data) {
-                            ok(false, 'Failed with: ' + data.responseText);
-                            start();
-                        }
-                });
-                t.delegate.apply({}, params)
-            })
+            (function (t) { return function() { retrievalTest(t); }; })(t));
     }
 };
 
