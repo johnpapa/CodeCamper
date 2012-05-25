@@ -108,8 +108,9 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
                 });
             }
         );
-
-    test('Find Hans among speakers and his ImageSource is as expected',
+    
+    var expectedHansImageSource = "hans_fjallemark.jpg";
+    test('Find Hans among speakers and his ImageSource is ' + expectedHansImageSource,
         function() {
             stop();
             $.ajax({
@@ -119,7 +120,7 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
                     ok(!!data, "Got data when searching for Hans");
                     ok(data.length === 1 && data[0].FirstName === 'Hans',
                         "Got exactly one speaker w/ firstName = 'Hans'");
-                    var expectedHansImageSource = "hans_fjallemark.jpg";
+                    
                     ok(data[0].ImageSource === expectedHansImageSource,
                         "Got expected ImageSource = " + expectedHansImageSource);
                     start();
