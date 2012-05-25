@@ -6,8 +6,9 @@
 app.config = (function () {
     var
         // properties
-        useMocks = true, // Set this to toggle mocks
+        useMocks = false, // Set this to toggle mocks
         throttle = 400,
+        toastrTimeout = 2000,
         // methods
         dataserviceInit = function () {
             // because of shortcircuiting, i am fine here 
@@ -22,6 +23,7 @@ app.config = (function () {
 
     return {
         dataserviceInit: dataserviceInit,
-        throttle: throttle
+        throttle: throttle,
+        toastrTimeout: toastrTimeout
     }
 })()

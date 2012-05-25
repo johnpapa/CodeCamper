@@ -53,11 +53,12 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             //toastr.info('bootstrapper: routes have been registered ') //TODO: remove
         },
         run = function () {
-            toastr.options.timeOut = 2000 //TODO: Just for testing
+            toastr.options.timeOut = config.toastrTimeout 
 
             // Set up the dataservice for "how it is going to roll" ... Ward Bell
             config.dataserviceInit()
             // prime the data services and eager load the lookups
+            toastr.info('STARTING UP')
             $.when(datacontext.rooms.getData(),
                 datacontext.timeslots.getData(),
                 datacontext.tracks.getData(),
@@ -67,8 +68,10 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
                 )
                 //.pipe(dataprimer.fetchSessionBriefs())
                 //.then(function(){toastr.info('hi')})
-                .then(bindViewModelsToViews)
-                .then(registerRoutes)
+                .done(bindViewModelsToViews)
+                .done(registerRoutes)
+                .done(toastr.info('READY'))
+            
         }
     return {
         run: run

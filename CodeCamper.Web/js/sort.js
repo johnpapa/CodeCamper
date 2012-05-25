@@ -14,7 +14,12 @@ app.sort.sessionSort = function (sessionA, sessionB) {
 }
 
 app.sort.timeslotSort = function (slotA, slotB) {
+    if (!slotA.sort || !slotB.sort) debugger
     return slotA.start() > slotB.start() ? 1 : -1
+}
+
+app.sort.date = function (a, b) {
+    return a.date() > b.date() ? 1 : -1
 }
 
 // Manipulation
@@ -23,6 +28,7 @@ app.group = app.group || {};
 
 app.group.timeslotsToDays = function (timeslots) {
     var result = _.reduce(timeslots, function (memo, slot) {
+        
         var date = moment(slot.start()).format('MM-DD-YYYY'),
                     day = moment(date).format('ddd MMM DD')
 
@@ -38,6 +44,6 @@ app.group.timeslotsToDays = function (timeslots) {
         return memo
     }, { index: {}, slots: [] })
 
-    sortedDays = result.slots.sort(app.sort.timeslotSort)
+    sortedDays = result.slots.sort(app.sort.generic)
     return sortedDays
 };
