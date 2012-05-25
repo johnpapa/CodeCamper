@@ -99,7 +99,7 @@ body {
 	}
 
 		body > section > div {
-			background: rgba(255,255,255,.2);
+			/* background: rgba(255,255,255,.2); removed by Hans */
 			margin: 0 0 1% 260px;
 		}
 
@@ -122,10 +122,23 @@ body {
 				    color: rgba(255,255,255,.8);
 				}
 
-		body > section > nav > ul {
+		body > section > nav {
 			float: left;
-			list-style-type: none;
 			width: 220px;
+		}
+
+			body > section > nav > select {
+				border: solid 1px rgb(200,200,200);
+				box-sizing: border-box;
+				color: black;
+				display: block;
+				font-size: 100%;
+				padding: 5px 7px;
+				width: 100%;
+			}
+
+		body > section > nav > ul {
+			list-style-type: none;
 		}
 
 		body > section > nav > ul > li > a,
@@ -258,10 +271,23 @@ a {
 /* 2.3 FONTS
 --------------------------------------------------------- */
 body,
-input {
+input,
+select {
 	font-family: "Segoe UI Light","Segoe Light","Segoe UI","Helvetica-Light",Arial,Helvetica,sans-serif;
 }
 
+
+/* 2.4 ELEMENTS
+--------------------------------------------------------- */
+select {
+	padding: 5px;
+}
+
+small {
+	color: gray;
+	font-size: 80%;
+	text-transform: uppercase;
+}
 
 /* 3.0 CUSTOM
 --------------------------------------------------------- */

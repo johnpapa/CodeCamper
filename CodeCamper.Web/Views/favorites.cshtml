@@ -15,13 +15,15 @@
 
     <div>
         <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" />
+        <small>Showing 10 of 78 sessions</small>
 @*        <input placeholder="filter by speaker, tag, title, or track" type="text" data-bind="value:searchText" />*@
     </div>
     
     <!-- ko foreach: sessions -->
     <article>
         <img data-bind="attr: {src: speaker().imageName}"/>
-        <span data-bind="text:timeslot().shortStart"></span>
+        <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
+        <small data-bind="text:level" style="float: right"></small>
         <h1 data-bind="text: title"></h1>
         <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
         <address data-bind="text: speaker().fullName"></address>
