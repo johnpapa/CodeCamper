@@ -50,7 +50,7 @@ app.test.webApiGetEndpointsRespondOk = function () {
 
             // These variations find the link with personId==2 && sessionId==1
             '/api/attendance/?$filter=personId%20eq%202%20and%20sessionId%20eq%201',
-            '/api/attendance/?pid=1&sid=2' // preferred
+            '/api/attendance/?pid=2&sid=1' // preferred
     ];
 
     var apiUrlslen = apiUrls.length;

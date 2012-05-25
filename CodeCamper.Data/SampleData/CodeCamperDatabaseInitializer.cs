@@ -23,8 +23,8 @@ namespace CodeCamper.SampleData
 
             var timeSlots = AddTimeSlots(context);
             var persons = AddPersons(context, 100);
-            var sessions = AddSessions(context, persons, rooms, timeSlots, tracks);
-            AddAttendance(context, sessions, persons.Take(2).ToArray());
+            var knownSessions = AddSessions(context, persons, rooms, timeSlots, tracks);
+            AddAttendance(context, knownSessions, persons.Take(2).ToArray());
         }
 
         private List<Room> _roomsForGeneratedSessions;
@@ -177,18 +177,21 @@ namespace CodeCamper.SampleData
 
         private List<Session> AddSessions(CodeCamperDbContext context, IList<Person> persons, IList<Room> rooms, IEnumerable<TimeSlot> timeSlots, IList<Track> tracks)
         {
-            var sessions = new List<Session>();
             var slots = timeSlots.Where(t => t.IsSessionSlot).ToArray();
 
-            TheChosen.AddSessions(
-                sessions, slots, tracks, _levels, _roomsForWellKnownSessions);
+            var knownSessions = TheChosen.AddSessions(
+                slots, tracks, _levels, _roomsForWellKnownSessions);
+
+            var sessions = new List<Session>(knownSessions);
 
             AddGeneratedSessions(sessions, persons, slots , tracks);
 
             // Done populating sessions
             sessions.ForEach(s => context.Sessions.Add(s));
             context.SaveChanges();
-            return sessions;
+
+            return knownSessions;
+            // return sessions;
         }
 
         private readonly string[] _levels = new string[] {"Beginner", "Intermediate", "Advanced"};
@@ -276,43 +279,68 @@ namespace CodeCamper.SampleData
 
         private void AddAttendance(CodeCamperDbContext context, List<Session> sessions, IEnumerable<Person> attendees)
         {
+            var attendanceList = new List<Attendance>();
+
             var rand = new Random();
             var textGenerator = new SampleTextGenerator();
             var textSource = SampleTextGenerator.SourceNames.Faust;
 
-            // Indexes for the 3rd through nth sessions (sessions #1 and #2 are forced in manually).
-            var sessionIxs = Enumerable.Range(2, sessions.Count - 1).ToArray();
-            var AttendanceList = new List<Attendance>();
+            var keynoteSessionId = sessions.First().Id;
+
+            // Unique TimeSlot.Ids and Ids of Sessions in those slots
+            var slotsAndSessionIds = new Dictionary<int, List<int>>();
+            sessions
+                .Where(s => s.Id != keynoteSessionId)
+                .GroupBy(s => s.TimeSlot).ToList()
+                .ForEach( g =>
+                            slotsAndSessionIds.Add(
+                                g.Key.Id, g.Select(s => s.Id).ToList()));
+
+            // How many slots each "attendee" will attend
+            var attendedSlots = Math.Min(slotsAndSessionIds.Count(), 8);
 
             foreach(var person in attendees)
             {
-                // indexes of attended sessions
-                var ixs = new List<int>(new []{0,1}); // Sessions #1 and #2 are always attended
 
-                // Add between 8 and 13 "random" session indexes
-                ixs.AddRange(sessionIxs.OrderBy(_ => Guid.NewGuid()).Take(rand.Next(8, 13)));
+                // Random list of TimeSlot Ids
+                var tsids = slotsAndSessionIds.Keys
+                            .OrderBy(_ => Guid.NewGuid())
+                            .Take(attendedSlots).ToList();
+
+                // The list of sessions in those TimeSlots
+                var sids = new List<int>();
+
+                // Populate with randomly selected session from each TimeSlot
+                tsids.ForEach(tsid =>
+                                  {
+                                      var c = slotsAndSessionIds[tsid];
+                                      sids.Add(c[rand.Next(0, c.Count)]);
+                                  });
+
+                // everyone attends the keynote.
+                sids.Add(keynoteSessionId); 
 
                 var evalCount = 4; // person evals the first 'n' sessions attended
-                foreach (var i in ixs)
+                foreach (var sid in sids)
                 {
                     var attendance =
                         new Attendance
                             {
                                 PersonId = person.Id,
-                                SessionId = sessions[i].Id,
+                                SessionId = sid,
                             };
-                    AttendanceList.Add(attendance);
+                    attendanceList.Add(attendance);
 
                     if (evalCount <= 0) continue;
 
-                    attendance.Rating = rand.Next(1, 6);
+                    attendance.Rating = rand.Next(1, 6);// rating in 1..5
                     attendance.Text = textGenerator.GenSentences(10, textSource);
                     evalCount--;
                 }
             }
 
             // Done populating Attendance
-            AttendanceList.ForEach(ps => context.Attendance.Add(ps));
+            attendanceList.ForEach(ps => context.Attendance.Add(ps));
             context.SaveChanges();
         }
     
