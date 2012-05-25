@@ -10,10 +10,11 @@ var app = app || {};
 app.mock = (function ($) {
     var
         init = function () {
-            //$.mockJSON.random = false;
+            $.mockJSON.random = true;
             $.mockJSON.log = false;
             $.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward', 'Jim', 'Ryan'];
             $.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell', 'Cowart', 'Niemeyer'];
+            $.mockJSON.data.IMAGE_SOURCE = ['john_papa.jpg', 'dan_wahlin.jpg', 'scott_guthrie.jpg', 'hans_fjallemark.jpg', 'ward_bell.jpg', 'jim_cowart.jpg', 'ryan_niemeyer.jpg'];
             $.mockJSON.data.DATE_TODAY = [moment().format('MMMM DD YYYY')];
             $.mockJSON.data.DATE_FULL = [new Date()];
             $.mockJSON.data.TAG = ['JavaScript', 'Knockout', 'MVVM', 'HTML5', 'Keynote', 'SQL', 'CSS', 'Metro', 'UX'];
@@ -82,7 +83,7 @@ app.mock = (function ($) {
                     Blog: '@URL',
                     TWITTER: 'http://twitter.com/@' + '@TWITTER',
                     GENDER: '@GENDER',
-                    ImageSource: '@SPEAKER_FIRST_NAME' + "_" + '@SPEAKER_LAST_NAME' + ".jpg",
+                    ImageSource: '@IMAGE_SOURCE',
                     Bio: '@LOREM_IPSUM'
                     //imageName: '../content/' + '@SPEAKER_FIRST_NAME' + '.jpg' //TODO: do in the mapping
                 }]
