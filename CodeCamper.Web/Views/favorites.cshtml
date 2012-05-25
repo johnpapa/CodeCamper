@@ -2,7 +2,7 @@
     <div id="busy1"></div>
     <nav>
         <ul data-bind="foreach: days">
-            <li class="route-left">
+            <li class="route-left" data-bind="css :{'route-active': isSelected()}">
                 <a data-bind="attr: {href: '#/favorites/date/' + date }, text: day"></a>
             </li>
         </ul>
@@ -14,9 +14,8 @@
     <!-- Knockout Debugging -->
 
     <div>
-        <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" />
-        <small>Showing 10 of 78 sessions</small>
-@*        <input placeholder="filter by speaker, tag, title, or track" type="text" data-bind="value:searchText" />*@
+        <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" placeholder="filter by speaker, tag, title, or track" type="text"/>
+        <small>Showing <small data-bind="text:sessions().length"></small> sessions</small>
     </div>
     
     <!-- ko foreach: sessions -->

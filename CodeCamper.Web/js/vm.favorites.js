@@ -28,7 +28,7 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort) {
                 if (!memo.index[day.toString()]) {
                     // This is created so i dont have to loop through the array each time again
                     memo.index[day.toString()] = true
-                    memo.slots.push({ date: date, day: day })
+                    memo.slots.push({ date: date, day: day, isSelected: ko.observable() })
                 }
                 return memo
             }, { index: { }, slots: [] })
@@ -36,9 +36,14 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort) {
             sortedDays = result.slots.sort(function(a, b) { return a.date > b.date })
             return sortedDays
         }),
+        getTimeslots = function () {
+            datacontext.timeslots.getData({
+                results: timeslots,
+                sortFunction: sort.timeslotSort
+            });
+        },
         activate = function() { //routeData) { //TODO: routeData is not used. Remove it later.
-            //TODO: add sort function 
-            datacontext.timeslots.getData({ results: timeslots });
+            getTimeslots()
         },
         setFilter = function() {
             var day = new Date(selectedDate),
@@ -49,11 +54,23 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort) {
             sessionFilter.favoriteOnly(true) //TODO: implement this
             sessionFilter.searchText(searchText())
         },
-        loadByDate = function(data) {
-            if (data && data.date) {
-                selectedDate = data.date
+        setSelectedDay = function () {
+            // keeping nav in synch too
+            for (var i = 0; i < days().length; i++) {
+                var day = days()[i]
+                day.isSelected(false)
+                if (day.date === selectedDate) {
+                    day.isSelected(true)
+                }
             }
+        },
+        loadByDate = function (data) {
+            getTimeslots()
+
+            selectedDate = data && data.date ? data.date : selectedDate
             if (!selectedDate) return
+
+            setSelectedDay()
             
             setFilter()
             datacontext.sessions.getData({

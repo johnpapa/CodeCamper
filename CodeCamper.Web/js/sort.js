@@ -9,3 +9,7 @@ app.sort.sessionSort = function (sessionA, sessionB) {
         return sessionA.timeslot().start() > sessionB.timeslot().start() ? 1 : -1
     }
 }
+
+app.sort.timeslotSort = function (slotA, slotB) {
+    return slotA.start() > slotB.start() ? 1 : -1
+}
