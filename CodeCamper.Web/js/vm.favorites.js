@@ -16,7 +16,7 @@ app.vm = app.vm || {}
 
 app.vm.favorites = (function (ko, toastr, datacontext, filter, sort) {
     var selectedDate,
-        searchText = ko.observable(),
+        searchText = ko.observable().extend({ throttle: 400 }),
         sessionFilter = new filter.SessionFilter(),
         timeslots = ko.observableArray(),
         sessions = ko.observableArray(), //.trackReevaluations(),
@@ -50,10 +50,11 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort) {
             sessionFilter.searchText(searchText())
         },
         loadByDate = function(data) {
-            if (!data || !data.date) {
-                return
+            if (data && data.date) {
+                selectedDate = data.date
             }
-            selectedDate = data.date
+            if (!selectedDate) return
+            
             setFilter()
             datacontext.sessions.getData({
                 results: sessions,
@@ -61,24 +62,18 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort) {
                 sortFunction: sort.sessionSort
             });
         },
-        searchTextThrottled = ko.computed({
-            read: function () {
-                return searchText()
-            },
-            write: function (value) {
-                searchText(value)
-                loadByDate({ date: selectedDate })
-            }
-        }).extend({ throttle: 300 }),
         debugInfo = app.debugInfo(sessions);
     return {
         sessions: sessions,
         timeslots: timeslots,
-        //searchText: searchText,
-        searchTextThrottled: searchTextThrottled,
+        searchText: searchText,
         days: days,
         activate: activate,
         loadByDate: loadByDate,
         debugInfo: debugInfo,
     }
 })(ko, toastr, app.datacontext, app.filter, app.sort);
+
+app.vm.favorites.searchText.subscribe(function() {
+    app.vm.favorites.loadByDate()
+})
