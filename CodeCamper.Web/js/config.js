@@ -13,9 +13,10 @@ app.config = (function () {
             // because of shortcircuiting, i am fine here 
             // by checking first for the existance of app.mock
             if(!!app.mock && useMocks) { 
-                app.mock.dataservice.lookup.apply()
-                app.mock.dataservice.person.apply()
-                app.mock.dataservice.session.apply()
+                app.mock.dataservice.lookup.defineApi()
+                app.mock.dataservice.person.defineApi()
+                app.mock.dataservice.session.defineApi()
+                app.mock.dataservice.attendance.defineApi()
             }
         }
 

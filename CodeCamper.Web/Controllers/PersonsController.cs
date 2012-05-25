@@ -37,7 +37,7 @@ namespace CodeCamper.Web.Controllers
 
         #region Actions (RPC methods)
 
-        // GET: api/sessions/speakers
+        // GET: api/persons/speakers
         [ActionName("speakers")]
         public IQueryable<Speaker> GetSpeakers()
         {

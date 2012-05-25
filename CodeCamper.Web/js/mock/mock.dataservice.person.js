@@ -1,11 +1,11 @@
 ﻿// Depends on 
 //	Amplify.js
-//	my.mock
+//	app.mock
 // ----------------------------------------------
 var app = app || {};
 app.mock.dataservice.person = (function (amplify, mock) {
 	var 
-		apply = function(){
+		defineApi = function () {
 
             //TODO: persons need to be fleshed out
 		    //amplify.request.define('persons', function (settings) {
@@ -18,6 +18,6 @@ app.mock.dataservice.person = (function (amplify, mock) {
 
 		}
 	return {
-		apply : apply
+	    defineApi: defineApi
 	}
 })(amplify, app.mock);

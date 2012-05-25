@@ -59,7 +59,9 @@ app.test.dataservicesReturnData = function () {
     for (var i = 0; i < retrievalTests.length; i++) {
         var t = retrievalTests[i];
         test(t.name,
-            (function (t) { return function() { retrievalTest(t); }; })(t));
+            function (t) {
+                 return function() { retrievalTest(t); };
+            }(t));
     }
 };
 

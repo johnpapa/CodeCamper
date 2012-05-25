@@ -1,7 +1,7 @@
 ﻿// Depends on 
 //	Knockout
 // 	toastr
-//	my.dataservice.session
+//	app.dataservice.session
 // ----------------------------------------------
 app.vm = app.vm || {}
 app.vm.sessions = (function (ko, ds, toastr) {

@@ -10,11 +10,11 @@
 
     <!-- Knockout Debugging -->
     <!-- TODO: remove -->
-    Reevaluation Count: <span data-bind="text: sessions.reevaluationCount"></span>
+    <!-- Reevaluation Count: <span data-bind="text: sessions.reevaluationCount"></span> -->
     <!-- Knockout Debugging -->
 
     <div>
-        <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" />
+        <input data-bind="value: searchTextThrottled, valueUpdate: 'afterkeydown'" />
 @*        <input placeholder="filter by speaker, tag, title, or track" type="text" data-bind="value:searchText" />*@
     </div>
     

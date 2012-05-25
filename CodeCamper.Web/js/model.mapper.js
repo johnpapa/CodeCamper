@@ -5,10 +5,15 @@ app.model = app.model || {};
 
 app.model.mapper = (function () {
     var
+        mapAttendance = function (raw, item) {
+            item = item || new app.model.Attendance().personId(raw.PersonId).sessionId(raw.SessionId);
+            return item
+                .rating(raw.Rating)
+                .text(raw.Text);
+        },
         mapRoom = function (raw, item) {
             item = item || new app.model.Room().id(raw.Id);
             return item
-                .id(raw.Id)
                 .name(raw.Name);
         },
         mapSession = function (raw, item) {
@@ -22,9 +27,8 @@ app.model.mapper = (function () {
                 .timeslotId(raw.TimeSlotId)
                 .roomId(raw.RoomId)
                 .description(raw.Description)
-                .isFavorite(!!raw.IsFavorite) //TODO: fix this
                 .level(raw.Level)
-                .tags(raw.Tags);
+                .tags(raw.Tags)
         },
         mapSpeaker = function (raw, item) {
             item = item || new app.model.Speaker().id(raw.Id);
@@ -41,17 +45,16 @@ app.model.mapper = (function () {
         mapTimeSlot = function (raw, item) {
             item = item || new app.model.TimeSlot().id(raw.Id);
             return item
-                .id(raw.Id)
                 .start(new Date(raw.Start))
                 .duration(raw.Duration);
         },
         mapTrack = function (raw, item) {
             item = item || new app.model.Track().id(raw.Id);
             return item
-                    .id(raw.Id)
                     .name(raw.Name);
         };
     return {
+        mapAttendance: mapAttendance,
         mapRoom: mapRoom,
         mapSession: mapSession,
         mapSpeaker: mapSpeaker,

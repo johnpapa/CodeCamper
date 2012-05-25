@@ -1,11 +1,11 @@
 ﻿// Depends on 
 //	Amplify.js
-//	my.mock
+//	app.mock
 // ----------------------------------------------
 var app = app || {};
 app.mock.dataservice.lookup = (function (amplify, mock) {
 	var 
-		apply = function(){
+		defineApi = function () {
 
 		    amplify.request.define('lookups', function (settings) {
 		        settings.success({
@@ -24,6 +24,6 @@ app.mock.dataservice.lookup = (function (amplify, mock) {
 		    })
 		}
 	return {
-		apply : apply
+	    defineApi: defineApi
 	}
 })(amplify, app.mock);

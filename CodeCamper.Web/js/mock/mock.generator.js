@@ -36,6 +36,17 @@ app.mock = (function ($) {
             $.mockJSON.data.TWITTER = ['john_papa', 'danwahlin', 'ifthenelse', 'scottgu', 'wardbell'];
             $.mockJSON.data.URL = ['http://www.johnpapa.net', 'http://www.pluralsight.com'];
             $.mockJSON.data.GENDER = ['F', 'M'];
+            $.mockJSON.data.RATING = [1,2,3,4,5];
+        },
+        generateAttendance = function () {
+            return $.mockJSON.generateFromTemplate({
+                'attendance|8-16': [{
+                    'PersonId': 1,
+                    'SessionId|+1': 1,
+                    Rating: '@RATING',
+                    Text: '@LOREM_IPSUM'
+                }]
+            })
         },
         generateRooms = function () {
             return $.mockJSON.generateFromTemplate({
@@ -51,11 +62,6 @@ app.mock = (function ($) {
                     'Id|+1': 1,
                     Title: '@TITLE',
                     Code: '@LOREM',
-                    //speaker: {
-                    //    firstName: '@SPEAKER_FIRST_NAME',
-                    //    lastName: '@SPEAKER_LAST_NAME' //,
-                    //},
-                    //imageName: '../content/' + '@SPEAKER_FIRST_NAME' + '.jpg',
                     'SpeakerId|+1': 1,
                     'TrackId|+1': 1,
                     'TimeSlotId|+1': 1,
@@ -64,11 +70,6 @@ app.mock = (function ($) {
                     'Tags|1-5': '@TAG ,',
                     'IsFavorite|0-1': true, //TODO fix this
                     Description: '@LOREM_IPSUM'
-                    // TODO: these are not needed
-                    //Speaker: '@SPEAKER_FIRST_NAME' + '@SPEAKER_LAST_NAME',
-                    //Track: '@TRACK',
-                    //Room: '@LOREM',
-                    //TimeSlot: '@DATE_TODAY @TIME_HH:@TIME_MM:@TIME_SS +0000',
                 }]
             })
         },
@@ -108,6 +109,7 @@ app.mock = (function ($) {
     return {
         init: init,
         model: {
+            generateAttendance: generateAttendance,
             generateRooms: generateRooms,
             generateSessions: generateSessions,
             generateSpeakers: generateSpeakers,

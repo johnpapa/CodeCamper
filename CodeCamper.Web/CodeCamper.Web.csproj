@@ -159,7 +159,9 @@
     <Content Include="Content\bookmark.png" />
     <Content Include="Content\icon-blue.png" />
     <Content Include="js\config.js" />
+    <Content Include="js\dataservice.attendance.js" />
     <Content Include="js\debug.helpers.js" />
+    <Content Include="js\mock\mock.dataservice.attendance.js" />
     <Content Include="js\sessionFilter.js" />
     <Content Include="js\dataservice.person.js" />
     <Content Include="js\mock\mock.dataservice.lookup.js" />
@@ -167,8 +169,8 @@
     <Content Include="js\model.mapper.js" />
     <Content Include="js\datacontext.js" />
     <Content Include="js\dataservice.lookup.js" />
+    <Content Include="js\sort.js" />
     <Content Include="js\utils.js" />
-    <Content Include="Scripts\activity-indicator.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />

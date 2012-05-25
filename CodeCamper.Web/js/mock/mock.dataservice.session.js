@@ -5,7 +5,7 @@
 var app = app || {};
 app.mock.dataservice.session = (function (amplify, mock) {
 	var 
-		apply = function(){
+		defineApi = function () {
 		    amplify.request.define('mysessions', function (settings) {
 		        settings.success(mock.model.generateSessions().sessions)
             })
@@ -23,6 +23,6 @@ app.mock.dataservice.session = (function (amplify, mock) {
 			})
 		}
 	return {
-		apply : apply
+	    defineApi: defineApi
 	}
 })(amplify, app.mock);

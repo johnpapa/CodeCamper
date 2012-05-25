@@ -45,7 +45,8 @@ app.test.webApiGetEndpointsRespondOk = function () {
             '/api/sessions/taggroups/',
 
             '/api/attendance',
-            '/api/attendance/?$filter=personId%20eq%202',
+            '/api/attendance/?$filter=personId%20eq%202', // without spaces
+            '/api/attendance/?$filter=personId eq 2', // with spaces
 
             // These variations find the link with personId==2 && sessionId==1
             '/api/attendance/?$filter=personId%20eq%202%20and%20sessionId%20eq%201',

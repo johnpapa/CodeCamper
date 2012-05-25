@@ -1,7 +1,9 @@
 ﻿// Depends on 
 //	Knockout
 // 	toastr
-//	my.datacontext
+//	app.datacontext
+//  app.filter
+//  app.sort
 //
 // Description
 //  vm.favorites is the ViewModel for a view displaying just the sessions
@@ -12,15 +14,15 @@
 // ----------------------------------------------
 app.vm = app.vm || {}
 
-app.vm.favorites = (function (ko, toastr, datacontext) {
-    var
-        sessionFilter = new app.filter.SessionFilter(),
+app.vm.favorites = (function (ko, toastr, datacontext, filter, sort) {
+    var selectedDate,
+        searchText = ko.observable(),
+        sessionFilter = new filter.SessionFilter(),
         timeslots = ko.observableArray(),
         sessions = ko.observableArray(), //.trackReevaluations(),
-        searchText = ko.observable(),
         days = ko.computed(function() {
             var result = _.reduce(timeslots(), function(memo, slot) {
-                var date = moment(slot.start()).format('MM-DD-YYYY'), //.toDate(),
+                var date = moment(slot.start()).format('MM-DD-YYYY'), 
                     day = moment(date).format('ddd MMM DD')
 
                 if (!memo.index[day.toString()]) {
@@ -35,44 +37,48 @@ app.vm.favorites = (function (ko, toastr, datacontext) {
             return sortedDays
         }),
         activate = function() { //routeData) { //TODO: routeData is not used. Remove it later.
+            //TODO: add sort function 
             datacontext.timeslots.getData({ results: timeslots });
         },
-        setFilter = function (data) {
-            if(data && data.date) {
-                var day = new Date(data.date)
-                sessionFilter.minTimeSlot(day)
-                var maxDate = moment(new Date(day)).add('days', 1).add('seconds', -1).toDate()
-                sessionFilter.maxTimeSlot(maxDate)
-            }
+        setFilter = function() {
+            var day = new Date(selectedDate),
+                maxDate = moment(new Date(day)).add('days', 1).add('seconds', -1).toDate()
+
+            sessionFilter.minTimeSlot(day)
+            sessionFilter.maxTimeSlot(maxDate)
             sessionFilter.favoriteOnly(true) //TODO: implement this
             sessionFilter.searchText(searchText())
         },
-        loadByDate = function (data) {
-            // sessionFilter always limits to favorite sessions of the current user
-            setFilter(data)
-            
-            sessionFilter.execute(datacontext, sessions); // populate with favorite sessions
-
-            //datacontext.sessions.getData({ results: sessions });
-
-            //TODO: implement activity indicator (if needed)
-            //$('#busy1').activity();
-            //$.when(sessionFilter.execute(datacontext, sessions))
-            //    .always(function() {
-            //        toastr.success('done loading')
-            //        $('#busy1').activity(false);
-            //    })
-
-
+        loadByDate = function(data) {
+            if (!data || !data.date) {
+                return
+            }
+            selectedDate = data.date
+            setFilter()
+            datacontext.sessions.getData({
+                results: sessions,
+                filter: sessionFilter,
+                sortFunction: sort.sessionSort
+            });
         },
+        searchTextThrottled = ko.computed({
+            read: function () {
+                return searchText()
+            },
+            write: function (value) {
+                searchText(value)
+                loadByDate({ date: selectedDate })
+            }
+        }).extend({ throttle: 300 }),
         debugInfo = app.debugInfo(sessions);
     return {
         sessions: sessions,
         timeslots: timeslots,
-        searchText: searchText,
+        //searchText: searchText,
+        searchTextThrottled: searchTextThrottled,
         days: days,
         activate: activate,
         loadByDate: loadByDate,
         debugInfo: debugInfo,
     }
-})(ko, toastr, app.datacontext);
+})(ko, toastr, app.datacontext, app.filter, app.sort);
