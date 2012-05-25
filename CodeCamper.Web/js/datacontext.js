@@ -7,10 +7,12 @@
 app.datacontext = (function(ko, toastr, dataservice, model) {
     var
         itemsToArray = function (items, observableArray, filter, sortFunction) {
-            if (!observableArray) return;
-            observableArray([]) // clear the old observableArray
             var underlyingArray = []
             
+            if (!observableArray) return;
+
+            observableArray([]) // clear the old observableArray
+
             for (var prop in items) {
                 if (items.hasOwnProperty(prop)) {
                     underlyingArray.push(items[prop]);
@@ -26,7 +28,7 @@ app.datacontext = (function(ko, toastr, dataservice, model) {
             toastr.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records')
             underlyingArray.sort(sortFunction)
             observableArray(underlyingArray)
-            observableArray.valueHasMutated()
+            //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
         },
         mapToContext = function (dtoList, items, results, mapperFunction, filter, sortFunction, propName) {
             // Loop through the raw dto list and populate a dictionary of the items
@@ -38,7 +40,7 @@ app.datacontext = (function(ko, toastr, dataservice, model) {
                 return memo;
             }, {});
             itemsToArray(items, results, filter, sortFunction);
-            toastr.success('received with ' + dtoList.length + ' elements');
+            //toastr.success('received with ' + dtoList.length + ' elements');
             return items; // must return these
         },
         ContextList = function (getFunction, mapperFunction, nullo, propName) {

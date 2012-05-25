@@ -20,7 +20,6 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             ko.applyBindings(vm.sessions, $('#sessions').get(0))
             ko.applyBindings(vm.favorites, $('#favorites').get(0))
             ko.applyBindings(vm.speakers, $('#speakers').get(0))
-            //toastr.info('bootstrapper: ViewModels have been bound to Views ') //TODO: remove
         },
         registerRoutes = function () {
             // Bind the views to the view models
@@ -28,7 +27,7 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             // Favorites routes
             router.register({
                 routes:
-                    [{ route: '#/favorites', callback: vm.favorites.activate, group: '.route-top' },
+                    [{ route: '#/favorites', callback: vm.favorites.loadByDate, group: '.route-top' },
                     { route: '#/favorites/date/:date', callback: vm.favorites.loadByDate, group: '.route-left' }],
                 view: '#favorites'
             })
@@ -50,7 +49,6 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             router.register({ route: /.*/, callback: function () { toastr.error('invalid route') }, view: '' })
 
             router.run('#/favorites')
-            //toastr.info('bootstrapper: routes have been registered ') //TODO: remove
         },
         run = function () {
             toastr.options.timeOut = config.toastrTimeout 
@@ -58,7 +56,6 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             // Set up the dataservice for "how it is going to roll" ... Ward Bell
             config.dataserviceInit()
             // prime the data services and eager load the lookups
-            toastr.info('STARTING UP')
             $.when(datacontext.rooms.getData(),
                 datacontext.timeslots.getData(),
                 datacontext.tracks.getData(),
@@ -67,10 +64,8 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
                 datacontext.sessions.getData()
                 )
                 //.pipe(dataprimer.fetchSessionBriefs())
-                //.then(function(){toastr.info('hi')})
                 .done(bindViewModelsToViews)
                 .done(registerRoutes)
-                .done(toastr.info('READY'))
             
         }
     return {

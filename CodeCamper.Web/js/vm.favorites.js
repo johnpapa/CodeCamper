@@ -28,9 +28,6 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort, config, gro
                 sortFunction: sort.timeslotSort
             });
         },
-        activate = function() { //routeData) { //TODO: routeData is not used. Remove it later.
-            getTimeslots()
-        },
         setFilter = function() {
             var day = new Date(selectedDate),
                 maxDate = moment(new Date(day)).add('days', 1).add('seconds', -1).toDate()
@@ -47,6 +44,7 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort, config, gro
                 day.isSelected(false)
                 if (day.date === selectedDate) {
                     day.isSelected(true)
+                    return
                 }
             }
         },
@@ -54,7 +52,9 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort, config, gro
             getTimeslots()
 
             selectedDate = data && data.date ? data.date : selectedDate
-            if (!selectedDate) return
+            if (!selectedDate) {
+                selectedDate = moment(timeslots()[0].start()).format('MM-DD-YYYY')
+            }
 
             setSelectedDay()
             
@@ -71,7 +71,6 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort, config, gro
         timeslots: timeslots,
         searchText: searchText,
         days: days,
-        activate: activate,
         loadByDate: loadByDate,
         debugInfo: debugInfo,
     }

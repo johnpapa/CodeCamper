@@ -14,7 +14,6 @@ app.sort.sessionSort = function (sessionA, sessionB) {
 }
 
 app.sort.timeslotSort = function (slotA, slotB) {
-    if (!slotA.sort || !slotB.sort) debugger
     return slotA.start() > slotB.start() ? 1 : -1
 }
 
