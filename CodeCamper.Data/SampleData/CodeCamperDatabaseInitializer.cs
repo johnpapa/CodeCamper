@@ -52,8 +52,8 @@ namespace CodeCamper.SampleData
         private List<TimeSlot> AddTimeSlots(CodeCamperDbContext context)
         {
 
-            var seed1 = new DateTime(2013, 5, 18, 8, 0, 0);
-            var seed2 = new DateTime(2013, 5, 19, 8, 0, 0);
+            var seed1 = new DateTime(2013, 5, 18, 8, 0, 0).ToUniversalTime();
+            var seed2 = new DateTime(2013, 5, 19, 8, 0, 0).ToUniversalTime();
             var slots = 
                 new List<TimeSlot>
                     {
