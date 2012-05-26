@@ -24,11 +24,15 @@ namespace CodeCamper.SampleData
             var timeSlots = AddTimeSlots(context);
             var persons = AddPersons(context, 100);
             var knownSessions = AddSessions(context, persons, rooms, timeSlots, tracks);
+            _keynoteSession = knownSessions.First();
             AddAttendance(context, knownSessions, persons.Take(2).ToArray());
         }
 
+        protected Random Rand = new Random();
+
         private List<Room> _roomsForGeneratedSessions;
         private List<Room> _roomsForWellKnownSessions;
+        private Session _keynoteSession;
 
         private List<Room> AddRooms(CodeCamperDbContext context)
         {
@@ -198,8 +202,6 @@ namespace CodeCamper.SampleData
 
         private void AddGeneratedSessions(List<Session> sessions, IList<Person> persons,  IEnumerable<TimeSlot> timeSlots, IList<Track> tracks)
         {
-            var rand = new Random();
-
             var textGenerator = new SampleTextGenerator();
             const SampleTextGenerator.SourceNames descTextSource =
                 SampleTextGenerator.SourceNames.Decameron;
@@ -233,18 +235,18 @@ namespace CodeCamper.SampleData
 
                 // Weight the draw of speakers towards the "well-known" speakers
                 // Ensure a person only speaks once in a timeslot
-                var speakerIx = rand.Next(firstKnownSpeakerIx, firstCrowdIx+5);
+                var speakerIx = Rand.Next(firstKnownSpeakerIx, firstCrowdIx+5);
                 if (speakerIx >= firstCrowdIx || speakerIxs.Contains(speakerIx))
                 {
                     do
                     {
-                        speakerIx = rand.Next(firstCrowdIx, personsCount);
+                        speakerIx = Rand.Next(firstCrowdIx, personsCount);
                     } while (speakerIxs.Contains(speakerIx));
                 }
                 speakerIxs.Add(speakerIx);
 
                 var speaker = persons[speakerIx];
-                var level = levels[rand.Next(0, levelCount)];
+                var level = levels[Rand.Next(0, levelCount)];
                 var session =
                     new Session
                     {
@@ -281,44 +283,23 @@ namespace CodeCamper.SampleData
         {
             var attendanceList = new List<Attendance>();
 
-            var rand = new Random();
             var textGenerator = new SampleTextGenerator();
             var textSource = SampleTextGenerator.SourceNames.Faust;
 
-            var keynoteSessionId = sessions.First().Id;
-
+            // NEEDED FOR RANDOMIZING WHICH WE NO LONGER DO
             // Unique TimeSlot.Ids and Ids of Sessions in those slots
-            var slotsAndSessionIds = new Dictionary<int, List<int>>();
-            sessions
-                .Where(s => s.Id != keynoteSessionId)
-                .GroupBy(s => s.TimeSlot).ToList()
-                .ForEach( g =>
-                            slotsAndSessionIds.Add(
-                                g.Key.Id, g.Select(s => s.Id).ToList()));
+            //var slotAndSessionIds = GetSlotAndSessionIds(sessions);
+            //var numberOfAttendedSessions = Math.Min(slotAndSessionIds.Count(), 8);
 
-            // How many slots each "attendee" will attend
-            var attendedSlots = Math.Min(slotsAndSessionIds.Count(), 8);
+            var sids = TheChosen.ChoosenAttendeeSessions
+                .Select(s => s.Id).ToList();
 
             foreach(var person in attendees)
             {
-
-                // Random list of TimeSlot Ids
-                var tsids = slotsAndSessionIds.Keys
-                            .OrderBy(_ => Guid.NewGuid())
-                            .Take(attendedSlots).ToList();
-
-                // The list of sessions in those TimeSlots
-                var sids = new List<int>();
-
-                // Populate with randomly selected session from each TimeSlot
-                tsids.ForEach(tsid =>
-                                  {
-                                      var c = slotsAndSessionIds[tsid];
-                                      sids.Add(c[rand.Next(0, c.Count)]);
-                                  });
-
-                // everyone attends the keynote.
-                sids.Add(keynoteSessionId); 
+                // NO LONGER RANDOMIZING ASSIGNMENTS
+                //var sids = GetRandomAttendeeSessionIds(
+                //    numberOfAttendedSessions,
+                //    slotAndSessionIds);
 
                 var evalCount = 4; // person evals the first 'n' sessions attended
                 foreach (var sid in sids)
@@ -333,7 +314,7 @@ namespace CodeCamper.SampleData
 
                     if (evalCount <= 0) continue;
 
-                    attendance.Rating = rand.Next(1, 6);// rating in 1..5
+                    attendance.Rating = Rand.Next(1, 6);// rating in 1..5
                     attendance.Text = textGenerator.GenSentences(10, textSource);
                     evalCount--;
                 }
@@ -343,6 +324,51 @@ namespace CodeCamper.SampleData
             attendanceList.ForEach(ps => context.Attendance.Add(ps));
             context.SaveChanges();
         }
-    
+
+        // NO LONGER ASSIGNING SESSION ATTENDANCE RANDOMLY
+        #region For Random Session Attendance Assignment
+
+        // Dictionary of non-keynote Session Ids, keyed by TimeSlot id
+        private Dictionary<int, List<int>> GetSlotAndSessionIds(IEnumerable<Session> sessions)
+        {
+            // Unique TimeSlot.Ids and Ids of Sessions in those slots
+            var slotsAndSessionIds = new Dictionary<int, List<int>>();
+            sessions
+                .Where(s => s.Id != _keynoteSession.Id)
+                .GroupBy(s => s.TimeSlot).ToList()
+                .ForEach(g =>
+                            slotsAndSessionIds.Add(
+                                g.Key.Id, g.Select(s => s.Id).ToList()));
+
+            return slotsAndSessionIds;
+        }
+
+        // Get "attendedSlots" number of randomly selected sessions
+        // where each session is in a different TimeSlot
+        private List<int> GetRandomAttendeeSessionIds(
+            int attendedSlots, Dictionary<int, List<int>> slotAndSessionIds)
+        {
+            // Random list of TimeSlot Ids
+            var tsids = slotAndSessionIds.Keys
+                        .OrderBy(_ => Guid.NewGuid())
+                        .Take(attendedSlots).ToList();
+
+            // The list of sessions in those TimeSlots
+            var sids = new List<int>();
+
+            // Populate with randomly selected session from each TimeSlot
+            tsids.ForEach(tsid =>
+            {
+                var c = slotAndSessionIds[tsid];
+                sids.Add(c[Rand.Next(0, c.Count)]);
+            });
+
+            // everyone attends the keynote.
+            sids.Insert(0,_keynoteSession.Id);
+
+            return sids;
+        }
+
+        #endregion
     }
 }
