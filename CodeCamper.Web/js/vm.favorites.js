@@ -1,6 +1,6 @@
 ﻿// Depends on 
 //	Knockout
-// 	toastr
+// 	app.logger
 //	app.datacontext
 //  app.filter
 //  app.sort
@@ -15,7 +15,7 @@
 // ----------------------------------------------
 app.vm = app.vm || {}
 
-app.vm.favorites = (function (ko, toastr, datacontext, filter, sort, config, group) {
+app.vm.favorites = (function (ko, logger, datacontext, config, filter, sort, group) {
     var selectedDate,
         searchText = ko.observable().extend({ throttle: config.throttle }),
         sessionFilter = new filter.SessionFilter(),
@@ -72,9 +72,9 @@ app.vm.favorites = (function (ko, toastr, datacontext, filter, sort, config, gro
         searchText: searchText,
         days: days,
         loadByDate: loadByDate,
-        debugInfo: debugInfo,
+        debugInfo: debugInfo
     }
-})(ko, toastr, app.datacontext, app.filter, app.sort, app.config, app.group);
+})(ko, app.config.logger, app.datacontext, app.config, app.filter, app.sort, app.group);
 
 app.vm.favorites.searchText.subscribe(function() {
     app.vm.favorites.loadByDate()

@@ -1,25 +1,25 @@
 ﻿// Depends on 
 //	Knockout
-// 	toastr
+// 	app.logger
 //	app.dataservice.session
 // ----------------------------------------------
 app.vm = app.vm || {}
-app.vm.speakers = (function (ko, ds, toastr) {
+app.vm.speakers = (function (ko, ds, logger) {
     var 
         speakers = ko.observableArray(),
         activate = function(routeData) {
             ds.getSessions('speakers',
                 {
                     success: loadSessions,
-                    error: function() { toastr.error('oops!'); }
+                    error: function() { logger.error('oops!'); }
                 })
         },
         loadSessions = function(data) {
-            toastr.success('received with ' + data.sessions.length + ' elements');
+            logger.success('received with ' + data.sessions.length + ' elements');
             speakers(data.speakers);
         };
     return {
         speakers: speakers,
         activate: activate
     }
-})(ko, app.dataservice.session, toastr);
+})(ko, app.dataservice.session, app.config.logger);

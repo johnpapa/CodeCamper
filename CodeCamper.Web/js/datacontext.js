@@ -1,10 +1,10 @@
 ﻿// Depends on
 //  Knockout
-// 	toastr
+// 	app.logger
 //  app.dataservice
 //  app.model
 // ----------------------------------------------
-app.datacontext = (function(ko, toastr, dataservice, model) {
+app.datacontext = (function(ko, logger, dataservice, model) {
     var
         itemsToArray = function (items, observableArray, filter, sortFunction) {
             var underlyingArray = []
@@ -25,7 +25,7 @@ app.datacontext = (function(ko, toastr, dataservice, model) {
                     return match;
                 })
             }
-            toastr.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records')
+            logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records')
             underlyingArray.sort(sortFunction)
             observableArray(underlyingArray)
             //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
@@ -40,7 +40,7 @@ app.datacontext = (function(ko, toastr, dataservice, model) {
                 return memo;
             }, {});
             itemsToArray(items, results, filter, sortFunction);
-            //toastr.success('received with ' + dtoList.length + ' elements');
+            //logger.success('received with ' + dtoList.length + ' elements');
             return items; // must return these
         },
         ContextList = function (getFunction, mapperFunction, nullo, propName) {
@@ -82,7 +82,7 @@ app.datacontext = (function(ko, toastr, dataservice, model) {
                                     def.resolve(dtoList)
                                     },
                                     error: function () {
-                                        toastr.error('oops! data could not be retrieved'); //TODO: get rid of this
+                                        logger.error('oops! data could not be retrieved'); //TODO: get rid of this
                                         def.reject
                                     }
                                 }, param)
@@ -120,4 +120,4 @@ app.datacontext = (function(ko, toastr, dataservice, model) {
         timeslots: timeslots,
         tracks: tracks
     }
-})(ko, toastr, app.dataservice, app.model);
+})(ko, app.config.logger, app.dataservice, app.model);

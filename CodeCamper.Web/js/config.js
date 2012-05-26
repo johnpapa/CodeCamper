@@ -3,10 +3,12 @@
 //
 // Conventions
 // ----------------------------------------------
-app.config = (function () {
+app.config = (function (toastr) {
+    
     var
         // properties
         useMocks = false, // Set this to toggle mocks
+        logger = toastr, // use toastr for the logger
         throttle = 400,
         toastrTimeout = 2000,
         // methods
@@ -21,9 +23,12 @@ app.config = (function () {
             }
         }
 
+    //TODO: John wants to move to init
+    toastr.options.timeOut = toastrTimeout;
+    
     return {
+        logger : logger,
         dataserviceInit: dataserviceInit,
         throttle: throttle,
-        toastrTimeout: toastrTimeout
     }
-})()
+})(toastr)

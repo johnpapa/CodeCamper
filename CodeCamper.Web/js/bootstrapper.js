@@ -14,6 +14,7 @@
 //  4) datacontext must be primed
 // ----------------------------------------------
 app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
+     
     var
         bindViewModelsToViews = function () {
             ko.applyBindings(vm.session, $('#session').get(0))
@@ -51,8 +52,6 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             router.run('#/favorites')
         },
         run = function () {
-            toastr.options.timeOut = config.toastrTimeout 
-
             // Set up the dataservice for "how it is going to roll" ... Ward Bell
             config.dataserviceInit()
             // prime the data services and eager load the lookups
