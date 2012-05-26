@@ -62,8 +62,8 @@
     <Compile Include="RepositoryFactories.cs" />
     <Compile Include="PersonsRepository.cs" />
     <Compile Include="PredicateBuilder.cs" />
-    <Compile Include="SessionConfiguration.cs" />
-    <Compile Include="AttendanceConfiguration.cs" />
+    <Compile Include="Configuration\SessionConfiguration.cs" />
+    <Compile Include="Configuration\AttendanceConfiguration.cs" />
     <Compile Include="SessionsRepository.cs" />
     <Compile Include="IRepositoryProvider.cs" />
     <Compile Include="AttendanceRepository.cs" />
