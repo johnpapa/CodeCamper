@@ -11,11 +11,11 @@ namespace CodeCamper.Model
     /// </summary>
     public class Attendance
     {
-        public int SessionId { get; set; }
-        public Session Session { get; set; }
-
         public int PersonId { get; set; }
         public Person Person { get; set; }
+        
+        public int SessionId { get; set; }
+        public Session Session { get; set; }
 
         /// <summary>Get and set the person's rating of the session from 1-5 (0=not rated).</summary>
         [Range(0,5)]

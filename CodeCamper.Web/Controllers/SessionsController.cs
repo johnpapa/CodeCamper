@@ -14,12 +14,6 @@ namespace CodeCamper.Web.Controllers
             Uow = uow;
         }
 
-        // ToDo: Remove this poor man's IoC ctor
-        //public SessionsController()
-        //{
-        //    Repository = new CodeCamperRepository();
-        //}
-
        // GET /api/sessions
         public IQueryable<Session> Get()
         {

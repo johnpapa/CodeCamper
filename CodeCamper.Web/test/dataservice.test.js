@@ -20,13 +20,13 @@ app.test.dataservicesReturnData = function () {
         function() {
             stop();
             app.dataservice.lookup.getLookups({
-                success: function(data){
-                    ok(!!data.Rooms && !!data.Tracks && !!data.TimeSlots,
+                success: function(result){
+                    ok(!!result.Rooms && !!result.Tracks && !!result.TimeSlots,
                             'Got Rooms, Tracks, TimeSlots');
                     start();
                 }, 
-                error: function(data) {
-                    ok(false, 'Failed with: ' + data.responseText);
+                error: function(result) {
+                    ok(false, 'Failed with: ' + result.responseText);
                     start();
                 }
             });
@@ -39,17 +39,17 @@ app.test.dataservicesReturnData = function () {
             params = t.args;
         }
         params.push({
-            success: function (data) {
+            success: function (result) {
                 var prefix = 'Test \"' + t.name + '" retrieved ';
-                if (!!data && data.length > 0) {
-                    ok(true, prefix + data.length+' items.');
+                if (!!result && result.length > 0) {
+                    ok(true, prefix + result.length+' items.');
                 } else {
-                    ok(!!data, prefix + 'one item.');
+                    ok(!!result, prefix + 'one item.');
                 }
                 start();
             },
-            error: function (data) {
-                ok(false, 'Failed with: ' + data.responseText);
+            error: function (result) {
+                ok(false, 'Failed with: ' + result.responseText);
                 start();
             }
         });

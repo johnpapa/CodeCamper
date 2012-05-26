@@ -23,34 +23,30 @@ app.test.webApiGetEndpointsRespondOk = function () {
     module('WebAPI GET endpoints respond successfully');
 
     var apiUrls = [
-            //'/api/BAD_ENDPOINT',
-            '/api/lookups',
-            '/api/lookups/rooms',
-            '/api/lookups/tracks',
-            '/api/lookups/timeslots/',
+        //'/api/BAD_ENDPOINT',
+        '/api/lookups',
+        '/api/lookups/rooms',
+        '/api/lookups/tracks',
+        '/api/lookups/timeslots/',
+        // Demo OData-ish filtering
+        '/api/lookups/timeslots/?$filter=id%20eq%203',
+        '/api/persons/?$top=3', // 'top 3' makes test 0.2 secs faster
+        '/api/persons/1',
+        '/api/persons/2/attendance',
+        '/api/persons/speakers',
+        '/api/persons/speakers/?$filter=firstName%20eq%20\'Hans\'',
+        '/api/sessions/?$top=3', // 'top 3' makes test ~1 second faster
+        '/api/sessions/2',
+        '/api/sessions/2/attendance',
+        '/api/sessions/briefs',
+        '/api/sessions/taggroups/',
+        '/api/attendance',
+        '/api/attendance/?$filter=personId%20eq%202', // without spaces
+        '/api/attendance/?$filter=personId eq 2', // with spaces
 
-            // Demo OData-ish filtering
-            '/api/lookups/timeslots/?$filter=id%20eq%203',
-
-            '/api/persons/?$top=3', // 'top 3' makes test 0.2 secs faster
-            '/api/persons/1',
-            '/api/persons/2/attendance',
-            '/api/persons/speakers',
-            '/api/persons/speakers/?$filter=firstName%20eq%20\'Hans\'',
-
-            '/api/sessions/?$top=3', // 'top 3' makes test ~1 second faster
-            '/api/sessions/2',
-            '/api/sessions/2/attendance',
-            '/api/sessions/briefs',
-            '/api/sessions/taggroups/',
-
-            '/api/attendance',
-            '/api/attendance/?$filter=personId%20eq%202', // without spaces
-            '/api/attendance/?$filter=personId eq 2', // with spaces
-
-            // These variations find the link with personId==2 && sessionId==1
-            '/api/attendance/?$filter=personId%20eq%202%20and%20sessionId%20eq%201',
-            '/api/attendance/?pid=2&sid=1' // preferred
+        // These variations find the link with personId==2 && sessionId==1
+        '/api/attendance/?$filter=personId%20eq%202%20and%20sessionId%20eq%201',
+        '/api/attendance/?pid=2&sid=1', // preferred
     ];
 
     var apiUrlslen = apiUrls.length;
@@ -61,15 +57,15 @@ app.test.webApiGetEndpointsRespondOk = function () {
         $.ajax({
             url: url,
             dataType: 'json',
-            success: function (data) {
+            success: function (result) {
                 ok(true, 'GET succeeded for ' + url);
-                ok(!!data, 'GET retrieved some data');
+                ok(!!result, 'GET retrieved some data');
                 start();
             },
-            error: function (data) {
-                ok(false, 
-                       myTests.format('GET on \'{0}\' failed with status=\'{1}\': {2}',
-                          url, data.status, data.responseText));
+            error: function (result) {
+                ok(false,
+                    app.test.format('GET on \'{0}\' failed with status=\'{1}\': {2}',
+                        url, result.status, result.responseText));
                 start();
             }
         });
@@ -83,9 +79,10 @@ app.test.webApiGetEndpointsRespondOk = function () {
     // Test each endpoint in apiUrls
     for (var i = 0; i < apiUrlslen; i++) {
         var url = apiUrls[i];
-        test(url, 2, endpointTestGenerator(url));
-    };
-}
+        test(url, endpointTestGenerator(url));
+    }
+    ;
+};
 
 app.test.webApiGetResultsHaveExpectedShapes = function () {
 
@@ -97,13 +94,13 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
                 $.ajax({
                     url: '/api/lookups',
                     dataType: 'json',
-                    success: function (data) {
-                        ok(!!data.Rooms && !!data.Tracks && !!data.TimeSlots,
+                    success: function (result) {
+                        ok(!!result.Rooms && !!result.Tracks && !!result.TimeSlots,
                             'Got Rooms, Tracks, TimeSlots');
                         start();
                     },
-                    error: function (data) {
-                        ok(false, 'Failed with: ' + data.responseText);
+                    error: function (result) {
+                        ok(false, 'Failed with: ' + result.responseText);
                         start();
                     }
                 });
@@ -117,17 +114,17 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
             $.ajax({
                 url: '/api/persons/speakers/?$filter=firstName%20eq%20\'Hans\'',
                 dataType: 'json',
-                success: function(data) {
-                    ok(!!data, "Got data when searching for Hans");
-                    ok(data.length === 1 && data[0].FirstName === 'Hans',
+                success: function(result) {
+                    ok(!!result, "Got data when searching for Hans");
+                    ok(result.length === 1 && result[0].FirstName === 'Hans',
                         "Got exactly one speaker w/ firstName = 'Hans'");
                     
-                    ok(data[0].ImageSource === expectedHansImageSource,
+                    ok(result[0].ImageSource === expectedHansImageSource,
                         "Got expected ImageSource = " + expectedHansImageSource);
                     start();
                 },
-                error: function(data) {
-                    ok(false, 'Failed with: ' + data.responseText);
+                error: function(result) {
+                    ok(false, 'Failed with: ' + result.responseText);
                     start();
                 }
             });
@@ -135,9 +132,105 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
     );
 };
 
+app.test.webApiCudTests = function () {
+    
+    module('WebAPI Attendance CUD tests');
+
+    var testAttendance = {
+        personId: 1,
+        sessionId: 42,
+        rating: 1,
+        text: "Dummy attendance and evaluation."
+    },
+        getAttendanceQueryString = function(attendance) {
+            return app.test.format(
+                '?pid={0}&sid={1}', attendance.personId, attendance.sessionId);
+        },
+        getMsgPrefix = function(attendance, verb, url) {
+            return app.test.format(
+                '{0} of attendance with pid=\'{1}\' sid=\'{2}\' to \'{3}\'',
+                verb, attendance.personId, attendance.sessionId, url);
+        },
+        onSuccess = function(msgPrefix) {
+            ok(true, msgPrefix + " succeeded.");
+            start();
+        },
+        onError = function(result, msgPrefix) {
+            ok(false, msgPrefix +
+                app.test.format(' failed with status=\'{1}\': {2}.',
+                    result.status, result.responseText));
+            start();
+        };
+
+    test('Can add test Attendance',
+            function () {
+                var url = '/api/attendance',
+                    msgPrefix = getMsgPrefix(testAttendance, 'POST', url),
+                    data = JSON.stringify(testAttendance);
+                
+                stop();
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        onSuccess(msgPrefix);
+                        ok(result.PersonId === testAttendance.personId &&
+                            result.SessionId === testAttendance.sessionId,
+                            "returned key matches testAttendance key."
+                        );
+                    },
+                    error: function (result) { onError(result, msgPrefix); }
+                });
+            }
+        );
+    
+    test('Can update test Attendance',
+            function () {
+                // some change
+                testAttendance.text = 'CHANGE ' + testAttendance.text;
+                
+                var url = '/api/attendance',
+                    msgPrefix = getMsgPrefix(testAttendance, 'PUT', url),
+                    data = JSON.stringify(testAttendance);
+                
+                stop();
+                $.ajax({
+                    type: 'PUT',
+                    url: url,
+                    data: data,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () { onSuccess(msgPrefix); },
+                    error: function(result) { onError(result, msgPrefix); }
+                });
+            }
+        );
+    
+    test('Can delete test Attendance',
+            function () {
+                var url = '/api/attendance/' +
+                          getAttendanceQueryString(testAttendance),                   
+                    msgPrefix = getMsgPrefix(testAttendance, 'DELETE', url);
+                
+                stop();
+                $.ajax({
+                    type: 'DELETE',
+                    url: url,
+                    dataType: 'json',
+                    success: function () { onSuccess(msgPrefix); },
+                    error: function (result) { onError(result, msgPrefix); }
+                });
+            }
+        );
+};
+
 $(function () {
     app.test.webApiGetEndpointsRespondOk();
     app.test.webApiGetResultsHaveExpectedShapes();
+    app.test.webApiCudTests();
 });
 
 
