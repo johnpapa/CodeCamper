@@ -7,7 +7,6 @@ app.model = app.model || {};
 app.model.imageBasePath = '../content/';
 app.model.unknownPersonImageSource = 'unknown_person.jpg';
 
-
 // Attendance
 // ----------------------------------------------
 app.model.Attendance = function () {
@@ -24,8 +23,7 @@ app.model.attendanceNullo = new app.model.Attendance()
                 .sessionId(0)
                 .personId(0)
                 .rating(0)
-                .text('')
-
+                .text('');
 app.model.Attendance.prototype = function () {
     var
         speaker = function () {
@@ -33,12 +31,12 @@ app.model.Attendance.prototype = function () {
         },
         session = function () {
             return this.datacontext.sessions.getById(this.sessionId());
-        }
+        };
     return {
         speaker: speaker,
         session: session
-    }
-}()
+    };
+}();
 
 // Room
 // ----------------------------------------------
@@ -72,20 +70,24 @@ app.model.Session = function () {
 
     self.isFavorite = ko.computed({
         read: function () {
-            return this.datacontext && this.attendance ? !!(this.attendance().sessionId() === this.id()) : null;
+            var match = self.datacontext && self.attendance ? self.attendance().sessionId() === self.id() : null;
+            //var match = self.datacontext && self.attendance ? self.attendance().personId() === app.currentUser().id() : null;
+            if(self.id() === 1 && self.title() === 'Keynote') debugger //TODO: stop at session 1 for testing
+            return !!match;
         },
         write: function (value) {
-            if (!this.attendance) return
-
-            if (value && !this.attendance()) {
+            //if (!self.attendance) return; //TODO: create an attendance
+            if (value) {
                 //create attendance
                 var newObj = new app.model.Attendance()
-                            .sessionId(id())
-                            .personId(app.currentUser().id())
-                this.datacontext.attendance().add(newObj, 'sessionId')
+                    .sessionId(self.id())
+                    .personId(app.currentUser().id());
+                //self.datacontext.attendance.add(newObj, 'sessionId');
+                //var x = self.datacontext.attendance.getById(self.id());
+                //x.sessionId(self.id()).personId(app.currentUser().id());
             } else if (!value && this.datacontext) {
                 // remove attendance
-                this.datacontext.attendance.removeById(self.id(), 'sessionId')
+                self.datacontext.attendance.removeById(self.id(), 'sessionId');
                 //this.attendance().sessionId(0) //TODO: do this if all else fails so we can refresh isFavorite
             }
         },
@@ -105,7 +107,7 @@ app.model.sessionNullo = new app.model.Session()
                 .roomId(0)
                 .description('')
                 .level('')
-                .tags('')
+                .tags('');
 
 app.model.Session.prototype = function () {
     var
@@ -131,8 +133,8 @@ app.model.Session.prototype = function () {
         room: room,
         timeslot: timeslot,
         track: track
-    }
-}()
+    };
+}();
 
 // Speaker
 // ----------------------------------------------
@@ -184,7 +186,6 @@ app.model.speakerNullo = new app.model.Speaker()
 //    }
 //}()
 
-
 // Timeslot
 // ----------------------------------------------
 app.model.TimeSlot = function () {
@@ -228,4 +229,3 @@ app.model.Track = function () {
 app.model.trackNullo = new app.model.Track()
                 .id(0)
                 .name('Not a track');
-

@@ -7,11 +7,11 @@
 app.datacontext = (function(ko, logger, dataservice, model) {
     var
         itemsToArray = function (items, observableArray, filter, sortFunction) {
-            var underlyingArray = []
+            var underlyingArray = [];
             
             if (!observableArray) return;
 
-            observableArray([]) // clear the old observableArray
+            observableArray([]); // clear the old observableArray
 
             for (var prop in items) {
                 if (items.hasOwnProperty(prop)) {
@@ -20,14 +20,15 @@ app.datacontext = (function(ko, logger, dataservice, model) {
                 }
             }
             if (filter) {
-                var underlyingArray = _.filter(underlyingArray, function (o) {
-                    match = filter.predicate(filter, o);
+                underlyingArray = _.filter(underlyingArray, function (o) {
+                    if (o.title() === 'Keynote') debugger //TODO: stop at session 1 for testing
+                    var match = filter.predicate(filter, o);
                     return match;
-                })
+                });
             }
-            logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records')
-            underlyingArray.sort(sortFunction)
-            observableArray(underlyingArray)
+            logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records');
+            underlyingArray.sort(sortFunction);
+            observableArray(underlyingArray);
             //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
         },
         mapToContext = function (dtoList, items, results, mapperFunction, filter, sortFunction, propName) {
@@ -36,11 +37,11 @@ app.datacontext = (function(ko, logger, dataservice, model) {
                 // If propName is passed, use it. Otherwise use id
                 var id = propName ? dto[propName] : dto.Id;
                 var existingItem = items[id];
-                memo[id] = mapperFunction(dto, existingItem)
+                memo[id] = mapperFunction(dto, existingItem);
                 return memo;
             }, {});
             itemsToArray(items, results, filter, sortFunction);
-            //logger.success('received with ' + dtoList.length + ' elements');
+            logger.success('received with ' + dtoList.length + ' elements');
             return items; // must return these
         },
         ContextList = function (getFunction, mapperFunction, nullo, propName) {
@@ -48,18 +49,18 @@ app.datacontext = (function(ko, logger, dataservice, model) {
                 items = {},
                 add = function (newObj, keyName) {
                     // If keyName is passed, use it. Otherwise use id property
-                    var id = keyName ? newObj[keyName] : newObj.id;
-                    items[id] = newObj
+                    var id = keyName ? newObj[keyName]() : newObj.id();
+                    items[id] = newObj;
                 },
                 removeById = function (id, keyName) {
                     // If keyName is passed, use it. Otherwise use id property
                     // Causes observables to be notified (ex: unmarking a favorite)
                     if(keyName) {
-                        items[id][keyName](0)
+                        items[id][keyName](0);
                     }else {
-                        items[id].id(0)
+                        items[id].id(0);
                     }
-                    items[id] = app.model.attendanceNullo
+                    items[id] = nullo;
                 },
                 getById = function (id) {
                     return !!id && !!items[id] ? items[id] : nullo;
@@ -70,22 +71,22 @@ app.datacontext = (function(ko, logger, dataservice, model) {
                         sortFunction = options && options.sortFunction,
                         filter = options && options.filter,
                         forceRefresh = options && options.forceRefresh,
-                        param = options && options.param
+                        param = options && options.param;
                     if (!items || !app.utils.hasProperties(items) || forceRefresh) {
                         // TODO: deal with the filter
                         return $.Deferred(function (def) {
                             //getFunction.apply({}, params)
                             getFunction({
-                                success: function (dtoList) {
+                                success: function(dtoList) {
                                     //TODO: create map object
                                     items = mapToContext(dtoList, items, results, mapperFunction, filter, sortFunction, propName);
-                                    def.resolve(dtoList)
-                                    },
-                                    error: function () {
-                                        logger.error('oops! data could not be retrieved'); //TODO: get rid of this
-                                        def.reject
-                                    }
-                                }, param)
+                                    def.resolve(dtoList);
+                                },
+                                error: function() {
+                                    logger.error('oops! data could not be retrieved'); //TODO: get rid of this
+                                    def.reject();
+                                }
+                            }, param);
                         }).promise();
                     }
                     else {
@@ -95,21 +96,22 @@ app.datacontext = (function(ko, logger, dataservice, model) {
                 //}).promise();
                 };
             return {
+                //items: items,
                 add: add,
                 getById: getById,
                 getData: getData,
                 removeById: removeById
-            }
+            };
         },
         attendance = new ContextList(dataservice.attendance.getAttendance, model.mapper.mapAttendance, model.attendanceNullo, 'SessionId'),
         rooms = new ContextList(dataservice.lookup.getRooms, model.mapper.mapRoom, model.roomNullo),
-        sessions = new ContextList(dataservice.session.getSessionBriefs, model.mapper.mapSession, model.sessionNullo);
+        sessions = new ContextList(dataservice.session.getSessionBriefs, model.mapper.mapSession, model.sessionNullo),
         speakers = new ContextList(dataservice.person.getSpeakers, model.mapper.mapSpeaker, model.speakerNullo),
         timeslots = new ContextList(dataservice.lookup.getTimeslots, model.mapper.mapTimeSlot, model.timeSlotNullo),
         tracks = new ContextList(dataservice.lookup.getTracks, model.mapper.mapTrack, model.trackNullo),
 
         //TODO: handle persons
-        persons = ko.observableArray()
+        persons = ko.observableArray();
 
     return {
         attendance: attendance,
@@ -119,5 +121,5 @@ app.datacontext = (function(ko, logger, dataservice, model) {
         speakers: speakers,
         timeslots: timeslots,
         tracks: tracks
-    }
+    };
 })(ko, app.config.logger, app.dataservice, app.model);

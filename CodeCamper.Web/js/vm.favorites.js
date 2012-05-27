@@ -78,4 +78,5 @@ app.vm.favorites = (function (ko, logger, datacontext, config, filter, sort, gro
 
 app.vm.favorites.searchText.subscribe(function() {
     app.vm.favorites.loadByDate()
+    app.config.logger.info('searchText Changed to ' + app.vm.favorites.searchText()) //TODO: remove
 })
