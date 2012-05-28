@@ -82,14 +82,16 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         },
         
         clearFilter = function () {
-            searchText('');
+            if (searchText().length) {
+                searchText('');
+            }
         },
         
-        keyCaptureFilter = function (e) {
+        keyCaptureFilter = function (data, event) {
             //if (e.keyCode == 13) {
             //    refresh();
             //}
-            if (e.keyCode == 27) {
+            if (event.keyCode == 27) {
                 clearFilter();
             }
         },
@@ -114,11 +116,4 @@ app.vm.favorites.searchText.subscribe(function() {
     app.vm.favorites.loadByDate();
     //TODO: remove logger
     app.config.logger.info('searchText Changed to ' + app.vm.favorites.searchText()); 
-});
-
-$(document).keyup(function (e) {
-    if (e.keyCode == 13) {
-        app.vm.favorites.refresh(); }     // enter
-    if (e.keyCode == 27) {
-        app.vm.favorites.clearFilter(); }   // esc
 });
