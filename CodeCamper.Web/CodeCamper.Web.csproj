@@ -148,6 +148,7 @@
     <Content Include="Content\icon.png" />
     <Content Include="Content\jim_cowart.jpg" />
     <Content Include="Content\john_papa.jpg" />
+    <Content Include="Content\refresh.png" />
     <Content Include="Content\ryan_niemeyer.jpg" />
     <Content Include="Content\scott_guthrie.jpg" />
     <Content Include="Content\sue_menot.jpg" />

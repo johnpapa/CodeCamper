@@ -257,11 +257,34 @@ select {
 	padding: 5px;
 }
 
+nav label,
 small {
 	color: gray;
 	font-size: 80%;
 	text-transform: uppercase;
 }
+
+nav label {
+	display: block;
+	margin-bottom: 3%;
+}
+
+nav select {
+	margin-bottom: 6%;
+}
+
+
+/* 2.5 ICONS
+--------------------------------------------------------- */
+.refresh {
+	background: url(refresh.png);
+	display: block;
+	float: right;
+	height: 24px;
+	margin-top: 5px;
+	width: 24px;
+}
+
 
 /* 3.0 CUSTOM
 --------------------------------------------------------- */
@@ -372,7 +395,7 @@ small {
 
 @media only screen and (max-width: 480px) {
 	body {
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	body > header > h1 {
@@ -386,15 +409,20 @@ small {
 		padding: 10px;
 	}
 
+		.view > article > div > h1 {
+			margin-top: 1%;
+		}
+
 		.view > article > div > img {
 			height: 70px;
 		}
 
-		input[type=checkbox] + label {
+		label > input[type=checkbox] + span {
 			background-size: 20px;
 			height: 20px;
 			width: 20px;
 		}
+		
 
     .accent-top {
         width: 120px;
