@@ -70,9 +70,11 @@ app.model.Session = function () {
 
     self.isFavorite = ko.computed({
         read: function () {
+            //TODO: explicitly force this read to re evaluate when title changes
+            var foo = self.title() === 'Keynote';
             var match = self.datacontext && self.attendance ? self.attendance().sessionId() === self.id() : null;
-            //var match = self.datacontext && self.attendance ? self.attendance().personId() === app.currentUser().id() : null;
-            if(self.id() === 1 && self.title() === 'Keynote') debugger //TODO: stop at session 1 for testing
+            //TODO: show the we re-eval'd
+            //app.config.logger.info('re-eval\'d isFavorite');
             return !!match;
         },
         write: function (value) {
@@ -82,9 +84,11 @@ app.model.Session = function () {
                 var newObj = new app.model.Attendance()
                     .sessionId(self.id())
                     .personId(app.currentUser().id());
-                //self.datacontext.attendance.add(newObj, 'sessionId');
-                //var x = self.datacontext.attendance.getById(self.id());
-                //x.sessionId(self.id()).personId(app.currentUser().id());
+                self.datacontext.attendance.add(newObj, 'sessionId');
+
+                //TODO: explicitly set the title so we can force the re-evauation of the read
+                self.title(self.title() + '.');
+                
             } else if (!value && this.datacontext) {
                 // remove attendance
                 self.datacontext.attendance.removeById(self.id(), 'sessionId');
@@ -229,3 +233,4 @@ app.model.Track = function () {
 app.model.trackNullo = new app.model.Track()
                 .id(0)
                 .name('Not a track');
+

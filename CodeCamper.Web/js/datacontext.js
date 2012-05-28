@@ -21,7 +21,6 @@ app.datacontext = (function(ko, logger, dataservice, model) {
             }
             if (filter) {
                 underlyingArray = _.filter(underlyingArray, function (o) {
-                    if (o.title() === 'Keynote') debugger //TODO: stop at session 1 for testing
                     var match = filter.predicate(filter, o);
                     return match;
                 });

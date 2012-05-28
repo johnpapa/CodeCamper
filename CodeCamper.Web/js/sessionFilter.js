@@ -38,7 +38,6 @@ app.filter = app.filter || {};
             favoriteTest = function(favoriteOnly, session) {
                 if (favoriteOnly) {
                     var match = session.isFavorite();
-                    //match = session.attendance().sessionId() === session.id();
                     return match;
                 } else {
                     return true; // don't care if favorite or not
@@ -54,10 +53,9 @@ app.filter = app.filter || {};
 
             predicate = function (self, session) {
                 // Return true if all of these meet the filter criteria. Otherwise, return false
-                var matchSearch = searchTest(self.searchText(), session),
-                    matchFavorite = favoriteTest(self.favoriteOnly(), session),
-                    matchTimeslot = timeSlotTest(self.minTimeSlot(), self.maxTimeSlot(), session),
-                    match = matchSearch && matchFavorite && matchTimeslot;
+                var match = searchTest(self.searchText(), session)
+                    && favoriteTest(self.favoriteOnly(), session)
+                    && timeSlotTest(self.minTimeSlot(), self.maxTimeSlot(), session);
                 return match;
             };
 
