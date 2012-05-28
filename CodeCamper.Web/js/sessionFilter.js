@@ -4,7 +4,7 @@
 // ----------------------------------------------
 app.filter = app.filter || {};
 
-(function (ko) {
+(function (ko, utils) {
 
     // Ctor for a SessionFilter
     app.filter.SessionFilter = function() {
@@ -23,15 +23,21 @@ app.filter = app.filter || {};
             escapedTagDelimiter = '\\|',
 
             searchTest = function (searchText, session) {
-                if (!searchText) return true; // always succeeds if no search text
-                var srch = searchText.toLowerCase();
-                if (session.title().toLowerCase().search(srch) !== -1) return true;
-                if (session.speaker().firstName().toLowerCase().search(srch) !== -1) return true;
-                if (session.speaker().lastName().toLowerCase().search(srch) !== -1) return true;
-                if (session.track().name().toLowerCase().search(srch) !== -1) return true;
-                if (session.room().name().toLowerCase().search(srch) !== -1) return true;
-                if ((tagDelimiter + session.tags().toLowerCase() + tagDelimiter)
+                try {
+                    if (!searchText) return true; // always succeeds if no search text
+                    var srch = utils.regExEscape(searchText.toLowerCase());
+                    if (session.title().toLowerCase().search(srch) !== -1) return true;
+                    if (session.speaker().firstName().toLowerCase().search(srch) !== -1) return true;
+                    if (session.speaker().lastName().toLowerCase().search(srch) !== -1) return true;
+                    if (session.track().name().toLowerCase().search(srch) !== -1) return true;
+                    if (session.room().name().toLowerCase().search(srch) !== -1) return true;
+                    if ((tagDelimiter + session.tags().toLowerCase() + tagDelimiter)
                     .search(escapedTagDelimiter + srch + escapedTagDelimiter) !== -1) return true;
+                }
+                catch(err)
+                {
+                    app.config.logger.error('filter failed for expression ' + searchText + '. ' + err.message);
+                }
                 return false;
             },
             
@@ -63,4 +69,4 @@ app.filter = app.filter || {};
             predicate: predicate
         };
     }();
-})(ko)
+})(ko, app.utils)

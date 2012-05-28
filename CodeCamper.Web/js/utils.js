@@ -6,17 +6,23 @@
 var app = window["app"] = {};
 
 app.utils = (function () {
-    var hasProperties = function(obj) {
-        for (var prop in obj) {
-            if (obj.hasOwnProperty(prop)) {
-                return true
+    var
+        hasProperties = function (obj) {
+            for (var prop in obj) {
+                if (obj.hasOwnProperty(prop)) {
+                    return true;
+                }
             }
-        }
-        return false;
-    };
+            return false;
+        },
 
+        regExEscape = function(text) {
+            return text.replace( /[-[\]{}()*+?.,\\^$|#\s]/g , "\\$&");
+        };
+    
     return {
-        hasProperties: hasProperties
-    }
+        hasProperties: hasProperties,
+        regExEscape: regExEscape
+    };
 })();
 
