@@ -71,14 +71,16 @@ app.model.Session = function () {
     self.isFavorite = ko.computed({
         read: function () {
             //TODO: explicitly force this read to re evaluate when title changes
-            var foo = self.title() === 'Keynote';
-            var match = self.datacontext && self.attendance ? self.attendance().sessionId() === self.id() : null;
+            var id = self.id();
+            var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
             //TODO: show the we re-eval'd
             //app.config.logger.info('re-eval\'d isFavorite');
             return !!match;
         },
         write: function (value) {
-            //if (!self.attendance) return; //TODO: create an attendance
+            //TODO: come back and fix this when we get to the SESSIONS screen
+            //if (!self.attendance) return;
+            
             if (value) {
                 //create attendance
                 var newObj = new app.model.Attendance()
@@ -86,13 +88,11 @@ app.model.Session = function () {
                     .personId(app.currentUser().id());
                 self.datacontext.attendance.add(newObj, 'sessionId');
 
-                //TODO: explicitly set the title so we can force the re-evauation of the read
-                self.title(self.title() + '.');
-                
+                //TODO: explicitly set the flag so we can force the re-evauation of the read
+                self.id.valueHasMutated()
             } else if (!value && this.datacontext) {
                 // remove attendance
                 self.datacontext.attendance.removeById(self.id(), 'sessionId');
-                //this.attendance().sessionId(0) //TODO: do this if all else fails so we can refresh isFavorite
             }
         },
         owner: self
