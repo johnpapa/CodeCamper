@@ -283,13 +283,10 @@ nav select {
 	height: 24px;
 	margin-top: 5px;
 	width: 24px;
+    cursor: pointer;
 }
 
 .clear-text {
-    display: block;
-    width: 12px;
-    text-align: center;
-    line-height: 26px;
     font-weight: bold;
     margin-top: -34px;
     margin-right: 8px;

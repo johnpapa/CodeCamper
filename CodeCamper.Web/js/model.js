@@ -67,6 +67,11 @@ app.model.Session = function () {
     self.level = ko.observable();
     self.tags = ko.observable();
     self.description = ko.observable();
+    
+    self.tagsFormatted = ko.computed(function () {
+        var text = self.tags();
+        return text ? text.replace(/\|/g, ', ') : text;
+    }),
 
     self.isFavorite = ko.computed({
         read: function () {
