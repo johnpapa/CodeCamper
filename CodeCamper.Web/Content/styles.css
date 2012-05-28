@@ -27,14 +27,8 @@ input {
 --------------------------------------------------------- */
 html {
 	padding: 0 7%;
-	/*color: white;
-	background: #14649E;*/
     color: #000000;
     background: #FFFFFF;
-    /*-moz-box-shadow: inset 0px 50px 250px -50px #FFFFFF;
-    -webkit-box-shadow: inset 50px 250px -50px #FFFFFF;
-    -o-box-shadow: inset 0px 50px 250px -50px #FFFFFF;
-    box-shadow: inset 0px 50px 250px -50px #FFFFFF;*/
 }
 
 body {
@@ -60,50 +54,42 @@ body {
         color: rgba(17,158,218,1);
 	}
 
-	body > header > nav {
+	nav.main-nav {
 		border-bottom: solid 1px rgba(0,0,0,.1);
 		border-top: solid 1px rgba(0,0,0,.1);
 		padding-bottom: .3%;
 		text-transform: lowercase;
 	}
 
-		body > header > nav > ul > li {
+		nav.main-nav > ul > li {
 			display: inline;
 			margin-right: 4%;
 		}
 
-		body > header > nav > ul > li:last-child {
+		nav.main-nav > ul > li:last-child {
 			margin-right: 0;
 		}
 
-			body > header > nav > ul > li > a,
-			body > header > nav > ul > li > span {
+			nav.main-nav > ul > li > a,
+			nav.main-nav > ul > li > span {
 				font-size: 130%;
 				line-height: 200%;
 			}
 
-			body > header > nav > ul > li > a {
+			nav.main-nav > ul > li > a {
 				text-decoration: none;
 			}
 
             
-            /* PAPA */
-            /*body > header > nav > ul > li > span {
-				cursor: default;
-				color: #f58a00;
-				font-family: "Segoe UI",Arial,Helvetica,sans-serif;
-			}*/
-
-	body > section {
+	.view {
 		margin-top: 3%;
 	}
 
-		body > section > div {
-			/* background: rgba(255,255,255,.2); removed by Hans */
+		.view > div {
 			margin: 0 0 1% 260px;
 		}
 
-			body > section > div > input {
+            .view > div > input {
 				background: url(search.png) white no-repeat 10px center;
 				border: solid 1px rgb(200,200,200);
 				box-sizing: border-box;
@@ -114,20 +100,20 @@ body {
 				width: 100%;
 			}
 
-				body > section > div > ::-webkit-input-placeholder {
+				.view > div > ::-webkit-input-placeholder {
 				    color: rgb(100,100,100);
 				}
 
-				body > section > div > :-moz-placeholder {
+				.view > div > :-moz-placeholder {
 				    color: rgba(255,255,255,.8);
 				}
 
-		body > section > nav {
+        .view > nav {
 			float: left;
 			width: 220px;
 		}
 
-			body > section > nav > select {
+			.view > nav > select {
 				border: solid 1px rgb(200,200,200);
 				box-sizing: border-box;
 				color: black;
@@ -137,12 +123,12 @@ body {
 				width: 100%;
 			}
 
-		body > section > nav > ul {
+        .view > nav > ul {
 			list-style-type: none;
 		}
 
-		body > section > nav > ul > li > a,
-		body > section > nav > ul > li > span {
+		.view > nav > ul > li > a,
+		.view > nav > ul > li > span {
 			background: rgba(255,255,255,.1);
 			display: block;
 			line-height: 220%;
@@ -152,7 +138,7 @@ body {
 			text-transform: uppercase;
 		}
 		
-		body > section > nav > ul > li > :after {
+		.view > nav > ul > li > :after {
 			content: '►';
 			float: right;
 			font-family: Arial, Helvetica;
@@ -160,44 +146,35 @@ body {
 			opacity: .9;
 		}
 		
-		body > section > nav > ul > li > a {
+		.view > nav > ul > li > a {
 			background: rgba(0,0,0,.05);
 			background: transparent;
 		}
 
-		body > section > nav > ul > li > a:hover {
+		.view > nav > ul > li > a:hover {
 			background: rgba(0,0,0,.05);
 			cursor: pointer;
 		}
 
-        /*PAPA*/
-		/*body > section > nav > ul > li > span { 
-			cursor: default;
-			color: white;
-			background: #f58a00;
-		}*/
-
-	body > section > article {
+	.view > article {
 		border-bottom: solid 1px rgba(0, 0, 0, .1);
 		margin: 0 0 0 260px;
 		min-height: 100px;
 		padding: 20px;
 	}
 
-	body > section > article:hover {
+    .view > article:hover {
 		background: rgba(0,0,0,.05);
-        /*background: rgba(17,158,218,.25);
-	    color: #FFFFFF;*/
 		cursor: pointer;
 	}
 
-		body > section > article h1 {
+		.view > article h1 {
 			font-size: 125%;
 			line-height: 120%;
 			margin-bottom: 2%;
 		}
 
-		body > section > article > img {
+		.view > article > div > img {
 			background: rgba(255, 255, 255, .8);
 			border: 1px solid rgba(255, 255, 255, 1);
 			box-shadow: 0 0 1px rgba(0,0,0,0.4);
@@ -207,7 +184,7 @@ body {
 			padding: 4px;
 		}
 
-		body > section > article > time {
+        .view > article > div > time {
 			font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 			font-weight: bold;
 			float: right;
@@ -215,7 +192,7 @@ body {
 			text-transform: uppercase;
 		}
 
-		body > section > article > address {
+		.view > article > div > address {
 			font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 			font-size: 95%;
 			font-weight: bold;
@@ -227,7 +204,6 @@ body {
 		}
 
         label > input[type=checkbox] + span {
-		/*input[type=checkbox] + label {*/
 		   background: url(bookmark.png);
 		   cursor: pointer;
 		   display: inline-block;
@@ -236,23 +212,21 @@ body {
 		   opacity: .6;
 		   padding: 0;
 		   width: 32px;
+           margin-top: -5%;
 		}
 
         label > input[type=checkbox]:checked + span {
-		/*input[type=checkbox]:checked + label {*/
 		   background: url(bookmarkchecked.png);
 		   opacity: 1;
 		}
 
         label > input[type=checkbox] + span:hover {
-		/*input[type=checkbox] + label:hover {*/
 		   opacity: .8;
 		}
 
 /* 2.2 LINK STYLES
 --------------------------------------------------------- */
 a {
-	/*color: white;*/
     color: #000000;
 	padding-bottom: 2px;
 	text-decoration: none;
@@ -296,16 +270,12 @@ small {
 
 
 .route-active.route-top > a {
-/* PAPA */
-/* body > header > nav > ul > li > span */
 	cursor: default;
 	color: #119EDA;
 	font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 }
 
 .route-active.route-left > a {
-/* PAPA */
-/*, body > header > nav > ul > li > span*/ 
 	cursor: default;
 	color: #FFFFFF;
 
@@ -364,38 +334,38 @@ small {
 		padding-left: 60px;
 	}
 
-	body > section > div > input {
+	.view > div > input {
 		background-position: 5px center;
 		padding: 5px 5px 5px 25px;
 		margin: 2% 0 4% 0px;
 	}
 
-	body > section > nav > ul {
+	.view > nav { /* PAPA - This fixes thead width problem of thead left nav on smaller device sizes*/
 		float: none;
 		margin: 0 0 7% 0;
 		width: 100%;
 	}
 		
-		body > section > nav > ul > li > :after {
+		.view > nav > ul > li > :after {
 			content: '▼';
 		}
 
-	body > section > h1,
-	body > section > article,
-	body > section > div {
+    .view > h1,
+	.view > article,
+    .view > div {
 		margin-left: 0;
 	}
 
-	body > section > h1 {
+	.view > h1 {
 		margin-bottom: 6%;
 	}
 
-		body > section > nav > ul > li > a,
-		body > section > nav > ul > li > span {
+        .view > nav > ul > li > a,
+		.view > nav > ul > li > span {
 			padding: 0 10px;
 		}
 
-		body > section > article > img {
+		.view > article > div > img {
 			height: 90px;
 		}
 }
@@ -411,12 +381,12 @@ small {
 		padding-left: 50px;
 	}
 
-	body > section > article {
+    .view > article {
 		min-height: 80px;
 		padding: 10px;
 	}
 
-		body > section > article > img {
+		.view > article > div > img {
 			height: 70px;
 		}
 

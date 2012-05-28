@@ -14,18 +14,23 @@
     <!-- Knockout Debugging -->
 
     <div>
-        <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" placeholder="filter by room, speaker, tag, title, or track" type="text"/>
+        <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" 
+            placeholder="filter by room, speaker, tag, title, or track" type="text"/>
         <small>Showing <small data-bind="text:sessions().length"></small> sessions</small>
     </div>
     
     <!-- ko foreach: sessions -->
+    <!-- data-bind="click: $parent.gotoDetails" -->
     <article>
-        <img data-bind="attr: {src: speaker().imageName}"/>
-        <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
-        <small data-bind="text:level" style="float: right"></small>
-        <h1 data-bind="text: title"></h1>
+        <div data-bind="click: $parent.gotoDetails">
+            <img data-bind="attr: {src: speaker().imageName}"/>
+            <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
+            <small data-bind="text:level" style="float: right"></small>
+            <h1 data-bind="text: title"></h1>
+            <address data-bind="text: speaker().fullName"></address>
+        </div>
         <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
-        <address data-bind="text: speaker().fullName"></address>
+        @*<a data-bind="attr: {href: '#/sessions/' + id() }">Details</a>*@
     </article>
     <!-- /ko -->
 

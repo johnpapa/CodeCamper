@@ -17,10 +17,10 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
      
     var
         bindViewModelsToViews = function () {
-            ko.applyBindings(vm.session, $('#session').get(0))
-            ko.applyBindings(vm.sessions, $('#sessions').get(0))
-            ko.applyBindings(vm.favorites, $('#favorites').get(0))
-            ko.applyBindings(vm.speakers, $('#speakers').get(0))
+            ko.applyBindings(vm.session, $('#session').get(0));
+            ko.applyBindings(vm.sessions, $('#sessions').get(0));
+            ko.applyBindings(vm.favorites, $('#favorites').get(0));
+            ko.applyBindings(vm.speakers, $('#speakers').get(0));
         },
         registerRoutes = function () {
             // Bind the views to the view models
@@ -31,30 +31,25 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
                     [{ route: '#/favorites', callback: vm.favorites.loadByDate, group: '.route-top' },
                     { route: '#/favorites/date/:date', callback: vm.favorites.loadByDate, group: '.route-left' }],
                 view: '#favorites'
-            })
-            // Sessions routes
+            }); // Sessions routes
             router.register({
                 routes:
-                    [{ route: '#/sessions', callback: vm.sessions.activate, group: '.route-top' },
-                    { route: '#/sessions/date/:date', callback: vm.sessions.loadByDate, group: '.route-left' },
-                    { route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack, group: '.route-left' }],
+                    [{ route: '#/sessions', callback: vm.sessions.activate, group: '.route-top' }],
+                    //{ route: '#/sessions/date/:date', callback: vm.sessions.loadByDate, group: '.route-left' },
+                    //{ route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack, group: '.route-left' },
                 view: '#sessions'
-            })
-            // Session details routes
-            router.register({ route: '#/sessions/:id', callback: vm.sessions.activate, view: '#session', group: '.route-left' })
-
-            // Speakers list routes
-            router.register({ route: '#/speakers', callback: vm.speakers.activate, view: '#speakers', group: '.route-top' })
-
+            }); // Session details routes
+            router.register({ route: '#/sessions/:id', callback: vm.session.activate, view: '#session', group: '.route-left' }); // Speakers list routes
+            router.register({ route: '#/speakers', callback: vm.speakers.activate, view: '#speakers', group: '.route-top' }); //// Speaker details routes
+            //router.register({ route: '#/speakers/:id', callback: vm.speaker.activate, view: '#speaker', group: '.route-left' })
+            
             // Catch invalid routes
-            router.register({ route: /.*/, callback: function () { toastr.error('invalid route') }, view: '' })
-
-            router.run('#/favorites')
+            router.register({ route: /.*/, callback: function () { toastr.error('invalid route'); }, view: '' });
+            router.run('#/favorites');
         },
         run = function () {
             // Set up the dataservice for "how it is going to roll" ... Ward Bell
-            config.dataserviceInit()
-            // prime the data services and eager load the lookups
+            config.dataserviceInit(); // prime the data services and eager load the lookups
             $.when(datacontext.rooms.getData(),
                 datacontext.timeslots.getData(),
                 datacontext.tracks.getData(),
@@ -64,16 +59,14 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
                 )
                 //.pipe(dataprimer.fetchSessionBriefs())
                 .done(bindViewModelsToViews)
-                .done(registerRoutes)
-            
-        }
+                .done(registerRoutes);
+        };
     return {
         run: run
-    }
-})(jQuery, ko, toastr, app.router, app.vm, app.datacontext, app.config)
-
+    };
+})(jQuery, ko, toastr, app.router, app.vm, app.datacontext, app.config);
 $(function() {
     //TODO: hard coded the user
     app.currentUser = ko.observable({ id: ko.observable(1) });
     app.bootstrapper.run();
-})
+});
