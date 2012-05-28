@@ -81,17 +81,22 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
             }
         },
         
+        clearFilter = function () {
+            searchText('');
+        },
+        
         debugInfo = app.debugInfo(sessions);
 
     return {
-        sessions: sessions,
-        timeslots: timeslots,
-        searchText: searchText,
+        clearFilter: clearFilter,
         days: days,
+        debugInfo: debugInfo,
+        gotoDetails: gotoDetails,
         loadByDate: loadByDate,
         refresh: refresh,
-        gotoDetails: gotoDetails,
-        debugInfo: debugInfo
+        searchText: searchText,
+        sessions: sessions,
+        timeslots: timeslots
     };
 })(ko, app.config.logger, app.router, app.datacontext, app.config, app.filter, app.sort, app.group);
 

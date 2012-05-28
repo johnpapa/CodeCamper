@@ -285,6 +285,24 @@ nav select {
 	width: 24px;
 }
 
+.clear-text {
+    display: block;
+    width: 12px;
+    text-align: center;
+    line-height: 26px;
+    font-weight: bold;
+    margin-top: -34px;
+    margin-right: 8px;
+    float: right;
+    cursor: pointer;
+}
+
+.clear-text:hover {
+    opacity: 0.6;
+}
+
+
+
 
 /* 3.0 CUSTOM
 --------------------------------------------------------- */
@@ -391,6 +409,11 @@ nav select {
 		.view > article > div > img {
 			height: 90px;
 		}
+
+    .clear-text {
+        margin-top: -52px;
+    }
+
 }
 
 @media only screen and (max-width: 480px) {
@@ -432,6 +455,10 @@ nav select {
     .accent-left {
         width: 10px;
         height: 120px;
+    }
+
+    .clear-text {
+        margin-top: -32px;
     }
 }
 
