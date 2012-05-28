@@ -24,10 +24,12 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         days = ko.computed(function () { return group.timeslotsToDays(timeslots()); }),
 
         getTimeslots = function () {
-            datacontext.timeslots.getData({
-                results: timeslots,
-                sortFunction: sort.timeslotSort
-            });
+            if (!timeslots().length) {
+                datacontext.timeslots.getData({
+                    results: timeslots,
+                    sortFunction: sort.timeslotSort
+                });
+            }
         },
 
         setFilter = function () {
@@ -58,17 +60,19 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
                 }
             }
         },
-
-        loadByDate = function (data) {
-            getTimeslots();
-            setSelectedDay(data);
+        refresh = function () {
             setFilter();
-            
+
             datacontext.sessions.getData({
                 results: sessions,
                 filter: sessionFilter,
                 sortFunction: sort.sessionSort
             });
+        },
+        loadByDate = function (data) {
+            getTimeslots();
+            setSelectedDay(data);
+            refresh();
         },
         
         gotoDetails = function (selectedSession) {
@@ -85,6 +89,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         searchText: searchText,
         days: days,
         loadByDate: loadByDate,
+        refresh: refresh,
         gotoDetails: gotoDetails,
         debugInfo: debugInfo
     };
