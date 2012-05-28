@@ -85,6 +85,15 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
             searchText('');
         },
         
+        keyCaptureFilter = function (e) {
+            //if (e.keyCode == 13) {
+            //    refresh();
+            //}
+            if (e.keyCode == 27) {
+                clearFilter();
+            }
+        },
+
         debugInfo = app.debugInfo(sessions);
 
     return {
@@ -92,6 +101,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         days: days,
         debugInfo: debugInfo,
         gotoDetails: gotoDetails,
+        keyCaptureFilter: keyCaptureFilter,
         loadByDate: loadByDate,
         refresh: refresh,
         searchText: searchText,
@@ -104,4 +114,11 @@ app.vm.favorites.searchText.subscribe(function() {
     app.vm.favorites.loadByDate();
     //TODO: remove logger
     app.config.logger.info('searchText Changed to ' + app.vm.favorites.searchText()); 
+});
+
+$(document).keyup(function (e) {
+    if (e.keyCode == 13) {
+        app.vm.favorites.refresh(); }     // enter
+    if (e.keyCode == 27) {
+        app.vm.favorites.clearFilter(); }   // esc
 });

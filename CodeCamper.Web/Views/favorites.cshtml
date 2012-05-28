@@ -14,7 +14,7 @@
     <!-- Knockout Debugging -->
 
     <div>
-        <input data-bind="value: searchText, valueUpdate: 'afterkeydown'" 
+        <input data-bind="value: searchText, valueUpdate: 'afterkeydown', event: {keyup: keyCaptureFilter}" 
                placeholder="filter by room, speaker, tag, title, or track" type="text"/>
         <a class="clear-text" data-bind="click: clearFilter" title="Clear">X</a>
         <a class="refresh" data-bind="click: refresh" title="Refresh"></a>
