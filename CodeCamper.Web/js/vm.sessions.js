@@ -69,7 +69,5 @@ app.vm.sessions = (function (ko, logger, router, datacontext, config, filter, so
 })(ko, app.config.logger, app.router, app.datacontext, app.config, app.filter, app.sort, app.utils);
 
 app.vm.sessions.searchText.subscribe(function () {
-    app.vm.favorites.loadByDate();
-    //TODO: remove logger
-    app.config.logger.info('searchText Changed to ' + app.vm.favorites.searchText());
+    app.vm.sessions.refresh();
 });
