@@ -13,7 +13,7 @@ app.router = (function (window, $, Sammy, presenter) {
     var
         sammy = new Sammy.Application(function () {
             this.use(Sammy.Title);
-            this.setTitle('My App -');
+            this.setTitle('CodeCamper > ');
             this.get('', function () {
                 this.app.runRoute('get', startupUrl);
             });
@@ -25,15 +25,15 @@ app.router = (function (window, $, Sammy, presenter) {
             if (options.routes) {
                 //options.routes.forEach(function (route) {
                 _.each(options.routes, function(route) {
-                    registerRoute(route.route, route.callback, options.view, route.group);
+                    registerRoute(route.route, route.title, route.callback, options.view, route.group);
                 });
                 return;
             }
 
-            registerRoute(options.route, options.callback, options.view, options.group);
+            registerRoute(options.route, options.title, options.callback, options.view, options.group);
         },
 
-        registerRoute = function (route, callback, view, group) {
+        registerRoute = function (route, title, callback, view, group) {
             if (!callback) {
                 throw Error('callback must be specified.');
             }
@@ -45,7 +45,7 @@ app.router = (function (window, $, Sammy, presenter) {
                 callback(context.params); //$('body > section').hide()
                 $('.view').hide();
                 presenter.transitionTo($(view), context.path, group); //context.$element().append('<h1>hello</h1>') //TODO: for testing
-                this.title(context.path);
+                this.title(title);
             });
         },
 

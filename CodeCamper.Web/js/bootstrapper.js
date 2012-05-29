@@ -28,23 +28,23 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             // Favorites routes
             router.register({
                 routes:
-                    [{ route: '#/favorites', callback: vm.favorites.loadByDate, group: '.route-top' },
-                    { route: '#/favorites/date/:date', callback: vm.favorites.loadByDate, group: '.route-left' }],
+                    [{ route: '#/favorites', title: 'Favorites', callback: vm.favorites.loadByDate, group: '.route-top' },
+                    { route: '#/favorites/date/:date', title: 'Favorites', callback: vm.favorites.loadByDate, group: '.route-left' }],
                 view: '#favorites'
             }); // Sessions routes
             router.register({
                 routes:
-                    [{ route: '#/sessions', callback: vm.sessions.activate, group: '.route-top' }],
+                    [{ route: '#/sessions', title: 'Sessions', callback: vm.sessions.activate, group: '.route-top' }],
                     //{ route: '#/sessions/date/:date', callback: vm.sessions.loadByDate, group: '.route-left' },
                     //{ route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack, group: '.route-left' },
                 view: '#sessions'
             }); // Session details routes
-            router.register({ route: '#/sessions/:id', callback: vm.session.activate, view: '#session', group: '.route-left' }); // Speakers list routes
-            router.register({ route: '#/speakers', callback: vm.speakers.activate, view: '#speakers', group: '.route-top' }); //// Speaker details routes
+            router.register({ route: '#/sessions/:id', title: 'Session', callback: vm.session.activate, view: '#session', group: '.route-left' }); // Speakers list routes
+            router.register({ route: '#/speakers', title: 'Speakers', callback: vm.speakers.activate, view: '#speakers', group: '.route-top' }); //// Speaker details routes
             //router.register({ route: '#/speakers/:id', callback: vm.speaker.activate, view: '#speaker', group: '.route-left' })
             
             // Catch invalid routes
-            router.register({ route: /.*/, callback: function () { toastr.error('invalid route'); }, view: '' });
+            router.register({ route: /.*/, title: '', callback: function () { toastr.error('invalid route'); }, view: '' });
             router.run('#/favorites');
         },
         run = function () {
