@@ -1,12 +1,20 @@
 ﻿// Description
 //  Defines namespace and common utilities
+//
 // Depends on
-//  None
+//  moment
 // ----------------------------------------------
 var app = window["app"] = {};
 
-app.utils = (function () {
+app.utils = (function (moment) {
     var
+        endOfDay = function (day) {
+            return moment(new Date(day))
+                    .add('days', 1)
+                    .add('seconds', -1)
+                    .toDate();
+        },
+
         hasProperties = function (obj) {
             for (var prop in obj) {
                 if (obj.hasOwnProperty(prop)) {
@@ -21,8 +29,9 @@ app.utils = (function () {
         };
     
     return {
+        endOfDay: endOfDay,
         hasProperties: hasProperties,
         regExEscape: regExEscape
     };
-})();
+})(moment);
 

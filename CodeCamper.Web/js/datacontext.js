@@ -30,6 +30,7 @@ app.datacontext = (function(ko, logger, dataservice, model) {
             observableArray(underlyingArray);
             //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
         },
+
         mapToContext = function (dtoList, items, results, mapperFunction, filter, sortFunction, propName) {
             // Loop through the raw dto list and populate a dictionary of the items
             items = _.reduce(dtoList, function (memo, dto) {
@@ -43,6 +44,7 @@ app.datacontext = (function(ko, logger, dataservice, model) {
             logger.success('received with ' + dtoList.length + ' elements');
             return items; // must return these
         },
+        
         ContextList = function (getFunction, mapperFunction, nullo, propName) {
             var 
                 items = {},
@@ -100,6 +102,7 @@ app.datacontext = (function(ko, logger, dataservice, model) {
                 removeById: removeById
             };
         },
+
         attendance = new ContextList(dataservice.attendance.getAttendance, model.mapper.mapAttendance, model.attendanceNullo, 'SessionId'),
         rooms = new ContextList(dataservice.lookup.getRooms, model.mapper.mapRoom, model.roomNullo),
         sessions = new ContextList(dataservice.session.getSessionBriefs, model.mapper.mapSession, model.sessionNullo),

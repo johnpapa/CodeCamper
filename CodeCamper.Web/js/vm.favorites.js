@@ -1,10 +1,13 @@
 ﻿// Depends on 
 //	Knockout
 // 	app.logger
+//  app.router
 //	app.datacontext
+//  app.config
 //  app.filter
 //  app.sort
-//  app.config
+//  app.group
+//  app.utils
 //
 // Description
 //  vm.favorites is the ViewModel for a view displaying just the sessions
@@ -15,13 +18,15 @@
 // ----------------------------------------------
 app.vm = app.vm || {};
 
-app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, sort, group) {
+app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, sort, group, utils) {
     var selectedDate,
         searchText = ko.observable().extend({ throttle: config.throttle }),
         sessionFilter = new filter.SessionFilter(),
         timeslots = ko.observableArray(),
         sessions = ko.observableArray(), //.trackReevaluations(),
-        days = ko.computed(function () { return group.timeslotsToDays(timeslots()); }),
+        days = ko.computed(function () {
+             return group.timeslotsToDays(timeslots());
+        }),
 
         getTimeslots = function () {
             if (!timeslots().length) {
@@ -33,13 +38,9 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         },
 
         setFilter = function () {
-            var day = new Date(selectedDate),
-                maxDate = moment(new Date(day))
-                    .add('days', 1)
-                    .add('seconds', -1)
-                    .toDate();
+            var day = new Date(selectedDate);
             sessionFilter.minTimeSlot(day)
-                .maxTimeSlot(maxDate)
+                .maxTimeSlot(utils.endOfDay(day))
                 .favoriteOnly(true)
                 .searchText(searchText());
         },
@@ -47,6 +48,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         setSelectedDay = function (data) {
             selectedDate = data && data.date ? data.date : selectedDate;
             if (!selectedDate) {
+                // Get the first date
                 selectedDate = moment(timeslots()[0].start()).format('MM-DD-YYYY');
             }
 
@@ -60,6 +62,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
                 }
             }
         },
+        
         refresh = function () {
             setFilter();
 
@@ -69,6 +72,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
                 sortFunction: sort.sessionSort
             });
         },
+        
         loadByDate = function (data) {
             getTimeslots();
             setSelectedDay(data);
@@ -110,7 +114,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         sessions: sessions,
         timeslots: timeslots
     };
-})(ko, app.config.logger, app.router, app.datacontext, app.config, app.filter, app.sort, app.group);
+})(ko, app.config.logger, app.router, app.datacontext, app.config, app.filter, app.sort, app.group, app.utils);
 
 app.vm.favorites.searchText.subscribe(function() {
     app.vm.favorites.loadByDate();
