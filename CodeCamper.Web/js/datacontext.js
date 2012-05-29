@@ -72,9 +72,7 @@ app.datacontext = (function(ko, logger, dataservice, model) {
                         forceRefresh = options && options.forceRefresh,
                         param = options && options.param;
                     if (!items || !app.utils.hasProperties(items) || forceRefresh) {
-                        // TODO: deal with the filter
                         return $.Deferred(function (def) {
-                            //getFunction.apply({}, params)
                             getFunction({
                                 success: function(dtoList) {
                                     //TODO: create map object

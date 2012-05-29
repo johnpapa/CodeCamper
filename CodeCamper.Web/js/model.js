@@ -75,13 +75,14 @@ app.model.Session = function () {
 
     self.isFavorite = ko.computed({
         read: function () {
-            //TODO: explicitly force this read to re evaluate when title changes
             var id = self.id();
             var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
-            //TODO: show the we re-eval'd
-            //app.config.logger.info('re-eval\'d isFavorite');
             return !!match;
         },
+        // Chicken and the egg kind of situation (attendance or datacontext are setup later.
+        // The "deferEvalation" flag will prevent it from running immediately 
+        // and it will wait until something actually tries to access its value.
+        deferEvaluation: true, 
         write: function (value) {
             //TODO: come back and fix this when we get to the SESSIONS screen
             //if (!self.attendance) return;
@@ -93,7 +94,7 @@ app.model.Session = function () {
                     .personId(app.currentUser().id());
                 self.datacontext.attendance.add(newObj, 'sessionId');
 
-                //TODO: explicitly set the flag so we can force the re-evauation of the read
+                // Explicitly set the flag so we can force the re-evauation of the read
                 self.id.valueHasMutated()
             } else if (!value && this.datacontext) {
                 // remove attendance

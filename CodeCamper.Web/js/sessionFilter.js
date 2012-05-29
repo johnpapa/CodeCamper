@@ -63,6 +63,15 @@ app.filter = app.filter || {};
                     && favoriteTest(self.favoriteOnly(), session)
                     && timeSlotTest(self.minTimeSlot(), self.maxTimeSlot(), session);
                 return match;
+                //TODO: testing only
+                //var matchSearch = searchTest(self.searchText(), session),
+                //    matchFav = favoriteTest(self.favoriteOnly(), session),
+                //    matchTime = timeSlotTest(self.minTimeSlot(), self.maxTimeSlot(), session);
+                //console.log('search filter matched: ' + matchSearch);
+                //console.log('favorites filter matched: ' + matchFav);
+                //console.log('time filter matched: ' + matchTime);
+                //console.log('MATCH === ' + matchSearch && matchFav && matchTime);
+                //return matchSearch && matchFav && matchTime;
             };
 
         return {
