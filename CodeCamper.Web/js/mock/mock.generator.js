@@ -20,7 +20,7 @@ app.mock = (function ($) {
             $.mockJSON.data.TAG = ['JavaScript', 'Knockout', 'MVVM', 'HTML5', 'Keynote', 'SQL', 'CSS', 'Metro', 'UX'];
             $.mockJSON.data.TRACK = ['Windows 8', 'JavaScript', 'ASP.NET', '.NET', 'Data', 'Mobile', 'Cloud', 'Practices', 'Design'];
             $.mockJSON.data.TITLE = [
-                'Building HTML and JavaScript Apps with KnockoutJS and MVVM',
+                'Building HTML/JavaScript Apps with Knockout and MVVM',
                 'JsRender Fundamentals',
                 'Introduction to Building Windows 8 Metro Applications',
                 'Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery',

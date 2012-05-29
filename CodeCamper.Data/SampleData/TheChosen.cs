@@ -177,7 +177,7 @@ namespace CodeCamper.SampleData
 
             addSession(true, new Session
             {
-                Title = "Building HTML and JavaScript Apps with KnockoutJS and MVVM",
+                Title = "Building HTML/JavaScript Apps with Knockout and MVVM",
                 Code = "JVS300",
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
@@ -354,7 +354,7 @@ namespace CodeCamper.SampleData
             });
             addSession(false, new Session
             {
-                Title = "Straighten Your Backbone with Jim Coward",
+                Title = "Straighten Your Backbone with Jim Cowart",
                 Code = "JVS141",
                 SpeakerId = _jimCowart.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
