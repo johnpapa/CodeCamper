@@ -76,7 +76,8 @@ app.model.Session = function () {
     self.isFavorite = ko.computed({
         read: function () {
             var id = self.id();
-            var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
+            //var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
+            var match = self.attendance ? self.attendance().sessionId() === id : null;
             return !!match;
         },
         // Chicken and the egg kind of situation (attendance or datacontext are setup later.

@@ -39,8 +39,8 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
 
         setFilter = function () {
             var day = new Date(selectedDate);
-            sessionFilter.minTimeSlot(day)
-                .maxTimeSlot(utils.endOfDay(day))
+            sessionFilter.minDate(day)
+                .maxDate(utils.endOfDay(day))
                 .favoriteOnly(true)
                 .searchText(searchText());
         },

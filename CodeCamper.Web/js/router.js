@@ -42,7 +42,7 @@ app.router = (function (window, $, Sammy, presenter) {
 
             sammy.get(route, function(context) {
                 //context is 'this'
-                callback(context.params); //$('body > section').hide()
+                callback(context.params); 
                 $('.view').hide();
                 presenter.transitionTo($(view), context.path, group); //context.$element().append('<h1>hello</h1>') //TODO: for testing
                 this.title(title);
@@ -56,7 +56,6 @@ app.router = (function (window, $, Sammy, presenter) {
         run = function (url) {
             startupUrl = url;
             sammy.run();
-            //sammy.run(url);
             navigateTo(url);
         };
 
