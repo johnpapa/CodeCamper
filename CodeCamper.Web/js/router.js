@@ -9,8 +9,16 @@
 // 	2) Before registering routes with router, 
 //      the viewmodels should exist.
 // ----------------------------------------------
-app.router = (function (window, $, sammy, presenter) {
+app.router = (function (window, $, Sammy, presenter) {
     var
+        sammy = new Sammy.Application(function () {
+            this.use(Sammy.Title);
+            this.setTitle('My App -');
+            this.get('', function () {
+                this.app.runRoute('get', startupUrl);
+            });
+        }),
+        
         startupUrl = '',
         
         register = function (options) {
@@ -37,6 +45,7 @@ app.router = (function (window, $, sammy, presenter) {
                 callback(context.params); //$('body > section').hide()
                 $('.view').hide();
                 presenter.transitionTo($(view), context.path, group); //context.$element().append('<h1>hello</h1>') //TODO: for testing
+                this.title(context.path);
             });
         },
 
@@ -52,13 +61,14 @@ app.router = (function (window, $, sammy, presenter) {
         };
 
         // Initialize
-        sammy.get('', function () {
-            this.app.runRoute('get', startupUrl);
-        });
+        //sammy.get('', function () {
+        //    this.app.runRoute('get', startupUrl);
+        //});
     
     return {
         navigateTo: navigateTo,
         register: register,
         run: run
     };
-})(window, jQuery, new Sammy.Application(), app.presenter)
+//})(window, jQuery, new Sammy.Application(), app.presenter)
+})(window, jQuery, Sammy, app.presenter)
