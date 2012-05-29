@@ -34,7 +34,7 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             }); // Sessions routes
             router.register({
                 routes:
-                    [{ route: '#/sessions', title: 'Sessions', callback: vm.sessions.activate, group: '.route-top' }],
+                    [{ route: '#/sessions', title: 'Sessions', callback: vm.sessions.refresh, group: '.route-top' }],
                     //{ route: '#/sessions/date/:date', callback: vm.sessions.loadByDate, group: '.route-left' },
                     //{ route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack, group: '.route-left' },
                 view: '#sessions'
