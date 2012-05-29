@@ -3,7 +3,7 @@
 // ----------------------------------------------
 var app = app || {};
 
-app.dataservice = app.dataservice || {}
+app.dataservice = app.dataservice || {};
 
 app.dataservice.person = (function (amplify) {
     var
@@ -19,7 +19,7 @@ app.dataservice.person = (function (amplify) {
                 dataType: 'json',
                 type: 'GET'
                 //cache:
-            })
+            });
         },
         getSpeakers = function (callbacks) {
             return amplify.request({
@@ -27,7 +27,7 @@ app.dataservice.person = (function (amplify) {
                 //data: { sessionType: sessionType }, //TODO: dont need it ?
                 success: callbacks.success,
                 error: callbacks.error
-            })
+            });
         },
         getPersons = function (callbacks) {
             return amplify.request({
@@ -35,13 +35,13 @@ app.dataservice.person = (function (amplify) {
                 //data: { sessionType: sessionType }, //TODO: dont need it ?
                 success: callbacks.success,
                 error: callbacks.error
-            })
+            });
         };
     return {
         init: init,
         getPersons: getPersons,
         getSpeakers: getSpeakers
-    }
+    };
 })(amplify);
 
 app.dataservice.person.init();

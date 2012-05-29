@@ -23,6 +23,16 @@ app.utils = (function (moment) {
             }
             return false;
         },
+        
+        mapMemoToArray = function (items) {
+            var underlyingArray = [];
+            for (var prop in items) {
+                if (items.hasOwnProperty(prop)) {
+                    underlyingArray.push(items[prop]);
+                }
+            }
+            return underlyingArray;
+        },
 
         regExEscape = function(text) {
             return text.replace( /[-[\]{}()*+?.,\\^$|#\s]/g , "\\$&");
@@ -31,6 +41,7 @@ app.utils = (function (moment) {
     return {
         endOfDay: endOfDay,
         hasProperties: hasProperties,
+        mapMemoToArray: mapMemoToArray,
         regExEscape: regExEscape
     };
 })(moment);

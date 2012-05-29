@@ -12,13 +12,9 @@ app.datacontext = (function(ko, logger, dataservice, model) {
             if (!observableArray) return;
 
             observableArray([]); // clear the old observableArray
+            
+            underlyingArray = app.utils.mapMemoToArray(items);
 
-            for (var prop in items) {
-                if (items.hasOwnProperty(prop)) {
-                    underlyingArray.push(items[prop]);
-                    //observables.push(obj[prop]);
-                }
-            }
             if (filter) {
                 underlyingArray = _.filter(underlyingArray, function (o) {
                     var match = filter.predicate(filter, o);

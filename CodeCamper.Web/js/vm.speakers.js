@@ -3,7 +3,7 @@
 // 	app.logger
 //	app.dataservice.session
 // ----------------------------------------------
-app.vm = app.vm || {}
+app.vm = app.vm || {};
 app.vm.speakers = (function (ko, ds, logger) {
     var 
         speakers = ko.observableArray(),
@@ -12,7 +12,7 @@ app.vm.speakers = (function (ko, ds, logger) {
                 {
                     success: loadSessions,
                     error: function() { logger.error('oops!'); }
-                })
+                });
         },
         loadSessions = function(data) {
             logger.success('received with ' + data.sessions.length + ' elements');
@@ -21,5 +21,5 @@ app.vm.speakers = (function (ko, ds, logger) {
     return {
         speakers: speakers,
         activate: activate
-    }
+    };
 })(ko, app.dataservice.session, app.config.logger);

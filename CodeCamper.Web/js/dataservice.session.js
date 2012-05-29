@@ -1,7 +1,7 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-app.dataservice = app.dataservice || {}
+app.dataservice = app.dataservice || {};
 
 app.dataservice.session = (function (amplify) {
     var
@@ -17,19 +17,19 @@ app.dataservice.session = (function (amplify) {
                 dataType: 'json',
                 type: 'GET'
                 //cache:
-            })
+            });
             amplify.request.define('session-briefs', 'ajax', {
                 url: '/api/sessions/briefs',
                 dataType: 'json',
                 type: 'GET'
                 //cache:
-            })
+            });
             amplify.request.define('session', 'ajax', {
                 url: '/api/sessions/{id}',
                 dataType: 'json',
                 type: 'GET'
                 //cache:
-            })
+            });
         },
         //getMySessions = function(userId, callbacks) {
         //    return amplify.request({
@@ -45,7 +45,7 @@ app.dataservice.session = (function (amplify) {
                 //data: { sessionType: sessionType }, //TODO: dont need it ?
                 success: callbacks.success,
                 error: callbacks.error
-            })
+            });
         },
         getSessionBriefs = function (callbacks) {
             return amplify.request({
@@ -53,7 +53,7 @@ app.dataservice.session = (function (amplify) {
                 //data: { sessionType: sessionType }, //TODO: dont need it ?
                 success: callbacks.success,
                 error: callbacks.error
-            })
+            });
         },
         getSession = function (id, callbacks) {
             return amplify.request({
@@ -61,14 +61,14 @@ app.dataservice.session = (function (amplify) {
                 data: { id: id },
                 success: callbacks.success,
                 error: callbacks.error
-            })
-        }
+            });
+        };
     return {
         init: init,
         getSessions: getSessions,
         getSessionBriefs: getSessionBriefs,
         getSession: getSession
-    }
+    };
 })(amplify);
 
 app.dataservice.session.init();

@@ -65,6 +65,7 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
         run: run
     };
 })(jQuery, ko, toastr, app.router, app.vm, app.datacontext, app.config);
+
 $(function() {
     //TODO: hard coded the user
     app.currentUser = ko.observable({ id: ko.observable(1) });

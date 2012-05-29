@@ -95,7 +95,7 @@ app.model.Session = function () {
                 self.datacontext.attendance.add(newObj, 'sessionId');
 
                 // Explicitly set the flag so we can force the re-evauation of the read
-                self.id.valueHasMutated()
+                self.id.valueHasMutated();
             } else if (!value && this.datacontext) {
                 // remove attendance
                 self.datacontext.attendance.removeById(self.id(), 'sessionId');
@@ -205,16 +205,16 @@ app.model.TimeSlot = function () {
     self.start = ko.observable();
     self.duration = ko.observable();
     self.dateOnly = ko.computed(function () {
-        return moment(self.start()).format('YYYY-MM-DD');
+        return self.start() ? moment(self.start()).format('YYYY-MM-DD') : '';
     }, self);
     self.fullStart = ko.computed(function () {
-        return moment(self.start()).format('dddd hh:mm a');
+        return self.start() ? moment(self.start()).format('dddd hh:mm a') : '';
     }, self);
     self.shortStart = ko.computed(function () {
-        return moment(self.start()).format('ddd hh:mm a');
+        return self.start() ? moment(self.start()).format('ddd hh:mm a') : '';
     }, self);
     self.dayStart = ko.computed(function () {
-        return moment(self.start()).format('dddd MMM Do');
+        return self.start() ? moment(self.start()).format('dddd MMM Do') : '';
     }, self);
     return self;
 };
@@ -223,8 +223,6 @@ app.model.timeSlotNullo = new app.model.TimeSlot()
                 .id(0)
                 .start(new Date(2012, 4, 18, 1, 0, 0, 0))
                 .duration(60);
-
-
 
 // Track
 // ----------------------------------------------

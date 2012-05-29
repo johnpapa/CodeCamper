@@ -1,7 +1,7 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-app.dataservice = app.dataservice || {}
+app.dataservice = app.dataservice || {};
 
 app.dataservice.attendance = (function (amplify) {
     var
@@ -11,7 +11,7 @@ app.dataservice.attendance = (function (amplify) {
                 dataType: 'json',
                 type: 'GET'
                 //cache:
-            })
+            });
         },
         getAttendance = function (callbacks, personId) {
             return amplify.request({
@@ -19,12 +19,12 @@ app.dataservice.attendance = (function (amplify) {
                 data: { personId: personId },
                 success: callbacks.success,
                 error: callbacks.error
-            })
-        }
+            });
+        };
     return {
         init: init,
         getAttendance: getAttendance
-    }
+    };
 })(amplify);
 
 app.dataservice.attendance.init();

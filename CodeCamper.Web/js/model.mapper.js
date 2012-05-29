@@ -28,7 +28,7 @@ app.model.mapper = (function () {
                 .roomId(raw.RoomId)
                 .description(raw.Description)
                 .level(raw.Level)
-                .tags(raw.Tags)
+                .tags(raw.Tags);
         },
         mapSpeaker = function (raw, item) {
             item = item || new app.model.Speaker().id(raw.Id);
@@ -60,5 +60,5 @@ app.model.mapper = (function () {
         mapSpeaker: mapSpeaker,
         mapTimeSlot: mapTimeSlot,
         mapTrack: mapTrack
-    }
+    };
 })();
