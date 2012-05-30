@@ -175,6 +175,7 @@
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\sammy.title.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
