@@ -48,18 +48,23 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             router.run('#/favorites');
         },
         run = function () {
+            $('#busyindicator').activity(true);
+
             // Set up the dataservice for "how it is going to roll" ... Ward Bell
             config.dataserviceInit(); // prime the data services and eager load the lookups
             $.when(datacontext.rooms.getData(),
                 datacontext.timeslots.getData(),
                 datacontext.tracks.getData(),
-                datacontext.attendance.getData({param: app.currentUser().id()}),
+                datacontext.attendance.getData({ param: app.currentUser().id() }),
                 datacontext.speakers.getData(),
                 datacontext.sessions.getData()
-                )
+            )
                 //.pipe(dataprimer.fetchSessionBriefs())
                 .done(bindViewModelsToViews)
-                .done(registerRoutes);
+                .done(registerRoutes)
+                .always(function() {
+                    $('#busyindicator').activity(false);
+                });
         };
     return {
         run: run
