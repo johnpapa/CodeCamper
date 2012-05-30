@@ -17,57 +17,120 @@
 app.vm = app.vm || {};
 
 app.vm.sessions = (function (ko, logger, router, datacontext, config, filter, sort, utils) {
-    var searchText = ko.observable().extend({ throttle: config.throttle }),
+    var
+        pauseRefresh = false,
         sessionFilter = new filter.SessionFilter(),
-        roomCriteria = ko.observable(),
-        speakerCriteria = ko.observable(),
-        trackCriteria = ko.observable(),
         sessions = ko.observableArray(),
-        setFilter = function() {
-            sessionFilter.favoriteOnly(false)
-                .room(roomCriteria())
-                .track(trackCriteria())
-                .speaker(speakerCriteria())
-                .searchText(searchText());
-        },
-        refresh = function () {
-            setFilter();
+        speakers = ko.observableArray(),
+        timeslots = ko.observableArray(),
+        tracks = ko.observableArray(),
 
-            datacontext.sessions.getData({
-                results: sessions,
-                filter: sessionFilter,
-                sortFunction: sort.sessionSort
-            });
+        getSpeakers = function () {
+            if (!speakers().length) {
+                datacontext.speakers.getData({
+                    results: speakers,
+                    sortFunction: sort.speakerSort
+                });
+            }
         },
-        gotoDetails = function(selectedSession) {
+
+        getTimeslots = function () {
+            if (!timeslots().length) {
+                datacontext.timeslots.getData({
+                    results: timeslots,
+                    sortFunction: sort.timeslotSort
+                });
+            }
+        },
+
+        getTracks = function () {
+            if (!tracks().length) {
+                datacontext.tracks.getData({
+                    results: tracks,
+                    sortFunction: sort.trackSort
+                });
+            }
+        },
+
+        activate = function () {
+            getSpeakers();
+            getTimeslots();
+            getTracks();
+            refresh();
+        },
+
+        refresh = function () {
+            //setFilter();
+            
+            if (!pauseRefresh) {
+                datacontext.sessions.getData({
+                    results: sessions,
+                    filter: sessionFilter,
+                    sortFunction: sort.sessionSort
+                });
+            }
+        },
+
+        gotoDetails = function (selectedSession) {
             if (selectedSession && selectedSession.id()) {
                 router.navigateTo('#/sessions/' + selectedSession.id());
             }
         },
-        clearFilter = function() {
-            if (searchText().length) {
-                searchText('');
+
+        clearFilter = function () {
+            if (sessionFilter.searchText().length) {
+                sessionFilter.searchText('');
             }
         },
-        keyCaptureFilter = function(data, event) {
+        
+        clearSideFilters = function () {
+            pauseRefresh = true;
+            sessionFilter.favoriteOnly(false);
+            sessionFilter.speaker(null);
+            sessionFilter.timeslot(null);
+            sessionFilter.track(null);
+            pauseRefresh = false;
+            refresh();
+        },
+
+        keyCaptureFilter = function (data, event) {
             if (event.keyCode == 27) {
                 clearFilter();
             }
         };
 
     return {
+        activate: activate,
         clearFilter: clearFilter,
+        clearSideFilters: clearSideFilters,
         gotoDetails: gotoDetails,
         keyCaptureFilter: keyCaptureFilter,
         refresh: refresh,
-        roomCriteria: roomCriteria,
-        searchText: searchText,
-        speakerCriteria: speakerCriteria,
-        trackCriteria: trackCriteria,
-        sessions: sessions
+        sessionFilter: sessionFilter,
+        sessions: sessions,
+        speakers: speakers,
+        timeslots: timeslots,
+        tracks: tracks
     };
 })(ko, app.config.logger, app.router, app.datacontext, app.config, app.filter, app.sort, app.utils);
 
-app.vm.sessions.searchText.subscribe(function () {
+app.vm.sessions.sessionFilter.searchText.subscribe(function () {
     app.vm.sessions.refresh();
 });
+
+app.vm.sessions.sessionFilter.speaker.subscribe(function () {
+    app.vm.sessions.refresh();
+});
+
+app.vm.sessions.sessionFilter.timeslot.subscribe(function () {
+    app.vm.sessions.refresh();
+});
+
+app.vm.sessions.sessionFilter.track.subscribe(function () {
+    app.vm.sessions.refresh();
+});
+
+app.vm.sessions.sessionFilter.favoriteOnly.subscribe(function () {
+    app.vm.sessions.refresh();
+});
+

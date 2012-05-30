@@ -206,8 +206,11 @@ app.model.TimeSlot = function () {
     self.start = ko.observable();
     self.duration = ko.observable();
     self.dateOnly = ko.computed(function () {
-        return self.start() ? moment(self.start()).format('YYYY-MM-DD') : '';
+        return self.start() ? moment(self.start()).format('MM-DD-YYYY') : '';
     }, self);
+    //self.displayDate = ko.computed(function () {
+    //    return self.start() ? moment(self.start()).format('ddd MMM DD') : '';
+    //}, self);
     self.fullStart = ko.computed(function () {
         return self.start() ? moment(self.start()).format('dddd hh:mm a') : '';
     }, self);

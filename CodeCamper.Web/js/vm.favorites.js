@@ -20,7 +20,9 @@ app.vm = app.vm || {};
 
 app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, sort, group, utils) {
     var selectedDate,
-        searchText = ko.observable().extend({ throttle: config.throttle }),
+        criteria = {
+            searchText: ko.observable().extend({ throttle: config.throttle }),
+        },
         sessionFilter = new filter.SessionFilter(),
         timeslots = ko.observableArray(),
         sessions = ko.observableArray(), //.trackReevaluations(),
@@ -42,7 +44,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
             sessionFilter.minDate(day)
                 .maxDate(utils.endOfDay(day))
                 .favoriteOnly(true)
-                .searchText(searchText());
+                .searchText(criteria.searchText());
         },
 
         setSelectedDay = function (data) {
@@ -73,6 +75,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
             });
         },
         
+        
         loadByDate = function (data) {
             getTimeslots();
             setSelectedDay(data);
@@ -92,9 +95,6 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         },
         
         keyCaptureFilter = function (data, event) {
-            //if (e.keyCode == 13) {
-            //    refresh();
-            //}
             if (event.keyCode == 27) {
                 clearFilter();
             }
@@ -104,19 +104,19 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
 
     return {
         clearFilter: clearFilter,
+        criteria: criteria,
         days: days,
         debugInfo: debugInfo,
         gotoDetails: gotoDetails,
         keyCaptureFilter: keyCaptureFilter,
         loadByDate: loadByDate,
         refresh: refresh,
-        searchText: searchText,
         sessions: sessions,
         timeslots: timeslots
     };
 })(ko, app.config.logger, app.router, app.datacontext, app.config, app.filter, app.sort, app.group, app.utils);
 
-app.vm.favorites.searchText.subscribe(function() {
+app.vm.favorites.criteria.searchText.subscribe(function() {
     app.vm.favorites.loadByDate();
     //TODO: remove logger
     app.config.logger.info('searchText Changed to ' + app.vm.favorites.searchText()); 

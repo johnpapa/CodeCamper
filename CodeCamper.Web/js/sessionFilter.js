@@ -1,10 +1,24 @@
 ﻿// Depends on
 //  Knockout
 //  sort.js
+//  utils.js
+//  app.js
 // ----------------------------------------------
 app.filter = app.filter || {};
 
-(function (ko, utils) {
+//app.filter.SessionCriteria = function() {
+//    var self = this;
+//    self.favoriteOnly = ko.observable(false);
+//    self.minDate = ko.observable();
+//    self.maxDate = ko.observable();
+//    self.searchText = ko.observable().extend({ throttle: config.throttle });
+//    self.timeslot = ko.observable();
+//    self.speaker = ko.observable();
+//    self.track = ko.observable();
+//    return self;
+//};
+
+(function (ko, utils, config) {
 
     // Ctor for a SessionFilter
     app.filter.SessionFilter = function() {
@@ -12,8 +26,9 @@ app.filter = app.filter || {};
         self.favoriteOnly = ko.observable(false);
         self.minDate = ko.observable();
         self.maxDate = ko.observable();
-        self.room = ko.observable(); // object
-        self.searchText = ko.observable('');
+        self.timeslot = ko.observable(); // object
+        //self.searchText = ko.observable('');
+        self.searchText = ko.observable().extend({ throttle: config.throttle }),
         self.speaker = ko.observable(); // object
         self.track = ko.observable(); // object
         return self;
@@ -59,9 +74,9 @@ app.filter = app.filter || {};
                 return true;
             },
 
-            modelTest = function (room, speaker, track, session) {
+            modelTest = function (timeslot, speaker, track, session) {
                 // Return true if it meets the filter criteria. Otherwise, return false
-                if (room && room.id() !== session.room().id()) return false;
+                if (timeslot && timeslot.id() !== session.timeslot().id()) return false;
                 if (speaker && speaker.id() !== session.speaker().id()) return false;
                 if (track && track.id() !== session.track().id()) return false;
                 return true;
@@ -72,7 +87,7 @@ app.filter = app.filter || {};
                 var match = searchTest(self.searchText(), session)
                     && favoriteTest(self.favoriteOnly(), session)
                     && timeSlotTest(self.minDate(), self.maxDate(), session) 
-                    && modelTest(self.room(), self.speaker(), self.track(), session); 
+                    && modelTest(self.timeslot(), self.speaker(), self.track(), session);
                 return match;
                 //TODO: testing only
                 //var matchSearch = searchTest(self.searchText(), session),
@@ -89,4 +104,4 @@ app.filter = app.filter || {};
             predicate: predicate
         };
     }();
-})(ko, app.utils)
+})(ko, app.utils, app.config)
