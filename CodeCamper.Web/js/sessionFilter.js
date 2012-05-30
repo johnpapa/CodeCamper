@@ -6,18 +6,6 @@
 // ----------------------------------------------
 app.filter = app.filter || {};
 
-//app.filter.SessionCriteria = function() {
-//    var self = this;
-//    self.favoriteOnly = ko.observable(false);
-//    self.minDate = ko.observable();
-//    self.maxDate = ko.observable();
-//    self.searchText = ko.observable().extend({ throttle: config.throttle });
-//    self.timeslot = ko.observable();
-//    self.speaker = ko.observable();
-//    self.track = ko.observable();
-//    return self;
-//};
-
 (function (ko, utils, config) {
 
     // Ctor for a SessionFilter
@@ -89,7 +77,7 @@ app.filter = app.filter || {};
                     && timeSlotTest(self.minDate(), self.maxDate(), session) 
                     && modelTest(self.timeslot(), self.speaker(), self.track(), session);
                 return match;
-                //TODO: testing only
+                //PAPA: testing only
                 //var matchSearch = searchTest(self.searchText(), session),
                 //    matchFav = favoriteTest(self.favoriteOnly(), session),
                 //    matchTime = timeSlotTest(self.minDate(), self.maxDate(), session);

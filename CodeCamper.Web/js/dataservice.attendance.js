@@ -21,10 +21,10 @@ app.dataservice.attendance = (function (amplify) {
                 error: callbacks.error
             });
         };
+
+    init();
+    
     return {
-        init: init,
         getAttendance: getAttendance
     };
 })(amplify);
-
-app.dataservice.attendance.init();

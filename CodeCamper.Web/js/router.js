@@ -44,7 +44,7 @@ app.router = (function (window, $, Sammy, presenter) {
                 //context is 'this'
                 callback(context.params); 
                 $('.view').hide();
-                presenter.transitionTo($(view), context.path, group); //context.$element().append('<h1>hello</h1>') //TODO: for testing
+                presenter.transitionTo($(view), context.path, group); //context.$element().append('<h1>hello</h1>') //PAPA: for testing
                 this.title(title);
             });
         },

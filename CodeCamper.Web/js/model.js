@@ -26,14 +26,14 @@ app.model.attendanceNullo = new app.model.Attendance()
                 .text('');
 app.model.Attendance.prototype = function () {
     var
-        speaker = function () {
-            return this.datacontext.speakers.getById(this.speakerId());
+        person = function () {
+            return this.datacontext.persons.getById(this.personId());
         },
         session = function () {
             return this.datacontext.sessions.getById(this.sessionId());
         };
     return {
-        speaker: speaker,
+        person: person,
         session: session
     };
 }();
@@ -129,7 +129,7 @@ app.model.Session.prototype = function () {
             return this.datacontext.rooms.getById(this.roomId());
         },
         speaker = function() {
-            return this.datacontext.speakers.getById(this.speakerId());
+            return this.datacontext.persons.getById(this.speakerId()); //TODO: do i get from persons or speakers?
         },
         timeslot = function() {
             return this.datacontext.timeslots.getById(this.timeslotId());
@@ -147,9 +147,9 @@ app.model.Session.prototype = function () {
     };
 }();
 
-// Speaker
+// Person
 // ----------------------------------------------
-app.model.Speaker = function () {
+app.model.Person = function () {
     var self = this;
     self.datacontext = app.datacontext;
     self.id = ko.observable();
@@ -175,7 +175,7 @@ app.model.Speaker = function () {
     return self;
 };
 
-app.model.speakerNullo = new app.model.Speaker()
+app.model.personNullo = new app.model.Person()
                 .id(0)
                 .firstName('Not a')
                 .lastName('Person')
@@ -187,7 +187,7 @@ app.model.speakerNullo = new app.model.Speaker()
                 .bio('');
 
 //TODO:
-//app.model.Speaker.prototype = function () {
+//app.model.Person.prototype = function () {
 //    var
 //        attendanceList = function () {
 //            return this.datacontext.attendance.getByPersonId(this.personId());

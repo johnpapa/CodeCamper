@@ -59,13 +59,13 @@ app.dataservice.lookup = (function (amplify) {
                 error: callbacks.error
             });
         };
+
+    init();
+    
     return {
-        init: init,
         getLookups: getLookups,
         getRooms: getRooms,
         getTimeslots: getTimeslots,
         getTracks: getTracks
     };
 })(amplify);
-
-app.dataservice.lookup.init();

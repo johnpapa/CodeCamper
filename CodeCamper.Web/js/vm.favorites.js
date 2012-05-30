@@ -24,10 +24,15 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         timeslots = ko.observableArray(),
         sessions = ko.observableArray(), //.trackReevaluations(),
         days = ko.computed(function () {
-             return group.timeslotsToDays(timeslots());
+                return group.timeslotsToDays(timeslots());
         }),
-
-        getTimeslots = function () {
+        //days = ko.computed({
+        //    read: function () {
+        //        return group.timeslotsToDays(timeslots());
+        //    },
+        //    deferEvaluation: true
+        //}),
+        getTimeslots = function() {
             if (!timeslots().length) {
                 datacontext.timeslots.getData({
                     results: timeslots,
@@ -35,15 +40,13 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
                 });
             }
         },
-
-        setFilter = function () {
+        setFilter = function() {
             var day = new Date(selectedDate);
             sessionFilter.minDate(day)
                 .maxDate(utils.endOfDay(day))
                 .favoriteOnly(true);
         },
-
-        setSelectedDay = function (data) {
+        setSelectedDay = function(data) {
             selectedDate = data && data.date ? data.date : selectedDate;
             if (!selectedDate) {
                 // Get the first date
@@ -60,8 +63,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
                 }
             }
         },
-        
-        refresh = function () {
+        refresh = function() {
             setFilter();
 
             datacontext.sessions.getData({
@@ -70,38 +72,33 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
                 sortFunction: sort.sessionSort
             });
         },
-        
-        
-        loadByDate = function (data) {
+        loadByDate = function(data) {
             getTimeslots();
             setSelectedDay(data);
             refresh();
         },
-        
-        gotoDetails = function (selectedSession) {
+        gotoDetails = function(selectedSession) {
             if (selectedSession && selectedSession.id()) {
                 router.navigateTo('#/sessions/' + selectedSession.id());
             }
         },
-        
-        clearFilter = function () {
+        clearFilter = function() {
             if (sessionFilter.searchText().length) {
                 sessionFilter.searchText('');
             }
         },
-        
-        keyCaptureFilter = function (data, event) {
+        keyCaptureFilter = function(data, event) {
             if (event.keyCode == 27) {
                 clearFilter();
             }
-        },
+        };
 
-        debugInfo = app.debugInfo(sessions);
+        //debugInfo = app.debugInfo(sessions);
 
     return {
         clearFilter: clearFilter,
         days: days,
-        debugInfo: debugInfo,
+        //debugInfo: debugInfo,
         gotoDetails: gotoDetails,
         keyCaptureFilter: keyCaptureFilter,
         loadByDate: loadByDate,

@@ -59,11 +59,10 @@ app.presenter = (function ($) {
             //    .closest('nav')
             //    .find('a.route-active')
             //    .removeClass('route-active');
-            //TODO: find all NAV links by CSS classname instead. "It's impenetrable and brittle" ... Ward Bell
+            //PAPA: Find all NAV links by CSS classname instead. "It's impenetrable and brittle" ... Ward Bell
             $(group + '.route-active').removeClass('route-active');
             if (route) {
                 // Highlight the selected nav that matches the route
-                // TODO: same thing here. add the .wardbell CSS class
                 //$('nav > ul > li > a[href="' + route + '"]').addClass('route-active');
                 $(group).has('a[href="' + route + '"]').addClass('route-active');
             }

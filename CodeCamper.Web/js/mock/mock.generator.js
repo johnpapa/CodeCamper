@@ -47,7 +47,7 @@ app.mock = (function ($) {
                     Rating: '@RATING',
                     Text: '@LOREM_IPSUM'
                 }]
-            })
+            });
         },
         generateRooms = function () {
             return $.mockJSON.generateFromTemplate({
@@ -55,7 +55,7 @@ app.mock = (function ($) {
                     'Id|+1': 1,
                     Name: '@LOREM'
                 }]
-            })
+            });
         },
         generateSessions = function () {
             return $.mockJSON.generateFromTemplate({
@@ -71,11 +71,11 @@ app.mock = (function ($) {
                     'Tags|1-5': '@TAG ,',
                     Description: '@LOREM_IPSUM'
                 }]
-            })
+            });
         },
-        generateSpeakers = function () {
+        generatePersons = function () {
             return $.mockJSON.generateFromTemplate({
-                'speakers|50-60': [{
+                'persons|50-60': [{
                     'Id|+1': 1,
                     FirstName: '@SPEAKER_FIRST_NAME',
                     LastName: '@SPEAKER_LAST_NAME',
@@ -85,9 +85,8 @@ app.mock = (function ($) {
                     GENDER: '@GENDER',
                     ImageSource: '@IMAGE_SOURCE',
                     Bio: '@LOREM_IPSUM'
-                    //imageName: '../content/' + '@SPEAKER_FIRST_NAME' + '.jpg' //TODO: do in the mapping
                 }]
-            })
+            });
         },
         generateTimeslots = function () {
             return $.mockJSON.generateFromTemplate({
@@ -96,7 +95,7 @@ app.mock = (function ($) {
                     Start: '@DATE_FULL',
                     Duration: 60
                 }]
-            })
+            });
         },
         generateTracks = function () {
             return $.mockJSON.generateFromTemplate({
@@ -104,7 +103,7 @@ app.mock = (function ($) {
                     'Id|+1': 1,
                     Name: '@LOREM'
                 }]
-            })
+            });
         };
     return {
         init: init,
@@ -112,12 +111,12 @@ app.mock = (function ($) {
             generateAttendance: generateAttendance,
             generateRooms: generateRooms,
             generateSessions: generateSessions,
-            generateSpeakers: generateSpeakers,
+            generatePersons: generatePersons,
             generateTimeslots: generateTimeslots,
             generateTracks: generateTracks
         },
 		dataservice : {}
-    }
+    };
 })(jQuery);
 
 app.mock.init();

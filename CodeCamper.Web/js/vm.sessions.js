@@ -27,7 +27,7 @@ app.vm.sessions = (function (ko, logger, router, datacontext, config, filter, so
 
         getSpeakers = function () {
             if (!speakers().length) {
-                datacontext.speakers.getData({
+                datacontext.sessionSpeakers.getData({
                     results: speakers,
                     sortFunction: sort.speakerSort
                 });
@@ -60,8 +60,6 @@ app.vm.sessions = (function (ko, logger, router, datacontext, config, filter, so
         },
 
         refresh = function () {
-            //setFilter();
-            
             if (!pauseRefresh) {
                 datacontext.sessions.getData({
                     results: sessions,

@@ -30,8 +30,8 @@ app.model.mapper = (function () {
                 .level(raw.Level)
                 .tags(raw.Tags);
         },
-        mapSpeaker = function (raw, item) {
-            item = item || new app.model.Speaker().id(raw.Id);
+        mapPerson = function (raw, item) {
+            item = item || new app.model.Person().id(raw.Id);
             return item
                 .firstName(raw.FirstName)
                 .lastName(raw.LastName)
@@ -57,7 +57,7 @@ app.model.mapper = (function () {
         mapAttendance: mapAttendance,
         mapRoom: mapRoom,
         mapSession: mapSession,
-        mapSpeaker: mapSpeaker,
+        mapPerson: mapPerson,
         mapTimeSlot: mapTimeSlot,
         mapTrack: mapTrack
     };
