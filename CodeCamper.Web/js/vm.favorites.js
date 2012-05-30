@@ -20,9 +20,6 @@ app.vm = app.vm || {};
 
 app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, sort, group, utils) {
     var selectedDate,
-        criteria = {
-            searchText: ko.observable().extend({ throttle: config.throttle }),
-        },
         sessionFilter = new filter.SessionFilter(),
         timeslots = ko.observableArray(),
         sessions = ko.observableArray(), //.trackReevaluations(),
@@ -43,8 +40,7 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
             var day = new Date(selectedDate);
             sessionFilter.minDate(day)
                 .maxDate(utils.endOfDay(day))
-                .favoriteOnly(true)
-                .searchText(criteria.searchText());
+                .favoriteOnly(true);
         },
 
         setSelectedDay = function (data) {
@@ -89,8 +85,8 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
         },
         
         clearFilter = function () {
-            if (searchText().length) {
-                searchText('');
+            if (sessionFilter.searchText().length) {
+                sessionFilter.searchText('');
             }
         },
         
@@ -104,20 +100,18 @@ app.vm.favorites = (function (ko, logger, router, datacontext, config, filter, s
 
     return {
         clearFilter: clearFilter,
-        criteria: criteria,
         days: days,
         debugInfo: debugInfo,
         gotoDetails: gotoDetails,
         keyCaptureFilter: keyCaptureFilter,
         loadByDate: loadByDate,
         refresh: refresh,
+        sessionFilter: sessionFilter,
         sessions: sessions,
         timeslots: timeslots
     };
 })(ko, app.config.logger, app.router, app.datacontext, app.config, app.filter, app.sort, app.group, app.utils);
 
-app.vm.favorites.criteria.searchText.subscribe(function() {
+app.vm.favorites.sessionFilter.searchText.subscribe(function() {
     app.vm.favorites.loadByDate();
-    //TODO: remove logger
-    app.config.logger.info('searchText Changed to ' + app.vm.favorites.searchText()); 
 });

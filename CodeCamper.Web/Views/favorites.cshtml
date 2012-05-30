@@ -1,5 +1,4 @@
 ﻿<section id="favorites" class="view">
-    <div id="busy1"></div>
     <nav>
         <ul data-bind="foreach: days">
             <li class="route-left" data-bind="css :{'route-active': isSelected()}">
@@ -14,7 +13,7 @@
     <!-- Knockout Debugging -->
 
     <div>
-        <input data-bind="value: criteria.searchText, valueUpdate: 'afterkeydown', event: {keyup: keyCaptureFilter}" 
+        <input data-bind="value: sessionFilter.searchText, valueUpdate: 'afterkeydown', event: {keyup: keyCaptureFilter}" 
                placeholder="filter by room, speaker, tag, title, or track" type="text"/>
         <a class="clear-text" data-bind="click: clearFilter" title="Clear">X</a>
         <a class="refresh" data-bind="click: refresh" title="Refresh"></a>
