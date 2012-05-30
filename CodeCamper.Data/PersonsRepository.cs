@@ -26,7 +26,7 @@ namespace CodeCamper.Data
                 .Distinct().Select(s =>
                     new Speaker
                         {    
-                                PersonId = s.Id,
+                                Id = s.Id,
                                 FirstName = s.FirstName,
                                 LastName = s.LastName,
                                 ImageSource = s.ImageSource,
