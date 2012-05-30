@@ -110,7 +110,7 @@ namespace CodeCamper.Web
             // The integer id constraint is necessary to distinguish this route
             // from the next route. For example, this route handles
             // "api/sessions/1" whereas the next route handles
-            // "api/sessions/speakers"
+            // "api/sessions/briefs"
 
             // This RPC style route is great for lookups and custom calls
             // It matches the {action} to a method on the controller 
