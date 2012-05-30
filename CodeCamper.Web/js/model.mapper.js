@@ -45,7 +45,8 @@ app.model.mapper = (function () {
         mapTimeSlot = function (raw, item) {
             item = item || new app.model.TimeSlot().id(raw.Id);
             return item
-                .start(new Date(raw.Start))
+                .start(moment(raw.Start).toDate())
+                //.start(new Date(raw.Start))
                 .duration(raw.Duration);
         },
         mapTrack = function (raw, item) {

@@ -5,10 +5,6 @@
 // ----------------------------------------------
 app.sort = app.sort || {};
 
-app.sort.date = function (a, b) {
-    return a.date() > b.date() ? 1 : -1;
-};
-
 app.sort.sessionSort = function (sessionA, sessionB) {
     if (sessionA.timeslot().start() === sessionB.timeslot().start()) {
         return sessionA.track().name() > sessionB.track().name() ? 1 : -1;
@@ -50,6 +46,8 @@ app.group.timeslotsToDays = function (timeslots) {
         }
         return memo;
     }, { index: {}, slots: [] });
-    var sortedDays = result.slots.sort(app.sort.generic);
+    var sortedDays = result.slots.sort(function (a, b) {
+        return a.date > b.date ? 1 : -1;
+    });
     return sortedDays;
 };

@@ -20,8 +20,10 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                     return match;
                 });
             }
+            if (sortFunction) {
+                underlyingArray.sort(sortFunction);
+            }
             logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records');
-            underlyingArray.sort(sortFunction);
             observableArray(underlyingArray);
             //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
         },
@@ -130,7 +132,9 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                             return match;
                         });
                     }
-                    underlyingArray.sort(sortFunction);
+                    if (sortFunction) {
+                        underlyingArray.sort(sortFunction);
+                    }
                     observableArray(underlyingArray);
                 },
                 getData = function(options) {
