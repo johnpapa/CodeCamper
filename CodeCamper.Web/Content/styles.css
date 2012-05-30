@@ -89,7 +89,8 @@ body {
 			margin: 0 0 1% 260px;
 		}
 
-            .view > div > input {
+            .filter-box {
+            /*.view > div > input {*/
 				background: url(search.png) white no-repeat 10px center;
 				border: solid 1px rgb(200,200,200);
 				box-sizing: border-box;
@@ -290,10 +291,11 @@ nav select {
 .clear-text {
     background: url(clear.png);
     background-size: 100% 100%;
-    width: 16px;
-    height: 16px;
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 12px;
     font-weight: bold;
-    margin-top: -30px;
+    margin-top: -28px;
     margin-right: 10px;
     opacity: .3;
     float: right;
@@ -439,7 +441,7 @@ nav select {
 		}
 
     .clear-text {
-        margin-top: -48px;
+        margin-top: -46px;
     }
 
 }
@@ -486,10 +488,21 @@ nav select {
     }
 
     .clear-text {
-        margin-top: -32px;
-        background-size: 12px;
-        width: 12px;
-        height: 12px;
+        margin-top: -30px;
+        background-size: 10px;
+        width: 10px;
+        height: 10px;
     }
 }
 
+@media only screen and (max-width: 240px) {
+    body {
+        font-size: 10px;
+    }
+
+        body > header > h1 {
+            background-size: 20px;
+            font-size: 250%;
+            padding-left: 30px;
+        }
+}
