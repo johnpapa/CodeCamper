@@ -288,17 +288,17 @@ nav select {
 }
 
 .clear-text {
-	background: url(clear.png);
+    background: url(clear.png);
     background-size: 100% 100%;
     width: 16px;
     height: 16px;
     font-weight: bold;
-    margin-top: -28px;
-    margin-right: 8px;
+    margin-top: -30px;
+    margin-right: 10px;
+    opacity: .3;
     float: right;
     cursor: pointer;
 }
-
 .clear-text:hover {
     opacity: 0.6;
 }
