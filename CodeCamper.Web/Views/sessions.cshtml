@@ -13,18 +13,21 @@
         </select>
             
         <label for="favoritesOnly">
-            Favorites Only
             <input id="favoritesOnly" style="display: inline" type="checkbox" data-bind="checked: sessionFilter.favoriteOnly"/>
+            Favorites Only
         </label>
-        <button data-bind="click: clearSideFilters">Clear Filters</button>
+        <label for="clearSideFilters">
+            <a id="clearSideFilters" href="#" data-bind="click: clearSideFilters" class="clear-trash"></a>
+            <span>Clear Filters</span>
+        </label>
     </nav>
 
     <div>
         <input data-bind="value: sessionFilter.searchText, valueUpdate: 'afterkeydown', event: {keyup: keyCaptureFilter}" 
                placeholder="filter by room, speaker, tag, title, or track" type="text"/>
-        <a class="clear-text" data-bind="click: clearFilter" title="Clear">X</a>
+        <a class="clear-text" data-bind="click: clearFilter" title="Clear"></a>
         <a class="refresh" data-bind="click: refresh" title="Refresh"></a>
-        <small>Showing <small data-bind="text:sessions().length"></small> sessions</small>
+        <small>Showing <span data-bind="text:sessions().length"></span> sessions</small>
     </div>
     
     <!-- ko foreach: sessions -->

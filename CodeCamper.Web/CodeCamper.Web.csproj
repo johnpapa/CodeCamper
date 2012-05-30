@@ -142,6 +142,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bookmarklocked.png" />
+    <Content Include="Content\clear.png" />
     <Content Include="Content\dan_wahlin.jpg" />
     <Content Include="Content\felix_fanboi.jpg" />
     <Content Include="Content\hans_fjallemark.jpg" />
@@ -152,6 +154,7 @@
     <Content Include="Content\ryan_niemeyer.jpg" />
     <Content Include="Content\scott_guthrie.jpg" />
     <Content Include="Content\sue_menot.jpg" />
+    <Content Include="Content\trash.png" />
     <Content Include="Content\unknown_person.jpg" />
     <Content Include="Content\ward_bell.jpg" />
     <Content Include="Content\bookmark-white.png" />
