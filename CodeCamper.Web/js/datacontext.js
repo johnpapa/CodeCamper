@@ -156,7 +156,8 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                                 }
                                 crossMatchSpeakers(results, filter, sortFunction);
                             } else {
-                                return; //TODO: get out, no sessions exist to loop through
+                                logger.error('oops! data could not be retrieved'); //TODO: get rid of this
+                                return;
                             }
                             
                         }));
@@ -179,6 +180,11 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
         timeslots = new EntitySet(dataservice.lookup.getTimeslots, model.mapper.mapTimeSlot, model.timeSlotNullo),
         tracks = new EntitySet(dataservice.lookup.getTracks, model.mapper.mapTrack, model.trackNullo),
         sessionSpeakers = new SessionSpeakerEntitySet();
+
+    //TODO: In dataContext: 
+    // 1) I have not tested forceRefresh = true. it might work :D
+    // 2) Need to add code for allowing the datacontext.persons to get a real person vs speaker (brief).
+    // 3) Add code for allowing datacontext.sessions to get a real session, not a brief
 
     return {
         attendance: attendance,
