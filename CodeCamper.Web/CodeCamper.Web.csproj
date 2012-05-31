@@ -143,6 +143,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bookmarklocked.png" />
+    <Content Include="Content\checkbox_checked.png" />
+    <Content Include="Content\checkbox_unchecked.png" />
     <Content Include="Content\clear.png" />
     <Content Include="Content\dan_wahlin.jpg" />
     <Content Include="Content\felix_fanboi.jpg" />

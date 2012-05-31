@@ -87,6 +87,7 @@ body {
 
 		.view > div {
 			margin: 0 0 1% 260px;
+			overflow: auto;
 		}
         .view > .filter-box-container-full-width {
             margin: 0 0 1% 0;
@@ -226,7 +227,7 @@ body {
 			display:none;
 		}
 
-        label > input[type=checkbox] + span {
+        label.markfavorite > input[type=checkbox] + span {
 		   background: url(bookmark.png);
 		   cursor: pointer;
 		   display: inline-block;
@@ -238,12 +239,33 @@ body {
            margin-top: -5%;
 		}
 
-        label > input[type=checkbox]:checked + span {
+        label.markfavorite > input[type=checkbox]:checked + span {
 		   background: url(bookmarkchecked.png);
 		   opacity: 1;
 		}
 
-        label > input[type=checkbox] + span:hover {
+        label.markfavorite > input[type=checkbox] + span:hover {
+		   opacity: .8;
+		}
+		
+
+        label.favoritesonly > input[type=checkbox] + span {
+		   background-image: url(checkbox_unchecked.png);
+		   background-position: right center;
+		   background-repeat: no-repeat;
+		   cursor: pointer;
+		   display: inline-block;
+		   height: 18px;
+		   opacity: .6;
+		   padding: 0 25px 0 0;
+		}
+
+        label.favoritesonly > input[type=checkbox]:checked + span {
+		   background-image: url(checkbox_checked.png);
+		   opacity: 1;
+		}
+
+        label.favoritesonly > input[type=checkbox] + span:hover {
 		   opacity: .8;
 		}
 
@@ -268,6 +290,7 @@ a {
 /* 2.3 FONTS
 --------------------------------------------------------- */
 body,
+button,
 input,
 select {
 	font-family: "Segoe UI Light","Segoe Light","Segoe UI","Helvetica-Light",Arial,Helvetica,sans-serif;
@@ -296,17 +319,34 @@ nav select {
 	margin-bottom: 6%;
 }
 
+button {
+	border: 0;
+	background-color: #119EDA;
+	background-position: 25px center;
+	background-repeat: no-repeat;
+	color: white;
+	font-size: 100%;
+	margin: 0px;
+	padding: 7px 30px 8px 50px;
+}
+
+	button:active, button:focus {
+		position: relative;
+		top: 1px;
+	}
+
+	button:hover {
+		opacity: 0.6;
+	}
+
 
 /* 2.5 ICONS
 --------------------------------------------------------- */
 .refresh {
-	background: url(refresh.png);
-	display: block;
-	float: right;
-	height: 24px;
-	margin-top: 5px;
-	width: 24px;
+	background-image: url(refresh.png);
     cursor: pointer;
+	float: right;
+	margin-top: 5px;
 }
 
 .clear-text {
@@ -327,23 +367,9 @@ nav select {
 }
 
 .clear-trash {
-	background: url(trash.png);
-	display: inline-block;
-	float: left;
-	height: 24px;
-	margin-top: 5px;
-	width: 24px;
+	background-image: url(trash.png);
     cursor: pointer;
-}
-
-.clear-trash:hover {
-    opacity: 0.6;
-}
-
-#clearSideFilters + span {
-	display: inline-block;
-	float: left;
-    margin-top: 6px;
+	margin-top: 15px;
 }
 
 
@@ -495,7 +521,7 @@ nav select {
 			height: 70px;
 		}
 
-		label > input[type=checkbox] + span {
+		label.markfavorite > input[type=checkbox] + span {
 			background-size: 20px;
 			height: 20px;
 			width: 20px;
