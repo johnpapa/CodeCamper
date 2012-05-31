@@ -1,10 +1,4 @@
-﻿// Depends on
-//  ko
-//  config
-//  datacontext (at runtime, for reference/navigation)
-//
-// ----------------------------------------------
-define(['ko', 'config'],
+﻿define(['ko', 'config'],
     function (ko, config) {
 
         var imageBasePath = '../content/',

@@ -1,8 +1,4 @@
-﻿// Depends on
-//	jQuery
-//
-// Conventions
-//	All mock data is exposed through data  property
+﻿//	All mock data is exposed through data  property
 // 	toggle mock usage on and off through useMocks property
 // ----------------------------------------------
 define(['jquery', 'moment'],

@@ -1,15 +1,4 @@
-﻿// Depends on 
-//	Knockout
-// 	app.logger
-//  app.router
-//	app.datacontext
-//  app.config
-//  app.filter
-//  app.sort
-//  app.group
-//  app.utils
-//
-// Description
+﻿// Description
 //  vm.favorites is the ViewModel for a view displaying just the sessions
 //  that the current user has marked as favorites.
 //  The user can further filter this subset of Sessions by additional criteria,

@@ -1,10 +1,4 @@
-﻿// Depends on
-//  toastr
-//  mocks (which should be real only if mocks are intended to be used)
-//
-// Conventions
-// ----------------------------------------------
-define(['toastr', 'mock/mock'],
+﻿define(['toastr', 'mock/mock'],
     function (toastr, mock) {
 
         var// properties

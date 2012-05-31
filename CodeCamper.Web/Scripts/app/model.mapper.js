@@ -1,7 +1,4 @@
-﻿// Depends on
-// Model
-// ----------------------------------------------
-define(['model'],
+﻿define(['model'],
     function (model) {
         var mapAttendance = function (raw, item) {
             item = item || new model.Attendance().personId(raw.PersonId).sessionId(raw.SessionId);

@@ -1,8 +1,5 @@
 ﻿// Description
 //  Defines namespace and common utilities
-//
-// Depends on
-//  moment
 // ----------------------------------------------
 define(['moment'],
     function (moment) {

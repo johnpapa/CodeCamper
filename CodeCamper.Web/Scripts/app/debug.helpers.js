@@ -1,9 +1,5 @@
-﻿// Depends on
-//	Knockout, Config
-// ----------------------------------------------
-define(['ko', 'config'],
+﻿define(['ko', 'config'],
 function (ko, config) {
-
     //track the number of re-evaluations for a computed observable
     ko.observableArray.fn.trackReevaluations = function () {
         var self = this;

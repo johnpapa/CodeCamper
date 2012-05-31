@@ -1,11 +1,4 @@
-﻿// Depends on
-//  jQuery
-//  Knockout
-// 	logger
-//  dataservice
-//  model
-// ----------------------------------------------
-define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils'],
+﻿define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils'],
     function ($, _, ko, model, mapper, dataservice, config, utils) {
         var
         logger = config.logger,

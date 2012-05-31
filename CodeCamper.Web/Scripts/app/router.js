@@ -1,9 +1,4 @@
-﻿// Depends on
-//	Sammy.js
-//  jQuery
-//  presenter
-//
-// Conventions
+﻿// Conventions
 //	1) All Views must have their HTML element tags
 //      include a CSS class named .view.
 // 	2) Before registering routes with router,

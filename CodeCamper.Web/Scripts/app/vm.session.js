@@ -1,9 +1,4 @@
-﻿// Depends on
-//	Knockout
-// 	logger
-//	datacontext
-// ----------------------------------------------
-define(['ko', 'datacontext', 'config'],
+﻿define(['ko', 'datacontext', 'config'],
     function (ko, datacontext, config) {
         var logger = config.logger,
             session = ko.observable(),

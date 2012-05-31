@@ -1,7 +1,4 @@
-﻿// Depends on
-//	Amplify.js
-// ----------------------------------------------
-define(['amplify'],
+﻿define(['amplify'],
     function (amplify) {
         var
 		defineApi = function (model) {

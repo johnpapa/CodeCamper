@@ -1,13 +1,4 @@
-﻿// Depends on
-//	Knockout
-// 	app.logger
-//  app.router
-//	app.datacontext
-//  app.config
-//  app.filter
-//  app.sort
-//
-// Description
+﻿// Description
 //  vm.speakers is the ViewModel for a view displaying all speakers.
 //  The user can further filter this subset of speakers by additional criteria.
 //
