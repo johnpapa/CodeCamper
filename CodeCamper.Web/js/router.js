@@ -12,9 +12,14 @@
 define(['jquery', 'underscore','sammy', 'presenter','config'],
     function ($, _, Sammy, presenter,config) {
         var window = config.window,
+            logger = config.logger,
             sammy = new Sammy.Application(function () {
-                this.use(Sammy.Title);
-                this.setTitle(config.title);
+                if (Sammy.Title) {
+                    this.use(Sammy.Title);
+                    this.setTitle(config.title);
+                }else {
+                    logger.warning('Sammy.Title is not loaded.');
+                }
                 this.get('', function () {
                     this.app.runRoute('get', startupUrl);
                 });
