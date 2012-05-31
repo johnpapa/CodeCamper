@@ -86,7 +86,7 @@ body {
 	}
 
 		.view > div {
-			margin: 0 0 1% 260px;
+			margin: 0 0 2% 260px;
 			/*overflow: auto;*/
 		}
         .view > .filter-box-container-full-width {
@@ -468,7 +468,7 @@ button {
 	.view > div > input {
 		background-position: 5px center;
 		padding: 5px 5px 5px 25px;
-		margin: 2% 0 4% 0px;
+		margin: 2% 0 2% 0px;
 	}
 
 	.view > nav { /* PAPA - This fixes thead width problem of thead left nav on smaller device sizes*/
@@ -484,7 +484,7 @@ button {
     .view > h1,
 	.view > article,
     .view > div {
-		margin-left: 0;
+        margin: 0 0 4% 0;
 	}
 
 	.view > h1 {
@@ -501,7 +501,7 @@ button {
 		}
 
     .clear-text {
-        margin-top: -46px;
+        margin-top: -35px;
     }
 
 }
