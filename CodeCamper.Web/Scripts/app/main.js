@@ -2,7 +2,7 @@
 
 requirejs.config({
     // by default load
-    baseUrl: 'js',
+    baseUrl: 'scripts/app',
     // shim in the libs that don't know define.amd
     shim: {
         // jquery 1.7.x understands define; no shim needed.
@@ -22,20 +22,19 @@ requirejs.config({
     // Could simplify for libraries that are conventionally named
     // which is all of them except jquery which identifies the version
     paths: {
-        'activity-indicator': '../Scripts/activity-indicator',
-        'amplify': '../Scripts/amplify.core',    
-        'amplify.request': '../Scripts/amplify.request', 
-        'amplify.store': '../Scripts/amplify.store',
-        'jquery': '../Scripts/jquery-1.7.2',//'.min',
-        'jquery.mockjson': '../Scripts/jquery.mockjson',
-        'json2': '../Scripts/json2',
-        //'ko': '../Scripts/knockout',
-        'ko': '../Scripts/knockout-2.1.0',
-        'moment': '../Scripts/moment',
-        'sammy': '../Scripts/sammy',
-        'sammy.title': '../Scripts/sammy.title',        
-        'toastr': '../Scripts/toastr',         
-        'underscore': '../Scripts/underscore'
+        'activity-indicator': '../lib/activity-indicator',
+        'amplify': '../lib/amplify.core',
+        'amplify.request': '../lib/amplify.request',
+        'amplify.store': '../lib/amplify.store',
+        'jquery': '../lib/jquery-1.7.2',//'.min',
+        'jquery.mockjson': '../lib/jquery.mockjson',
+        'json2': '../lib/json2',
+        'ko': '../lib/knockout-2.1.0',
+        'moment': '../lib/moment',
+        'sammy': '../lib/sammy',
+        'sammy.title': '../lib/sammy.title',
+        'toastr': '../lib/toastr',
+        'underscore': '../lib/underscore'
     }       
 });
 
