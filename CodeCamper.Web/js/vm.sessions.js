@@ -6,8 +6,6 @@
 //  app.config
 //  app.filter
 //  app.sort
-//  app.group
-//  app.utils
 //
 // Description
 //  vm.sessions is the ViewModel for a view displaying all sessions.
@@ -16,7 +14,7 @@
 // ----------------------------------------------
 app.vm = app.vm || {};
 
-app.vm.sessions = (function (ko, logger, router, datacontext, config, filter, sort, utils) {
+app.vm.sessions = (function (ko, logger, router, datacontext, config, filter, sort) {
     var
         pauseRefresh = false,
         sessionFilter = new filter.SessionFilter(),

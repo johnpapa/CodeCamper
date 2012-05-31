@@ -1,8 +1,7 @@
 ﻿// Depends on
 //  Knockout
-//  sort.js
 //  utils.js
-//  app.js
+//  config.js
 // ----------------------------------------------
 app.filter = app.filter || {};
 
@@ -16,7 +15,7 @@ app.filter = app.filter || {};
         self.maxDate = ko.observable();
         self.timeslot = ko.observable(); // object
         //self.searchText = ko.observable('');
-        self.searchText = ko.observable().extend({ throttle: config.throttle }),
+        self.searchText = ko.observable().extend({ throttle: config.throttle });
         self.speaker = ko.observable(); // object
         self.track = ko.observable(); // object
         return self;

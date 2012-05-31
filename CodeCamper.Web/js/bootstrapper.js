@@ -41,7 +41,7 @@ app.bootstrapper = (function ($, ko, toastr, router, vm, datacontext, config) {
             });
             // Session details routes
             router.register({ route: '#/sessions/:id', title: 'Session', callback: vm.session.activate, view: '#session', group: '.route-left' }); // Speakers list routes
-            router.register({ route: '#/speakers', title: 'Speakers', callback: vm.speakers.activate, view: '#speakers', group: '.route-top' }); //// Speaker details routes
+            router.register({ route: '#/speakers', title: 'Speakers', callback: vm.speakers.refresh, view: '#speakers', group: '.route-top' }); //// Speaker details routes
             //router.register({ route: '#/speakers/:id', callback: vm.speaker.activate, view: '#speaker', group: '.route-left' })
             
             // Catch invalid routes

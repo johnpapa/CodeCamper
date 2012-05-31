@@ -88,6 +88,9 @@ body {
 		.view > div {
 			margin: 0 0 1% 260px;
 		}
+        .view > .filter-box-container-full-width {
+            margin: 0 0 1% 0;
+        }
 
             .filter-box {
             /*.view > div > input {*/
@@ -164,6 +167,14 @@ body {
 		min-height: 100px;
 		padding: 20px;
 	}
+    .view > .article-container-full-width {
+        margin: 4px;
+        float: left;
+        width: 110px;
+        height: 140px;
+        border-bottom: solid 0 rgba(0, 0, 0, 0);
+        /*border: 1px dotted #D3D3D3;*/
+    }
 
     .view > article:hover {
 		background: rgba(0,0,0,.05);
@@ -185,6 +196,11 @@ body {
 			margin-right: 4%;
 			padding: 4px;
 		}
+        .view > .article-container-full-width img {
+            float: none;
+            display: block;
+            margin: auto;
+        }
 
         .view > article > div > time {
 			font-family: "Segoe UI",Arial,Helvetica,sans-serif;
@@ -200,6 +216,11 @@ body {
 			font-weight: bold;
 			text-transform: uppercase;
 		}
+
+        .view > .article-container-full-width address {
+            text-align: center;
+        }
+
 
 		input[type=checkbox] {
 			display:none;
