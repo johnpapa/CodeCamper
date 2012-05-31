@@ -163,6 +163,7 @@
     <Content Include="Content\bookmark.png" />
     <Content Include="Content\icon-blue.png" />
     <Content Include="js\config.js" />
+    <Content Include="js\group.js" />
     <Content Include="js\dataservice.attendance.js" />
     <Content Include="js\debug.helpers.js" />
     <Content Include="js\mock\mock.dataservice.attendance.js" />

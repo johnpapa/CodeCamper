@@ -34,7 +34,8 @@ app.utils = (function (moment) {
             return underlyingArray;
         },
 
-        regExEscape = function(text) {
+        regExEscape = function (text) {
+            // Removes regEx characters from search filter boxes in our app
             return text.replace( /[-[\]{}()*+?.,\\^$|#\s]/g , "\\$&");
         };
     
