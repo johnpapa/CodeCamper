@@ -1,10 +1,10 @@
 ﻿// Depends on
 //  app.mocks (only if mocks are intended to be used)
+//  toastr
 //
 // Conventions
 // ----------------------------------------------
-app.config = (function (toastr) {
-    
+app.config = (function (toastr) {    
     var
         // properties
         useMocks = false, // Set this to toggle mocks
@@ -27,8 +27,8 @@ app.config = (function (toastr) {
     toastr.options.timeOut = toastrTimeout;
     
     return {
-        logger : logger,
+        logger: logger,
         dataserviceInit: dataserviceInit,
-        throttle: throttle,
+        throttle: throttle
     };
 })(toastr)

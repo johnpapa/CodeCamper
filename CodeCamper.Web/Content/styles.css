@@ -51,7 +51,7 @@ body {
 		padding-bottom: 4px;
 		text-shadow: 2px 2px rgba(0,0,0,.15);
 	    text-transform: uppercase;
-        color: rgba(17,158,218,1);
+	    color: #119EDA;
 	}
 
 	nav.main-nav {
@@ -328,6 +328,10 @@ nav select {
 
 /* 3.0 CUSTOM
 --------------------------------------------------------- */
+/*.text-accent {
+    color: #119EDA;
+}*/
+
 .view { display: none; }
 /*.view-active {} */
 

@@ -12,24 +12,21 @@ app.mock.dataservice.lookup = (function (amplify, mock) {
 		            lookups: {
 		                Rooms: mock.model.generateRooms().rooms,
 		                TimeSlots: mock.model.generateTimeslots().timeslots,
-		                Tracks: mock.model.generateTracks().tracks,
+		                Tracks: mock.model.generateTracks().tracks
 		            }
-		        })
-            })
-		    
+		        });
+		    });
 		    amplify.request.define('rooms', function (settings) {
-		        settings.success(mock.model.generateRooms().rooms)
-		    })
-		    
+		        settings.success(mock.model.generateRooms().rooms);
+		    });
 		    amplify.request.define('timeslots', function (settings) {
-		        settings.success(mock.model.generateTimeslots().timeslots)
-		    })
-		    
+		        settings.success(mock.model.generateTimeslots().timeslots);
+		    });
 		    amplify.request.define('tracks', function (settings) {
-		        settings.success(mock.model.generateTracks().tracks)
-		    })
-		}
-	return {
+		        settings.success(mock.model.generateTracks().tracks);
+		    });
+		};
+    return {
 	    defineApi: defineApi
-	}
+	};
 })(amplify, app.mock);
