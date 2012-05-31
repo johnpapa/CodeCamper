@@ -1,9 +1,8 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-app.dataservice = app.dataservice || {};
-
-app.dataservice.session = (function (amplify) {
+define(['amplify'],
+    function (amplify) {
     var
         init = function() {
             amplify.request.define('sessions', 'ajax', {
@@ -55,4 +54,4 @@ app.dataservice.session = (function (amplify) {
         getSessionBriefs: getSessionBriefs,
         getSession: getSession
     };
-})(amplify);
+});

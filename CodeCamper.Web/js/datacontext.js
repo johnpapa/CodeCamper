@@ -1,12 +1,15 @@
 ﻿// Depends on
 //  jQuery
 //  Knockout
-// 	app.logger
-//  app.dataservice
-//  app.model
+// 	logger
+//  dataservice
+//  model
 // ----------------------------------------------
-app.datacontext = (function($, ko, logger, dataservice, model, utils) {
-    var
+define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils'],
+    function ($, _, ko, model, mapper, dataservice, config, utils) {
+        var
+        logger = config.logger,
+
         itemsToArray = function (items, observableArray, filter, sortFunction) {
             if (!observableArray) return;
 
@@ -15,7 +18,7 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
             var underlyingArray = utils.mapMemoToArray(items);
 
             if (filter) {
-                underlyingArray = _.filter(underlyingArray, function(o) {
+                underlyingArray = _.filter(underlyingArray, function (o) {
                     var match = filter.predicate(filter, o);
                     return match;
                 });
@@ -27,27 +30,27 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
             observableArray(underlyingArray);
             //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
         },
-        mapToContext = function(dtoList, items, results, mapperFunction, filter, sortFunction, propName) {
+        mapToContext = function (dtoList, items, results, mapperFunction, filter, sortFunction, propName) {
             // Loop through the raw dto list and populate a dictionary of the items
-            items = _.reduce(dtoList, function(memo, dto) {
+            items = _.reduce(dtoList, function (memo, dto) {
                 // If propName is passed, use it. Otherwise use id
                 var id = propName ? dto[propName] : dto.Id;
                 var existingItem = items[id];
                 memo[id] = mapperFunction(dto, existingItem);
                 return memo;
-            }, { });
+            }, {});
             itemsToArray(items, results, filter, sortFunction);
             logger.success('received with ' + dtoList.length + ' elements');
             return items; // must return these
         },
-        EntitySet = function(getFunction, mapperFunction, nullo, propName) {
-            var items = { },
-                add = function(newObj, keyName) {
+        EntitySet = function (getFunction, mapperFunction, nullo, propName) {
+            var items = {},
+                add = function (newObj, keyName) {
                     // If keyName is passed, use it. Otherwise use id property
                     var id = keyName ? newObj[keyName]() : newObj.id();
                     items[id] = newObj;
                 },
-                removeById = function(id, keyName) {
+                removeById = function (id, keyName) {
                     // If keyName is passed, use it. Otherwise use id property
                     // Causes observables to be notified (ex: unmarking a favorite)
                     if (keyName) {
@@ -57,29 +60,29 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                     }
                     items[id] = nullo;
                 },
-                getById = function(id) {
+                getById = function (id) {
                     return !!id && !!items[id] ? items[id] : nullo;
                 },
-                getData = function(options) {
+                getData = function (options) {
                     return $.Deferred(function (def) {
                         var results = options && options.results,
                             sortFunction = options && options.sortFunction,
                             filter = options && options.filter,
                             forceRefresh = options && options.forceRefresh,
                             param = options && options.param;
-                            //overrideGetFunction = options && options.overrideGetFunction;
+                        //overrideGetFunction = options && options.overrideGetFunction;
                         if (!items || !utils.hasProperties(items) || forceRefresh) {
                             //return $.Deferred(function(def) {
-                                getFunction({
-                                    success: function(dtoList) {
-                                        items = mapToContext(dtoList, items, results, mapperFunction, filter, sortFunction, propName);
-                                        def.resolve(dtoList);
-                                    },
-                                    error: function() {
-                                        logger.error('oops! data could not be retrieved'); //TODO: get rid of this
-                                        def.reject();
-                                    }
-                                }, param);
+                            getFunction({
+                                success: function (dtoList) {
+                                    items = mapToContext(dtoList, items, results, mapperFunction, filter, sortFunction, propName);
+                                    def.resolve(dtoList);
+                                },
+                                error: function () {
+                                    logger.error('oops! data could not be retrieved'); //TODO: get rid of this
+                                    def.reject();
+                                }
+                            }, param);
                             //}).promise();
                         } else {
                             itemsToArray(items, results, filter, sortFunction);
@@ -118,7 +121,7 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                     if (!observableArray) return;
                     // clear out the results observableArray
                     observableArray([]);
-                    
+
                     var underlyingArray = observableArray();
                     // get an array of persons
                     for (var prop in items) {
@@ -137,12 +140,12 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                     }
                     observableArray(underlyingArray);
                 },
-                getData = function(options) {
+                getData = function (options) {
                     var results = options && options.results,
                         sortFunction = options && options.sortFunction,
                         filter = options && options.filter,
                         forceRefresh = options && options.forceRefresh;
-                    if(!results) {
+                    if (!results) {
                         results = ko.observableArray([]);
                     }
                     if (!items || !utils.hasProperties(items) || forceRefresh) {
@@ -163,7 +166,7 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                                 logger.error('oops! data could not be retrieved'); //TODO: get rid of this
                                 return;
                             }
-                            
+
                         }));
                     } else {
                         crossMatchSpeakers(results, filter, sortFunction);
@@ -177,26 +180,28 @@ app.datacontext = (function($, ko, logger, dataservice, model, utils) {
                 removeSessionById: removeSessionById
             };
         },
-        attendance = new EntitySet(dataservice.attendance.getAttendance, model.mapper.mapAttendance, model.attendanceNullo, 'SessionId'),
-        rooms = new EntitySet(dataservice.lookup.getRooms, model.mapper.mapRoom, model.roomNullo),
-        sessions = new EntitySet(dataservice.session.getSessionBriefs, model.mapper.mapSession, model.sessionNullo),
-        persons = new EntitySet(dataservice.person.getSpeakers, model.mapper.mapPerson, model.personNullo),
-        timeslots = new EntitySet(dataservice.lookup.getTimeslots, model.mapper.mapTimeSlot, model.timeSlotNullo),
-        tracks = new EntitySet(dataservice.lookup.getTracks, model.mapper.mapTrack, model.trackNullo),
+
+        attendance = new EntitySet(dataservice.attendance.getAttendance, mapper.mapAttendance, model.attendanceNullo, 'SessionId'),
+        rooms = new EntitySet(dataservice.lookup.getRooms, mapper.mapRoom, model.roomNullo),
+        sessions = new EntitySet(dataservice.session.getSessionBriefs, mapper.mapSession, model.sessionNullo),
+        persons = new EntitySet(dataservice.person.getSpeakers, mapper.mapPerson, model.personNullo),
+        timeslots = new EntitySet(dataservice.lookup.getTimeslots, mapper.mapTimeSlot, model.timeSlotNullo),
+        tracks = new EntitySet(dataservice.lookup.getTracks, mapper.mapTrack, model.trackNullo),
+
         sessionSpeakers = new SessionSpeakerEntitySet();
 
-    //TODO: In dataContext: 
-    // 1) I have not tested forceRefresh = true. it might work :D
-    // 2) Need to add code for allowing the datacontext.persons to get a real person vs speaker (brief).
-    // 3) Add code for allowing datacontext.sessions to get a real session, not a brief
+        //TODO: In dataContext:
+        // 1) I have not tested forceRefresh = true. it might work :D
+        // 2) Need to add code for allowing the datacontext.persons to get a real person vs speaker (brief).
+        // 3) Add code for allowing datacontext.sessions to get a real session, not a brief
 
-    return {
-        attendance: attendance,
-        persons: persons,
-        rooms: rooms,
-        sessions: sessions,
-        sessionSpeakers: sessionSpeakers,
-        timeslots: timeslots,
-        tracks: tracks
-    };
-})(jQuery, ko, app.config.logger, app.dataservice, app.model, app.utils);
+        return {
+            attendance: attendance,
+            persons: persons,
+            rooms: rooms,
+            sessions: sessions,
+            sessionSpeakers: sessionSpeakers,
+            timeslots: timeslots,
+            tracks: tracks
+        };
+    });

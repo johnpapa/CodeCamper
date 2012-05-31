@@ -1,15 +1,13 @@
-﻿// Depends on 
+﻿// Depends on
 //	jQuery
 //
 // Conventions
 //	All mock data is exposed through data  property
 // 	toggle mock usage on and off through useMocks property
 // ----------------------------------------------
-var app = app || {};
-
-app.mock = (function ($) {
-    var
-        init = function () {
+define(['jquery', 'moment'],
+    function($, moment) {
+        var init = function() {
             $.mockJSON.random = true;
             $.mockJSON.log = false;
             $.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward', 'Jim', 'Ryan'];
@@ -32,91 +30,90 @@ app.mock = (function ($) {
                 'Responsive Web Design',
                 'Structuring JavaScript Code',
                 'Keynote'
-                        ];
+            ];
             $.mockJSON.data.LEVEL = ["Beginner", "Intermediate", "Advanced"];
             $.mockJSON.data.TWITTER = ['john_papa', 'danwahlin', 'ifthenelse', 'scottgu', 'wardbell'];
             $.mockJSON.data.URL = ['http://www.johnpapa.net', 'http://www.pluralsight.com'];
             $.mockJSON.data.GENDER = ['F', 'M'];
-            $.mockJSON.data.RATING = [1,2,3,4,5];
+            $.mockJSON.data.RATING = [1, 2, 3, 4, 5];
         },
-        generateAttendance = function () {
-            return $.mockJSON.generateFromTemplate({
-                'attendance|8-16': [{
-                    'PersonId': 1,
-                    'SessionId|+1': 1,
-                    Rating: '@RATING',
-                    Text: '@LOREM_IPSUM'
-                }]
-            });
-        },
-        generateRooms = function () {
-            return $.mockJSON.generateFromTemplate({
-                'rooms|10-20': [{
-                    'Id|+1': 1,
-                    Name: '@LOREM'
-                }]
-            });
-        },
-        generateSessions = function () {
-            return $.mockJSON.generateFromTemplate({
-                'sessions|100-120': [{
-                    'Id|+1': 1,
-                    Title: '@TITLE',
-                    Code: '@LOREM',
-                    'SpeakerId|1-50': 1,
-                    'TrackId|1-10': 1,
-                    'TimeSlotId|1-15': 1,
-                    'RoomId|1-10': 1,
-                    Level: '@LEVEL',
-                    'Tags|1-5': '@TAG ,',
-                    Description: '@LOREM_IPSUM'
-                }]
-            });
-        },
-        generatePersons = function () {
-            return $.mockJSON.generateFromTemplate({
-                'persons|50-60': [{
-                    'Id|+1': 1,
-                    FirstName: '@SPEAKER_FIRST_NAME',
-                    LastName: '@SPEAKER_LAST_NAME',
-                    Email: '@EMAIL',
-                    Blog: '@URL',
-                    TWITTER: 'http://twitter.com/@' + '@TWITTER',
-                    GENDER: '@GENDER',
-                    ImageSource: '@IMAGE_SOURCE',
-                    Bio: '@LOREM_IPSUM'
-                }]
-            });
-        },
-        generateTimeslots = function () {
-            return $.mockJSON.generateFromTemplate({
-                'timeslots|15-20': [{
-                    'Id|+1': 1,
-                    Start: '@DATE_FULL',
-                    Duration: 60
-                }]
-            });
-        },
-        generateTracks = function () {
-            return $.mockJSON.generateFromTemplate({
-                'tracks|10-15': [{
-                    'Id|+1': 1,
-                    Name: '@LOREM'
-                }]
-            });
-        };
-    return {
-        init: init,
-        model: {
-            generateAttendance: generateAttendance,
-            generateRooms: generateRooms,
-            generateSessions: generateSessions,
-            generatePersons: generatePersons,
-            generateTimeslots: generateTimeslots,
-            generateTracks: generateTracks
-        },
-		dataservice : {}
-    };
-})(jQuery);
+            generateAttendance = function() {
+                return $.mockJSON.generateFromTemplate({
+                    'attendance|8-16': [{
+                        'PersonId': 1,
+                        'SessionId|+1': 1,
+                        Rating: '@RATING',
+                        Text: '@LOREM_IPSUM'
+                    }]
+                });
+            },
+            generateRooms = function() {
+                return $.mockJSON.generateFromTemplate({
+                    'rooms|10-20': [{
+                        'Id|+1': 1,
+                        Name: '@LOREM'
+                    }]
+                });
+            },
+            generateSessions = function() {
+                return $.mockJSON.generateFromTemplate({
+                    'sessions|100-120': [{
+                        'Id|+1': 1,
+                        Title: '@TITLE',
+                        Code: '@LOREM',
+                        'SpeakerId|1-50': 1,
+                        'TrackId|1-10': 1,
+                        'TimeSlotId|1-15': 1,
+                        'RoomId|1-10': 1,
+                        Level: '@LEVEL',
+                        'Tags|1-5': '@TAG ,',
+                        Description: '@LOREM_IPSUM'
+                    }]
+                });
+            },
+            generatePersons = function() {
+                return $.mockJSON.generateFromTemplate({
+                    'persons|50-60': [{
+                        'Id|+1': 1,
+                        FirstName: '@SPEAKER_FIRST_NAME',
+                        LastName: '@SPEAKER_LAST_NAME',
+                        Email: '@EMAIL',
+                        Blog: '@URL',
+                        TWITTER: 'http://twitter.com/@' + '@TWITTER',
+                        GENDER: '@GENDER',
+                        ImageSource: '@IMAGE_SOURCE',
+                        Bio: '@LOREM_IPSUM'
+                    }]
+                });
+            },
+            generateTimeslots = function() {
+                return $.mockJSON.generateFromTemplate({
+                    'timeslots|15-20': [{
+                        'Id|+1': 1,
+                        Start: '@DATE_FULL',
+                        Duration: 60
+                    }]
+                });
+            },
+            generateTracks = function() {
+                return $.mockJSON.generateFromTemplate({
+                    'tracks|10-15': [{
+                        'Id|+1': 1,
+                        Name: '@LOREM'
+                    }]
+                });
+            };
 
-app.mock.init();
+        init();
+        // ToDo: get rid of model?
+        return {
+            model: {
+                generateAttendance: generateAttendance,
+                generateRooms: generateRooms,
+                generateSessions: generateSessions,
+                generatePersons: generatePersons,
+                generateTimeslots: generateTimeslots,
+                generateTracks: generateTracks
+            }
+        };
+    });

@@ -1,24 +1,22 @@
 ﻿// Depends on
-//
+// Model
 // ----------------------------------------------
-app.model = app.model || {};
-
-app.model.mapper = (function () {
-    var
-        mapAttendance = function (raw, item) {
-            item = item || new app.model.Attendance().personId(raw.PersonId).sessionId(raw.SessionId);
+define(['model'],
+    function (model) {
+        var mapAttendance = function (raw, item) {
+            item = item || new model.Attendance().personId(raw.PersonId).sessionId(raw.SessionId);
             return item
-                .rating(raw.Rating)
-                .text(raw.Text);
+            .rating(raw.Rating)
+            .text(raw.Text);
         },
         mapRoom = function (raw, item) {
-            item = item || new app.model.Room().id(raw.Id);
+            item = item || new model.Room().id(raw.Id);
             return item
                 .name(raw.Name);
         },
         mapSession = function (raw, item) {
             // Always assume raw has been passed
-            item = item || new app.model.Session().id(raw.Id);
+            item = item || new model.Session().id(raw.Id);
             return item
                 .title(raw.Title)
                 .code(raw.Code)
@@ -31,7 +29,7 @@ app.model.mapper = (function () {
                 .tags(raw.Tags);
         },
         mapPerson = function (raw, item) {
-            item = item || new app.model.Person().id(raw.Id);
+            item = item || new model.Person().id(raw.Id);
             return item
                 .firstName(raw.FirstName)
                 .lastName(raw.LastName)
@@ -43,23 +41,23 @@ app.model.mapper = (function () {
                 .bio(raw.Bio);
         },
         mapTimeSlot = function (raw, item) {
-            item = item || new app.model.TimeSlot().id(raw.Id);
+            item = item || new model.TimeSlot().id(raw.Id);
             return item
                 .start(moment(raw.Start).toDate())
                 //.start(new Date(raw.Start))
                 .duration(raw.Duration);
         },
         mapTrack = function (raw, item) {
-            item = item || new app.model.Track().id(raw.Id);
+            item = item || new model.Track().id(raw.Id);
             return item
-                    .name(raw.Name);
+                .name(raw.Name);
         };
-    return {
-        mapAttendance: mapAttendance,
-        mapRoom: mapRoom,
-        mapSession: mapSession,
-        mapPerson: mapPerson,
-        mapTimeSlot: mapTimeSlot,
-        mapTrack: mapTrack
-    };
-})();
+        return {
+            mapAttendance: mapAttendance,
+            mapRoom: mapRoom,
+            mapSession: mapSession,
+            mapPerson: mapPerson,
+            mapTimeSlot: mapTimeSlot,
+            mapTrack: mapTrack
+        };
+    });

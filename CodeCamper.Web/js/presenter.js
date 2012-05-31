@@ -10,28 +10,29 @@
 //      Active routes will have .viewroute active class added to them.
 //
 // Example:
-// 	$('#showA').click(function() { app.presenter.transitionTo('#A') } );
-// 	$('#showB').click(function() { app.presenter.transitionTo('#B') } );
-// 	app.presenter.transitionTo('#A');
+// 	$('#showA').click(function() { presenter.transitionTo('#A') } );
+// 	$('#showB').click(function() { presenter.transitionTo('#B') } );
+// 	presenter.transitionTo('#A');
 //
 // ----------------------------------------------
-app.presenter = (function ($) {
-    var
+define(['jquery'],
+    function($) {
+        var
         transitionOptions = {
             fadeOut: 100,
             floatIn: 500,
             offset: '15px',
             ease: 'swing'
         },
-
-        resetViews = function () {
+        
+        resetViews = function() {
             $('.view').css({
                 marginLeft: transitionOptions.offset,
                 opacity: 0
             });
         },
-
-        entranceThemeTransition = function ($view) {
+        
+        entranceThemeTransition = function($view) {
             $view.css({
                 display: 'block',
                 visibility: "visible"
@@ -40,20 +41,20 @@ app.presenter = (function ($) {
                 opacity: 1
             }, transitionOptions.floatIn, transitionOptions.ease);
         },
-
-        transitionTo = function ($view, route, group) {
+        
+        transitionTo = function($view, route, group) {
             var $activeViews = $('.view-active');
-            if ($activeViews.length){
-                $activeViews.fadeOut(transitionOptions.fadeOut, function () {
+            if ($activeViews.length) {
+                $activeViews.fadeOut(transitionOptions.fadeOut, function() {
                     resetViews();
                     entranceThemeTransition($view);
                 });
                 $('.view').removeClass('view-active');
-            }else{
+            } else {
                 resetViews();
                 entranceThemeTransition($view);
             }
-            
+
             // Reset top level nav links
             //var $prevNavElements = $('nav > ul > li > a[href="' + route + '"]')
             //    .closest('nav')
@@ -67,9 +68,9 @@ app.presenter = (function ($) {
                 $(group).has('a[href="' + route + '"]').addClass('route-active');
             }
         };
-    
-    return {
-        transitionOptions: transitionOptions,
-        transitionTo: transitionTo
-    };
-})(jQuery);
+        
+        return {
+            transitionOptions: transitionOptions,
+            transitionTo: transitionTo
+        };
+    });

@@ -1,11 +1,8 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-var app = app || {};
-
-app.dataservice = app.dataservice || {};
-
-app.dataservice.person = (function (amplify) {
+define(['amplify'],
+    function (amplify) {
     var init = function() {
         amplify.request.define('speakers', 'ajax', {
             url: '/api/persons/speakers',
@@ -41,6 +38,6 @@ app.dataservice.person = (function (amplify) {
         getPersons: getPersons,
         getSpeakers: getSpeakers
     };
-})(amplify);
+});
 
 

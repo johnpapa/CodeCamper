@@ -1,9 +1,8 @@
 ﻿// Depends on 
 //	Amplify.js
 // ----------------------------------------------
-app.dataservice = app.dataservice || {};
-
-app.dataservice.attendance = (function (amplify) {
+define(['amplify'],
+    function (amplify) {
     var
         init = function() {
             amplify.request.define('attendance', 'ajax', {
@@ -27,4 +26,4 @@ app.dataservice.attendance = (function (amplify) {
     return {
         getAttendance: getAttendance
     };
-})(amplify);
+});

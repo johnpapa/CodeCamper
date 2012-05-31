@@ -163,12 +163,16 @@
     <Content Include="Content\bookmark.png" />
     <Content Include="Content\icon-blue.png" />
     <Content Include="js\config.js" />
-    <Content Include="js\speakerFilter.js" />
+    <Content Include="js\dataservice.js" />
+    <Content Include="js\filter.js" />
+    <Content Include="js\main.js" />
+    <Content Include="js\mock\mock.js" />
+    <Content Include="js\filter.speakers.js" />
     <Content Include="js\group.js" />
     <Content Include="js\dataservice.attendance.js" />
     <Content Include="js\debug.helpers.js" />
     <Content Include="js\mock\mock.dataservice.attendance.js" />
-    <Content Include="js\sessionFilter.js" />
+    <Content Include="js\filter.sessions.js" />
     <Content Include="js\dataservice.person.js" />
     <Content Include="js\mock\mock.dataservice.lookup.js" />
     <Content Include="js\mock\mock.dataservice.person.js" />
@@ -177,6 +181,7 @@
     <Content Include="js\dataservice.lookup.js" />
     <Content Include="js\sort.js" />
     <Content Include="js\utils.js" />
+    <Content Include="js\vm.js" />
     <Content Include="Scripts\activity-indicator.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />

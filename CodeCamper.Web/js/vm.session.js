@@ -1,21 +1,20 @@
-﻿// Depends on 
+﻿// Depends on
 //	Knockout
-// 	app.logger
-//	app.dataservice.session
+// 	logger
+//	datacontext
 // ----------------------------------------------
-app.vm = app.vm || {};
-
-app.vm.session = (function (ko, ds, logger) {
-    var
-        session = ko.observable(),
-        activate = function (routeData) {
-            logger.info('activated session view model');
-            var sessionId = routeData.id;
-            var result = app.datacontext.sessions.getById(sessionId);
-            session(result);
+define(['ko', 'datacontext', 'config'],
+    function (ko, datacontext, config) {
+        var logger = config.logger,
+            session = ko.observable(),
+            activate = function (routeData) {
+                logger.info('activated session view model');
+                var sessionId = routeData.id;
+                var result = datacontext.sessions.getById(sessionId);
+                session(result);
+            };
+        return {
+            session: session,
+            activate: activate
         };
-    return {
-        session: session,
-        activate: activate
-    };
-})(ko, app.dataservice.session, app.config.logger);
+    });

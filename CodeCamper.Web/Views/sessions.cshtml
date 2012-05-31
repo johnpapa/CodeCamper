@@ -1,19 +1,19 @@
 ﻿<section id="sessions" class="view">
     <nav>
         <label for="track">Track</label>
-        <select id="track" data-bind="options: tracks, value: sessionFilter.track, optionsText: 'name', optionsCaption:'All'">
+        <select id="track" data-bind="options: tracks, value: sessionsFilter.track, optionsText: 'name', optionsCaption:'All'">
         </select>
             
         <label for="speaker">Speaker</label>
-        <select id="speaker" data-bind="options: speakers, value: sessionFilter.speaker, optionsText: 'fullName', optionsCaption:'All'">
+        <select id="speaker" data-bind="options: speakers, value: sessionsFilter.speaker, optionsText: 'fullName', optionsCaption:'All'">
         </select>
             
         <label for="timeslot">Time slot</label>
-        <select id="timeslot" data-bind="options: timeslots, value: sessionFilter.timeslot, optionsText: 'shortStart', optionsCaption:'All'">
+        <select id="timeslot" data-bind="options: timeslots, value: sessionsFilter.timeslot, optionsText: 'shortStart', optionsCaption:'All'">
         </select>
             
         <label for="favoritesOnly">
-            <input id="favoritesOnly" style="display: inline" type="checkbox" data-bind="checked: sessionFilter.favoriteOnly"/>
+            <input id="favoritesOnly" style="display: inline" type="checkbox" data-bind="checked: sessionsFilter.favoriteOnly"/>
             Favorites Only
         </label>
         <label for="clearSideFilters">
@@ -24,7 +24,7 @@
 
     <div>
         <input class="filter-box"
-            data-bind="value: sessionFilter.searchText, valueUpdate: 'afterkeydown', event: {keyup: keyCaptureFilter}" 
+            data-bind="value: sessionsFilter.searchText, valueUpdate: 'afterkeydown', event: {keyup: keyCaptureFilter}" 
             placeholder="filter by room, speaker, tag, title, or track" type="text"/>
         <a class="clear-text" data-bind="click: clearFilter" title="Clear"></a>
         <a class="refresh" data-bind="click: refresh" title="Refresh"></a>
