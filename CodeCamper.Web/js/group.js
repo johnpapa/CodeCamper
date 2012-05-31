@@ -1,4 +1,7 @@
 ﻿// Depends on
+//  Underscore
+//  Knockout
+//  moment
 // ----------------------------------------------
 
 // Grouping
