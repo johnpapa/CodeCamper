@@ -439,6 +439,15 @@ button {
 	body {
 		font-size: 14px;
 	}
+
+    nav label {
+	    margin-bottom: 1%;
+    }
+
+    nav select {
+	    margin-bottom: 1%;
+    }
+
     .accent-top {
         width: 160px;
         height: 20px;
