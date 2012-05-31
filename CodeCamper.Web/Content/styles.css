@@ -87,7 +87,7 @@ body {
 
 		.view > div {
 			margin: 0 0 1% 260px;
-			overflow: auto;
+			/*overflow: auto;*/
 		}
         .view > .filter-box-container-full-width {
             margin: 0 0 1% 0;
