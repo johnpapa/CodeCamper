@@ -12,7 +12,9 @@
             <!-- ko if: speaker -->
             <address data-bind="text: speaker().fullName"></address>
             <!-- /ko -->
-            <label><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
+            <label class="markfavorite" title="Mark as favorite"><input 
+                data-bind="checked:isFavorite, enable: isUnlocked" 
+                type="checkbox"/><span></span></label>
         </div>
     </article>
 </section>

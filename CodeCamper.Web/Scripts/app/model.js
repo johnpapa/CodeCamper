@@ -109,6 +109,22 @@
                     }
                 },
                 owner: self
+            }),
+            self.isUnlocked = ko.computed({
+                read: function () {
+                    var id = self.id();
+                    var unlocked = false;
+                    //var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
+                    if (self.attendance && self.attendance()) {
+                        var attendance = self.attendance();
+                        unlocked = !(attendance.sessionId() === id && attendance.text() && (attendance.rating() > 0 || attendance.text().length > 0));
+                        //if (!unlocked) {
+                        //    toastr.info(attendance.sessionId() + ' - ' + attendance.text() + ' - ' + attendance.rating());
+                        //}
+                    }
+                    return unlocked;
+                },
+                deferEvaluation: true
             });
 
             return self;

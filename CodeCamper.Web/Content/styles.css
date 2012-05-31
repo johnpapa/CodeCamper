@@ -244,6 +244,10 @@ body {
 		   opacity: 1;
 		}
 
+        label.markfavorite > input[type=checkbox]:disabled + span {
+            background: url(bookmarklocked.png);
+        }
+
         label.markfavorite > input[type=checkbox] + span:hover {
 		   opacity: .8;
 		}

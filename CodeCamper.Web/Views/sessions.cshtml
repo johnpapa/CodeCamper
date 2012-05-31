@@ -41,8 +41,9 @@
             <address data-bind="text: speaker().fullName"></address>
             <small data-bind="text:tagsFormatted"></small>
         </div>
-        <label class="markfavorite" title="Mark as favorite"><input data-bind="checked:isFavorite" type="checkbox"/><span></span></label>
-        @*<a data-bind="attr: {href: '#/sessions/' + id() }">Details</a>*@
+        <label class="markfavorite" title="Mark as favorite"><input 
+            data-bind="checked:isFavorite, enable: isUnlocked" 
+            type="checkbox"/><span></span></label>
     </article>
     <!-- /ko -->
 
