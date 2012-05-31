@@ -123,8 +123,8 @@
                         //}
                     }
                     return unlocked;
-                },
-                deferEvaluation: true
+                }//,
+                //deferEvaluation: true
             });
 
             return self;
