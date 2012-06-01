@@ -49,8 +49,10 @@
                         } else {
                             items[id].id(0);
                         }
-                        items[id] = nullo;
-                    },
+						// TODO: WB: Don't set to nullo; no nullos in datacontext; delete it from items
+						//items[id] = nullo; 
+						delete items[id];
+					},
                     getById = function(id) {
                         return !!id && !!items[id] ? items[id] : nullo;
                     },
