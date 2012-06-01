@@ -36,7 +36,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events'],
                 }
             },
             activate = function () {
-                init();
                 getSpeakers();
                 getTimeslots();
                 getTracks();

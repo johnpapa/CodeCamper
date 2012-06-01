@@ -70,7 +70,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                 }
             },
             saveFavorite = function (selectedSession) {
-                debugger; //TODO:
+                //debugger; //TODO:
                 if (selectedSession.isFavorite()) {
                     // If we just unmarked it as a favorite, we need to go delete it.
                     datacontext.attendanceCud.deleteAttendance(selectedSession);
