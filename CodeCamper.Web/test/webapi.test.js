@@ -24,7 +24,7 @@ app.test.webApiGetEndpointsRespondOk = function () {
 
     var apiUrls = [
         //'/api/BAD_ENDPOINT',
-        '/api/lookups',
+        '/api/lookups/all',
         '/api/lookups/rooms',
         '/api/lookups/tracks',
         '/api/lookups/timeslots/',
@@ -32,14 +32,12 @@ app.test.webApiGetEndpointsRespondOk = function () {
         '/api/lookups/timeslots/?$filter=id%20eq%203',
         '/api/persons/?$top=3', // 'top 3' makes test 0.2 secs faster
         '/api/persons/1',
-        '/api/persons/2/attendance',
-        '/api/persons/speakers',
-        '/api/persons/speakers/?$filter=firstName%20eq%20\'Hans\'',
+        '/api/favorites/1',
+        '/api/speakers',
+        '/api/speakers/?$filter=firstName%20eq%20\'Hans\'',
         '/api/sessions/?$top=3', // 'top 3' makes test ~1 second faster
         '/api/sessions/2',
-        '/api/sessions/2/attendance',
-        '/api/sessions/briefs',
-        '/api/sessions/taggroups/',
+        '/api/sessionbriefs',
         '/api/attendance',
         '/api/attendance/?$filter=personId%20eq%202', // without spaces
         '/api/attendance/?$filter=personId eq 2', // with spaces
@@ -92,7 +90,7 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
             function () {
                 stop();
                 $.ajax({
-                    url: '/api/lookups',
+                    url: '/api/lookups/all',
                     dataType: 'json',
                     success: function (result) {
                         ok(!!result.Rooms && !!result.Tracks && !!result.TimeSlots,
@@ -112,7 +110,7 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
         function() {
             stop();
             $.ajax({
-                url: '/api/persons/speakers/?$filter=firstName%20eq%20\'Hans\'',
+                url: '/api/speakers/?$filter=firstName%20eq%20\'Hans\'',
                 dataType: 'json',
                 success: function(result) {
                     ok(!!result, "Got data when searching for Hans");

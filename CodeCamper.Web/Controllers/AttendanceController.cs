@@ -15,6 +15,7 @@ namespace CodeCamper.Web.Controllers
         }
 
         // GET: api/attendance
+        [Queryable]
         public IQueryable<Attendance> GetAttendance()
         {
             return Uow.Attendance.GetAll();
@@ -26,20 +27,24 @@ namespace CodeCamper.Web.Controllers
         {
             var attendance = Uow.Attendance.GetByIds(pid, sid);
             if (attendance != null) return attendance;
-            throw new HttpResponseException(HttpStatusCode.NotFound);
+            //throw new HttpResponseException(HttpStatusCode.NotFound);
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
         }
 
-        #region Add new Attendance
         // Create a new Attendance
         // POST /api/attendance
-        public HttpResponseMessage<Attendance> Post(Attendance attendance)
+        public HttpResponseMessage Post(Attendance attendance)
         {
             Uow.Attendance.Add(attendance);
             Uow.Commit();
 
             // Succeeded if got here; create 201 Created response
-            var response =
-                new HttpResponseMessage<Attendance>(attendance, HttpStatusCode.Created);
+            // webapi beta
+            //var response = new HttpResponseMessage(attendance, HttpStatusCode.Created);
+            // webapi rc w/o model
+            //var response = new HttpResponseMessage(HttpStatusCode.Created);
+            // as per Daniel Roth
+            var response = Request.CreateResponse<Attendance>(HttpStatusCode.Created, attendance);
 
             // Compose location header the tells how to get this attendance
             // e.g. http://www.mysite.com/api/attendance/?pid=2&sid=1
@@ -52,9 +57,6 @@ namespace CodeCamper.Web.Controllers
             return response;
         }
 
-        #endregion
-
-        #region Update existing Attendance
         // Update an existing Attendance 
         // PUT /api/attendance/
         public HttpResponseMessage Put(Attendance attendance)
@@ -63,18 +65,13 @@ namespace CodeCamper.Web.Controllers
             Uow.Commit();
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
-        #endregion 
-
-        #region Delete
 
         // DELETE /api/attendance/?pid=2&sid=1
         public HttpResponseMessage Delete(int pid, int sid)
-        {   
+        {
             Uow.Attendance.Delete(pid, sid);
             Uow.Commit();
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
-
-        #endregion
     }
 }

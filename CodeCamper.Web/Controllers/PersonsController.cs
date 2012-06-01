@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using CodeCamper.Model;
 
@@ -15,6 +16,7 @@ namespace CodeCamper.Web.Controllers
         }
 
         // GET /api/persons
+        [Queryable]
         public IQueryable<Person> Get()
         {
             return Uow.Persons.GetAll().OrderBy(p => p.FirstName);
@@ -25,32 +27,15 @@ namespace CodeCamper.Web.Controllers
         {
             var person = Uow.Persons.GetById(id);
             if (person != null) return person;
-            throw new HttpResponseException(HttpStatusCode.NotFound);
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
         }
 
         // PUT /api/persons/
+        [Queryable]
         public void Put(Person person)
         {
             Uow.Persons.Update(person);
             Uow.Commit();
         }
-
-        #region Actions (RPC methods)
-
-        // GET: api/persons/speakers
-        [ActionName("speakers")]
-        public IQueryable<Speaker> GetSpeakers()
-        {
-            return Uow.Persons.GetSpeakers().OrderBy(s => s.FirstName);
-        }
-
-        // GET: api/persons/{personId}/attendance
-        [ActionName("attendance")]
-        public IQueryable<Attendance> GetAttendanceByPersonId(int id)
-        {
-            return Uow.Attendance.GetByPersonId(id).OrderBy(ps => ps.Session.Title);
-        }
-
-        #endregion
     }
 }
