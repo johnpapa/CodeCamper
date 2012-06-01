@@ -3,7 +3,7 @@
     var
         init = function () {
             amplify.request.define('lookups', 'ajax', {
-                url: '/api/lookups',
+                url: '/api/lookups/all',
                 dataType: 'json',
                 type: 'GET'
                 //cache:

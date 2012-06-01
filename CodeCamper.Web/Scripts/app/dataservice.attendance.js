@@ -2,8 +2,8 @@
     function (amplify) {
         var
             init = function () {
-                amplify.request.define('attendance', 'ajax', {
-                    url: '/api/persons/{personId}/attendance',
+                amplify.request.define('favorites', 'ajax', {
+                    url: '/api/favorites/{personId}',
                     dataType: 'json',
                     type: 'GET'
                     //cache:
@@ -19,7 +19,7 @@
             
             getAttendance = function(callbacks, personId) {
                 return amplify.request({
-                    resourceId: "attendance",
+                    resourceId: "favorites",
                     data: { personId: personId },
                     success: callbacks.success,
                     error: callbacks.error

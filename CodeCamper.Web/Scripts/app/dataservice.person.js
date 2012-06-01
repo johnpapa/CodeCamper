@@ -2,7 +2,7 @@
     function (amplify) {
     var init = function() {
         amplify.request.define('speakers', 'ajax', {
-            url: '/api/persons/speakers',
+            url: '/api/speakers',
             dataType: 'json',
             type: 'GET'
             //cache:

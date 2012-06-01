@@ -9,7 +9,7 @@
                 //cache:
             });
             amplify.request.define('session-briefs', 'ajax', {
-                url: '/api/sessions/briefs',
+                url: '/api/sessionbriefs',
                 dataType: 'json',
                 type: 'GET'
                 //cache:
