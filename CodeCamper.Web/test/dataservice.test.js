@@ -30,8 +30,8 @@ app.test.dataservicesReturnData = function () {
                     start();
                 }
             });
-        })
-
+        });
+    
     var retrievalTest = function (t) {
         stop();
         var params = [];
@@ -63,6 +63,33 @@ app.test.dataservicesReturnData = function () {
                  return function() { retrievalTest(t); };
             }(t));
     }
+
+    module('CUD for Attendance');
+
+    var testAttendance = {
+        personId: 1,
+        sessionId: 3,
+        rating: 1,
+        text: "Dummy attendance and evaluation."
+    };
+        
+    test('Add a Favorite', function() {
+        var data = JSON.stringify(testAttendance);
+        stop();
+        app.dataservice.attendance.add({
+            success: function (result) {
+                ok(result.PersonId === testAttendance.personId &&
+                            result.SessionId === testAttendance.sessionId,
+                            "returned key matches testAttendance key."
+                        );
+                start();
+            },
+            error: function (result) {
+                ok(false, 'Failed with: ' + result.responseText);
+                start();
+            }
+        }, data.personId, data.sessionId);
+    });
 };
 
 $(function () {

@@ -1,14 +1,16 @@
 ﻿// Description
-//  Defines namespace and common utilities
+//  Defines common utilities
 // ----------------------------------------------
 define(['moment'],
     function (moment) {
-        var endOfDay = function (day) {
-            return moment(new Date(day))
-                .add('days', 1)
-                .add('seconds', -1)
-                .toDate();
-        },
+        var
+            endOfDay = function (day) {
+                return moment(new Date(day))
+                    .add('days', 1)
+                    .add('seconds', -1)
+                    .toDate();
+            },
+            
             hasProperties = function (obj) {
                 for (var prop in obj) {
                     if (obj.hasOwnProperty(prop)) {
@@ -17,6 +19,7 @@ define(['moment'],
                 }
                 return false;
             },
+            
             mapMemoToArray = function (items) {
                 var underlyingArray = [];
                 for (var prop in items) {
@@ -26,6 +29,7 @@ define(['moment'],
                 }
                 return underlyingArray;
             },
+            
             regExEscape = function (text) {
                 // Removes regEx characters from search filter boxes in our app
                 return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

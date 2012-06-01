@@ -85,11 +85,11 @@ body {
 		margin-top: 3%;
 	}
 
-		.view > div {
+		.filter-box-container {
 			margin: 0 0 2% 260px;
 			/*overflow: auto;*/
 		}
-        .view > .filter-box-container-full-width {
+        .filter-box-container-full-width {
             margin: 0 0 1% 0;
         }
 
@@ -105,11 +105,11 @@ body {
 				width: 100%;
 			}
 
-				.view > div > ::-webkit-input-placeholder {
+				.filter-box > ::-webkit-input-placeholder {
 				    color: rgb(100,100,100);
 				}
 
-				.view > div > :-moz-placeholder {
+				.filter-box > :-moz-placeholder {
 				    color: rgba(255,255,255,.8);
 				}
 
@@ -162,13 +162,13 @@ body {
 		    color: #000000;
 		}
 
-	.view > article {
+	.article-right-content {
 		border-bottom: solid 1px rgba(0, 0, 0, .1);
 		margin: 0 0 0 260px;
 		min-height: 100px;
 		padding: 20px;
 	}
-    .view > .article-container-full-width {
+    .article-container-full-width {
         margin: 4px;
         float: left;
         width: 110px;
@@ -177,18 +177,18 @@ body {
         /*border: 1px dotted #D3D3D3;*/
     }
 
-    .view > article:hover {
+    .view-list > article:hover {
 		background: rgba(0,0,0,.05);
 		cursor: pointer;
 	}
 
-		.view > article h1 {
+		.view-list > article h1 {
 			font-size: 125%;
 			line-height: 120%;
 			margin-bottom: 2%;
 		}
 
-		.view > article > div > img {
+		.view-list > article > div > img {
 			background: rgba(255, 255, 255, .8);
 			border: 1px solid rgba(255, 255, 255, 1);
 			box-shadow: 0 0 1px rgba(0,0,0,0.4);
@@ -197,13 +197,13 @@ body {
 			margin-right: 4%;
 			padding: 4px;
 		}
-        .view > .article-container-full-width img {
+        .view-list > .article-container-full-width img {
             float: none;
             display: block;
             margin: auto;
         }
 
-        .view > article > div > time {
+        .view-list > article > div > time {
 			font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 			font-weight: bold;
 			float: right;
@@ -211,14 +211,14 @@ body {
 			text-transform: uppercase;
 		}
 
-		.view > article > div > address {
+		.view-list > article > div > address {
 			font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 			font-size: 95%;
 			font-weight: bold;
 			text-transform: uppercase;
 		}
 
-        .view > .article-container-full-width address {
+        .view-list > .article-container-full-width address {
             text-align: center;
         }
 
@@ -469,7 +469,7 @@ button {
 		padding-left: 60px;
 	}
 
-	.view > div > input {
+	.filter-box > input {
 		background-position: 5px center;
 		padding: 5px 5px 5px 25px;
 		margin: 2% 0 2% 0px;
@@ -486,8 +486,8 @@ button {
 		}
 
     .view > h1,
-	.view > article,
-    .view > div {
+	.view-list > article,
+    .filter-box {
         margin: 0 0 4% 0;
 	}
 
@@ -500,7 +500,7 @@ button {
 			padding: 0 10px;
 		}
 
-		.view > article > div > img {
+		.view-list > article > div > img {
 			height: 90px;
 		}
 
@@ -521,16 +521,16 @@ button {
 		padding-left: 50px;
 	}
 
-    .view > article {
+    .view-list > article {
 		min-height: 80px;
 		padding: 10px;
 	}
 
-		.view > article > div > h1 {
+		.view-list > article > div > h1 {
 			margin-top: 1%;
 		}
 
-		.view > article > div > img {
+		.view-list > article > div > img {
 			height: 70px;
 		}
 

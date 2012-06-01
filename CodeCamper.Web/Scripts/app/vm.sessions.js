@@ -3,8 +3,8 @@
 //  The user can further filter this subset of Sessions by additional criteria.
 //
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort'],
-    function(ko, router, datacontext, filter, sort) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events'],
+    function(ko, router, datacontext, filter, sort, events) {
         var pauseRefresh = false,
             sessionsFilter = new filter.SessionsFilter(),
             sessions = ko.observableArray(),
@@ -35,7 +35,8 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort'],
                     });
                 }
             },
-            activate = function() {
+            activate = function () {
+                init();
                 getSpeakers();
                 getTimeslots();
                 getTracks();
@@ -53,6 +54,16 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort'],
             gotoDetails = function(selectedSession) {
                 if (selectedSession && selectedSession.id()) {
                     router.navigateTo('#/sessions/' + selectedSession.id());
+                }
+            },
+            saveFavorite = function (selectedSession) {
+                debugger; //TODO:
+                if (selectedSession.isFavorite()) {
+                    // If we just unmarked it as a favorite, we need to go delete it.
+                    datacontext.attendanceCud.deleteAttendance(selectedSession);
+                } else {
+                    // If we just marked it as a favorite, we need to go add it.
+                    datacontext.attendanceCud.addAttendance(selectedSession);
                 }
             },
             clearFilter = function() {
@@ -80,16 +91,21 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort'],
                 sessionsFilter.timeslot.subscribe(refresh);
                 sessionsFilter.track.subscribe(refresh);
                 sessionsFilter.favoriteOnly.subscribe(refresh);
+            },
+            init = function () {
+                events.sessionBriefBinding(gotoDetails);
+                events.sessionFavoriteBinding(saveFavorite);
+                addFilterSubscriptions();
             };
 
-        // Initialization
-        addFilterSubscriptions();
+            // Initialization
+            init();
 
         return {
             activate: activate,
             clearFilter: clearFilter,
             clearSideFilters: clearSideFilters,
-            gotoDetails: gotoDetails,
+            //gotoDetails: gotoDetails,
             keyCaptureFilter: keyCaptureFilter,
             refresh: refresh,
             sessionsFilter: sessionsFilter,

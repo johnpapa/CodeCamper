@@ -165,6 +165,7 @@
     <Content Include="Content\bookmark.png" />
     <Content Include="Content\icon-blue.png" />
     <Content Include="Scripts\app\config.js" />
+    <Content Include="Scripts\app\events.js" />
     <Content Include="Scripts\app\dataservice.js" />
     <Content Include="Scripts\app\filter.js" />
     <Content Include="Scripts\app\main.js" />

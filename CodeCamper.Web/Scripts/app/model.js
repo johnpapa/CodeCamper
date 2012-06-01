@@ -79,6 +79,12 @@
                 var text = self.tags();
                 return text ? text.replace(/\|/g, ', ') : text;
             }),
+            //self.isFavorite = ko.computed(function () {
+            //    var id = self.id();
+            //    //var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
+            //    var match = self.attendance ? self.attendance().sessionId() === id : null;
+            //    return !!match;
+            //}),
             self.isFavorite = ko.computed({
                 read: function () {
                     var id = self.id();
@@ -86,27 +92,32 @@
                     var match = self.attendance ? self.attendance().sessionId() === id : null;
                     return !!match;
                 },
-                // Chicken and the egg kind of situation (attendance or datacontext are setup later.
-                // The "deferEvalation" flag will prevent it from running immediately
-                // and it will wait until something actually tries to access its value.
+                 //Chicken and the egg kind of situation (attendance or datacontext are setup later.
+                 //The "deferEvalation" flag will prevent it from running immediately
+                 //and it will wait until something actually tries to access its value.
                 deferEvaluation: true,
                 write: function (value) {
-                    //TODO: come back and fix this when we get to the SESSIONS screen
-                    //if (!self.attendance) return;
+                    //TODO:  explain this
+                    // Made this a no-op because without the write, 
+                    // when the checkbox is clicked it fires the click event twice 
+                    // and sets the computed = true (not the function)
+                    return;
+                    ////TODO: come back and fix this when we get to the SESSIONS screen
+                    ////if (!self.attendance) return;
 
-                    if (value) {
-                        //create attendance
-                        var newObj = new Attendance()
-                            .sessionId(self.id())
-                            .personId(config.currentUser().id());
-                        self.datacontext().attendance.add(newObj, 'sessionId');
+                    //if (value) {
+                    //    //create attendance
+                    //    var newObj = new Attendance()
+                    //        .sessionId(self.id())
+                    //        .personId(config.currentUser().id());
+                    //    self.datacontext().attendance.add(newObj, 'sessionId');
 
-                        // Explicitly set the flag so we can force the re-evauation of the read
-                        self.id.valueHasMutated();
-                    } else if (!value && this.datacontext) {
-                        // remove attendance
-                        self.datacontext().attendance.removeById(self.id(), 'sessionId');
-                    }
+                    //    // Explicitly set the flag so we can force the re-evauation of the read
+                    //    self.id.valueHasMutated();
+                    //} else if (!value && this.datacontext) {
+                    //    // remove attendance
+                    //    self.datacontext().attendance.removeById(self.id(), 'sessionId');
+                    //}
                 },
                 owner: self
             }),
@@ -114,7 +125,6 @@
                 read: function () {
                     var id = self.id();
                     var unlocked = false;
-                    //var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
                     if (self.attendance && self.attendance()) {
                         var attendance = self.attendance();
                         unlocked = !(attendance.sessionId() === id && attendance.text() && (attendance.rating() > 0 || attendance.text().length > 0));

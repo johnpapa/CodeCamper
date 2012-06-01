@@ -3,10 +3,9 @@
 //  that the current user has marked as favorites.
 //  The user can further filter this subset of Sessions by additional criteria,
 //  the same filter criteria that can be applied to all sessions.
-//
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config'],
-    function(ko, router, datacontext, filter, sort, group, utils, config) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events'],
+    function(ko, router, datacontext, filter, sort, group, utils, config, events) {
         var selectedDate,
             sessionsFilter = new filter.SessionsFilter(),
             timeslots = ko.observableArray(),
@@ -70,7 +69,17 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                     router.navigateTo('#/sessions/' + selectedSession.id());
                 }
             },
-            clearFilter = function() {
+            saveFavorite = function (selectedSession) {
+                debugger; //TODO:
+                if (selectedSession.isFavorite()) {
+                    // If we just unmarked it as a favorite, we need to go delete it.
+                    datacontext.attendanceCud.deleteAttendance(selectedSession);
+                } else {
+                    // If we just marked it as a favorite, we need to go add it.
+                    datacontext.attendanceCud.addAttendance(selectedSession);
+                }
+            },
+            clearFilter = function () {
                 if (sessionsFilter.searchText().length) {
                     sessionsFilter.searchText('');
                 }
@@ -80,12 +89,14 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                     clearFilter();
                 }
             },
-            initialize = function () {
-                //debugInfo = config.debugInfo(sessions);
+            init = function () {
+                events.favoriteSessionBriefBinding(gotoDetails);
+                events.favoriteSessionFavoriteBinding(saveFavorite);
                 sessionsFilter.searchText.subscribe(loadByDate);
             };
 
-        initialize();    
+            // Initialization
+            init();
 
         return {
             clearFilter: clearFilter,
