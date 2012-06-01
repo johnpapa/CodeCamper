@@ -142,12 +142,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\aaron_skonnard.jpg" />
     <Content Include="Content\bookmarklocked.png" />
     <Content Include="Content\checkbox_checked.png" />
     <Content Include="Content\checkbox_unchecked.png" />
     <Content Include="Content\clear.png" />
     <Content Include="Content\dan_wahlin.jpg" />
     <Content Include="Content\felix_fanboi.jpg" />
+    <Content Include="Content\fritz_onion.jpg" />
     <Content Include="Content\hans_fjallemark.jpg" />
     <Content Include="Content\icon.png" />
     <Content Include="Content\jim_cowart.jpg" />
