@@ -31,15 +31,17 @@
             .personId(0)
             .rating(0)
             .text('');
+        attendanceNullo.isNullo = true;
 
         Attendance.prototype = function () {
             var person = function () {
                 return this.datacontext().persons.getById(this.personId());
             },
-                session = function () {
-                    return this.datacontext().sessions.getById(this.sessionId());
-                };
+            session = function () {
+                return this.datacontext().sessions.getById(this.sessionId());
+            };
             return {
+                isNullo: false,
                 person: person,
                 session: session
             };
@@ -52,12 +54,14 @@
             self.datacontext = datacontext;
             self.id = ko.observable();
             self.name = ko.observable();
+            self.isNullo = false;
             return self;
         };
 
         var roomNullo = new Room()
             .id(0)
             .name('Not a room');
+        roomNullo.isNullo = true;
 
         // Session
         // ----------------------------------------------
@@ -151,25 +155,28 @@
             .description('')
             .level('')
             .tags('');
+        sessionNullo.isNullo = true;
 
         Session.prototype = function () {
             var attendance = function () {
                 return this.datacontext().attendance.getById(this.id());
             },
-                room = function () {
-                    return this.datacontext().rooms.getById(this.roomId());
-                },
-                speaker = function () {
-                    return this.datacontext().persons.getById(this.speakerId()); //TODO: do i get from persons or speakers?
-                },
-                timeslot = function () {
-                    return this.datacontext().timeslots.getById(this.timeslotId());
-                },
-                track = function () {
-                    return this.datacontext().tracks.getById(this.trackId());
-                };
+            room = function () {
+                return this.datacontext().rooms.getById(this.roomId());
+            },
+            speaker = function () {
+                //TODO: do i get from persons or speakers?
+                return this.datacontext().persons.getById(this.speakerId());
+            },
+            timeslot = function () {
+                return this.datacontext().timeslots.getById(this.timeslotId());
+            },
+            track = function () {
+                return this.datacontext().tracks.getById(this.trackId());
+            };
 
             return {
+                isNullo : false,
                 attendance: attendance,
                 speaker: speaker,
                 room: room,
@@ -216,17 +223,18 @@
             .gender('M')
             .imageSource('')
             .bio('');
+        personNullo.isNullo = true;
 
-        //TODO:
-        //Person.prototype = function () {
-        //    var
-        //        attendanceList = function () {
-        //            return this.datacontext().attendance.getByPersonId(this.personId());
-        //        }
-        //    return {
-        //        attendanceList: attendanceList
-        //    }
-        //}()
+        Person.prototype = function() {
+            //TODO:
+            //var attendanceList = function () {
+            //        return this.datacontext().attendance.getByPersonId(this.personId());
+            //}
+            return {
+                //attendanceList: attendanceList,
+                isNullo: false
+            };
+        }();
 
         // Timeslot
         // ----------------------------------------------
@@ -251,6 +259,7 @@
             self.dayStart = ko.computed(function () {
                 return self.start() ? moment(self.start()).format('dddd MMM Do') : '';
             }, self);
+            self.isNullo = false;
             return self;
         };
 
@@ -258,6 +267,7 @@
             .id(0)
             .start(new Date(2012, 4, 18, 1, 0, 0, 0))
             .duration(60);
+        timeSlotNullo.isNullo = true;
 
         // Track
         // ----------------------------------------------
@@ -266,15 +276,16 @@
             self.datacontext = datacontext;
             self.id = ko.observable();
             self.name = ko.observable();
+            self.isNullo = false;
             return self;
         };
 
         var trackNullo = new Track()
             .id(0)
             .name('Not a track');
+        Track.isNullo = true;
 
         return {
-
             imageBasePath: imageBasePath,
             unknownPersonImageSource: unknownPersonImageSource,
 

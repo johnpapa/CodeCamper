@@ -113,6 +113,54 @@
                         // clear out the results observableArray
                         observableArray([]);
 
+            if (filter) {
+                underlyingArray = _.filter(underlyingArray, function (o) {
+                    var match = filter.predicate(filter, o);
+                    return match;
+                });
+            }
+            if (sortFunction) {
+                underlyingArray.sort(sortFunction);
+            }
+            logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records');
+            observableArray(underlyingArray);
+            //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
+        },
+        mapToContext = function (dtoList, items, results, mapperFunction, filter, sortFunction, propName) {
+            // Loop through the raw dto list and populate a dictionary of the items
+            items = _.reduce(dtoList, function (memo, dto) {
+                // If propName is passed, use it. Otherwise use id
+                var id = propName ? dto[propName] : dto.Id;
+                var existingItem = items[id];
+                memo[id] = mapperFunction(dto, existingItem);
+                return memo;
+            }, {});
+            itemsToArray(items, results, filter, sortFunction);
+            logger.success('received with ' + dtoList.length + ' elements');
+            return items; // must return these
+        },
+        EntitySet = function (getFunction, mapperFunction, nullo, propName) {
+            var items = {},
+                add = function (newObj, keyName) {
+                    // If keyName is passed, use it. Otherwise use id property
+                    var id = keyName ? newObj[keyName]() : newObj.id();
+                    items[id] = newObj;
+                },
+                removeById = function (id, keyName) {
+                    // If keyName is passed, use it. Otherwise use id property
+                    // Causes observables to be notified (ex: unmarking a favorite)
+                    if (keyName) {
+                        items[id][keyName](0);
+                    } else {
+                        items[id].id(0);
+                    }
+                    items[id] = nullo;
+                },
+                getById = function (id) {
+                    return !!id && !!items[id] ? items[id] : nullo;
+                },
+                getData = function (options) {
+                    return $.Deferred(function (def) {
                         var underlyingArray = observableArray();
                         // get an array of persons
                         for (var prop in items) {
