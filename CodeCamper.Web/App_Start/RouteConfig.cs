@@ -32,8 +32,10 @@ namespace CodeCamper.Web
                 routeTemplate: "api/{controller}"
             );
 
+            // This is the default route that a "File | New MVC 4 " project creates.
+            //
             // This controller-per-type route lets us fetch a single resource by numeric id
-            // It finds the appropriate method BetById method
+            // It finds the appropriate method GetById method
             // on the controller using WebAPI conventions
             // The {id} is not optional, must be an integer, and 
             // must match a method with a parameter named "id" (case insensitive)

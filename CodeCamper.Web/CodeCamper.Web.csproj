@@ -140,7 +140,7 @@
     <Compile Include="Controllers\SessionBriefsController.cs" />
     <Compile Include="Controllers\FavoritesController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
-    <Compile Include="NinjectDependencyResolver.cs" />
+    <Compile Include="App_Start\NinjectDependencyResolver.cs" />
     <Compile Include="Controllers\LookupsController.cs" />
     <Compile Include="Controllers\ApiBaseController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
