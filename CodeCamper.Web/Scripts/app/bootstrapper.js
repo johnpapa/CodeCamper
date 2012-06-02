@@ -20,26 +20,28 @@ define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontex
         // avoids circular reference between model & datacontext
         model.datacontext(datacontext);
 
-        var bindViewModelsToViews = function () {
-            ko.applyBindings(vm.session, $('#session').get(0));
-            ko.applyBindings(vm.sessions, $('#sessions').get(0));
-            ko.applyBindings(vm.favorites, $('#favorites').get(0));
-            ko.applyBindings(vm.speakers, $('#speakers').get(0));
-        },
+        var
+            bindViewModelsToViews = function () {
+                ko.applyBindings(vm.session, $('#session').get(0));
+                ko.applyBindings(vm.sessions, $('#sessions').get(0));
+                ko.applyBindings(vm.favorites, $('#favorites').get(0));
+                ko.applyBindings(vm.speakers, $('#speakers').get(0));
+            },
+
             registerRoutes = function () {
                 // Bind the views to the view models
                 // Favorites routes
                 router.register({
                     routes:
-                        [{ route: '#/favorites', title: 'Favorites', callback: vm.favorites.loadByDate, group: '.route-top' },
-                            { route: '#/favorites/date/:date', title: 'Favorites', callback: vm.favorites.loadByDate, group: '.route-left' }],
+                        [{ route: '#/favorites', title: 'Favorites', callback: vm.favorites.activate, group: '.route-top' },
+                            { route: '#/favorites/date/:date', title: 'Favorites', callback: vm.favorites.activate, group: '.route-left' }],
                     view: '#favorites'
                 });
                 // Sessions routes
                 router.register({
                     routes:
                         [{ route: '#/sessions', title: 'Sessions', callback: vm.sessions.activate, group: '.route-top' }],
-                    //{ route: '#/sessions/date/:date', callback: vm.sessions.loadByDate, group: '.route-left' },
+                    //{ route: '#/sessions/date/:date', callback: vm.sessions.activate, group: '.route-left' },
                     //{ route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack, group: '.route-left' },
                     view: '#sessions'
                 });
@@ -52,6 +54,7 @@ define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontex
                 router.register({ route: /.*/, title: '', callback: function () { toastr.error('invalid route'); }, view: '' });
                 router.run('#/favorites');
             },
+            
             run = function () {
 
                 //PAPA: hard coded the user
@@ -65,10 +68,13 @@ define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontex
                     datacontext.timeslots.getData(),
                     datacontext.tracks.getData(),
                     datacontext.attendance.getData({ param: config.currentUser().id() }),
-                    datacontext.persons.getData(), // PAPA: this just gets speakers, by default
-                    datacontext.sessions.getData(), //TODO: get ME, too ... current user
+                    datacontext.persons.getData(), // TODO: this currently just gets speakers. need to refactor in DC
+                    datacontext.sessions.getData(),
+
+                    //TODO: get ME, too ... current user
+                    
                     datacontext.sessionSpeakers.getData()
-                )
+                    )
                     .done(bindViewModelsToViews)
                     .done(registerRoutes)
                     .always(function () {

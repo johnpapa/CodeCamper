@@ -62,7 +62,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                 });
             },
 
-            loadByDate = function (data) {
+            activate = function (data) {
                 getTimeslots();
                 setSelectedDay(data);
                 refresh();
@@ -96,7 +96,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             init = function () {
                 events.favoriteSessionBriefBinding(gotoDetails);
                 events.favoriteSessionFavoriteBinding(saveFavorite);
-                sessionsFilter.searchText.subscribe(loadByDate);
+                sessionsFilter.searchText.subscribe(activate);
                 selectedDate.subscribe(synchSelectedDateWithIsSelected);
             };
 
@@ -109,7 +109,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             //debugInfo: debugInfo,
             gotoDetails: gotoDetails,
             keyCaptureFilter: keyCaptureFilter,
-            loadByDate: loadByDate,
+            activate: activate,
             refresh: refresh,
             sessionsFilter: sessionsFilter,
             sessions: sessions,

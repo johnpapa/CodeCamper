@@ -2,11 +2,13 @@
     function (ko, config) {
 
         var imageBasePath = '../content/',
-            unknownPersonImageSource = 'unknown_person.jpg';
+            unknownPersonImageSource = 'unknown_person.jpg',
+            logger = config.logger,
 
         // To avoid a circular model/datacontext reference
         // model.datacontext is set in Bootstrapper
-        var _datacontext,
+            _datacontext,
+
             datacontext = function (dc) {
                 if (!!dc) {
                     _datacontext = dc;
@@ -78,22 +80,19 @@
             self.level = ko.observable();
             self.tags = ko.observable();
             self.description = ko.observable();
+            self.favoriteChangeStatus = ko.observable();
 
             self.tagsFormatted = ko.computed(function () {
                 var text = self.tags();
                 return text ? text.replace(/\|/g, ', ') : text;
             }),
-            //self.isFavorite = ko.computed(function () {
-            //    var id = self.id();
-            //    //var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
-            //    var match = self.attendance ? self.attendance().sessionId() === id : null;
-            //    return !!match;
-            //}),
+
             self.isFavorite = ko.computed({
                 read: function () {
-                    var id = self.id();
-                    //var match = self.datacontext && self.attendance ? self.attendance().sessionId() === id : null;
-                    var match = self.attendance ? self.attendance().sessionId() === id : null;
+                    var id = self.id(),
+                        changedMsg = self.favoriteChangeStatus(); // just to fire off the computed. a no-op
+                    logger.info(' Fav changed: ' + changedMsg); //TODO: remove this. for debugging only
+                    var match = self.attendance() ? self.attendance().sessionId() === id : null; //TODO: update all nav to check by self.attendance()
                     return !!match;
                 },
                  //Chicken and the egg kind of situation (attendance or datacontext are setup later.
