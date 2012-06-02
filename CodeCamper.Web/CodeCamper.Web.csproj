@@ -212,15 +212,15 @@
     <Content Include="Scripts\lib\sammy.title.js" />
     <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Scripts\lib\underscore.min.js" />
-    <Content Include="test\dataservice.test.js" />
-    <Content Include="test\dataservice.test.html" />
-    <Content Include="test\qunit\qunit.css" />
+    <Content Include="Test\dataservice.test.js" />
+    <Content Include="Test\dataservice.test.html" />
+    <Content Include="Test\qunit\qunit.css" />
     <Content Include="Content\search.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Global.asax" />
-    <Content Include="test\webapi.test.html" />
+    <Content Include="Test\webapi.test.html" />
     <Content Include="Scripts\app\bootstrapper.js" />
     <Content Include="Scripts\app\vm.session.js" />
     <Content Include="Scripts\app\model.js" />
@@ -248,10 +248,10 @@
     <Content Include="Scripts\lib\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
-    <Content Include="test\qunit\qunit.js" />
+    <Content Include="Test\qunit\qunit.js" />
     <Content Include="Scripts\lib\sammy.js" />
     <Content Include="Scripts\lib\toastr.js" />
-    <Content Include="test\webapi.test.js" />
+    <Content Include="Test\webapi.test.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

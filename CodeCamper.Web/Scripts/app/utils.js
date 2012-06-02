@@ -20,6 +20,11 @@ define(['moment'],
                 return false;
             },
             
+            keys = {
+                enter: 13,
+                escape: 27
+            },
+            
             mapMemoToArray = function (items) {
                 var underlyingArray = [];
                 for (var prop in items) {
@@ -38,6 +43,7 @@ define(['moment'],
         return {
             endOfDay: endOfDay,
             hasProperties: hasProperties,
+            keys: keys,
             mapMemoToArray: mapMemoToArray,
             regExEscape: regExEscape
         };

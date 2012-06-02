@@ -1,6 +1,10 @@
-﻿define(['jquery', 'ko'],
-    function ($, ko) {
+﻿define(['jquery', 'ko', 'router'],
+    function ($, ko, router) {
         var
+            navToSession = function (id) {
+                router.navigateTo('#/sessions/' + id);
+            },
+
             favoriteSessionBriefBinding = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#favorites').on(eName, '.session-brief', function () {
@@ -11,6 +15,7 @@
                     return false;
                 });
             },
+
             sessionBriefBinding = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#sessions').on(eName, '.session-brief', function () {
@@ -19,6 +24,7 @@
                     return false;
                 });
             },
+
             favoriteSessionFavoriteBinding = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#favorites').on(eName, '.markfavorite input[type=checkbox]', function () {
@@ -27,6 +33,7 @@
                     return false;
                 });
             },
+
             sessionFavoriteBinding = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#sessions').on(eName, '.markfavorite input[type=checkbox]', function () {
@@ -37,10 +44,11 @@
             };
 
         return {
-            sessionBriefBinding: sessionBriefBinding,
-            sessionFavoriteBinding: sessionFavoriteBinding,
+            navToSession: navToSession,
             favoriteSessionFavoriteBinding: favoriteSessionFavoriteBinding,
-            favoriteSessionBriefBinding: favoriteSessionBriefBinding
+            favoriteSessionBriefBinding: favoriteSessionBriefBinding,
+            sessionBriefBinding: sessionBriefBinding,
+            sessionFavoriteBinding: sessionFavoriteBinding
         };
     });
 

@@ -6,20 +6,17 @@
 // ----------------------------------------------
 define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events'],
     function(ko, router, datacontext, filter, sort, group, utils, config, events) {
-        var selectedDate,
+        var
+            selectedDate = ko.observable(),
             sessionsFilter = new filter.SessionsFilter(),
             timeslots = ko.observableArray(),
             sessions = ko.observableArray(), //.trackReevaluations(),
+            
             days = ko.computed(function() {
                 return group.timeslotsToDays(timeslots());
             }),
-            //days = ko.computed({
-        //    read: function () {
-        //        return group.timeslotsToDays(timeslots());
-        //    },
-        //    deferEvaluation: true
-        //}),
-            getTimeslots = function() {
+
+            getTimeslots = function () {
                 if (!timeslots().length) {
                     datacontext.timeslots.getData({
                         results: timeslots,
@@ -27,30 +24,35 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                     });
                 }
             },
-            setFilter = function() {
-                var day = new Date(selectedDate);
+
+            setFilter = function () {
+                var day = new Date(selectedDate());
                 sessionsFilter.minDate(day)
                     .maxDate(utils.endOfDay(day))
                     .favoriteOnly(true);
             },
-            setSelectedDay = function(data) {
-                selectedDate = data && data.date ? data.date : selectedDate;
-                if (!selectedDate) {
-                    // Get the first date
-                    selectedDate = moment(timeslots()[0].start()).format('MM-DD-YYYY');
-                }
 
+            setSelectedDay = function (data) {
+                selectedDate(data && data.date ? data.date : selectedDate());
+                if (!selectedDate()) {
+                    // Get the first date
+                    selectedDate(moment(timeslots()[0].start()).format('MM-DD-YYYY'));
+                }
+            },
+            
+            synchSelectedDateWithIsSelected = function () {
                 // keeping nav in synch too
                 for (var i = 0; i < days().length; i++) {
                     var day = days()[i];
                     day.isSelected(false);
-                    if (day.date === selectedDate) {
+                    if (day.date === selectedDate()) {
                         day.isSelected(true);
                         return;
                     }
                 }
             },
-            refresh = function() {
+
+            refresh = function () {
                 setFilter();
 
                 datacontext.sessions.getData({
@@ -59,40 +61,43 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                     sortFunction: sort.sessionSort
                 });
             },
-            loadByDate = function(data) {
+
+            loadByDate = function (data) {
                 getTimeslots();
                 setSelectedDay(data);
                 refresh();
             },
+            
             gotoDetails = function(selectedSession) {
                 if (selectedSession && selectedSession.id()) {
-                    router.navigateTo('#/sessions/' + selectedSession.id());
+                    events.navToSession(selectedSession.id());
                 }
             },
+
             saveFavorite = function (selectedSession) {
                 //debugger; //TODO:
                 if (selectedSession.isFavorite()) {
-                    // If we just unmarked it as a favorite, we need to go delete it.
                     datacontext.attendanceCud.deleteAttendance(selectedSession);
                 } else {
-                    // If we just marked it as a favorite, we need to go add it.
                     datacontext.attendanceCud.addAttendance(selectedSession);
                 }
             },
+
             clearFilter = function () {
-                if (sessionsFilter.searchText().length) {
-                    sessionsFilter.searchText('');
-                }
+                sessionsFilter.searchText('');
             },
-            keyCaptureFilter = function(data, event) {
-                if (event.keyCode == 27) {
+
+            keyCaptureFilter = function (data, event) {
+                if (event.keyCode == utils.keys.escape) {
                     clearFilter();
                 }
             },
+
             init = function () {
                 events.favoriteSessionBriefBinding(gotoDetails);
                 events.favoriteSessionFavoriteBinding(saveFavorite);
                 sessionsFilter.searchText.subscribe(loadByDate);
+                selectedDate.subscribe(synchSelectedDateWithIsSelected);
             };
 
             // Initialization
