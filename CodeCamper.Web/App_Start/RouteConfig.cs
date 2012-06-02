@@ -10,18 +10,7 @@ namespace CodeCamper.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            /****************************************************
-             * PAPA: Revised all routes.
-             * 
-             * Routes without {action} tokens rely on Web API conventions
-             * to find the matching method(s)
-             *
-             * Routes with {action} tokens follow the RPC pattern;
-             * WebAPI looks for a controller method that matches the {action},
-             * typically a method decorated with [ActionName("token")]
-             ******************************************************/
-
-            // This default controller-per-type route is ideal for GetAll calls.
+            // This controller-per-type route is ideal for GetAll calls.
             // It finds the method on the controller using WebAPI conventions
             // The template has no parameters.
             //
@@ -33,6 +22,7 @@ namespace CodeCamper.Web
             );
 
             // This is the default route that a "File | New MVC 4 " project creates.
+            // (I changed the name, removed the defaults, and added the constraints)
             //
             // This controller-per-type route lets us fetch a single resource by numeric id
             // It finds the appropriate method GetById method
@@ -45,7 +35,7 @@ namespace CodeCamper.Web
             routes.MapHttpRoute(
                 name: "ApiControllerAndIntegerId",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: null,
+                defaults: null, //defaults: new { id = RouteParameter.Optional } //,
                 constraints: new { id = @"^\d+$" } // id must be all digits
             );
 
