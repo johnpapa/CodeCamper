@@ -21,6 +21,8 @@ define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontex
         model.datacontext(datacontext);
 
         var
+            logger = config.logger,
+            
             bindViewModelsToViews = function () {
                 ko.applyBindings(vm.session, $('#session').get(0));
                 ko.applyBindings(vm.sessions, $('#sessions').get(0));
@@ -64,17 +66,44 @@ define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontex
 
                 //PAPA: Set up the dataservice for "how it is going to roll" ... Ward Bell
                 config.dataserviceInit(); // prime the data services and eager load the lookups
-                $.when(datacontext.rooms.getData(),
-                    datacontext.timeslots.getData(),
-                    datacontext.tracks.getData(),
-                    datacontext.attendance.getData({ param: config.currentUser().id() }),
-                    datacontext.persons.getData(), // TODO: this currently just gets speakers. need to refactor in DC
-                    datacontext.sessions.getData(),
+                
+                // TODO: TESTING 
+                // We don't actually use this data, 
+                // we just get it so we can see that something was fetched.
+                var data = {
+                    rooms: ko.observable(),
+                    tracks: ko.observable(),
+                    timeslots: ko.observable(),
+                    attendance: ko.observable(),
+                    persons: ko.observable(),
+                    sessions: ko.observable()
+                };
+                // TODO: TESTING 
+
+                $.when(datacontext.rooms.getData({results: data.rooms}),
+                    datacontext.timeslots.getData({ results: data.timeslots }),
+                    datacontext.tracks.getData({ results: data.tracks }),
+                    datacontext.attendance.getData({ param: config.currentUser().id(), results: data.attendance }),
+                    datacontext.persons.getData({ results: data.persons }), // TODO: this currently just gets speakers. need to refactor in DC
+                    datacontext.sessions.getData({ results: data.sessions }),
 
                     //TODO: get ME, too ... current user
                     
                     datacontext.sessionSpeakers.getData()
                     )
+
+                    // TODO: TESTING 
+                    .done(function () {
+                        logger.success('Fetched data for: '
+                            + '<div>' + data.rooms().length + ' rooms </div>'
+                            + '<div>' + data.tracks().length + ' rooms </div>'
+                            + '<div>' + data.timeslots().length + ' timeslots </div>'
+                            + '<div>' + data.attendance().length + ' attendance </div>'
+                            + '<div>' + data.persons().length + ' persons </div>'
+                            + '<div>' + data.sessions().length + ' sessions </div>');
+                    })
+                    // TODO: TESTING 
+
                     .done(bindViewModelsToViews)
                     .done(registerRoutes)
                     .always(function () {

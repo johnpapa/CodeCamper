@@ -19,7 +19,7 @@
                 if (sortFunction) {
                     underlyingArray.sort(sortFunction);
                 }
-                logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records');
+                //logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records');
                 observableArray(underlyingArray);
                 //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
             },
@@ -34,7 +34,7 @@
                     return memo;
                 }, {});
                 itemsToArray(items, results, filter, sortFunction);
-                logger.success('received with ' + dtoList.length + ' elements');
+                //logger.success('received with ' + dtoList.length + ' elements');
                 return items; // must return these
             },
 
