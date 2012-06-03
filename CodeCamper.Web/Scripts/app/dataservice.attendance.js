@@ -8,11 +8,19 @@
                     type: 'GET'
                     //cache:
                 });
+
                 amplify.request.define('attendanceAdd', 'ajax', {
                     url: '/api/attendance',
                     dataType: 'json',
                     type: 'POST',
-                    //data: data,
+                    contentType: 'application/json; charset=utf-8'
+                });
+
+                // DELETE /api/attendance/?pid=2&sid=1
+                amplify.request.define('attendanceDelete', 'ajax', {
+                    url: '/api/attendance/?pid={personId}&sid={sessionId}',
+                    dataType: 'json',
+                    type: 'DELETE',
                     contentType: 'application/json; charset=utf-8'
                 });
             },
@@ -33,12 +41,25 @@
                     success: callbacks.success,
                     error: callbacks.error
                 });
+            },
+            
+            deleteAttendance = function(callbacks, personId, sessionId) {
+                return amplify.request({
+                    resourceId: "attendanceDelete",
+                    data: {
+                        personId: personId,
+                        sessionId: sessionId,
+                    },
+                    success: callbacks.success,
+                    error: callbacks.error
+                });
             };
 
     init();
     
     return {
         getAttendance: getAttendance,
-        addAttendance: addAttendance
+        addAttendance: addAttendance,
+        deleteAttendance: deleteAttendance
     };
 });

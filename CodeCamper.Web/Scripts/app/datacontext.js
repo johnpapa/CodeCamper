@@ -216,12 +216,24 @@
                     }, attendanceModelJson);
                 },
                 updateAttendance: function() {
-                    //TODO:
+                    //TODO: implement updateAttendance
                     logger.warning('implement updateAttendance');
                 },
-                deleteAttendance: function() {
-                    //TODO:
-                    logger.warning('implement deleteAttendance');
+                deleteAttendance: function (sessionModel, callbacks) {
+                    var attendanceModel = sessionModel.attendance();
+                    dataservice.attendance.deleteAttendance({
+                        success: function (response) {
+                            attendance.removeById(attendanceModel.sessionId(), 'sessionId'); // Add to the datacontext
+                            sessionModel.isFavoriteUpdate.notifySubscribers(); // Trigger re-evaluation of isFavorite
+                            logger.success('Deleted attendance!'); //TODO: 
+                            if (callbacks && callbacks.success) { callbacks.success(); }
+                        },
+                        error: function (response) {
+                            logger.error('oops! data could not be deleted'); //TODO: revise error message
+                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            return;
+                        }
+                    }, attendanceModel.personId(), attendanceModel.sessionId());
                 }
             };
 

@@ -277,7 +277,7 @@ app.test.webApiCudTests = function () {
             stop();
             $.ajax({
                 type: 'POST',
-                url: dummyUrl,
+                url: baseUrl, //dummyUrl, //PAPA: Ward - mofied this oto use base Url, since we dont need to pass pid and sid
                 data: data,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
@@ -296,7 +296,7 @@ app.test.webApiCudTests = function () {
 
     test('Can delete dummy Attendance',
         function() {
-            var msgPrefix = 'POST' + dummyMsgBase;
+            var msgPrefix = 'DELETE' + dummyMsgBase;
 
             stop();
             $.ajax({
