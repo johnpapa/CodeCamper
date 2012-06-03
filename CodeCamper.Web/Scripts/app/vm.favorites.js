@@ -37,6 +37,9 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                 if (!selectedDate()) {
                     // Get the first date
                     selectedDate(moment(timeslots()[0].start()).format('MM-DD-YYYY'));
+                }else {
+                    // force mutation, so subscribers will be notified (for the nav synch)
+                    selectedDate.valueHasMutated();
                 }
             },
             

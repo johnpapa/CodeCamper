@@ -7,7 +7,7 @@
             <a data-bind="attr: {href: '#/sessions/' + id() }"><h1 data-bind="text: title"></h1></a>
             <address data-bind="text: speaker().fullName"></address>
             <label class="markfavorite" title="Mark as favorite"><input 
-                data-bind="checked:isFavorite, enable: isUnlocked, click: saveFavorite" 
+                data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite" 
                 type="checkbox"/><span></span></label>
         </div>
     </article>
