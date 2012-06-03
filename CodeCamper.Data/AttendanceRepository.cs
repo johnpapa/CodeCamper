@@ -38,8 +38,9 @@ namespace CodeCamper.Data
 
         public void Delete(int personId, int sessionId)
         {
-            var attendance = GetByIds(personId, sessionId);
-            if (attendance == null) return; // not found; assume already deleted.
+            // EF needs an attendance entity to delete (can't delete with the id)
+            // Don't need the REAL entity though. A placeholder with the ids in it will do.
+            var attendance = new Attendance {PersonId = personId, SessionId = sessionId};
             Delete(attendance);
         }
     }

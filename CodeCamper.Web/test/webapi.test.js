@@ -18,10 +18,22 @@ app.test.format = function (str, col) {
     });
 };
 
+// For use within an async test where, if the condition is false,
+// the test should terminate. 
+// When condition is false, we call QUnit's start so it can resume
+// the harness and end the test.
+// TODO: this should be a QUnit utility
+app.test.okAsync = function(condition, action) {
+    if (!condition) {
+        start();
+    }
+    ok(condition, action);
+};
+
 app.test.webApiGetEndpointsRespondOk = function () {
-
     module('WebAPI GET endpoints respond successfully');
-
+    var okAsync = app.test.okAsync;
+    
     var apiUrls = [
         //'/api/BAD_ENDPOINT',
         '/api/lookups/all',
@@ -47,6 +59,7 @@ app.test.webApiGetEndpointsRespondOk = function () {
         '/api/attendance/?pid=2&sid=1', // preferred
     ];
 
+
     var apiUrlslen = apiUrls.length;
 
     // Test only that the WebAPI responded to the request with 'success'
@@ -57,14 +70,13 @@ app.test.webApiGetEndpointsRespondOk = function () {
             dataType: 'json',
             success: function (result) {
                 ok(true, 'GET succeeded for ' + url);
-                ok(!!result, 'GET retrieved some data');
+                okAsync(!!result, 'GET retrieved some data');
                 start();
             },
             error: function (result) {
-                ok(false,
+                okAsync(false,
                     app.test.format('GET on \'{0}\' failed with status=\'{1}\': {2}',
                         url, result.status, result.responseText));
-                start();
             }
         });
     };
@@ -85,7 +97,8 @@ app.test.webApiGetEndpointsRespondOk = function () {
 app.test.webApiGetResultsHaveExpectedShapes = function () {
 
     module('WebAPI GET result has expected shape');
-
+    var okAsync = app.test.okAsync;
+    
     test('Lookups url should return array of Rooms, Tracks, TimeSlots',
             function () {
                 stop();
@@ -93,13 +106,12 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
                     url: '/api/lookups/all',
                     dataType: 'json',
                     success: function (result) {
-                        ok(!!result.Rooms && !!result.Tracks && !!result.TimeSlots,
+                        okAsync(!!result.Rooms && !!result.Tracks && !!result.TimeSlots,
                             'Got Rooms, Tracks, TimeSlots');
                         start();
                     },
                     error: function (result) {
-                        ok(false, 'Failed with: ' + result.responseText);
-                        start();
+                        okAsync(false, 'Failed with: ' + result.responseText);
                     }
                 });
             }
@@ -113,17 +125,16 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
                 url: '/api/speakers/?$filter=firstName%20eq%20\'Hans\'',
                 dataType: 'json',
                 success: function(result) {
-                    ok(!!result, "Got data when searching for Hans");
-                    ok(result.length === 1 && result[0].FirstName === 'Hans',
+                    okAsync(!!result, "Got data when searching for Hans");
+                    okAsync(result.length === 1 && result[0].FirstName === 'Hans',
                         "Got exactly one speaker w/ firstName = 'Hans'");
                     
-                    ok(result[0].ImageSource === expectedHansImageSource,
+                    okAsync(result[0].ImageSource === expectedHansImageSource,
                         "Got expected ImageSource = " + expectedHansImageSource);
                     start();
                 },
                 error: function(result) {
-                    ok(false, 'Failed with: ' + result.responseText);
-                    start();
+                    okAsync(false, 'Failed with: ' + result.responseText);
                 }
             });
         }
@@ -133,7 +144,8 @@ app.test.webApiGetResultsHaveExpectedShapes = function () {
 app.test.webApiCudTests = function () {
     
     module('WebAPI Attendance CUD tests');
-
+    var okAsync = app.test.okAsync;
+    
     var baseUrl = '/api/attendance',
         getMsgPrefix = function(pid, sid, rqstUrl) {
             return app.test.format(
@@ -143,8 +155,8 @@ app.test.webApiCudTests = function () {
         onCallSuccess = function(msgPrefix) {
             ok(true, msgPrefix + " succeeded.");
         },
-        onError = function(result, msgPrefix) {
-            ok(false, msgPrefix +
+        onError = function (result, msgPrefix) {
+            okAsync(false, msgPrefix +
                 app.test.format(' failed with status=\'{1}\': {2}.',
                     result.status, result.responseText));
         };  
@@ -172,7 +184,6 @@ app.test.webApiCudTests = function () {
 
     test('Can update the test Attendance',
         function () {
-            
             testAttendance = null;
             stop();
             getTestAttendance(changeTestAttendance);
@@ -187,7 +198,7 @@ app.test.webApiCudTests = function () {
             url: testUrl,
             success: function(result) {
                 onCallSuccess(msgPrefix);
-                ok(result.PersonId === testPersonId &&
+                okAsync(result.PersonId === testPersonId &&
                     result.SessionId === testSessionId,
                     "returned key matches testAttendance key.");
                 if (typeof succeed !== 'function') {
@@ -228,7 +239,7 @@ app.test.webApiCudTests = function () {
 
     // Step 3: Confirm test attendance updated, then call restore
     confirmUpdated = function(attendance) {
-        ok(attendance.Rating === testRatingValue, "test rating was updated ");
+        okAsync(attendance.Rating === testRatingValue, "test rating was updated ");
         restoreTestAttendance();
     };
 
@@ -253,7 +264,7 @@ app.test.webApiCudTests = function () {
 
     // Step 5: Confirm test attendance was restored
     confirmRestored = function(attendance) {
-        ok(attendance.Rating === origRatingValue, "test rating was restored ");
+        okAsync(attendance.Rating === origRatingValue, "test rating was restored ");
         start();
     };
 
@@ -283,7 +294,7 @@ app.test.webApiCudTests = function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function(result) {
                     onCallSuccess(msgPrefix);
-                    ok(result.PersonId === dummyAttendance.personId &&
+                    okAsync(result.PersonId === dummyAttendance.personId &&
                         result.SessionId === dummyAttendance.sessionId,
                         "returned key matches dummyAttendance key."
                     );
