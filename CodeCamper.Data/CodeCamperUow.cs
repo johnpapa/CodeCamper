@@ -47,10 +47,9 @@ namespace CodeCamper.Data
         /// </summary>
         public void Commit()
         {
-            // ToDo: Actually commit the save
-            System.Diagnostics.Debug.WriteLine("Committed");
+            //System.Diagnostics.Debug.WriteLine("Committed");
+            DbContext.SaveChanges();
         }
-
 
         protected void CreateDbContext()
         {
@@ -62,9 +61,13 @@ namespace CodeCamper.Data
             // Load navigation properties explicitly (avoid serialization trouble)
             DbContext.Configuration.LazyLoadingEnabled = false;
 
-            // Upshot does the following. We won't for now
-            //DbContext.Configuration.ValidateOnSaveEnabled = false;
+            // Because Web API will perform validation, we don't need/want EF to do so
+            DbContext.Configuration.ValidateOnSaveEnabled = false;
+
             //DbContext.Configuration.AutoDetectChangesEnabled = false;
+            // We won't use this performance tweak because we don't need 
+            // the extra performance and, when autodetect is false,
+            // we'd have to be careful. We're not being that careful.
         }
 
         protected IRepositoryProvider RepositoryProvider { get; set; }
@@ -100,6 +103,5 @@ namespace CodeCamper.Data
         }
 
         #endregion
-    
     }
 }

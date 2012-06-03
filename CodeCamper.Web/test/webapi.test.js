@@ -134,98 +134,188 @@ app.test.webApiCudTests = function () {
     
     module('WebAPI Attendance CUD tests');
 
-    var testAttendance = {
-        personId: 1,
-        sessionId: 42,
-        rating: 1,
-        text: "Dummy attendance and evaluation."
-    },
-        getAttendanceQueryString = function(attendance) {
+    var baseUrl = '/api/attendance',
+        getMsgPrefix = function(pid, sid, rqstUrl) {
             return app.test.format(
-                '?pid={0}&sid={1}', attendance.personId, attendance.sessionId);
+                ' of attendance with pid=\'{0}\' sid=\'{1}\' to \'{2}\'',
+                pid, sid, rqstUrl);
         },
-        getMsgPrefix = function(attendance, verb, url) {
-            return app.test.format(
-                '{0} of attendance with pid=\'{1}\' sid=\'{2}\' to \'{3}\'',
-                verb, attendance.personId, attendance.sessionId, url);
-        },
-        onSuccess = function(msgPrefix) {
+        onCallSuccess = function(msgPrefix) {
             ok(true, msgPrefix + " succeeded.");
-            start();
         },
         onError = function(result, msgPrefix) {
             ok(false, msgPrefix +
                 app.test.format(' failed with status=\'{1}\': {2}.',
                     result.status, result.responseText));
-            start();
-        };
+        };  
 
-    test('Can add test Attendance',
-            function () {
-                var url = '/api/attendance',
-                    msgPrefix = getMsgPrefix(testAttendance, 'POST', url),
-                    data = JSON.stringify(testAttendance);
-                
-                stop();
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: data,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (result) {
-                        onSuccess(msgPrefix);
-                        ok(result.PersonId === testAttendance.personId &&
-                            result.SessionId === testAttendance.sessionId,
-                            "returned key matches testAttendance key."
-                        );
-                    },
-                    error: function (result) { onError(result, msgPrefix); }
-                });
-            }
-        );
+    var testPersonId = 1,
+        testSessionId = 1,
+
+        testUrl = app.test.format(
+            '{0}/?pid={1}&sid={2}', baseUrl, testPersonId, testSessionId),
+        
+        testMsgBase = getMsgPrefix(testPersonId, testSessionId, testUrl);
     
-    test('Can update test Attendance',
-            function () {
-                // some change
-                testAttendance.text = 'CHANGE ' + testAttendance.text;
-                
-                var url = '/api/attendance',
-                    msgPrefix = getMsgPrefix(testAttendance, 'PUT', url),
-                    data = JSON.stringify(testAttendance);
-                
-                stop();
-                $.ajax({
-                    type: 'PUT',
-                    url: url,
-                    data: data,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    success: function () { onSuccess(msgPrefix); },
-                    error: function(result) { onError(result, msgPrefix); }
-                });
-            }
-        );
+    test('Can get the test Attendance',
+        function () {
+            stop();
+            getTestAttendance();
+        }
+    );
+
+    var origRatingValue,
+        testRatingValue,
+        testAttendance,
+        // Supporting update test functions
+        getTestAttendance, changeTestAttendance, confirmUpdated, restoreTestAttendance, confirmRestored;
+
+    test('Can update the test Attendance',
+        function () {
+            
+            testAttendance = null;
+            stop();
+            getTestAttendance(changeTestAttendance);
+        }
+    );
     
-    test('Can delete test Attendance',
-            function () {
-                var url = '/api/attendance/' +
-                          getAttendanceQueryString(testAttendance),                   
-                    msgPrefix = getMsgPrefix(testAttendance, 'DELETE', url);
-                
-                stop();
-                $.ajax({
-                    type: 'DELETE',
-                    url: url,
-                    dataType: 'json',
-                    success: function () { onSuccess(msgPrefix); },
-                    error: function (result) { onError(result, msgPrefix); }
-                });
-            }
-        );
+    // Step 1: Get test attendance (this fnc is re-used several times)
+    getTestAttendance = function(succeed) {
+        var msgPrefix = 'GET' + testMsgBase;
+        $.ajax({
+            type: 'GET',
+            url: testUrl,
+            success: function(result) {
+                onCallSuccess(msgPrefix);
+                ok(result.PersonId === testPersonId &&
+                    result.SessionId === testSessionId,
+                    "returned key matches testAttendance key.");
+                if (typeof succeed !== 'function') {
+                    start(); // no 'succeed' callback; end of the line
+                    return;
+                } else {
+                    succeed(result);
+                }
+                ;
+            },
+            error: function(result) { onError(result, msgPrefix); }
+        });
+    };
+    
+    // Step 2: Change test attendance and save it
+    changeTestAttendance = function(attendance) {
+        testAttendance = attendance;
+        origRatingValue = testAttendance.Rating;
+        testRatingValue = origRatingValue === 1 ? 5 : 1; // make it different
+        testAttendance.Rating = testRatingValue;
+
+        var msgPrefix = 'PUT (change)' + testMsgBase,
+            data = JSON.stringify(testAttendance);
+
+        $.ajax({
+            type: 'PUT',
+            url: testUrl,
+            data: data,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function() {
+                onCallSuccess(msgPrefix);
+                getTestAttendance(confirmUpdated);
+            },
+            error: function(result) { onError(result, msgPrefix); }
+        });
+    };
+
+    // Step 3: Confirm test attendance updated, then call restore
+    confirmUpdated = function(attendance) {
+        ok(attendance.Rating === testRatingValue, "test rating was updated ");
+        restoreTestAttendance();
+    };
+
+    // Step 4: Restore orig test attendance in db
+    restoreTestAttendance = function() {
+        testAttendance.Rating = origRatingValue;
+        var msgPrefix = 'PUT (restore)' + testMsgBase,
+            data = JSON.stringify(testAttendance);
+
+        $.ajax({
+            type: 'PUT',
+            url: testUrl,
+            data: data,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function() {
+                getTestAttendance(confirmRestored);
+            },
+            error: function(result) { onError(result, msgPrefix); }
+        });
+    };
+
+    // Step 5: Confirm test attendance was restored
+    confirmRestored = function(attendance) {
+        ok(attendance.Rating === origRatingValue, "test rating was restored ");
+        start();
+    };
+
+    ///////////// DUMMY ATTENDANCE TESTS /////////
+
+    var dummyAttendance = {
+        personId: 1,
+        sessionId: 42,
+        rating: 1,
+        text: "Dummy attendance and evaluation."
+    },
+        dummyUrl = app.test.format(
+            '{0}/?pid={1}&sid={2}', baseUrl, dummyAttendance.personId, dummyAttendance.sessionId),
+        dummyMsgBase = getMsgPrefix(dummyAttendance.personId, dummyAttendance.sessionId, dummyUrl);
+
+    test('Can add dummy Attendance',
+        function() {
+            var msgPrefix = 'POST' + dummyMsgBase,
+                data = JSON.stringify(dummyAttendance);
+
+            stop();
+            $.ajax({
+                type: 'POST',
+                url: dummyUrl,
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function(result) {
+                    onCallSuccess(msgPrefix);
+                    ok(result.PersonId === dummyAttendance.personId &&
+                        result.SessionId === dummyAttendance.sessionId,
+                        "returned key matches dummyAttendance key."
+                    );
+                    start();
+                },
+                error: function(result) { onError(result, msgPrefix); }
+            });
+        }
+    );
+
+    test('Can delete dummy Attendance',
+        function() {
+            var msgPrefix = 'POST' + dummyMsgBase;
+
+            stop();
+            $.ajax({
+                type: 'DELETE',
+                url: dummyUrl,
+                dataType: 'json',
+                success: function() {
+                    onCallSuccess(msgPrefix);
+                    start();
+                },
+                error: function(result) { onError(result, msgPrefix); }
+            });
+        }
+    );
 };
 
-$(function () {
+    $(function () {
+    // TODO: Learn how to set test timeout. This doesn't work
+    QUnit.testTimeout = 10000; // 10 second default timeout for async
     app.test.webApiGetEndpointsRespondOk();
     app.test.webApiGetResultsHaveExpectedShapes();
     app.test.webApiCudTests();
