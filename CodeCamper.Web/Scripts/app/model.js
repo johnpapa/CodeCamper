@@ -1,14 +1,13 @@
-﻿define(['ko', 'config'],
-    function (ko, config) {
+﻿define(['ko'],
+    function (ko) {
 
         var imageBasePath = '../content/',
-            unknownPersonImageSource = 'unknown_person.jpg',
-            logger = config.logger,
+            unknownPersonImageSource = 'unknown_person.jpg';
 
         // To avoid a circular model/datacontext reference
         // model.datacontext is set in Bootstrapper
+        var
             _datacontext,
-
             datacontext = function (dc) {
                 if (!!dc) {
                     _datacontext = dc;
@@ -80,7 +79,7 @@
             self.level = ko.observable();
             self.tags = ko.observable();
             self.description = ko.observable();
-            self.favoriteChangeStatus = ko.observable();
+            self.isFavoriteUpdate = ko.observable(); 
 
             self.tagsFormatted = ko.computed(function () {
                 var text = self.tags();
@@ -89,55 +88,40 @@
 
             self.isFavorite = ko.computed({
                 read: function () {
-                    var id = self.id(),
-                        changedMsg = self.favoriteChangeStatus(); // just to fire off the computed. a no-op
-                    logger.info(' Fav changed: ' + changedMsg); //TODO: remove this. for debugging only
+                    var id = self.id();
+                    self.isFavoriteUpdate(); // This exists so we can notify ifthe isFavorite to reevaluate
                     var match = self.attendance() ? self.attendance().sessionId() === id : null; //TODO: update all nav to check by self.attendance()
                     return !!match;
                 },
-                 //Chicken and the egg kind of situation (attendance or datacontext are setup later.
-                 //The "deferEvalation" flag will prevent it from running immediately
-                 //and it will wait until something actually tries to access its value.
+
+                // Chicken and the egg kind of situation (attendance or datacontext are setup later)
+                 // The "deferEvalation" flag will prevent it from running immediately
+                 // and it will wait until something actually tries to access its value.
                 deferEvaluation: true,
+                
                 write: function (value) {
                     //TODO:  explain this
                     // Made this a no-op because without the write, 
                     // when the checkbox is clicked it fires the click event twice 
                     // and sets the computed = true (not the function)
                     return;
-                    ////TODO: come back and fix this when we get to the SESSIONS screen
-                    ////if (!self.attendance) return;
-
-                    //if (value) {
-                    //    //create attendance
-                    //    var newObj = new Attendance()
-                    //        .sessionId(self.id())
-                    //        .personId(config.currentUser().id());
-                    //    self.datacontext().attendance.add(newObj, 'sessionId');
-
-                    //    // Explicitly set the flag so we can force the re-evauation of the read
-                    //    self.id.valueHasMutated();
-                    //} else if (!value && this.datacontext) {
-                    //    // remove attendance
-                    //    self.datacontext().attendance.removeById(self.id(), 'sessionId');
-                    //}
                 },
                 owner: self
             }),
+
             self.isUnlocked = ko.computed({
                 read: function () {
-                    var id = self.id();
-                    var unlocked = false;
+                    var
+                        id = self.id(),
+                        unlocked = false;
                     if (self.attendance && self.attendance()) {
                         var attendance = self.attendance();
-                        unlocked = !(attendance.sessionId() === id && attendance.text() && (attendance.rating() > 0 || attendance.text().length > 0));
-                        //if (!unlocked) {
-                        //    toastr.info(attendance.sessionId() + ' - ' + attendance.text() + ' - ' + attendance.rating());
-                        //}
+                        unlocked = !(attendance.sessionId() === id
+                                && attendance.text()
+                                && (attendance.rating() > 0 || attendance.text().length > 0));
                     }
                     return unlocked;
-                }//,
-                //deferEvaluation: true
+                }
             });
 
             return self;

@@ -6,7 +6,7 @@
 define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
     function(ko, router, datacontext, filter, sort, events, utils) {
         var
-            pauseRefresh = false,
+            isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
@@ -48,7 +48,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
             },
 
             refresh = function () {
-                if (!pauseRefresh) {
+                if (!isRefreshing) {
                     datacontext.sessions.getData({
                         results: sessions,
                         filter: sessionsFilter,
@@ -64,7 +64,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
             },
 
             saveFavorite = function (selectedSession) {
-                debugger; //TODO:
                 if (selectedSession.isFavorite()) {
                     datacontext.attendanceCud.deleteAttendance(selectedSession);
                 } else {
@@ -77,10 +76,10 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
             },
 
             clearSideFilters = function () {
-                pauseRefresh = true;
+                isRefreshing = true;
                 sessionsFilter.favoriteOnly(false).speaker(null)
                     .timeslot(null).track(null);
-                pauseRefresh = false;
+                isRefreshing = false;
                 refresh();
             },
 
@@ -99,8 +98,8 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
             },
 
             init = function () {
-                events.sessionBriefBinding(gotoDetails);
-                events.sessionFavoriteBinding(saveFavorite);
+                events.sessionsListItem(gotoDetails);
+                events.sessionsFavorite(saveFavorite);
                 addFilterSubscriptions();
             };
 

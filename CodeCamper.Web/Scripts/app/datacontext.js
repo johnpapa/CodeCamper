@@ -194,8 +194,6 @@
                             .sessionId(sessionModel.id())
                             .personId(config.currentUser().id()),
                             attendanceModelJson = ko.toJSON(attendanceModel);
-
-                    sessionModel.favoriteChangeStatus('Changing');
                     //var data2 = JSON.stringify(attendanceModel);
                     dataservice.attendance.addAttendance({
                         success: function (dto) {
@@ -204,13 +202,11 @@
                                 if (callbacks && callbacks.error) { callbacks.error(); }
                                 return;
                             }
-                            // we got the Attendance model back. Add to DC
-                            var newAtt = mapper.mapAttendance(dto);
-                            attendance.add(newAtt, 'sessionId');
-                            sessionModel.favoriteChangeStatus('Changed');
-                            logger.success('Added attendance!'); //TODO:
+                            var newAtt = mapper.mapAttendance(dto); // Map DTO to Model
+                            attendance.add(newAtt, 'sessionId'); // Add to the datacontext
+                            sessionModel.isFavoriteUpdate.notifySubscribers(); // Trigger re-evaluation of isFavorite
+                            logger.success('Added attendance!'); //TODO: 
                             if (callbacks && callbacks.success) { callbacks.success(newAtt); }
-                            debugger; //TODO:
                         },
                         error: function (response) {
                             logger.error('oops! data could not be posted'); //TODO: revise error message

@@ -75,7 +75,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             },
 
             saveFavorite = function (selectedSession) {
-                //debugger; //TODO:
                 if (selectedSession.isFavorite()) {
                     datacontext.attendanceCud.deleteAttendance(selectedSession);
                 } else {
@@ -94,8 +93,8 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             },
 
             init = function () {
-                events.favoriteSessionBriefBinding(gotoDetails);
-                events.favoriteSessionFavoriteBinding(saveFavorite);
+                events.favoritesListItem(gotoDetails);
+                events.favoritesFavorite(saveFavorite);
                 sessionsFilter.searchText.subscribe(activate);
                 selectedDate.subscribe(synchSelectedDateWithIsSelected);
             };

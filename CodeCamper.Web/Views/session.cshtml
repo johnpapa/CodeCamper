@@ -1,19 +1,13 @@
 ﻿<section id="session" class="view">
     <article data-bind="with: session">
         <div>
-            <!-- ko if: speaker -->
             <img data-bind="attr: {src: speaker().imageName}"/>
-            <!-- /ko -->
-            <!-- ko if: timeslot && room -->
             <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
-            <!-- /ko -->
             <small data-bind="text:level" style="float: right"></small>
             <a data-bind="attr: {href: '#/sessions/' + id() }"><h1 data-bind="text: title"></h1></a>
-            <!-- ko if: speaker -->
             <address data-bind="text: speaker().fullName"></address>
-            <!-- /ko -->
             <label class="markfavorite" title="Mark as favorite"><input 
-                data-bind="checked:isFavorite, enable: isUnlocked" 
+                data-bind="checked:isFavorite, enable: isUnlocked, click: saveFavorite" 
                 type="checkbox"/><span></span></label>
         </div>
     </article>
