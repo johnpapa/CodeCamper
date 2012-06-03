@@ -215,10 +215,12 @@
                         }
                     }, attendanceModelJson);
                 },
-                updateAttendance: function() {
+
+                updateAttendance: function () {
                     //TODO: implement updateAttendance
                     logger.warning('implement updateAttendance');
                 },
+                
                 deleteAttendance: function (sessionModel, callbacks) {
                     var attendanceModel = sessionModel.attendance();
                     dataservice.attendance.deleteAttendance({

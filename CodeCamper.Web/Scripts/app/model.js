@@ -79,6 +79,7 @@
             self.level = ko.observable();
             self.tags = ko.observable();
             self.description = ko.observable();
+            self.isBusy = ko.observable(false); 
             self.isFavoriteUpdate = ko.observable(); 
 
             self.tagsFormatted = ko.computed(function () {
@@ -94,7 +95,7 @@
                     return !!match;
                 },
 
-                // Chicken and the egg kind of situation (attendance or datacontext are setup later)
+                 // Chicken and the egg kind of situation (attendance or datacontext are setup later)
                  // The "deferEvalation" flag will prevent it from running immediately
                  // and it will wait until something actually tries to access its value.
                 deferEvaluation: true,

@@ -13,10 +13,16 @@
 
             saveFavorite = function () {
                 var s = session();
+                if (s.isBusy()) {
+                    return; // Already in the middle of a save on this session
+                }
+                s.isBusy(true);
+                var cudMethod = s.isFavorite()
+                    ? datacontext.attendanceCud.deleteAttendance
+                    : datacontext.attendanceCud.addAttendance;
                 if (s.isFavorite()) {
-                    datacontext.attendanceCud.deleteAttendance(s);
-                } else {
-                    datacontext.attendanceCud.addAttendance(s);
+                    cudMethod(s,
+                        { success: function () { s.isBusy(false); }, error: function () { s.isBusy(false); } });
                 }
             },
 

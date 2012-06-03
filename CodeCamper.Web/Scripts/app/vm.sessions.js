@@ -64,16 +64,17 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
             },
 
             saveFavorite = function (selectedSession) {
-                if (selectedSession.isFavorite()) {
-                    datacontext.attendanceCud.deleteAttendance(
-                        selectedSession,
-                        config.currentUser().id(),
-                        { success: function () {}, error: function () {} });
-                } else {
-                    datacontext.attendanceCud.addAttendance(
-                        selectedSession,
-                        { success: function () {}, error: function () {} });
+                if (selectedSession.isBusy()) {
+                    return; // Already in the middle of a save on this session
                 }
+                selectedSession.isBusy(true);
+                var cudMethod = selectedSession.isFavorite()
+                    ? datacontext.attendanceCud.deleteAttendance
+                    : datacontext.attendanceCud.addAttendance;
+                cudMethod(
+                        selectedSession,
+                        { success: function () { selectedSession.isBusy(false); }, error: function () { selectedSession.isBusy(false); } }
+                    );
             },
 
             clearFilter = function () {
