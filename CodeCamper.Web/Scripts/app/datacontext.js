@@ -26,7 +26,8 @@
             },
             mapToContext = function(dtoList, items, results, mapperFunction, filter, sortFunction) {
                 // Loop through the raw dto list and populate a dictionary of the items
-                items = _.reduce(dtoList, function(memo, dto) {
+                items = _.reduce(dtoList, function (memo, dto) {
+                    // ToDo: Just like mapDtoToContext ... refactor it
                     var id = dto.Id;
                     var existingItem = items[id];
                     memo[id] = mapperFunction(dto, existingItem);
@@ -36,8 +37,17 @@
                 //logger.success('received with ' + dtoList.length + ' elements');
                 return items; // must return these
             },
+
+            
             EntitySet = function(getFunction, mapperFunction, nullo) {
-                var items = { },
+                var items = {},
+                    // returns the model item produced by merging dto into context
+                    mapDtoToContext = function (dto) {
+                        var id = dto.Id;
+                        var existingItem = items[id];
+                        items[id] = mapperFunction(dto, existingItem);
+                        return items[id];
+                    },
                     add = function(newObj) {
                         items[newObj.id()] = newObj;
                     },
@@ -49,6 +59,7 @@
                         //items[id] = nullo; 
                         delete items[id];
                     },
+                    // ToDo: This is getLocalById
                     getById = function(id) {
                         return !!id && !!items[id] ? items[id] : nullo;
                     },
@@ -80,6 +91,7 @@
                         }).promise();
                     };
                 return {
+                    mapDtoToContext: mapDtoToContext,
                     add: add,
                     getById: getById,
                     getData: getData,
@@ -229,22 +241,24 @@
                 }
             };
 
-        // extend Attendance repo with ability to get attendance for the current user (aka, the favorite)
+        // extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
         attendance.getSessionFavorite = function (sessionId) {
             return attendance.getById(model.Attendance.makeId(getCurrentUserId(), sessionId));
         };
         
-        // extend Sessions Repo 
+        // extend Sessions enttityset 
         sessions.getFullSessionById = function(id, callbacks) {
             var session = sessions.getById(id);
-            if (!session.isNullo && session.isBrief())
+            if (session.isNullo || session.isBrief())
             {
+                // if nullo or brief, get fresh from database
                 dataservice.session.getSession(id, {
                     success: function (dto) {
-                        mapper.mapSession(dto, session);
+                        // updates the session returned from getById() above
+                        session = sessions.mapDtoToContext(dto);
                         session.isBrief(false); // now a full session
                         logger.success('merged full session'); //TODO: revise message
-                        if (callbacks && callbacks.success) { callbacks.success(session); }
+                        callbacks.success(session); 
                     },
                     error: function(response) {
                         logger.error('oops! could not retrieve session '+id); //TODO: revise error message
@@ -253,7 +267,7 @@
                                 
                 });
             }
-            return session;
+            return session; // immediately return cached session (nullo, brief, or full)
         };
         
         //TODO: In dataContext:
