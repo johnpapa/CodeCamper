@@ -42,7 +42,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
             },
 
             canLeave = function () {
-                return sessions().length % 2 === 1;
+                return true; //sessions().length % 2 === 1;
             },
 
             activate = function () {
