@@ -27,7 +27,7 @@
             self.personId = ko.observable();
             
             // id is string compound key {personId,sessionId} like "3,10"    
-            id = ko.computed({
+            self.id = ko.computed({
                 read: function () {
                     return attendanceMakeId(self.personId(), self.sessionId());
                 },
@@ -35,7 +35,7 @@
                     var idparts = value.split(",");
                     self.personId(parseInt(idparts[0]));
                     self.sessionId(parseInt(idparts[1]));
-                },
+                }
             }),
             
             self.rating = ko.observable();
@@ -61,7 +61,6 @@
             };
             return {
                 isNullo: false,
-                id: id,
                 person: person,
                 session: session
             };

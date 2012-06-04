@@ -227,7 +227,7 @@
                     var attendanceModel = sessionModel.attendance();
                     dataservice.attendance.deleteAttendance({
                         success: function (response) {
-                            attendance.removeById(attendanceModel.sessionId(), 'sessionId'); // Add to the datacontext
+                            attendance.removeById(attendanceModel.id());
                             sessionModel.isFavoriteUpdate.notifySubscribers(); // Trigger re-evaluation of isFavorite
                             logger.success('Deleted attendance!'); //TODO: 
                             if (callbacks && callbacks.success) { callbacks.success(); }
