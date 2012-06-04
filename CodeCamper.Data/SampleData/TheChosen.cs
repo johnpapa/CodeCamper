@@ -10,7 +10,7 @@ namespace CodeCamper.SampleData
         private static List<Person> _theChosen;
         private static Person 
             _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
-            _jimCowart, _ryanNiemeyer, _scottGuthrie;
+            _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, _aaronSkonnard, _fritzOnion;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -87,6 +87,36 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "I live in Seattle and build a few products for Microsoft",
             });
+            _theChosen.Add(_steveSanderson = new Person
+            {
+                FirstName = "Steve",
+                LastName = "Sanderson",
+                Email = "steves@contoso.com",
+                Blog = "http://steves.contoso.com",
+                Twitter = "https://twitter.com/#!/stevensanderson",
+                Gender = "M",
+                Bio = "Also known as Steven Sanderson",
+            });
+            _theChosen.Add(_aaronSkonnard = new Person
+            {
+                FirstName = "Aaron",
+                LastName = "Skonnard",
+                Email = "aarons@contoso.com",
+                Blog = "http://aarons.contoso.com",
+                Twitter = "https://twitter.com/#!/skonnard",
+                Gender = "M",
+                Bio = "Changing the way software professionals learn. President/CEO of Pluralsight.",
+            });
+            _theChosen.Add(_fritzOnion = new Person
+            {
+                FirstName = "Fritz",
+                LastName = "Onion",
+                Email = "fritzo@contoso.com",
+                Blog = "http://fritzo.contoso.com",
+                Twitter = "",
+                Gender = "M",
+                Bio = "A co-founder of Pluralsight where he serves as the Editor in Chief.",
+            });
 
             _theChosen.ForEach(p => p.ImageSource = 
                 (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
@@ -159,7 +189,7 @@ namespace CodeCamper.SampleData
             });
             addSession(true, new Session
             {
-                Title = "Azure: the agnostic cloud",
+                Title = "Azure: to the Cloud",
                 Code = "CLD163",
                 SpeakerId = _scottGuthrie.Id,
                 TrackId = tracks.First(t => t.Name == "Cloud").Id,
@@ -213,6 +243,19 @@ namespace CodeCamper.SampleData
                 Tags = "Windows|Metro",
                 Description =
                     "This session covers everything you need to know to get started building Metro apps.",
+            });
+            addSession(true, new Session
+            {
+                Title = "Build a Custom Single Page Application",
+                Code = "JVS277",
+                SpeakerId = _johnPapa.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = roomId,
+                Level = levels[2],
+                Tags = "Knockout|JavaScript",
+                Description =
+                    "Build a SPA, then hang out in one.",
             });
 
             // Dan Wahlin
@@ -313,27 +356,27 @@ namespace CodeCamper.SampleData
             });
             addSession(false, new Session
             {
-                Title = "Fjällemark Magic 2",
-                Code = "JVS132",
+                Title = "Bootstrap and Back",
+                Code = "CSS132",
                 SpeakerId = _hansFjallemark.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TrackId = tracks.First(t => t.Name == "CSS").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[0],
-                Tags = "jQuery|JavaScript",
+                Tags = "CSS|Responsive Design",
                 Description =
                     "TBD",
             });
             addSession(true, new Session
             {
-                Title = "Fjällemark Magic 3",
-                Code = "JVS233",
+                Title = "Responsive Web Design with CSS3",
+                Code = "CSS233",
                 SpeakerId = _hansFjallemark.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TrackId = tracks.First(t => t.Name == "CSS").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "Web Forms|ASP",
+                Tags = "CSS3|Responsive Design",
                 Description =
                     "TBD",
             });
@@ -365,22 +408,38 @@ namespace CodeCamper.SampleData
                 Description =
                     "TBD",
             });
+
+            // Steve Sanderson
+            roomId = roomsForSessions[5].Id;
             addSession(true, new Session
             {
                 Title = "Going for the Knockout",
                 Code = "JVS242",
-                SpeakerId = _jimCowart.Id,
+                SpeakerId = _steveSanderson.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
-                Level = levels[1],
+                Level = levels[2],
+                Tags = "Knockout|JavaScript",
+                Description =
+                    "TBD",
+            });
+            addSession(true, new Session
+            {
+                Title = "The Upshot is ...",
+                Code = "JVS250",
+                SpeakerId = _steveSanderson.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = roomId,
+                Level = levels[2],
                 Tags = "Knockout|JavaScript",
                 Description =
                     "TBD",
             });
 
             // Ryan Niemeyer
-            roomId = roomsForSessions[6].Id;
+            roomId = roomsForSessions[7].Id;
             addSession(true, new Session
             {
                 Title = "Knockback a few cold ones",
@@ -418,6 +477,36 @@ namespace CodeCamper.SampleData
                 Description = "TBD",
             });
 
+            // Aaron Skonnard
+            roomId = roomsForSessions[7].Id;
+            addSession(true, new Session
+            {
+                Title = "Web Services at their Finest",
+                Code = "JVS351",
+                SpeakerId = _aaronSkonnard.Id,
+                TrackId = tracks.First(t => t.Name == ".NET").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = roomId,
+                Level = levels[2],
+                Tags = "WCF|REST",
+                Description = "TBD",
+            });
+
+            // Fritz Onion
+            roomId = roomsForSessions[7].Id;
+            addSession(true, new Session
+            {
+                Title = "What's New in ASP.NET 4",
+                Code = "ASP141",
+                SpeakerId = _fritzOnion.Id,
+                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = roomId,
+                Level = levels[1],
+                Tags = "ASP.NET",
+                Description = "TBD",
+            });
+            
             return sessions;
         }
 

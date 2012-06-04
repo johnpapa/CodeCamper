@@ -37,7 +37,7 @@ namespace CodeCamper.SampleData
         private List<Room> AddRooms(CodeCamperDbContext context)
         {
             var names = new[] { 
-                "Surf A", "Surf B", "Mendocino A", "Mendocino B", "Mendocino C",
+                "Surf A", "Surf B", "Mendocino A", "Mendocino B", "Mendocino C", "Stromboli",
                 "Chico", "Levenworth", "Pelham Bay", "San Quentin", "Alcatraz", "Folsom", 
                 "Aqueduct", "Saratoga", "Golden Gate", "Santa Anita", "Monmouth Park", "Caliente"
             };
