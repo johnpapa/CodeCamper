@@ -2,11 +2,11 @@
 function (ko) {
     
     ko.bindingHandlers.escape = {
-        update: function (element, valueAccessor) {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var command = valueAccessor();
             $(element).keyup(function (event) {
                 if (event.keyCode === 27) { // <ESC>
-                    command();
+                    command.call(viewModel, viewModel, event);
                 }
             });
         }
