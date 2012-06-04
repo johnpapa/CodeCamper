@@ -1,19 +1,4 @@
-﻿// Depends on
-//  jQuery
-//  knockout
-//  toastr
-//	router
-//  vm (view models)
-//  viewmodels
-//  datacontext
-//
-// Conventions
-//	1) dataservices must be initialized via config
-//  2) viewmodels must be married to views
-//	3) routes must be registered with router
-//  4) datacontext must be primed
-// ----------------------------------------------
-define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontext'],
+﻿define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontext'],
     function ($, ko, toastr, config, router, vm, model, datacontext) {
 
         // all models use the one datacontext
