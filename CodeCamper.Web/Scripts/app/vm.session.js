@@ -7,7 +7,8 @@
             activate = function (routeData) {
                 logger.info('activated session view model');
                 var sessionId = routeData.id;
-                var result = datacontext.sessions.getById(sessionId);
+                //var result = datacontext.sessions.getById(sessionId);
+                var result = datacontext.sessions.getFullSessionById(sessionId);
                 session(result);
             },
 

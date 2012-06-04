@@ -167,20 +167,20 @@ app.test.webApiCudTests = function () {
         testUrl = app.test.format(
             '{0}/?pid={1}&sid={2}', baseUrl, testPersonId, testSessionId),
         
-        testMsgBase = getMsgPrefix(testPersonId, testSessionId, testUrl);
-    
+        testMsgBase = getMsgPrefix(testPersonId, testSessionId, testUrl),
+
+        origRatingValue,
+        testRatingValue,
+        testAttendance,
+        // Supporting test functions
+        getTestAttendance, changeTestAttendance, confirmUpdated, restoreTestAttendance, confirmRestored;
+
     test('Can get the test Attendance',
         function () {
             stop();
             getTestAttendance();
         }
     );
-
-    var origRatingValue,
-        testRatingValue,
-        testAttendance,
-        // Supporting update test functions
-        getTestAttendance, changeTestAttendance, confirmUpdated, restoreTestAttendance, confirmRestored;
 
     test('Can update the test Attendance',
         function () {

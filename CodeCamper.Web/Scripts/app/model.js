@@ -6,22 +6,38 @@
 
         // To avoid a circular model/datacontext reference
         // model.datacontext is set in Bootstrapper
-        var
-            _datacontext,
-            datacontext = function (dc) {
+        var _datacontext,
+            datacontext = function(dc) {
                 if (!!dc) {
                     _datacontext = dc;
                 }
                 return _datacontext;
-            };
+            };       
 
         // Attendance
         // ----------------------------------------------
+        var attendanceMakeId = function (personId, sessionId) {
+            return (personId + "," + sessionId);
+        };
+            
         var Attendance = function () {
             var self = this;
             self.datacontext = datacontext;
             self.sessionId = ko.observable();
             self.personId = ko.observable();
+            
+            // id is string compound key {personId,sessionId} like "3,10"    
+            id = ko.computed({
+                read: function () {
+                    return attendanceMakeId(self.personId(), self.sessionId());
+                },
+                write: function (value) {
+                    var idparts = value.split(",");
+                    self.personId(parseInt(idparts[0]));
+                    self.sessionId(parseInt(idparts[1]));
+                },
+            }),
+            
             self.rating = ko.observable();
             self.text = ko.observable();
             return self;
@@ -34,8 +50,10 @@
             .text('');
         attendanceNullo.isNullo = true;
 
+        Attendance.makeId = attendanceMakeId;
+        
         Attendance.prototype = function () {
-            var person = function () {
+            person = function () {
                 return this.datacontext().persons.getById(this.personId());
             },
             session = function () {
@@ -43,6 +61,7 @@
             };
             return {
                 isNullo: false,
+                id: id,
                 person: person,
                 session: session
             };
@@ -123,7 +142,9 @@
                     }
                     return unlocked;
                 }
-            });
+            }),
+
+            self.isBrief = ko.observable(true);
 
             return self;
         };
@@ -140,10 +161,11 @@
             .level('')
             .tags('');
         sessionNullo.isNullo = true;
-
+        sessionNullo.isBrief = function() { return false; }; // nullo is never brief
+        
         Session.prototype = function () {
             var attendance = function () {
-                return this.datacontext().attendance.getById(this.id());
+                return this.datacontext().attendance.getSessionFavorite(this.id());
             },
             room = function () {
                 return this.datacontext().rooms.getById(this.roomId());
