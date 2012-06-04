@@ -67,8 +67,11 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                     if (!isRedirecting && !response.val) {
                         isRedirecting = true;
                         logger.warning(response.message);
+
+                        // Keep hash url the same in address bar
                         window.history.back();
-                        //this.redirect('#/Sessions'); // Keep hash url the same in address bar
+                        //this.redirect('#/Sessions'); 
+
                     } else {
                         isRedirecting = false;
                     }
