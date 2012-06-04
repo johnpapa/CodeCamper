@@ -22,7 +22,7 @@
 
     <div class="filter-box-container">
         <input class="filter-box"
-            data-bind="value: sessionsFilter.searchText, valueUpdate: 'afterkeydown', event: {keyup: keyCaptureFilter}" 
+            data-bind="value: sessionsFilter.searchText, valueUpdate: 'afterkeydown', escape: clearFilter" 
             placeholder="filter by room, speaker, tag, title, or track" type="text"/>
 
         <button class="refresh" data-bind="click: refresh">Refresh</button>

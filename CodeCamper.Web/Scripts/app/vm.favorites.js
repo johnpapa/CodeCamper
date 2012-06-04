@@ -95,12 +95,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                 sessionsFilter.searchText('');
             },
 
-            keyCaptureFilter = function (data, event) {
-                if (event.keyCode == utils.keys.escape) {
-                    clearFilter();
-                }
-            },
-
             init = function () {
                 events.favoritesListItem(gotoDetails);
                 events.favoritesFavorite(saveFavorite);
@@ -116,7 +110,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             days: days,
             //debugInfo: debugInfo,
             gotoDetails: gotoDetails,
-            keyCaptureFilter: keyCaptureFilter,
             activate: activate,
             refresh: refresh,
             sessionsFilter: sessionsFilter,

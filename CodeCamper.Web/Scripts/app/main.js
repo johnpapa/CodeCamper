@@ -59,7 +59,8 @@ requirejs([
         'sammy.title',        // sammy plugin
         'amplify.request',    // amplify plugin
         'amplify.store',      // amplify plugin
-        'jquery.mockjson'    // jquery plugin
+        'jquery.mockjson',    // jquery plugin
+        'binding.handlers'    // Knockout custom binding handlers
         // 'debug.helpers'       // our app's ko debugging plugin
     ], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper)
                  // no need for plugin params as they are always undefined

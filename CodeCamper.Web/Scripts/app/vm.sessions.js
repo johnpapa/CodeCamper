@@ -88,12 +88,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
                 isRefreshing = false;
                 refresh();
             },
-
-            keyCaptureFilter = function (data, event) {
-                if (event.keyCode == utils.keys.escape) {
-                    clearFilter();
-                }
-            },
             
             addFilterSubscriptions = function () {
                 sessionsFilter.searchText.subscribe(refresh);
@@ -116,7 +110,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
             activate: activate,
             clearFilter: clearFilter,
             clearSideFilters: clearSideFilters,
-            keyCaptureFilter: keyCaptureFilter,
             refresh: refresh,
             sessionsFilter: sessionsFilter,
             sessions: sessions,
