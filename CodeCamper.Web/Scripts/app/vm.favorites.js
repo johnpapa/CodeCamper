@@ -4,9 +4,10 @@
 //  The user can further filter this subset of Sessions by additional criteria,
 //  the same filter criteria that can be applied to all sessions.
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events'],
-    function(ko, router, datacontext, filter, sort, group, utils, config, events) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events', 'messenger'],
+    function (ko, router, datacontext, filter, sort, group, utils, config, events, messenger) {
         var
+            self = this,
             selectedDate = ko.observable(),
             sessionsFilter = new filter.SessionsFilter(),
             timeslots = ko.observableArray(),
@@ -65,7 +66,12 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                 });
             },
 
+            canLeave = function () {
+                return true;
+            },
+
             activate = function (data) {
+                messenger.publish.viewModelActivated({ viewmodel: self, canleaveCallback: canLeave });
                 getTimeslots();
                 setSelectedDay(data);
                 refresh();
@@ -106,6 +112,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             init();
 
         return {
+            canLeave: canLeave,
             clearFilter: clearFilter,
             days: days,
             //debugInfo: debugInfo,

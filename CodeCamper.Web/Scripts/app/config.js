@@ -7,6 +7,9 @@
             throttle = 400,
             title = 'CodeCamper > ',
             toastrTimeout = 2000,
+            messages = {
+                viewModelActivated: 'viewmodel-activation'
+            },
             // methods
             dataserviceInit = function () { };
 
@@ -17,10 +20,11 @@
         toastr.options.timeOut = toastrTimeout;
 
         return {
-            window: window,
-            logger: logger,
             dataserviceInit: dataserviceInit,
+            logger: logger,
+            messages: messages,
             throttle: throttle,
-            title: title
+            title: title,
+            window: window
         };
     });

@@ -3,9 +3,10 @@
 //  The user can further filter this subset of Sessions by additional criteria.
 //
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
-    function(ko, router, datacontext, filter, sort, events, utils) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'messenger'],
+    function (ko, router, datacontext, filter, sort, events, utils, messenger) {
         var
+            self = this,
             isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
             sessions = ko.observableArray(),
@@ -40,7 +41,12 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
                 }
             },
 
+            canLeave = function () {
+                return sessions().length % 2 === 1;
+            },
+
             activate = function () {
+                messenger.publish.viewModelActivated({ viewmodel: self, canleaveCallback: canLeave });
                 getSpeakers();
                 getTimeslots();
                 getTracks();
@@ -108,6 +114,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils'],
 
         return {
             activate: activate,
+            canLeave: canLeave,
             clearFilter: clearFilter,
             clearSideFilters: clearSideFilters,
             refresh: refresh,

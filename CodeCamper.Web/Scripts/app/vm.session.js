@@ -1,10 +1,16 @@
-﻿define(['ko', 'datacontext', 'config'],
-    function (ko, datacontext, config) {
+﻿define(['ko', 'datacontext', 'config', 'messenger'],
+    function (ko, datacontext, config, messenger) {
         var
+            self = this,
             logger = config.logger,
             session = ko.observable(),
 
+            canLeave = function () {
+                return true;
+            },
+
             activate = function (routeData) {
+                messenger.publish.viewModelActivated({ viewmodel: self, canleaveCallback: canLeave });
                 logger.info('activated session view model');
                 var sessionId = routeData.id;
                 //var result = datacontext.sessions.getLocalById(sessionId);
@@ -36,8 +42,9 @@
         init();
 
         return {
-            session: session,
             activate: activate,
+            canLeave: canLeave,
+            session: session,
             saveFavorite: saveFavorite
         };
     });
