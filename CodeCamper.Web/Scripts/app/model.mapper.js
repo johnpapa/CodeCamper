@@ -1,63 +1,83 @@
 ﻿define(['model'],
     function (model) {
         var
-            mapAttendance = function (raw, item) {
+        attendance = {
+            getDtoId: function(dto) {
+                return model.Attendance.makeId(dto.PersonId, dto.SessionId);
+            },
+            fromDto: function(dto, item) {
                 item = item || new model.Attendance()
-                    .personId(raw.PersonId)
-                    .sessionId(raw.SessionId);
-                return item.rating(raw.Rating).text(raw.Text);
-            },
-
-            mapRoom = function (raw, item) {
-                item = item || new model.Room().id(raw.Id);
-                return item.name(raw.Name);
-            },
-
-            mapSession = function (raw, item) {
-                item = item || new model.Session().id(raw.Id);
+                    .personId(dto.PersonId)
+                    .sessionId(dto.SessionId);
+                return item.rating(dto.Rating).text(dto.Text);
+            }
+        },
+        
+        room = {
+            getDtoId: function(dto) { return dto.Id; },
+            fromDto: function(dto, item) {
+                item = item || new model.Room().id(dto.Id);
+                return item.name(dto.Name);
+            }
+        },
+        
+        session = {
+            getDtoId: function(dto) { return dto.Id; },
+            fromDto: function(dto, item) {
+                item = item || new model.Session().id(dto.Id);
                 return item
-                    .title(raw.Title)
-                    .code(raw.Code)
-                    .speakerId(raw.SpeakerId)
-                    .trackId(raw.TrackId)
-                    .timeslotId(raw.TimeSlotId)
-                    .roomId(raw.RoomId)
-                    .description(raw.Description)
-                    .level(raw.Level)
-                    .tags(raw.Tags);
-            },
-
-            mapPerson = function (raw, item) {
-                item = item || new model.Person().id(raw.Id);
+                    .title(dto.Title)
+                    .code(dto.Code)
+                    .speakerId(dto.SpeakerId)
+                    .trackId(dto.TrackId)
+                    .timeslotId(dto.TimeSlotId)
+                    .roomId(dto.RoomId)
+                    .description(dto.Description)
+                    .level(dto.Level)
+                    .tags(dto.Tags);
+            }
+        },
+        
+        person = {
+            getDtoId: function(dto) { return dto.Id; },
+            fromDto: function(dto, item) {
+                item = item || new model.Person().id(dto.Id);
                 return item
-                    .firstName(raw.FirstName)
-                    .lastName(raw.LastName)
-                    .email(raw.Email)
-                    .blog(raw.Blog)
-                    .twitter(raw.Twitter)
-                    .gender(raw.Gender)
-                    .imageSource(raw.ImageSource)
-                    .bio(raw.Bio);
-            },
-
-            mapTimeSlot = function (raw, item) {
-                item = item || new model.TimeSlot().id(raw.Id);
+                    .firstName(dto.FirstName)
+                    .lastName(dto.LastName)
+                    .email(dto.Email)
+                    .blog(dto.Blog)
+                    .twitter(dto.Twitter)
+                    .gender(dto.Gender)
+                    .imageSource(dto.ImageSource)
+                    .bio(dto.Bio);
+            }
+        },
+        
+        timeSlot = {
+            getDtoId: function(dto) { return dto.Id; },
+            fromDto: function(dto, item) {
+                item = item || new model.TimeSlot().id(dto.Id);
                 return item
-                    .start(moment(raw.Start).toDate())
-                    .duration(raw.Duration);
-            },
-
-            mapTrack = function (raw, item) {
-                item = item || new model.Track().id(raw.Id);
-                return item.name(raw.Name);
-            };
+                    .start(moment(dto.Start).toDate())
+                    .duration(dto.Duration);
+            }
+        },
+        
+        track = {
+            getDtoId: function (dto) { return dto.Id; },
+            fromDto: function (dto, item) {
+                item = item || new model.Track().id(dto.Id);
+                return item.name(dto.Name);
+            }
+        };
 
         return {
-            mapAttendance: mapAttendance,
-            mapRoom: mapRoom,
-            mapSession: mapSession,
-            mapPerson: mapPerson,
-            mapTimeSlot: mapTimeSlot,
-            mapTrack: mapTrack
+            attendance: attendance,
+            room: room,
+            session: session,
+            person: person,
+            timeSlot: timeSlot,
+            track: track
         };
     });

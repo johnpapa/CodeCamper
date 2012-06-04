@@ -1,5 +1,5 @@
 ﻿define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils'],
-    function ($, _, ko, model, mapper, dataservice, config, utils) {
+    function ($, _, ko, model, modelmapper, dataservice, config, utils) {
         var
             logger = config.logger,
 
@@ -28,13 +28,13 @@
                 //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
             },
 
-            mapToContext = function (dtoList, items, results, mapperFunction, filter, sortFunction) {
+            mapToContext = function (dtoList, items, results, mapper, filter, sortFunction) {
                 // Loop through the raw dto list and populate a dictionary of the items
                 items = _.reduce(dtoList, function (memo, dto) {
                     // ToDo: Just like mapDtoToContext ... refactor it
-                    var id = dto.Id;
+                    var id = mapper.getDtoId(dto);
                     var existingItem = items[id];
-                    memo[id] = mapperFunction(dto, existingItem);
+                    memo[id] = mapper.fromDto(dto, existingItem);
                     return memo;
                 }, { });
                 itemsToArray(items, results, filter, sortFunction);
@@ -43,13 +43,13 @@
             },
 
             
-            EntitySet = function(getFunction, mapperFunction, nullo) {
+            EntitySet = function(getFunction, mapper, nullo) {
                 var items = {},
                     // returns the model item produced by merging dto into context
                     mapDtoToContext = function (dto) {
-                        var id = dto.Id;
+                        var id = mapper.getDtoId(dto);
                         var existingItem = items[id];
-                        items[id] = mapperFunction(dto, existingItem);
+                        items[id] = mapper.fromDto(dto, existingItem);
                         return items[id];
                     },
                     add = function(newObj) {
@@ -71,7 +71,7 @@
                             if (!items || !utils.hasProperties(items) || forceRefresh) {
                                 getFunction({
                                     success: function(dtoList) {
-                                        items = mapToContext(dtoList, items, results, mapperFunction, filter, sortFunction);
+                                        items = mapToContext(dtoList, items, results, mapper, filter, sortFunction);
                                         def.resolve(dtoList);
                                     },
                                     error: function() {
@@ -176,12 +176,12 @@
                     removeSessionById: removeSessionById
                 };
             },
-            attendance = new EntitySet(dataservice.attendance.getAttendance, mapper.mapAttendance, model.attendanceNullo),
-            rooms = new EntitySet(dataservice.lookup.getRooms, mapper.mapRoom, model.roomNullo),
-            sessions = new EntitySet(dataservice.session.getSessionBriefs, mapper.mapSession, model.sessionNullo),
-            persons = new EntitySet(dataservice.person.getSpeakers, mapper.mapPerson, model.personNullo),
-            timeslots = new EntitySet(dataservice.lookup.getTimeslots, mapper.mapTimeSlot, model.timeSlotNullo),
-            tracks = new EntitySet(dataservice.lookup.getTracks, mapper.mapTrack, model.trackNullo),
+            attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.attendanceNullo),
+            rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.roomNullo),
+            sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.sessionNullo),
+            persons = new EntitySet(dataservice.person.getSpeakers, modelmapper.person, model.personNullo),
+            timeslots = new EntitySet(dataservice.lookup.getTimeslots, modelmapper.timeSlot, model.timeSlotNullo),
+            tracks = new EntitySet(dataservice.lookup.getTracks, modelmapper.track, model.trackNullo),
             sessionSpeakers = new SessionSpeakerEntitySet();
 
             // Attendance extensions
@@ -199,8 +199,8 @@
                                 if (callbacks && callbacks.error) { callbacks.error(); }
                                 return;
                             }
-                            var newAtt = mapper.mapAttendance(dto); // Map DTO to Model
-                            attendance.add(newAtt, 'sessionId'); // Add to the datacontext
+                            var newAtt = modelmapper.attendance.fromDto(dto); // Map DTO to Model
+                            attendance.add(newAtt); // Add to the datacontext
                             sessionModel.isFavoriteUpdate.notifySubscribers(); // Trigger re-evaluation of isFavorite
                             logger.success('Added attendance!'); //TODO: 
                             if (callbacks && callbacks.success) { callbacks.success(newAtt); }

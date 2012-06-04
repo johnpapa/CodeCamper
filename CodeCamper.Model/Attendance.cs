@@ -17,9 +17,6 @@ namespace CodeCamper.Model
         public int SessionId { get; set; }
         public Session Session { get; set; }
 
-        // Get a representation of the composite Attendance key; serialized but not-mapped
-        public string Id { get { return PersonId + "," + SessionId; } }
-
         /// <summary>Get and set the person's rating of the session from 1-5 (0=not rated).</summary>
         [Range(0,5)]
         public int Rating { get; set; }

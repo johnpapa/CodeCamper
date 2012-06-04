@@ -10,8 +10,6 @@ namespace CodeCamper.Data
         {
             HasKey(ps => new { ps.SessionId, ps.PersonId });
 
-            Ignore(ps => ps.Id); // a convenience property, not mapped.
-
             HasRequired(ps => ps.Session)
                 .WithMany(s => s.AttendanceList)
                 .HasForeignKey(ps => ps.SessionId)
