@@ -52,11 +52,6 @@
                         items[newObj.id()] = newObj;
                     },
                     removeById = function(id) {
-                        // Causes observables to be notified (ex: unmarking a favorite)
-                        // WB: this just feels wrong
-                        items[id].id(nullo.id());
-                        // WB: Don't set to nullo; no nullos in datacontext; delete it from items
-                        //items[id] = nullo; 
                         delete items[id];
                     },
                     // ToDo: This is getLocalById
@@ -70,9 +65,7 @@
                                 filter = options && options.filter,
                                 forceRefresh = options && options.forceRefresh,
                                 param = options && options.param;
-                            //overrideGetFunction = options && options.overrideGetFunction;
                             if (!items || !utils.hasProperties(items) || forceRefresh) {
-                                //return $.Deferred(function(def) {
                                 getFunction({
                                     success: function(dtoList) {
                                         items = mapToContext(dtoList, items, results, mapperFunction, filter, sortFunction);
@@ -83,7 +76,6 @@
                                         def.reject();
                                     }
                                 }, param);
-                                //}).promise();
                             } else {
                                 itemsToArray(items, results, filter, sortFunction);
                                 def.resolve(results);

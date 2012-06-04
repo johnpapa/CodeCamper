@@ -131,16 +131,14 @@
             self.isUnlocked = ko.computed({
                 read: function () {
                     var
-                        id = self.id(),
-                        unlocked = false;
-                    if (self.attendance && self.attendance()) {
-                        var attendance = self.attendance();
-                        unlocked = !(attendance.sessionId() === id
-                                && attendance.text()
-                                && (attendance.rating() > 0 || attendance.text().length > 0));
-                    }
+                        attendance = self.attendance(),
+                        unlocked = !(attendance.rating() > 0 || (attendance.text() && attendance.text().length > 0));
+
+                    self.isFavoriteUpdate(); // This exists so we can notify ifthe isFavorite to reevaluate
+
                     return unlocked;
-                }
+                },
+                deferEvaluation: true,
             }),
 
             self.isBrief = ko.observable(true);
