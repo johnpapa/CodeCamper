@@ -54,10 +54,10 @@
         
         Attendance.prototype = function () {
             person = function () {
-                return this.datacontext().persons.getById(this.personId());
+                return this.datacontext().persons.getLocalById(this.personId());
             },
             session = function () {
-                return this.datacontext().sessions.getById(this.sessionId());
+                return this.datacontext().sessions.getLocalById(this.sessionId());
             };
             return {
                 isNullo: false,
@@ -165,17 +165,17 @@
                 return this.datacontext().attendance.getSessionFavorite(this.id());
             },
             room = function () {
-                return this.datacontext().rooms.getById(this.roomId());
+                return this.datacontext().rooms.getLocalById(this.roomId());
             },
             speaker = function () {
                 //TODO: do i get from persons or speakers?
-                return this.datacontext().persons.getById(this.speakerId());
+                return this.datacontext().persons.getLocalById(this.speakerId());
             },
             timeslot = function () {
-                return this.datacontext().timeslots.getById(this.timeslotId());
+                return this.datacontext().timeslots.getLocalById(this.timeslotId());
             },
             track = function () {
-                return this.datacontext().tracks.getById(this.trackId());
+                return this.datacontext().tracks.getLocalById(this.trackId());
             };
 
             return {

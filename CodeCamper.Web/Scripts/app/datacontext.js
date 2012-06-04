@@ -1,10 +1,13 @@
 ﻿define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils'],
     function ($, _, ko, model, mapper, dataservice, config, utils) {
-        var logger = config.logger,
-            getCurrentUserId = function() {
+        var
+            logger = config.logger,
+
+            getCurrentUserId = function () {
                 return config.currentUser().id();
             },
-            itemsToArray = function(items, observableArray, filter, sortFunction) {
+
+            itemsToArray = function (items, observableArray, filter, sortFunction) {
                 if (!observableArray) return;
 
                 observableArray([]); // clear the old observableArray
@@ -24,7 +27,8 @@
                 observableArray(underlyingArray);
                 //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
             },
-            mapToContext = function(dtoList, items, results, mapperFunction, filter, sortFunction) {
+
+            mapToContext = function (dtoList, items, results, mapperFunction, filter, sortFunction) {
                 // Loop through the raw dto list and populate a dictionary of the items
                 items = _.reduce(dtoList, function (memo, dto) {
                     // ToDo: Just like mapDtoToContext ... refactor it
@@ -54,8 +58,7 @@
                     removeById = function(id) {
                         delete items[id];
                     },
-                    // ToDo: This is getLocalById
-                    getById = function(id) {
+                    getLocalById = function (id) {
                         return !!id && !!items[id] ? items[id] : nullo;
                     },
                     getData = function(options) {
@@ -85,7 +88,7 @@
                 return {
                     mapDtoToContext: mapDtoToContext,
                     add: add,
-                    getById: getById,
+                    getLocalById: getLocalById,
                     getData: getData,
                     removeById: removeById
                 };
@@ -106,7 +109,7 @@
                         // Causes observables to be notified (ex: unmarking a favorite)
                         items[personId] = _.without(items[personId], sessionId);
                     },
-                    getById = function(personId) {
+                    getLocalById = function (personId) {
                         // Gets an array of session ids for the personId passed in
                         return !!personId && !!items[personId] ? items[personId] : [];
                     },
@@ -119,7 +122,7 @@
                         // get an array of persons
                         for (var prop in items) {
                             if (items.hasOwnProperty(prop)) {
-                                underlyingArray.push(persons.getById(prop));
+                                underlyingArray.push(persons.getLocalById(prop));
                             }
                         }
                         if (filter) {
@@ -167,7 +170,7 @@
                     };
                 return {
                     add: add,
-                    getById: getById,
+                    getLocalById: getLocalById,
                     getData: getData,
                     removeById: removeById,
                     removeSessionById: removeSessionById
@@ -235,18 +238,18 @@
 
         // extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
         attendance.getSessionFavorite = function (sessionId) {
-            return attendance.getById(model.Attendance.makeId(getCurrentUserId(), sessionId));
+            return attendance.getLocalById(model.Attendance.makeId(getCurrentUserId(), sessionId));
         };
         
         // extend Sessions enttityset 
         sessions.getFullSessionById = function(id, callbacks) {
-            var session = sessions.getById(id);
+            var session = sessions.getLocalById(id);
             if (session.isNullo || session.isBrief())
             {
                 // if nullo or brief, get fresh from database
                 dataservice.session.getSession(id, {
                     success: function (dto) {
-                        // updates the session returned from getById() above
+                        // updates the session returned from getLocalById() above
                         session = sessions.mapDtoToContext(dto);
                         session.isBrief(false); // now a full session
                         logger.success('merged full session'); //TODO: revise message

@@ -2,7 +2,9 @@
     function (model) {
         var
             mapAttendance = function (raw, item) {
-                item = item || new model.Attendance().personId(raw.PersonId).sessionId(raw.SessionId);
+                item = item || new model.Attendance()
+                    .personId(raw.PersonId)
+                    .sessionId(raw.SessionId);
                 return item.rating(raw.Rating).text(raw.Text);
             },
 
