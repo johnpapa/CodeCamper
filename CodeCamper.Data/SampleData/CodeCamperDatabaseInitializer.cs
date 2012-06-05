@@ -36,10 +36,17 @@ namespace CodeCamper.SampleData
 
         private List<Room> AddRooms(CodeCamperDbContext context)
         {
+            // Total number of rooms = (number of tracks) + (number of TheChosen people); see note in TheChosen.
             var names = new[] { 
-                "Surf A", "Surf B", "Mendocino A", "Mendocino B", "Mendocino C", "Stromboli",
-                "Chico", "Levenworth", "Pelham Bay", "San Quentin", "Alcatraz", "Folsom", 
-                "Aqueduct", "Saratoga", "Golden Gate", "Santa Anita", "Monmouth Park", "Caliente"
+                // 'Track' rooms (10 in use)
+                "Surf A", "Surf B", "Mendocino A", "Mendocino B", "Mendocino C", 
+                "Stromboli", "Chico", "Frisco", "Miami", "Boston",
+                "Venice", "Rome", "Paris", "Madrid", "London",
+                // 'TheChosen' rooms (13 in use)
+                "Levenworth", "Pelham Bay", "San Quentin", "Alcatraz", "Folsom",
+                "Aqueduct", "Saratoga", "Golden Gate", "Santa Anita", "Monmouth Park", 
+                "Ossining", "Danbury", "Allenwood", "Lompoc", "La Tuna",
+                "Caliente", "Churchill Downs", "Calder", "Del Mar","Hollywood Park"
             };
             var rooms = new List<Room>();
             Array.ForEach(names, name =>

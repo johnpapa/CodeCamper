@@ -158,6 +158,63 @@ namespace CodeCamper.SampleData
             persons.AddRange(_theChosen);
         }
 
+        /**
+         * Hard-coded sessions for TheChoosen people
+         * 
+         * Speaker:
+         *   Each "Chosen" one gets own variable (e.g., _scottGuthrie)
+         *   as assigned in AddPersons method above.
+         *   Organize your added sessions by person.
+         *   
+         * Rooms:
+         *   Each person gets his/her own room (easier to prevent conflicts)
+         *   taken from 'roomsForSessions' which are rooms NOT assigned during 
+         *   session autogeneration; that constraint is obtained by limiting
+         *   auto-generation session room assignment to the "Track Set" of rooms,
+         *   the first 'n' rooms where 'n'==number of tracks.
+         *   The remaining rooms are available for TheChoosen;
+         *   (see the 'roomsForSessions' param).
+         *   There is a nextRoomId variable to help you assign the next room
+         *   when you start adding sessions for the next speaker.
+         *   
+         *   Make sure that the total number of rooms is adequate 
+         *   (see CodeCamperDatabaseInitializer.cs)
+         *   
+         * TimeSlots:
+         *   Only 'session' TimeSlots can be assigned (see the 'timeSlots' param).
+         *   The first such TimeSlot is the keynote timeslot 
+         *   which is assigned to Gu's keynote session.
+         *   Subsequent addeded sessions are assigned round-robin, in order,
+         *   to the non-keynote, session TimeSlots.
+         *   (see getNextSpeakerTimeSlotId()).
+         * 
+         * Track: Hard coded for each session
+         * 
+         * Code:
+         *   Each added session gets a 6 char "Code". 
+         *   The naming convention is
+         *       (1-3) are the three char SampleTrack.CodeRoot) +
+         *       (4) the level (a number {1..3}) + 
+         *       (5-6) two arbitrary digits.
+         *       
+         * The remaining session values are up to you.
+         * 
+         * ChoosenAttendeeSessions:
+         *    These are the sessions which are the favorite of the
+         *    well-known current user.
+         *    
+         *    You determine which sessions the current user has
+         *    "favorited" (decided to attend) by setting the first
+         *    parameter of the addSession method to 'true';
+         *    the default is 'false', meaning that session is not
+         *    the current user's "favorite."
+         *    
+         *    For example, Scott Gu's keynote has been favorited.
+         *    
+         *    Logic in CodeCamperDatabaseInitializer.AddAttendance
+         *    arbitrarily assigns ratings and evals to the first
+         *    'n' (n==4?) ChoosenAttendeeSessions.
+         */
         public static List<Session> AddSessions(
             IList<TimeSlot> timeSlots,
             IList<Track> tracks,
@@ -180,20 +237,22 @@ namespace CodeCamper.SampleData
                         return s;
                     };
 
-            // Non-keynote timeslot ids (the 1st is the keynote)
-            var slotIds = timeSlots.Skip(1).Select(ts => ts.Id).ToArray();
+            // **Non-keynote** timeslot ids (the 1st is the keynote)
+            var availableTimeSlotIds = timeSlots.Skip(1).Select(ts => ts.Id).ToArray();
 
             var nextSlotIx = -1;
             // Deterministic way to get id of next speaker timeslot
             Func<int> getNextSpeakerTimeSlotId =
                 () =>
                     {
-                       if (++nextSlotIx == slotIds.Count()) nextSlotIx = 0;
-                        return slotIds[nextSlotIx];
+                       if (++nextSlotIx == availableTimeSlotIds.Count()) nextSlotIx = 0;
+                        return availableTimeSlotIds[nextSlotIx];
                     };
 
+            var nextRoomId = 0;
+
             // Scott Guthrie
-            var roomId = roomsForSessions[0].Id;
+            var roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Keynote",
@@ -221,6 +280,7 @@ namespace CodeCamper.SampleData
             });
 
             //Scott Hunter
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Azure: to the Cloud",
@@ -233,11 +293,9 @@ namespace CodeCamper.SampleData
                 Tags = "Cloud|Azure|Node|Web",
                 Description = "Windows Azure offers reliable, affordable cloud computing for almost any application of any scale, built with any technology. Scott demonstates with examples of both Windows and non-Windows applications.",
             });
-
-
                 
             // John Papa
-            roomId = roomsForSessions[1].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Building HTML/JavaScript Apps with Knockout and MVVM",
@@ -292,7 +350,7 @@ namespace CodeCamper.SampleData
             });
 
             // Dan Wahlin
-            roomId = roomsForSessions[2].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
@@ -335,7 +393,7 @@ namespace CodeCamper.SampleData
             });
 
             // Ward Bell
-            roomId = roomsForSessions[3].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "Dressing for Success",
@@ -376,7 +434,7 @@ namespace CodeCamper.SampleData
             });
 
             // Howard Dierking
-            roomId = roomsForSessions[4].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "ASP.NET MVC 4 Loves HTML5",
@@ -391,6 +449,7 @@ namespace CodeCamper.SampleData
             });
 
             // Hans Fjällemark
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "Bootstrap and Back",
@@ -419,7 +478,7 @@ namespace CodeCamper.SampleData
             });
 
             // Jim Cowart
-            roomId = roomsForSessions[5].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "Jim Cowart Underscores",
@@ -447,7 +506,7 @@ namespace CodeCamper.SampleData
             });
 
             // Steve Sanderson
-            roomId = roomsForSessions[5].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Going for the Knockout",
@@ -476,7 +535,7 @@ namespace CodeCamper.SampleData
             });
 
             // Ryan Niemeyer
-            roomId = roomsForSessions[7].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Knockback a few cold ones",
@@ -515,7 +574,7 @@ namespace CodeCamper.SampleData
             });
 
             // Aaron Skonnard
-            roomId = roomsForSessions[7].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Web Services at their Finest",
@@ -530,7 +589,7 @@ namespace CodeCamper.SampleData
             });
 
             // Fritz Onion
-            roomId = roomsForSessions[7].Id;
+            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "What's New in ASP.NET 4",
