@@ -2,10 +2,16 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
+// ReSharper disable RedundantArgumentName
+
 namespace CodeCamper.Web
 {
     public class RouteConfig
     {
+        public static string ControllerOnly = "ApiControllerOnly";
+        public static string ControllerAndId = "ApiControllerAndIntegerId";
+        public static string ControllerAction = "ApiControllerAction";
+
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -17,7 +23,7 @@ namespace CodeCamper.Web
             // ex: api/sessions
             // ex: api/persons
             routes.MapHttpRoute(
-                name: "ApiControllerOnly",
+                name: ControllerOnly,
                 routeTemplate: "api/{controller}"
             );
 
@@ -33,7 +39,7 @@ namespace CodeCamper.Web
             //  ex: api/sessions/1
             //  ex: api/persons/1
             routes.MapHttpRoute(
-                name: "ApiControllerAndIntegerId",
+                name: ControllerAndId,
                 routeTemplate: "api/{controller}/{id}",
                 defaults: null, //defaults: new { id = RouteParameter.Optional } //,
                 constraints: new { id = @"^\d+$" } // id must be all digits
@@ -54,7 +60,7 @@ namespace CodeCamper.Web
             // ex: api/lookups/all
             // ex: api/lookups/rooms
             routes.MapHttpRoute(
-                name: "ApiControllerAction",
+                name: ControllerAction,
                 routeTemplate: "api/{controller}/{action}"
             );
 
