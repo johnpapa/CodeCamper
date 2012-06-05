@@ -10,6 +10,7 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
             window = config.window,
             logger = config.logger,
             isRedirecting = false,
+            startupUrl = '',
 
             sammy = new Sammy.Application(function () {
                 if (Sammy.Title) {
@@ -22,8 +23,6 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                     this.app.runRoute('get', startupUrl);
                 });
             }),
-
-            startupUrl = '',
 
             register = function (options) {
                 if (options.routes) {
@@ -64,24 +63,23 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                     var
                         context = this,
                         response = routeMediator.canLeave();
+
                     if (!isRedirecting && !response.val) {
                         isRedirecting = true;
                         logger.warning(response.message);
-
                         // Keep hash url the same in address bar
                         window.history.back();
                         //this.redirect('#/Sessions'); 
-
-                    } else {
+                    }
+                    else {
                         isRedirecting = false;
                     }
                     return response.val;
                 });
-
             },
 
             run = function (url) {
-                startupUrl = url
+                startupUrl = url;
                 registerBeforeLeaving();
                 sammy.run();
                 navigateTo(url);
