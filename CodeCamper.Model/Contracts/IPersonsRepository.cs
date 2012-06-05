@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 namespace CodeCamper.Model
 {
     public interface IPersonsRepository : IRepository<Person>

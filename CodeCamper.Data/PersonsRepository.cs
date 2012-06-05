@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data
@@ -15,7 +12,7 @@ namespace CodeCamper.Data
         /// Get <see cref="Speaker"/>s at sessions.
         /// </summary>
         ///<remarks>
-        ///See <see cref="IPersonsRepository.Speakers"/> for details.
+        ///See <see cref="IPersonsRepository.GetSpeakers"/> for details.
         ///</remarks>
 
         public IQueryable<Speaker> GetSpeakers()

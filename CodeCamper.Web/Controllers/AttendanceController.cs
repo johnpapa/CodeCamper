@@ -38,21 +38,14 @@ namespace CodeCamper.Web.Controllers
             Uow.Attendance.Add(attendance);
             Uow.Commit();
 
-            // Succeeded if got here; create 201 Created response
-            // webapi beta
-            //var response = new HttpResponseMessage(attendance, HttpStatusCode.Created);
-            // webapi rc w/o model
-            //var response = new HttpResponseMessage(HttpStatusCode.Created);
-            // as per Daniel Roth
-            var response = Request.CreateResponse<Attendance>(HttpStatusCode.Created, attendance);
+            var response = Request.CreateResponse(HttpStatusCode.Created, attendance);
 
-            // Compose location header the tells how to get this attendance
-            // e.g. http://www.mysite.com/api/attendance/?pid=2&sid=1
+            // Compose location header that tells how to get this attendance
+            // e.g. ~/api/attendance/?pid=2&sid=1
             var queryString = string.Format(
                 "?pid={0}&sid={1}", attendance.PersonId, attendance.SessionId);
-
-            response.Headers.Location = 
-                new Uri(Request.RequestUri, "/api/attendance/"+queryString);
+            response.Headers.Location =
+                new Uri(Url.Link(RouteConfig.ControllerOnly, null)+queryString);
 
             return response;
         }

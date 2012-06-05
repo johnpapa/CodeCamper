@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data
@@ -88,7 +86,7 @@ namespace CodeCamper.Data
         /// </returns>
         /// <remarks>
         /// Looks first for a custom factory in <see cref="_repositoryFactories"/>.
-        /// If not, falls back to the <see cref="DefaultEntityRepositoryFactory"/>.
+        /// If not, falls back to the <see cref="DefaultEntityRepositoryFactory{T}"/>.
         /// You can substitute an alternative factory for the default one by adding
         /// a repository factory for type "T" to <see cref="_repositoryFactories"/>.
         /// </remarks>

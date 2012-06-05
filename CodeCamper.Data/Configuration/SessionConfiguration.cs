@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using System.Linq;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data

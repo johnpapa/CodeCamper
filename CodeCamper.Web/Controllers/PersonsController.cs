@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -30,12 +28,5 @@ namespace CodeCamper.Web.Controllers
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
         }
 
-        // PUT /api/persons/
-        [Queryable]
-        public void Put(Person person)
-        {
-            Uow.Persons.Update(person);
-            Uow.Commit();
-        }
     }
 }

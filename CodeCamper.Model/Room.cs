@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace CodeCamper.Model
+﻿namespace CodeCamper.Model
 {
     public class Room
     {

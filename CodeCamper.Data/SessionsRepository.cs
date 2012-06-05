@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data
@@ -39,7 +38,7 @@ namespace CodeCamper.Data
         /// as a list of <see cref="TagGroup"/>.
         /// </summary>
         /// <remarks>
-        ///See <see cref="ISessionRepository.TagGroups"/> for details.
+        ///See <see cref="ISessionsRepository.GetTagGroups"/> for details.
         /// </remarks>
         public IEnumerable<TagGroup> GetTagGroups()
         {
