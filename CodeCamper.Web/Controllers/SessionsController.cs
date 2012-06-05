@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -28,6 +27,32 @@ namespace CodeCamper.Web.Controllers
             var session = Uow.Sessions.GetById(id);
             if (session != null) return session;
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+        }
+
+        // Create a new Session
+        // POST /api/session
+        public HttpResponseMessage Post(Session session)
+        {
+            Uow.Sessions.Add(session);
+            Uow.Commit();
+
+            var response = Request.CreateResponse(HttpStatusCode.Created, session);
+
+            // Compose location header that tells how to get this session
+            // e.g. ~/api/session/5
+            response.Headers.Location =
+                new Uri(Url.Link(RouteConfig.ControllerAndId, new {id = session.Id}));
+
+            return response;
+        }
+
+        // Update an existing Attendance 
+        // PUT /api/sessions/
+        public HttpResponseMessage Put(Session session)
+        {
+            Uow.Sessions.Update(session);
+            Uow.Commit();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
     }
 }
