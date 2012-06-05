@@ -220,15 +220,23 @@
     <Content Include="Scripts\lib\sammy.title.js" />
     <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Scripts\lib\underscore.min.js" />
+    <Content Include="Test\webapi.get-result.tests.html" />
+    <Content Include="Test\webapi.get-result.tests.js" />
+    <Content Include="Test\webapi.attendance-cud.tests.js" />
+    <Content Include="Test\qunit-utils.js" />
+    <Content Include="Test\webapi.endpoint.tests.html" />
+    <Content Include="Test\testrunner.html" />
     <Content Include="Test\dataservice.test.js" />
     <Content Include="Test\dataservice.test.html" />
+    <Content Include="Test\qunit\qunit-composite.css" />
+    <Content Include="Test\qunit\qunit-composite.js" />
     <Content Include="Test\qunit\qunit.css" />
     <Content Include="Content\search.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Global.asax" />
-    <Content Include="Test\webapi.test.html" />
+    <Content Include="Test\webapi.attendance-cud.tests.html" />
     <Content Include="Scripts\app\bootstrapper.js" />
     <Content Include="Scripts\app\vm.session.js" />
     <Content Include="Scripts\app\model.js" />
@@ -259,7 +267,7 @@
     <Content Include="Test\qunit\qunit.js" />
     <Content Include="Scripts\lib\sammy.js" />
     <Content Include="Scripts\lib\toastr.js" />
-    <Content Include="Test\webapi.test.js" />
+    <Content Include="Test\webapi.endpoint.tests.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
