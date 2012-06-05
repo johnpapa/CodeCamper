@@ -14,7 +14,7 @@ namespace CodeCamper.SampleData
         public static string GenTags(string track = null)
         {
             var tagDomain = SampleTrack.GetTags(track);
-            var selected = RandomSelector.Deal(tagDomain, Rand.Next(1, 6));          
+            var selected = RandomSelector.Deal(tagDomain, Rand.Next(1, 6));
             return string.Join(TagSeparator, selected);
         }
   

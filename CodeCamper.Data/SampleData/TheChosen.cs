@@ -10,7 +10,9 @@ namespace CodeCamper.SampleData
         private static List<Person> _theChosen;
         private static Person 
             _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
-            _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, _aaronSkonnard, _fritzOnion;
+            _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
+            _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
+            _madsKristensen;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -117,6 +119,36 @@ namespace CodeCamper.SampleData
                 Gender = "M",
                 Bio = "A co-founder of Pluralsight where he serves as the Editor in Chief.",
             });
+            _theChosen.Add(_scottHunter = new Person
+            {
+                FirstName = "Scott",
+                LastName = "Hunter",
+                Email = "scotth@contoso.com",
+                Blog = "http://scotth.contoso.com",
+                Twitter = "https://twitter.com/#!/coolcsh",
+                Gender = "M",
+                Bio = "Program Manager at Microsoft on web technologies such as Azure, ASP.NET, MVC, Web API, Entity Framework, NuGet and more...",
+            });
+            _theChosen.Add(_madsKristensen = new Person
+            {
+                FirstName = "Mads",
+                LastName = "Kristensen",
+                Email = "madsk@contoso.com",
+                Blog = "http://madsk.contoso.com",
+                Twitter = "https://twitter.com/#!/mkristensen",
+                Gender = "M",
+                Bio = "Program Manager for Microsoft Web Platform & Tools and founder of BlogEngine.NET",
+            });
+            _theChosen.Add(_howardDierking = new Person
+            {
+                FirstName = "Howard",
+                LastName = "Dierking",
+                Email = "howardd@contoso.com",
+                Blog = "http://howardd.contoso.com",
+                Twitter = "https://twitter.com/#!/howard_dierking",
+                Gender = "M",
+                Bio = "I like technology...a lot...",
+            });
 
             _theChosen.ForEach(p => p.ImageSource = 
                 (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
@@ -183,20 +215,22 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "ASP|MVC",
+                Tags = "ASP|MVC|Web",
                 Description =
                     "MVC 4 enables a wider variety of web applications than ever before. The libraries that are easily managed through Nuget and are truly opens source. Learn about the new capabilities and how you can contribute to ASP.NET MVC's evolution.",
             });
+
+            //Scott Hunter
             addSession(true, new Session
             {
                 Title = "Azure: to the Cloud",
                 Code = "CLD163",
-                SpeakerId = _scottGuthrie.Id,
+                SpeakerId = _scottHunter.Id,
                 TrackId = tracks.First(t => t.Name == "Cloud").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "Cloud|Azure|Node",
+                Tags = "Cloud|Azure|Node|Web",
                 Description = "Windows Azure offers reliable, affordable cloud computing for almost any application of any scale, built with any technology. Scott demonstates with examples of both Windows and non-Windows applications.",
             });
 
@@ -204,7 +238,6 @@ namespace CodeCamper.SampleData
                 
             // John Papa
             roomId = roomsForSessions[1].Id;
-
             addSession(true, new Session
             {
                 Title = "Building HTML/JavaScript Apps with Knockout and MVVM",
@@ -214,7 +247,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "JavaScript|Knockout|MVVM|HTML5",
+                Tags = "JavaScript|Knockout|MVVM|HTML5|Web",
                 Description =
                     "Do you write a lot of HTML and JavaScript code to push and pull data? In this session, learn popular techniques to use data binding to bind your data to your target controls in HTML writing less code, but gaining more power. See how to consume json data, use json objects in JavaScript, use declarative binding, using KnockoutJS. Also, see how to use the MVVM pattern to write data centric JavaScript code that follows good separation patterns and creates highly maintainable code.",
             });
@@ -227,7 +260,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "JavaScript|JsRender",
+                Tags = "JavaScript|JsRender|Web",
                 Description =
                     "Learn how to build fast, robust, and maintainable Web applications with JavaScript, jQuery and JsRender: the successor to jQuery Templates.",
             });
@@ -253,7 +286,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "Knockout|JavaScript",
+                Tags = "Knockout|JavaScript|Web",
                 Description =
                     "Build a SPA, then hang out in one.",
             });
@@ -269,7 +302,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "MVC|HTML5|Entity Framework|jQuery",
+                Tags = "MVC|HTML5|Entity Framework|jQuery|Web",
                 Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
             });
             addSession(false, new Session
@@ -281,20 +314,22 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[0],
-                Tags = "jQuery|JavaScript",
+                Tags = "jQuery|JavaScript|Web",
                 Description =
                     "This session guides you through the features of the jQuery \"write less, do more\" library",
             });
+
+            // Mads Kristensen
             addSession(true, new Session
             {
                 Title = "Structuring JavaScript Code",
                 Code = "JVS212",
-                SpeakerId = _danWahlin.Id,
+                SpeakerId = _madsKristensen.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "Web Forms|ASP",
+                Tags = "Web Forms|ASP|Web",
                 Description =
                     "This session walks through several key patterns that can be used to encapsulate and modularize JavaScript code. Throughout the course you’ll learn how closures and other techniques can be used to better organize your JavaScript code and make it easier to re-use and maintain in HTML5 applications.",
             });
@@ -335,25 +370,27 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "JavaScript",
+                Tags = "JavaScript|Web",
                 Description =
                     "You need a good set of tools to be a rock star JavaScript developer. What does Ward use to write, test and debug? Come to this session and find out.",
             });
 
-            // Hans Fjällemark
+            // Howard Dierking
             roomId = roomsForSessions[4].Id;
             addSession(false, new Session
             {
-                Title = "Fjällemark Magic 1",
-                Code = "ASP331",
-                SpeakerId = _hansFjallemark.Id,
+                Title = "ASP.NET MVC 4 Loves HTML5",
+                Code = "ASP333",
+                SpeakerId = _howardDierking.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "MVC|HTML5|Entity Framework|jQuery",
+                Tags = "MVC|HTML5|Entity Framework|jQuery|Web",
                 Description = "TBD",
             });
+
+            // Hans Fjällemark
             addSession(false, new Session
             {
                 Title = "Bootstrap and Back",
@@ -363,7 +400,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[0],
-                Tags = "CSS|Responsive Design",
+                Tags = "CSS|Responsive Design|Web",
                 Description =
                     "TBD",
             });
@@ -376,7 +413,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "CSS3|Responsive Design",
+                Tags = "CSS3|Responsive Design|Web",
                 Description =
                     "TBD",
             });
@@ -392,7 +429,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "JavaScript|Underscore|jQuery",
+                Tags = "JavaScript|Underscore|jQuery|Web",
                 Description = "TBD",
             });
             addSession(false, new Session
@@ -404,7 +441,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[0],
-                Tags = "Backbone|JavaScript",
+                Tags = "Backbone|JavaScript|Web",
                 Description =
                     "TBD",
             });
@@ -420,7 +457,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "Knockout|JavaScript",
+                Tags = "Knockout|JavaScript|Web",
                 Description =
                     "TBD",
             });
@@ -433,7 +470,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "Knockout|JavaScript",
+                Tags = "Knockout|JavaScript|Web",
                 Description =
                     "TBD",
             });
@@ -449,7 +486,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "JavaScript|Knockout|jQuery",
+                Tags = "JavaScript|Knockout|jQuery|Web",
                 Description = "TBD",
             });
             addSession(false, new Session
@@ -461,7 +498,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[0],
-                Tags = "Knockout|JavaScript",
+                Tags = "Knockout|JavaScript|Web",
                 Description = "TBD",
             });
             addSession(false, new Session
@@ -473,7 +510,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "jsFiddle|JavaScript",
+                Tags = "jsFiddle|JavaScript|Web",
                 Description = "TBD",
             });
 
@@ -488,7 +525,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[2],
-                Tags = "WCF|REST",
+                Tags = "WCF|REST|Web",
                 Description = "TBD",
             });
 
@@ -503,7 +540,7 @@ namespace CodeCamper.SampleData
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = roomId,
                 Level = levels[1],
-                Tags = "ASP.NET",
+                Tags = "ASP.NET|Web",
                 Description = "TBD",
             });
             

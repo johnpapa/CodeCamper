@@ -9,14 +9,14 @@ namespace CodeCamper.SampleData
             new List<SampleTrack>()
                 {
                    new SampleTrack("Windows 8", "WIN","Windows", "XAML", "WinRT", "C++", "C#", "VB","HTML5", "Metro"),
-                   new SampleTrack("JavaScript", "JVS","JavaScript", "jQuery", "Knockout","JsRender", "MVVM","HTML5", "SPA", "Amplify", "Underscore", "Backbone"),
-                   new SampleTrack("CSS", "CSS","CSS3", "CSS", "Responsive Design", "Boetstrap", "Media Queries"),
-                   new SampleTrack("ASP.NET", "ASP","MVC","Web Matrix","HTML5","SignalR", "Web Forms"),
-                   new SampleTrack(".NET", "NET","Memory", "Debugging","WCF", "Silverlight", "WPF", "XAML"),
+                   new SampleTrack("JavaScript", "JVS","JavaScript", "jQuery", "Knockout","JsRender", "MVVM","HTML5", "SPA", "Amplify", "Underscore", "Backbone", "Web"),
+                   new SampleTrack("CSS", "CSS","CSS3", "CSS", "Responsive Design", "Boetstrap", "Media Queries", "Web"),
+                   new SampleTrack("ASP.NET", "ASP","MVC","Web Matrix","HTML5","SignalR", "Web Forms", "Web"),
+                   new SampleTrack(".NET", "NET","Memory", "Debugging","WCF", "Silverlight", "WPF", "XAML", "Web"),
                    new SampleTrack("Data", "DAT","Entity Framework", "SQL Server", "OData", "BI", "Oracle", "ORM"),
-                   new SampleTrack("Mobile", "MOB","Mobile","WP7", "PhoneGap", "Android", "iPad", "iOS", "Xamarin","Kinect", "XNA"),
-                   new SampleTrack("Cloud", "CLD","Cloud", "Node","Azure","Amazon", "EC2", "Service Bus", "SkyDrive"),
-                   new SampleTrack("Practices", "PRC","Practices", "Agility","TDD","Testing", "Mocks", "Scrum", "Lean"),
+                   new SampleTrack("Mobile", "MOB","Mobile","WP7", "PhoneGap", "Android", "iPad", "iOS", "Xamarin","Kinect", "XNA", "Web"),
+                   new SampleTrack("Cloud", "CLD","Cloud", "Node","Azure","Amazon", "EC2", "Service Bus", "SkyDrive", "Web"),
+                   new SampleTrack("Practices", "PRC","Practices", "Agility","TDD","Testing", "Mocks", "Scrum", "Lean", "Web"),
                    new SampleTrack("Design", "DSN","Design", "Animation","3D","UX", "Metro", "SketchFlow"),
                 };
 
