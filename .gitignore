@@ -4,10 +4,9 @@
 *.user
 *.gpState
 *.suo
-/bin
-/obj
+bin*
+obj*
 /packages
-/Properties
 
 
 # Compiled source #
@@ -30,6 +29,7 @@
 *.jar
 *.rar
 *.tar
+*.xap
 *.zip
 
 # Logs and databases #
