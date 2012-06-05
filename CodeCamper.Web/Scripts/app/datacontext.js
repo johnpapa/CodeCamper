@@ -166,12 +166,11 @@
                                     if (sessionResults() && sessionResults().length) {
                                         var underlyingArraySessions = sessionResults();
                                         // create the items memo of items[speakerId] = [sessionId_1, sessionId_1, sessionId_n]
-                                        // TODO: use underscore to trim this down
-                                        for (var i = 0; i < underlyingArraySessions.length; i++) {
-                                            var s = underlyingArraySessions[i];
-                                            items[s.speakerId()] = items[s.speakerId()] || [];
-                                            items[s.speakerId()].push(s.id());
-                                        }
+                                        items = _.reduce(underlyingArraySessions, function (memo, s) {
+                                            memo[s.speakerId()] = memo[s.speakerId()] || [];
+                                            memo[s.speakerId()].push(s.id());
+                                            return memo;
+                                        }, items);
                                         crossMatchSpeakers(results, filter, sortFunction);
                                     } else {
                                         logger.error('oops! data could not be retrieved'); //TODO: get rid of this
