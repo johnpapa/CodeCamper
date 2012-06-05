@@ -42,20 +42,23 @@
                         return true; // don't care if favorite or not
                     }
                 },
-                timeSlotTest = function(minDate, maxDate, session) {
+
+                timeSlotTest = function (minDate, maxDate, session) {
                     // Return true if it meets the filter criteria. Otherwise, return false
                     if (minDate && minDate > session.timeslot().start()) return false;
                     if (maxDate && maxDate < session.timeslot().start()) return false;
                     return true;
                 },
-                modelTest = function(timeslot, speaker, track, session) {
+
+                modelTest = function (timeslot, speaker, track, session) {
                     // Return true if it meets the filter criteria. Otherwise, return false
                     if (timeslot && timeslot.id() !== session.timeslot().id()) return false;
                     if (speaker && speaker.id() !== session.speaker().id()) return false;
                     if (track && track.id() !== session.track().id()) return false;
                     return true;
                 },
-                predicate = function(self, session) {
+
+                predicate = function (self, session) {
                     // Return true if all of these meet the filter criteria. Otherwise, return false
                     var match = searchTest(self.searchText(), session)
                         && favoriteTest(self.favoriteOnly(), session)

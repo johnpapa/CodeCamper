@@ -1,22 +1,53 @@
-﻿define(['ko', 'datacontext', 'config', 'messenger'],
-    function (ko, datacontext, config, messenger) {
+﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort'],
+    function (ko, datacontext, config, messenger, sort) {
         var
-            self = this,
             logger = config.logger,
             session = ko.observable(),
+            rooms = ko.observableArray(),
+            tracks = ko.observableArray(),
+            timeslots = ko.observableArray(),
 
             canLeave = function () {
                 return true;
             },
 
             activate = function (routeData) {
-                messenger.publish.viewModelActivated({ viewmodel: self, canleaveCallback: canLeave });
+                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 logger.info('activated session view model');
                 var sessionId = routeData.id;
-                //var result = datacontext.sessions.getLocalById(sessionId);
                 var result = datacontext.sessions.getFullSessionById(
                     sessionId, { success: function (s) { session(s); } });
                 session(result);
+                getRooms();
+                getTimeslots();
+                getTracks();
+            },
+
+            getRooms = function () {
+                if (!rooms().length) {
+                    datacontext.rooms.getData({
+                        results: rooms,
+                        sortFunction: sort.roomSort
+                    });
+                }
+            },
+
+            getTimeslots = function () {
+                if (!timeslots().length) {
+                    datacontext.timeslots.getData({
+                        results: timeslots,
+                        sortFunction: sort.timeslotSort
+                    });
+                }
+            },
+
+            getTracks = function () {
+                if (!tracks().length) {
+                    datacontext.tracks.getData({
+                        results: tracks,
+                        sortFunction: sort.trackSort
+                    });
+                }
             },
 
             saveFavorite = function () {
@@ -44,7 +75,10 @@
         return {
             activate: activate,
             canLeave: canLeave,
+            rooms: rooms,
             session: session,
-            saveFavorite: saveFavorite
+            saveFavorite: saveFavorite,
+            timeslots: timeslots,
+            tracks: tracks
         };
     });

@@ -32,6 +32,7 @@
                     .trackId(dto.TrackId)
                     .timeslotId(dto.TimeSlotId)
                     .roomId(dto.RoomId)
+                    .rating(dto.Rating)
                     .description(dto.Description)
                     .level(dto.Level)
                     .tags(dto.Tags);

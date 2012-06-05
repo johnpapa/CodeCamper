@@ -7,7 +7,6 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
     function (ko, router, datacontext, filter, sort, messenger) {
         //app.vm.speakers = (function (ko, logger, router, datacontext, config, filter, sort) {
         var
-            self = this,
             speakersFilter = new filter.SpeakersFilter(),
             speakers = ko.observableArray(),
 
@@ -24,7 +23,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
             },
 
             activate = function () {
-                messenger.publish.viewModelActivated({ viewmodel: self, canleaveCallback: canLeave });
+                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 refresh();
             },
 

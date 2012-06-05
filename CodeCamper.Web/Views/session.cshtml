@@ -1,12 +1,30 @@
 ﻿<section id="session" class="view">
     <article data-bind="with: session">
         <div>
+            <label for="title">Title</label>
+            <input id="title" data-bind="value: title" />
+            <label for="track">Track</label>
+            <select id="track" data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id'">
+            </select>
+            <label for="timeslot">Time slot</label>
+            <select id="timeslot" data-bind="options: $parent.timeslots, optionsText: 'shortStart', optionsValue: 'id'">
+            </select>
+            <label for="room">Room</label>
+            <select id="room" data-bind="options: $parent.rooms, optionsText: 'name', optionsValue: 'id'">
+            </select>
             <img data-bind="attr: {src: speaker().imageName}"/>
-            <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
-            <small data-bind="text:level" style="float: right"></small>
-            <a data-bind="attr: {href: '#/sessions/' + id() }"><h1 data-bind="text: title"></h1></a>
             <address data-bind="text: speaker().fullName"></address>
-            <div data-bind="text: description"></div>
+            <label for="code">Code</label>
+            <input id="code" data-bind="value: code" />
+            <label for="tags">Tags</label>
+            <input id="tags" data-bind="value: tags" />
+            <label for="level">Level</label>
+            <input id="level" data-bind="value: level" />
+            <label for="description">Description</label>
+            <textarea id="description" data-bind="value: description"></textarea>
+            <label for="feedback">Feedback</label>
+            <textarea id="feedback" data-bind="value: attendance().text"></textarea>
+            <span data-bind="starRating: attendance().rating"></span>
             <label class="markfavorite" title="Mark as favorite"><input 
                 data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite" 
                 type="checkbox"/><span></span></label>

@@ -7,7 +7,6 @@
 define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events', 'messenger'],
     function (ko, router, datacontext, filter, sort, group, utils, config, events, messenger) {
         var
-            self = this,
             selectedDate = ko.observable(),
             sessionsFilter = new filter.SessionsFilter(),
             timeslots = ko.observableArray(),
@@ -71,7 +70,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             },
 
             activate = function (data) {
-                messenger.publish.viewModelActivated({ viewmodel: self, canleaveCallback: canLeave });
+                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getTimeslots();
                 setSelectedDay(data);
                 refresh();

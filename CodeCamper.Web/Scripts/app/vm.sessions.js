@@ -6,7 +6,6 @@
 define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'messenger'],
     function (ko, router, datacontext, filter, sort, events, utils, messenger) {
         var
-            self = this,
             isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
             sessions = ko.observableArray(),
@@ -46,7 +45,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
             },
 
             activate = function () {
-                messenger.publish.viewModelActivated({ viewmodel: self, canleaveCallback: canLeave });
+                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getSpeakers();
                 getTimeslots();
                 getTracks();
