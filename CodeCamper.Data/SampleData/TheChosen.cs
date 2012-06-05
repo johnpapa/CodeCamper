@@ -174,8 +174,7 @@ namespace CodeCamper.SampleData
          *   the first 'n' rooms where 'n'==number of tracks.
          *   The remaining rooms are available for TheChoosen;
          *   (see the 'roomsForSessions' param).
-         *   There is a nextRoomId variable to help you assign the next room
-         *   when you start adding sessions for the next speaker.
+         *   The getRoomId(person) func assigns the next chosen one's room.
          *   
          *   Make sure that the total number of rooms is adequate 
          *   (see CodeCamperDatabaseInitializer.cs)
@@ -211,6 +210,8 @@ namespace CodeCamper.SampleData
          *    
          *    For example, Scott Gu's keynote has been favorited.
          *    
+         *   EnsureTimeSlotIdIsFree guards against conflicting attendee timeslots
+         *    
          *    Logic in CodeCamperDatabaseInitializer.AddAttendance
          *    arbitrarily assigns ratings and evals to the first
          *    'n' (n==4?) ChoosenAttendeeSessions.
@@ -225,17 +226,7 @@ namespace CodeCamper.SampleData
             var sessions = new List<Session>();
             ChoosenAttendeeSessions = new List<Session>();
 
-            // Adds session to Sessions and optionally to ChoosenAttendeeSessions
-            Func<bool, Session, Session> addSession = 
-                (choosen, s) =>
-                    {
-                        sessions.Add(s);
-                        if (choosen)
-                        {
-                            ChoosenAttendeeSessions.Add(s);  
-                        } 
-                        return s;
-                    };
+            var choosenAttendeeTimeSlotIds = new List<int>();
 
             // **Non-keynote** timeslot ids (the 1st is the keynote)
             var availableTimeSlotIds = timeSlots.Skip(1).Select(ts => ts.Id).ToArray();
@@ -249,10 +240,22 @@ namespace CodeCamper.SampleData
                         return availableTimeSlotIds[nextSlotIx];
                     };
 
-            var nextRoomId = 0;
+            Func<Person, int> getRoomId = choosenOne => roomsForSessions[_theChosen.IndexOf(choosenOne)].Id;
+
+            // Adds session to Sessions and optionally to ChoosenAttendeeSessions
+            Func<bool, Session, Session> addSession =
+                (choosen, s) =>
+                {
+                    sessions.Add(s);
+                    if (choosen)
+                    {
+                        EnsureTimeSlotIdIsFree(choosenAttendeeTimeSlotIds, s, getNextSpeakerTimeSlotId);
+                        ChoosenAttendeeSessions.Add(s);
+                    }
+                    return s;
+                };
 
             // Scott Guthrie
-            var roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Keynote",
@@ -260,7 +263,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _scottGuthrie.Id,
                 TrackId = tracks.First(t => t.Name == ".NET").Id,
                 TimeSlotId = timeSlots[0].Id,
-                RoomId = roomId,
+                RoomId = getRoomId(_scottGuthrie),
                 Level = levels[1],
                 Tags = "Keynote",
                 Description = "",
@@ -272,7 +275,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _scottGuthrie.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_scottGuthrie),
                 Level = levels[1],
                 Tags = "ASP|MVC|Web",
                 Description =
@@ -280,7 +283,6 @@ namespace CodeCamper.SampleData
             });
 
             //Scott Hunter
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Azure: to the Cloud",
@@ -288,22 +290,21 @@ namespace CodeCamper.SampleData
                 SpeakerId = _scottHunter.Id,
                 TrackId = tracks.First(t => t.Name == "Cloud").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_scottHunter),
                 Level = levels[1],
                 Tags = "Cloud|Azure|Node|Web",
                 Description = "Windows Azure offers reliable, affordable cloud computing for almost any application of any scale, built with any technology. Scott demonstates with examples of both Windows and non-Windows applications.",
             });
                 
             // John Papa
-            roomId = roomsForSessions[nextRoomId++].Id;
-            addSession(true, new Session
+            addSession(false, new Session
             {
                 Title = "Building HTML/JavaScript Apps with Knockout and MVVM",
                 Code = "JVS300",
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_johnPapa),
                 Level = levels[2],
                 Tags = "JavaScript|Knockout|MVVM|HTML5|Web",
                 Description =
@@ -316,20 +317,20 @@ namespace CodeCamper.SampleData
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_johnPapa),
                 Level = levels[1],
                 Tags = "JavaScript|JsRender|Web",
                 Description =
                     "Learn how to build fast, robust, and maintainable Web applications with JavaScript, jQuery and JsRender: the successor to jQuery Templates.",
             });
-            addSession(true, new Session
+            addSession(false, new Session
             {
                 Title = "Introduction to Building Windows 8 Metro Applications",
                 Code = "WIN102",
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "Windows 8").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_johnPapa),
                 Level = levels[0],
                 Tags = "Windows|Metro",
                 Description =
@@ -342,15 +343,14 @@ namespace CodeCamper.SampleData
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_johnPapa),
                 Level = levels[2],
                 Tags = "Knockout|JavaScript|Web",
                 Description =
                     "Build a SPA, then hang out in one.",
             });
 
-            // Dan Wahlin
-            roomId = roomsForSessions[nextRoomId++].Id;
+            // Dan Wahlin;
             addSession(false, new Session
             {
                 Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
@@ -358,19 +358,19 @@ namespace CodeCamper.SampleData
                 SpeakerId = _danWahlin.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_danWahlin),
                 Level = levels[2],
                 Tags = "MVC|HTML5|Entity Framework|jQuery|Web",
                 Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
             });
-            addSession(false, new Session
+            addSession(true, new Session
             {
                 Title = "jQuery Fundamentals",
                 Code = "JVS111",
                 SpeakerId = _danWahlin.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_danWahlin),
                 Level = levels[0],
                 Tags = "jQuery|JavaScript|Web",
                 Description =
@@ -385,7 +385,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _madsKristensen.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_madsKristensen),
                 Level = levels[1],
                 Tags = "Web Forms|ASP|Web",
                 Description =
@@ -393,7 +393,6 @@ namespace CodeCamper.SampleData
             });
 
             // Ward Bell
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "Dressing for Success",
@@ -401,7 +400,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _wardBell.Id,
                 TrackId = tracks.First(t => t.Name == "Design").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_wardBell),
                 Level = levels[2],
                 Tags = "Design|Animation|Metro",
                 Description = "You must have style to design with style. A proper wardrobe is an essential first step to application success. Learn to dress from this old pro.",
@@ -413,7 +412,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _wardBell.Id,
                 TrackId = tracks.First(t => t.Name == "Data").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_wardBell),
                 Level = levels[0],
                 Tags = "Data|Entity Framework|ORM",
                 Description =
@@ -426,7 +425,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _wardBell.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_wardBell),
                 Level = levels[1],
                 Tags = "JavaScript|Web",
                 Description =
@@ -434,7 +433,6 @@ namespace CodeCamper.SampleData
             });
 
             // Howard Dierking
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "ASP.NET MVC 4 Loves HTML5",
@@ -442,14 +440,13 @@ namespace CodeCamper.SampleData
                 SpeakerId = _howardDierking.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_howardDierking),
                 Level = levels[2],
                 Tags = "MVC|HTML5|Entity Framework|jQuery|Web",
                 Description = "TBD",
             });
 
             // Hans Fjällemark
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "Bootstrap and Back",
@@ -457,7 +454,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "CSS").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_hansFjallemark),
                 Level = levels[0],
                 Tags = "CSS|Responsive Design|Web",
                 Description =
@@ -470,7 +467,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _hansFjallemark.Id,
                 TrackId = tracks.First(t => t.Name == "CSS").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_hansFjallemark),
                 Level = levels[1],
                 Tags = "CSS3|Responsive Design|Web",
                 Description =
@@ -478,7 +475,6 @@ namespace CodeCamper.SampleData
             });
 
             // Jim Cowart
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(false, new Session
             {
                 Title = "Jim Cowart Underscores",
@@ -486,7 +482,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _jimCowart.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_jimCowart),
                 Level = levels[2],
                 Tags = "JavaScript|Underscore|jQuery|Web",
                 Description = "TBD",
@@ -498,7 +494,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _jimCowart.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_jimCowart),
                 Level = levels[0],
                 Tags = "Backbone|JavaScript|Web",
                 Description =
@@ -506,7 +502,6 @@ namespace CodeCamper.SampleData
             });
 
             // Steve Sanderson
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Going for the Knockout",
@@ -514,20 +509,20 @@ namespace CodeCamper.SampleData
                 SpeakerId = _steveSanderson.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_steveSanderson),
                 Level = levels[2],
                 Tags = "Knockout|JavaScript|Web",
                 Description =
                     "TBD",
             });
-            addSession(true, new Session
+            addSession(false, new Session
             {
                 Title = "The Upshot is ...",
                 Code = "JVS250",
                 SpeakerId = _steveSanderson.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_steveSanderson),
                 Level = levels[2],
                 Tags = "Knockout|JavaScript|Web",
                 Description =
@@ -535,7 +530,6 @@ namespace CodeCamper.SampleData
             });
 
             // Ryan Niemeyer
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Knockback a few cold ones",
@@ -543,7 +537,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _ryanNiemeyer.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_ryanNiemeyer),
                 Level = levels[2],
                 Tags = "JavaScript|Knockout|jQuery|Web",
                 Description = "TBD",
@@ -555,7 +549,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _ryanNiemeyer.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_ryanNiemeyer),
                 Level = levels[0],
                 Tags = "Knockout|JavaScript|Web",
                 Description = "TBD",
@@ -567,14 +561,13 @@ namespace CodeCamper.SampleData
                 SpeakerId = _ryanNiemeyer.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_ryanNiemeyer),
                 Level = levels[1],
                 Tags = "jsFiddle|JavaScript|Web",
                 Description = "TBD",
             });
 
             // Aaron Skonnard
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "Web Services at their Finest",
@@ -582,14 +575,13 @@ namespace CodeCamper.SampleData
                 SpeakerId = _aaronSkonnard.Id,
                 TrackId = tracks.First(t => t.Name == ".NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_aaronSkonnard),
                 Level = levels[2],
                 Tags = "WCF|REST|Web",
                 Description = "TBD",
             });
 
             // Fritz Onion
-            roomId = roomsForSessions[nextRoomId++].Id;
             addSession(true, new Session
             {
                 Title = "What's New in ASP.NET 4",
@@ -597,7 +589,7 @@ namespace CodeCamper.SampleData
                 SpeakerId = _fritzOnion.Id,
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = roomId,
+                RoomId = getRoomId(_fritzOnion),
                 Level = levels[1],
                 Tags = "ASP.NET|Web",
                 Description = "TBD",
@@ -608,5 +600,17 @@ namespace CodeCamper.SampleData
 
         public static List<Session> ChoosenAttendeeSessions { get; private set; }
 
+        private static void EnsureTimeSlotIdIsFree(List<int> usedAttendeeSlots, Session session, Func<int> getNextTimeSlotId)
+        {
+            var origSlot = session.TimeSlotId;
+            var slot = origSlot;
+            while (usedAttendeeSlots.Contains(slot))
+            {
+                slot = getNextTimeSlotId();
+                if (origSlot == slot) return; // couldn't find a free slot
+                session.TimeSlotId = slot;
+            }
+            usedAttendeeSlots.Add(slot); // used a free slot
+        }
     }
 }
