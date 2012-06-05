@@ -46,6 +46,7 @@
 
                 //PAPA: hard coded the user
                 config.currentUser = ko.observable({ id: ko.observable(1) });
+                var userId = config.currentUser().id();
 
                 $('#busyindicator').activity(true);
 
@@ -61,21 +62,23 @@
                     timeslots: ko.observable(),
                     attendance: ko.observable(),
                     persons: ko.observable(),
-                    sessions: ko.observable()
+                    sessions: ko.observable(),
+                    user: ko.observable()
                 };
-                // TODO: TESTING 
+                // TODO: END TESTING 
 
                 $.when(datacontext.rooms.getData({results: data.rooms}),
                     datacontext.timeslots.getData({ results: data.timeslots }),
                     datacontext.tracks.getData({ results: data.tracks }),
-                    datacontext.attendance.getData({ param: config.currentUser().id(), results: data.attendance }),
+                    datacontext.attendance.getData({ param: userId, results: data.attendance }),
                     datacontext.persons.getData({ results: data.persons }), // TODO: this currently just gets speakers. need to refactor in DC
                     datacontext.sessions.getData({ results: data.sessions }),
-
-                    //TODO: get ME, too ... current user
-                    
-                    datacontext.sessionSpeakers.getData()
+                    datacontext.persons.getFullPersonById(userId, { success: function (person) { data.user(person); }})
                     )
+                    .pipe(function () {
+                        // Need sessions first
+                        datacontext.sessionSpeakers.getData();
+                    })
 
                     // TODO: TESTING 
                     .done(function () {
@@ -85,9 +88,11 @@
                             + '<div>' + data.timeslots().length + ' timeslots </div>'
                             + '<div>' + data.attendance().length + ' attendance </div>'
                             + '<div>' + data.persons().length + ' persons </div>'
-                            + '<div>' + data.sessions().length + ' sessions </div>');
+                            + '<div>' + data.sessions().length + ' sessions </div>'
+                            + '<div>' + (data.user() ? 1 : 0) + ' current user profile </div>'
+                            );
                     })
-                    // TODO: TESTING 
+                    // TODO: END TESTING 
 
                     .done(bindViewModelsToViews)
                     .done(registerRoutes)

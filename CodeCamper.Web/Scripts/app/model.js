@@ -213,6 +213,7 @@
                 return imageBasePath + source;
             }, self);
             self.bio = ko.observable();
+            self.isBrief = ko.observable(true);
             return self;
         };
 
@@ -227,9 +228,10 @@
             .imageSource('')
             .bio('');
         personNullo.isNullo = true;
+        personNullo.isBrief = function () { return false; }; // nullo is never brief
 
         Person.prototype = function() {
-            //TODO:
+            //TODO: Ward ... YAGNI or NOT?
             //var attendanceList = function () {
             //        return this.datacontext().attendance.getByPersonId(this.personId());
             //}

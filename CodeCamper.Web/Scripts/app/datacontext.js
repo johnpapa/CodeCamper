@@ -42,9 +42,10 @@
                 return items; // must return these
             },
 
-            
             EntitySet = function(getFunction, mapper, nullo) {
-                var items = {},
+                var
+                    items = {},
+
                     // returns the model item produced by merging dto into context
                     mapDtoToContext = function (dto) {
                         var id = mapper.getDtoId(dto);
@@ -52,16 +53,20 @@
                         items[id] = mapper.fromDto(dto, existingItem);
                         return items[id];
                     },
-                    add = function(newObj) {
+
+                    add = function (newObj) {
                         items[newObj.id()] = newObj;
                     },
-                    removeById = function(id) {
+
+                    removeById = function (id) {
                         delete items[id];
                     },
+
                     getLocalById = function (id) {
                         return !!id && !!items[id] ? items[id] : nullo;
                     },
-                    getData = function(options) {
+
+                    getData = function (options) {
                         return $.Deferred(function(def) {
                             var results = options && options.results,
                                 sortFunction = options && options.sortFunction,
@@ -85,6 +90,7 @@
                             }
                         }).promise();
                     };
+                
                 return {
                     mapDtoToContext: mapDtoToContext,
                     add: add,
@@ -93,27 +99,34 @@
                     removeById: removeById
                 };
             },
-            SessionSpeakerEntitySet = function() {
-                var items = { },
-                    add = function(personId, sessionIds) {
+
+            SessionSpeakerEntitySet = function () {
+                var
+                    items = {},
+
+                    add = function (personId, sessionIds) {
                         // adds a new property for the personId passed in with an array of session ids
                         items[personId] = sessionIds;
                     },
-                    removeById = function(personId) {
+
+                    removeById = function (personId) {
                         // Removes an entire array of session ids for the personId passed in
                         // Causes observables to be notified (ex: unmarking a favorite)
                         items[personId] = [];
                     },
-                    removeSessionById = function(personId, sessionId) {
+
+                    removeSessionById = function (personId, sessionId) {
                         // Removes 1 session id for the personId passed in
                         // Causes observables to be notified (ex: unmarking a favorite)
                         items[personId] = _.without(items[personId], sessionId);
                     },
+
                     getLocalById = function (personId) {
                         // Gets an array of session ids for the personId passed in
                         return !!personId && !!items[personId] ? items[personId] : [];
                     },
-                    crossMatchSpeakers = function(observableArray, filter, sortFunction) {
+
+                    crossMatchSpeakers = function (observableArray, filter, sortFunction) {
                         if (!observableArray) return;
                         // clear out the results observableArray
                         observableArray([]);
@@ -136,7 +149,8 @@
                         }
                         observableArray(underlyingArray);
                     },
-                    getData = function(options) {
+
+                    getData = function (options) {
                         var results = options && options.results,
                             sortFunction = options && options.sortFunction,
                             filter = options && options.filter,
@@ -152,6 +166,7 @@
                                     if (sessionResults() && sessionResults().length) {
                                         var underlyingArraySessions = sessionResults();
                                         // create the items memo of items[speakerId] = [sessionId_1, sessionId_1, sessionId_n]
+                                        // TODO: use underscore to trim this down
                                         for (var i = 0; i < underlyingArraySessions.length; i++) {
                                             var s = underlyingArraySessions[i];
                                             items[s.speakerId()] = items[s.speakerId()] || [];
@@ -168,6 +183,7 @@
                             crossMatchSpeakers(results, filter, sortFunction);
                         }
                     };
+                
                 return {
                     add: add,
                     getLocalById: getLocalById,
@@ -176,6 +192,7 @@
                     removeSessionById: removeSessionById
                 };
             },
+
             attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.attendanceNullo),
             rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.roomNullo),
             sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.sessionNullo),
@@ -252,7 +269,7 @@
                         // updates the session returned from getLocalById() above
                         session = sessions.mapDtoToContext(dto);
                         session.isBrief(false); // now a full session
-                        logger.success('merged full session'); //TODO: revise message
+                        //logger.success('merged full session'); //TODO: revise message
                         callbacks.success(session); 
                     },
                     error: function(response) {
@@ -263,6 +280,30 @@
                 });
             }
             return session; // immediately return cached session (nullo, brief, or full)
+        };
+
+        // extend Persons entitySet 
+        persons.getFullPersonById = function(id, callbacks) {
+            var person = persons.getLocalById(id);
+            if (person.isNullo || person.isBrief())
+            {
+                // if nullo or brief, get fresh from database
+                dataservice.person.getPerson(id, {
+                    success: function (dto) {
+                        // updates the person returned from getLocalById() above
+                        person = persons.mapDtoToContext(dto);
+                        person.isBrief(false); // now a full session
+                        logger.success('merged full person'); //TODO: revise message
+                        callbacks.success(person); 
+                    },
+                    error: function(response) {
+                        logger.error('oops! could not retrieve person '+id); //TODO: revise error message
+                        if (callbacks && callbacks.error) { callbacks.error(response); }
+                    }
+                                
+                });
+            }
+            return person; // immediately return cached person (nullo, brief, or full)
         };
         
         //TODO: In dataContext:
