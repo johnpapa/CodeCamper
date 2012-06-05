@@ -19,6 +19,9 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                 }else {
                     logger.warning('Sammy.Title is not loaded.');
                 }
+
+                registerBeforeLeaving();
+
                 this.get('', function () {
                     this.app.runRoute('get', startupUrl);
                 });
@@ -80,7 +83,6 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
 
             run = function (url) {
                 startupUrl = url;
-                registerBeforeLeaving();
                 sammy.run();
                 navigateTo(url);
             };
