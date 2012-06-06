@@ -33,7 +33,8 @@ namespace CodeCamper.Data.SampleData
         }
 
         // ReSharper disable FunctionNeverReturns
-        // Never stops returning names; caller pulls the number of names that it needs.
+        // These are enumerators that keep yielding values as long as you ask for them
+        // They never stop returning names; a caller pulls the number of names that it needs.
 
         public static IEnumerator<Name> RandomNameEnumerator(NameGender nameGender = NameGender.Both)
         {
