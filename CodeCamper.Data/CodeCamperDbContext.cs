@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using CodeCamper.Model;
-using CodeCamper.SampleData;
+using CodeCamper.Data.SampleData;
 
 namespace CodeCamper.Data
 {

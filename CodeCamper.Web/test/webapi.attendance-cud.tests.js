@@ -1,5 +1,6 @@
 ﻿(function () {
-
+    QUnit.config.testTimeout = 10000;
+    
     var okAsync = QUnit.okAsync,
         stringformat = QUnit.stringformat;
     
@@ -12,7 +13,7 @@
         onCallSuccess = function(msgPrefix) {
             ok(true, msgPrefix + " succeeded.");
         },
-        onError = function(result, msgPrefix) {
+        onError = function (result, msgPrefix) {
             okAsync(false, msgPrefix +
                 stringformat(' failed with status=\'{1}\': {2}.',
                     result.status, result.responseText));
@@ -21,13 +22,8 @@
     var testPersonId = 1,
         testSessionId = 1,
         testUrl = stringformat(
-            '{0}/?pid={1}&sid={2}', baseUrl, testPersonId, testSessionId),        
-        testMsgBase = getMsgPrefix(testPersonId, testSessionId, testUrl),
-        origRatingValue,
-        testRatingValue,
-        testAttendance,
-        // Supporting test functions
-        getTestAttendance, changeTestAttendance, confirmUpdated, restoreTestAttendance, confirmRestored;
+            '{0}/?pid={1}&sid={2}', baseUrl, testPersonId, testSessionId),
+        testMsgBase = getMsgPrefix(testPersonId, testSessionId, testUrl);
 
     module('Web API Attendance get tests');
     
@@ -40,6 +36,10 @@
 
     module('Web API Attendance update tests');
     
+    var origRatingValue,
+        testRatingValue,
+        testAttendance;
+    
     test('Can update the test Attendance',
         function() {
             testAttendance = null;
@@ -49,7 +49,7 @@
     );
 
     // Step 1: Get test attendance (this fnc is re-used several times)
-    getTestAttendance = function(succeed) {
+    function getTestAttendance(succeed) {
         var msgPrefix = 'GET' + testMsgBase;
         $.ajax({
             type: 'GET',
@@ -57,22 +57,21 @@
             success: function(result) {
                 onCallSuccess(msgPrefix);
                 okAsync(result.PersonId === testPersonId &&
-                    result.SessionId === testSessionId,
+                        result.SessionId === testSessionId,
                     "returned key matches testAttendance key.");
                 if (typeof succeed !== 'function') {
                     start(); // no 'succeed' callback; end of the line
                     return;
                 } else {
                     succeed(result);
-                }
-                ;
+                };
             },
             error: function(result) { onError(result, msgPrefix); }
         });
     };
 
     // Step 2: Change test attendance and save it
-    changeTestAttendance = function(attendance) {
+    function changeTestAttendance(attendance) {
         testAttendance = attendance;
         origRatingValue = testAttendance.Rating;
         testRatingValue = origRatingValue === 1 ? 5 : 1; // make it different
@@ -83,7 +82,7 @@
 
         $.ajax({
             type: 'PUT',
-            url: testUrl,
+            url: baseUrl,
             data: data,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -96,20 +95,20 @@
     };
 
     // Step 3: Confirm test attendance updated, then call restore
-    confirmUpdated = function(attendance) {
+    function confirmUpdated(attendance) {
         okAsync(attendance.Rating === testRatingValue, "test rating was updated ");
         restoreTestAttendance();
     };
 
     // Step 4: Restore orig test attendance in db
-    restoreTestAttendance = function() {
+    function restoreTestAttendance() {
         testAttendance.Rating = origRatingValue;
         var msgPrefix = 'PUT (restore)' + testMsgBase,
             data = JSON.stringify(testAttendance);
 
         $.ajax({
             type: 'PUT',
-            url: testUrl,
+            url: baseUrl,
             data: data,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -121,7 +120,7 @@
     };
 
     // Step 5: Confirm test attendance was restored
-    confirmRestored = function(attendance) {
+    function confirmRestored(attendance) {
         okAsync(attendance.Rating === origRatingValue, "test rating was restored ");
         start();
     };
@@ -158,7 +157,9 @@
                     );
                     start();
                 },
-                error: function(result) { onError(result, msgPrefix); }
+                error: function(result) {
+                     onError(result, msgPrefix);
+                }
             });
         }
     );

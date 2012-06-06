@@ -1,4 +1,5 @@
 ﻿(function () {
+    QUnit.config.testTimeout = 10000;
     
     var okAsync = QUnit.okAsync;
     

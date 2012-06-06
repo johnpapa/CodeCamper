@@ -151,6 +151,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\aaron_skonnard.jpg" />
@@ -206,6 +207,8 @@
     <Content Include="Scripts\app\sort.js" />
     <Content Include="Scripts\app\utils.js" />
     <Content Include="Scripts\app\vm.js" />
+    <Content Include="Test\webapi.session-cud.tests.html" />
+    <Content Include="Test\webapi.session-cud.tests.js" />
     <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\lib\jquery.validate.js" />
     <Content Include="Scripts\lib\jquery.validate.min.js">
