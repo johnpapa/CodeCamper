@@ -1,4 +1,6 @@
 ﻿(function () {
+    QUnit.config.testTimeout = 10000;
+    
     var okAsync = QUnit.okAsync,
         stringformat = QUnit.stringformat;
     
@@ -26,7 +28,9 @@
 
         // These variations find the link with personId==2 && sessionId==1
         '/api/attendance/?$filter=personId%20eq%202%20and%20sessionId%20eq%201',
-        '/api/attendance/?pid=2&sid=1' // preferred
+        '/api/attendance/?pid=2&sid=1', // preferred
+
+        '/api/tests/testsessions'
     ];
 
 

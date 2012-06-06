@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CodeCamper.SampleData
+namespace CodeCamper.Data.SampleData
 {
     public static class PeopleNames
     {
@@ -31,6 +31,9 @@ namespace CodeCamper.SampleData
                 yield return enumerator.Current;
             }
         }
+
+        // ReSharper disable FunctionNeverReturns
+        // Never stops returning names; caller pulls the number of names that it needs.
 
         public static IEnumerator<Name> RandomNameEnumerator(NameGender nameGender = NameGender.Both)
         {
@@ -68,6 +71,7 @@ namespace CodeCamper.SampleData
                         Gender = genderB,
                     };
             }
+
         }
 
         public static IEnumerable<string> GetRandomLastNames(int count)
@@ -116,6 +120,7 @@ namespace CodeCamper.SampleData
                     yield return FemaleFirstNames[rand.Next(0, femaleMax)];
             } 
         }
+        // ReSharper restore FunctionNeverReturns
 
         public static string[] FemaleFirstNames = new[] 
         {                                            

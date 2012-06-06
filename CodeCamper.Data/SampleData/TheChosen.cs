@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeCamper.Model;
 
-namespace CodeCamper.SampleData
+namespace CodeCamper.Data.SampleData
 {
     public static class TheChosen
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeCamper.SampleData
+namespace CodeCamper.Data.SampleData
 {
     public static class TagsGenerator
     {

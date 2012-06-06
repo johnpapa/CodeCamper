@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodeCamper.SampleData
+namespace CodeCamper.Data.SampleData
 {
     public static class RandomSelector
     {
@@ -15,7 +15,7 @@ namespace CodeCamper.SampleData
 
             while (selected.Count < needed)
             {
-                if (Rand.NextDouble() < needed / available)
+                if (Rand.NextDouble() < (double) needed / available)
                 {
                     selected.Add(items[available - 1]);
                     needed--;
