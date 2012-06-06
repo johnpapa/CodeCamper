@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace CodeCamper.SampleData
+namespace CodeCamper.Data.SampleData
 {
     public class SampleTrack
     {
         public static List<SampleTrack> Tracks = 
-            new List<SampleTrack>()
+            new List<SampleTrack>
                 {
                    new SampleTrack("Windows 8", "WIN","Windows", "XAML", "WinRT", "C++", "C#", "VB","HTML5", "Metro"),
                    new SampleTrack("JavaScript", "JVS","JavaScript", "jQuery", "Knockout","JsRender", "MVVM","HTML5", "SPA", "Amplify", "Underscore", "Backbone", "Web"),

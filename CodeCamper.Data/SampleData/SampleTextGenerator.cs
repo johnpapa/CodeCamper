@@ -1,4 +1,4 @@
-﻿namespace CodeCamper.SampleData
+﻿namespace CodeCamper.Data.SampleData
 {
     /// <summary>
     /// Generate sample text for the database
