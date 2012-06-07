@@ -162,22 +162,27 @@
         sessionNullo.isBrief = function() { return false; }; // nullo is never brief
         
         Session.prototype = function () {
-            var attendance = function () {
-                return this.datacontext().attendance.getSessionFavorite(this.id());
-            },
-            room = function () {
-                return this.datacontext().rooms.getLocalById(this.roomId());
-            },
-            speaker = function () {
-                //TODO: do i get from persons or speakers?
-                return this.datacontext().persons.getLocalById(this.speakerId());
-            },
-            timeslot = function () {
-                return this.datacontext().timeslots.getLocalById(this.timeslotId());
-            },
-            track = function () {
-                return this.datacontext().tracks.getLocalById(this.trackId());
-            };
+            var
+                attendance = function () {
+                    return this.datacontext().attendance.getSessionFavorite(this.id());
+                },
+                
+                room = function () {
+                    return this.datacontext().rooms.getLocalById(this.roomId());
+                },
+
+                speaker = function () {
+                    //TODO: do i get from persons or speakers?
+                    return this.datacontext().persons.getLocalById(this.speakerId());
+                },
+
+                timeslot = function () {
+                    return this.datacontext().timeslots.getLocalById(this.timeslotId());
+                },
+
+                track = function () {
+                    return this.datacontext().tracks.getLocalById(this.trackId());
+                };
 
             return {
                 isNullo : false,
