@@ -45,7 +45,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             
             synchSelectedDateWithIsSelected = function () {
                 // keeping nav in synch too
-                for (var i = 0; i < days().length; i++) {
+                for (var i = 0, len = days().length; i < len; i++) {
                     var day = days()[i];
                     day.isSelected(false);
                     if (day.date === selectedDate()) {
