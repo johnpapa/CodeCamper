@@ -5,6 +5,7 @@
     shim: {
         // jquery 1.7.x understands define; no shim needed.
         'activity-indicator': ['jquery'],
+        'jquery.activity-ex': { deps: ['jquery']}, 
         'amplify': {deps: [], exports: 'amplify'},
         'amplify.request': ['amplify'],
         'amplify.store': ['amplify'],
@@ -18,7 +19,8 @@
         'underscore': { deps: [], exports: '_' }
     },
     // Could simplify for libraries that are conventionally named
-    // which is all of them except jquery which identifies the version
+    // which is all of them except jquery which identifies the version.
+    // List paths to js files not in the baseUrl.
     paths: {
         'activity-indicator': '../lib/activity-indicator',
         'amplify': '../lib/amplify.core',
@@ -60,7 +62,9 @@ requirejs([
         'amplify.request',    // amplify plugin
         'amplify.store',      // amplify plugin
         'jquery.mockjson',    // jquery plugin
-        'binding.handlers'    // Knockout custom binding handlers
+        'jquery.activity-ex',    // jquery plugin
+        'ko.binding.handlers', // Knockout custom binding handlers
+        'ko.asyncCommand'    // Knockout custom asyncCommand
         // 'debug.helpers'       // our app's ko debugging plugin
     ], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper)
                  // no need for plugin params as they are always undefined

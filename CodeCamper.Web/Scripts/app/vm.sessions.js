@@ -52,6 +52,22 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
                 refresh();
             },
 
+            forceRefresh = ko.asyncCommand({
+                execute: function (complete) {
+                    $.when(
+                        datacontext.sessions.getData({
+                            results: sessions,
+                            filter: sessionsFilter,
+                            sortFunction: sort.sessionSort,
+                            forceRefresh: true
+                        })
+                    ).always(complete);
+                },
+                canExecute: function (isExecuting) {
+                    return true;
+                }
+            }),
+
             refresh = function () {
                 if (!isRefreshing) {
                     datacontext.sessions.getData({
@@ -116,7 +132,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
             canLeave: canLeave,
             clearFilter: clearFilter,
             clearSideFilters: clearSideFilters,
-            refresh: refresh,
+            forceRefresh: forceRefresh,
             sessionsFilter: sessionsFilter,
             sessions: sessions,
             speakers: speakers,

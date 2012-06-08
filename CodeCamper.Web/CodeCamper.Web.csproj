@@ -160,6 +160,7 @@
     <Content Include="Content\checkbox_unchecked.png" />
     <Content Include="Content\clear.png" />
     <Content Include="Content\dan_wahlin.jpg" />
+    <Content Include="Content\elijah_manor.jpg" />
     <Content Include="Content\felix_fanboi.jpg" />
     <Content Include="Content\fritz_onion.jpg" />
     <Content Include="Content\hans_fjallemark.jpg" />
@@ -178,13 +179,13 @@
     <Content Include="Content\trash.png" />
     <Content Include="Content\unknown_person.jpg" />
     <Content Include="Content\ward_bell.jpg" />
-    <Content Include="Content\bookmark-white.png" />
-    <Content Include="Content\bookmarkchecked-blue.png" />
     <Content Include="Content\bookmarkchecked.png" />
     <Content Include="Content\bookmark.png" />
     <Content Include="Content\icon-blue.png" />
-    <Content Include="Scripts\app\binding.handlers.js" />
+    <Content Include="Scripts\app\jquery.activity-ex.js" />
+    <Content Include="Scripts\app\ko.binding.handlers.js" />
     <Content Include="Scripts\app\config.js" />
+    <Content Include="Scripts\app\ko.asyncCommand.js" />
     <Content Include="Scripts\app\messenger.js" />
     <Content Include="Scripts\app\routeMediator.js" />
     <Content Include="Scripts\app\events.js" />

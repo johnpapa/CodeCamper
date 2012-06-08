@@ -24,12 +24,24 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
 
             activate = function () {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-                refresh();
-            },
-
-            refresh = function () {
                 getSpeakers();
             },
+
+            forceRefresh = ko.asyncCommand({
+                execute: function (complete) {
+                    $.when(
+                        datacontext.sessionSpeakers.getData({
+                            results: speakers,
+                            filter: speakersFilter,
+                            sortFunction: sort.speakerSort,
+                            forceRefresh: true
+                        })
+                    ).always(complete);
+                },
+                canExecute: function (isExecuting) {
+                    return true;
+                }
+            }),
 
             gotoDetails = function (selectedspeaker) {
                 if (selectedspeaker && selectedspeaker.id()) {
@@ -44,7 +56,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
             },
 
             init = function () {
-                speakersFilter.searchText.subscribe(refresh);
+                speakersFilter.searchText.subscribe(getSpeakers);
             };
 
         init();
@@ -53,8 +65,8 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
             activate: activate,
             canLeave: canLeave,
             clearFilter: clearFilter,
+            forceRefresh: forceRefresh,
             gotoDetails: gotoDetails,
-            refresh: refresh,
             speakersFilter: speakersFilter,
             speakers: speakers
         };

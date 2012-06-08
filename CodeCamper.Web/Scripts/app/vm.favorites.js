@@ -4,8 +4,8 @@
 //  The user can further filter this subset of Sessions by additional criteria,
 //  the same filter criteria that can be applied to all sessions.
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events', 'messenger'],
-    function (ko, router, datacontext, filter, sort, group, utils, config, events, messenger) {
+define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events', 'messenger'],
+    function ($, ko, router, datacontext, filter, sort, group, utils, config, events, messenger) {
         var
             selectedDate = ko.observable(),
             sessionsFilter = new filter.SessionsFilter(),
@@ -55,6 +55,24 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
                 }
             },
 
+            forceRefresh = ko.asyncCommand({
+                execute: function (complete) {
+                    setFilter();
+
+                    $.when(
+                        datacontext.sessions.getData({
+                            results: sessions,
+                            filter: sessionsFilter,
+                            sortFunction: sort.sessionSort,
+                            forceRefresh: true
+                        })
+                    ).always(complete);
+                },
+                canExecute: function (isExecuting) {
+                    return true;
+                }
+            }),
+            
             refresh = function () {
                 setFilter();
 
@@ -115,9 +133,9 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'conf
             clearFilter: clearFilter,
             days: days,
             //debugInfo: debugInfo,
+            forceRefresh: forceRefresh,
             gotoDetails: gotoDetails,
             activate: activate,
-            refresh: refresh,
             sessionsFilter: sessionsFilter,
             sessions: sessions,
             timeslots: timeslots

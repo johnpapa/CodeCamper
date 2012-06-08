@@ -5,8 +5,10 @@
             data-bind="value: speakersFilter.searchText, valueUpdate: 'afterkeydown', escape: clearFilter" 
             placeholder="filter by first or last name" type="text"/>
         <a class="clear-text" data-bind="click: clearFilter" title="Clear"></a>
-        <a class="refresh" data-bind="click: refresh" title="Refresh"></a>
-        <small>Showing <span data-bind="text:speakers().length"></span> speakers</small>
+        <div class="filter-box-container-full-width">
+            <button class="refresh" data-bind="command: forceRefresh, activity: forceRefresh.isExecuting">Refresh</button>
+            <small>Showing <span data-bind="text:speakers().length"></span> speakers</small>
+        </div>
     </div>
 
     <div id="speaker-list" class="view-list" data-bind="foreach: speakers">

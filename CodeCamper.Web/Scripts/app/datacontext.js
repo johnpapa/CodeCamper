@@ -161,7 +161,7 @@
                         if (!items || !utils.hasProperties(items) || forceRefresh) {
                             // create the memo for it and go get the Person objects from the DC
                             var sessionResults = ko.observableArray([]);
-                            $.when(sessions.getData({ results: sessionResults })
+                            $.when(sessions.getData({ results: sessionResults, forceRefresh: forceRefresh })
                                 .done(function() {
                                     if (sessionResults() && sessionResults().length) {
                                         var underlyingArraySessions = sessionResults();

@@ -90,7 +90,7 @@ body {
 			/*overflow: auto;*/
 		}
         .filter-box-container-full-width {
-            margin: 0 0 1% 0;
+            margin: 0 0 3% 0;
         }
 
             .filter-box {
@@ -310,7 +310,7 @@ select {
 nav label,
 small {
 	color: gray;
-	font-size: 80%;
+	/*font-size: 80%;*/
 	text-transform: uppercase;
 }
 
@@ -343,6 +343,12 @@ button {
 		opacity: 0.6;
 	}
 
+    button:disabled {
+        opacity: 0.6;
+        cursor: default;
+        position: relative;
+        top: 0;
+    }
 
 /* 2.5 ICONS
 --------------------------------------------------------- */
@@ -480,6 +486,14 @@ button {
 		padding-left: 60px;
 	}
 
+	.filter-box-container {
+		margin: 0 0 2% 0;
+	}
+
+    .filter-box-container-full-width {
+        margin: 0 0 5% 0;
+    }
+
 	.filter-box > input {
 		background-position: 5px center;
 		padding: 5px 5px 5px 25px;
@@ -516,7 +530,7 @@ button {
 		}
 
     .clear-text {
-        margin-top: -35px;
+        margin-top: -50px;
     }
 
 }
@@ -551,6 +565,10 @@ button {
 			width: 20px;
 		}
 		
+
+    .filter-box-container-full-width {
+        margin: 0 0 7% 0;
+    }
 
     .accent-top {
         width: 120px;

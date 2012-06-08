@@ -12,7 +12,7 @@ namespace CodeCamper.Data.SampleData
             _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
-            _madsKristensen;
+            _madsKristensen, _elijahManor;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -148,6 +148,16 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "https://twitter.com/#!/howard_dierking",
                 Gender = "M",
                 Bio = "I like technology...a lot...",
+            });
+            _theChosen.Add(_elijahManor = new Person
+            {
+                FirstName = "Elijah",
+                LastName = "Manor",
+                Email = "elijahm@contoso.com",
+                Blog = "http://elijiahm.contoso.com",
+                Twitter = "https://twitter.com/#!/elijahmanor",
+                Gender = "M",
+                Bio = "I am a Christian and a family man. I develops at appendTo as a Senior Architect providing corporate jQuery support, training, and consulting.",
             });
 
             _theChosen.ForEach(p => p.ImageSource = 
@@ -530,18 +540,6 @@ namespace CodeCamper.Data.SampleData
             });
 
             // Ryan Niemeyer
-            addSession(true, new Session
-            {
-                Title = "Knockback a few cold ones",
-                Code = "JVS351",
-                SpeakerId = _ryanNiemeyer.Id,
-                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_ryanNiemeyer),
-                Level = levels[2],
-                Tags = "JavaScript|Knockout|jQuery|Web",
-                Description = "TBD",
-            });
             addSession(false, new Session
             {
                 Title = "Knockout Performance Gotchas",
@@ -564,6 +562,20 @@ namespace CodeCamper.Data.SampleData
                 RoomId = getRoomId(_ryanNiemeyer),
                 Level = levels[1],
                 Tags = "jsFiddle|JavaScript|Web",
+                Description = "TBD",
+            });
+
+            // Elijiah Manor
+            addSession(false, new Session
+            {
+                Title = "Amplify It!",
+                Code = "JVS271",
+                SpeakerId = _elijahManor.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_elijahManor),
+                Level = levels[1],
+                Tags = "Amplify|JavaScript|Web",
                 Description = "TBD",
             });
 
