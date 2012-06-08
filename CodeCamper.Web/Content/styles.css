@@ -29,6 +29,7 @@ html {
 	padding: 0 7%;
     color: #000000;
     background: #FFFFFF;
+	overflow: scroll;
 }
 
 body {
@@ -303,6 +304,7 @@ select {
 
 /* 2.4 ELEMENTS
 --------------------------------------------------------- */
+input,
 select {
 	padding: 5px;
 }
