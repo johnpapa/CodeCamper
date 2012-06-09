@@ -22,41 +22,44 @@
         clear: both;
     }
 
-        .left > div {
-            height: 40px;
-        }
+    .left > div {
+        height: 40px;
+    }
 
-            .left > div > label {
-                clear: both;
-                display: block;
-                float: left;
-                line-height: 35px;
-                width: 100px;
-            }
+    .left > div > label {
+        clear: both;
+        display: block;
+        float: left;
+        line-height: 35px;
+        width: 100px;
+    }
 
-            .left > div > input {
-                width: 150px;
-            }
+    .left > div > input {
+        width: 150px;
+    }
 
-            .left > div > select {
-                width: 160px;
-            }
+    .left > div > select {
+        width: 160px;
+    }
 
     .right {
         float: left;
     }
-            .right > div > label {
-                display: block;
-            }
+    .right > div > label {
+        display: block;
+    }
 
-            .right > div > textarea {
-                font-family: 'Segoe UI';
-                width: 320px;
-                height: 100px
-            }
+    .right > div > textarea {
+        font-family: 'Segoe UI';
+        width: 320px;
+        height: 100px
+    }
 
 </style>
-
+<section data-bind="with: session" id="session" class="view">
+    <div data-bind="template: {name: $parent.tmplName()}"></div>
+</section>
+<!--
 <section data-bind="with: session" id="session" class="view">
     <div class="titleblock">
         <label for="title">Title</label>
@@ -111,3 +114,4 @@
         </div>
     </div>
 </section>
+-->

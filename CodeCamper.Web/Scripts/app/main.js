@@ -1,6 +1,8 @@
 ﻿requirejs.config({
+
     // by default load
     baseUrl: 'scripts/app',
+
     // shim in the libs that don't know define.amd
     shim: {
         // jquery 1.7.x understands define; no shim needed.
@@ -13,11 +15,16 @@
         'json2': { exports: 'JSON' }, // not really a module
         //'ko': { deps: ['jquery'], exports: 'ko' },
         // moment understands define; no shim needed.
+
+        // koExternalTemplateEngine is amd aware, now
+        //'koExternalTemplateEngine': { deps: ['ko', 'jquery', 'infuser', 'trafficcop'] },
+
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': ['jquery', 'sammy'],
         'toastr': { deps: ['jquery'], exports: 'toastr' },
         'underscore': { deps: [], exports: '_' }
     },
+
     // Could simplify for libraries that are conventionally named
     // which is all of them except jquery which identifies the version.
     // List paths to js files not in the baseUrl.
@@ -29,6 +36,11 @@
         'jquery': '../lib/jquery-1.7.2',//'.min',
         'jquery.mockjson': '../lib/jquery.mockjson',
         'json2': '../lib/json2',
+        
+        'infuser': '../lib/infuser-amd',
+        'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
+        'trafficcop': '../lib/TrafficCop-amd',
+
         'ko': '../lib/knockout-2.1.0',
         'moment': '../lib/moment',
         'sammy': '../lib/sammy',
@@ -53,7 +65,7 @@ requirejs([
         'amplify',
         'ko',
         'toastr',
-    
+
         'bootstrapper', 
     
         // 3rd party plugins - they don't return modules
@@ -65,10 +77,16 @@ requirejs([
         'jquery.activity-ex',    // jquery plugin
         'ko.binding.handlers', // Knockout custom binding handlers
         'ko.asyncCommand'    // Knockout custom asyncCommand
-        // 'debug.helpers'       // our app's ko debugging plugin
+
+        , 'koExternalTemplateEngine'
+
+
+        , 'debug.helpers'       // our app's ko debugging plugin
+
+
     ], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper)
                  // no need for plugin params as they are always undefined
 {
         //debugger; // uncomment to confirm that these dependencies are loaded.
         bootstrapper.run();
-})
+    })

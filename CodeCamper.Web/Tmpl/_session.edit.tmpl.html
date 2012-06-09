@@ -1,0 +1,52 @@
+﻿<div class="titleblock">
+    <label for="title">Title</label>
+    <input id="title" data-bind="value: title" />
+</div>
+<div class="left">
+    <div>
+        <label for="track">Track</label>
+        <select id="track" data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id'">
+        </select>
+    </div>
+    <div>
+        <label for="timeslot">Time slot</label>
+        <select id="timeslot" data-bind="options: $parent.timeslots, optionsText: 'shortStart', optionsValue: 'id'">
+        </select>
+    </div>
+    <div>
+        <label for="room">Room</label>
+        <select id="room" data-bind="options: $parent.rooms, optionsText: 'name', optionsValue: 'id'">
+        </select>
+    </div>
+    <div>
+        <label for="code">Code</label>
+        <input id="code" data-bind="value: code" />
+    </div>
+    <div>
+        <label for="tags">Tags</label>
+        <input id="tags" data-bind="value: tags" />
+    </div>
+    <div>
+        <label for="level">Level</label>
+        <input id="level" data-bind="value: level" />
+    </div>
+    <img data-bind="attr: {src: speaker().imageName}" />
+    <address data-bind="text: speaker().fullName"></address>
+        <label class="markfavorite" title="Mark as favorite">
+            <input
+                data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
+                type="checkbox" /><span></span></label>
+</div>
+<div class="right">
+    <div>
+        <label for="description">Description</label>
+        <textarea id="description" data-bind="value: description"></textarea>
+    </div>
+    <div>
+        <label for="feedback">Feedback</label>
+        <textarea id="feedback" data-bind="value: attendance().text"></textarea>
+    </div>
+    <div>
+        <span data-bind="starRating: attendance().rating"></span>
+    </div>
+</div>
