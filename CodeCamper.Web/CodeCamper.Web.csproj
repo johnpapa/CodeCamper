@@ -154,34 +154,35 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\aaron_skonnard.jpg" />
-    <Content Include="Content\bookmarklocked.png" />
-    <Content Include="Content\checkbox_checked.png" />
-    <Content Include="Content\checkbox_unchecked.png" />
-    <Content Include="Content\clear.png" />
-    <Content Include="Content\dan_wahlin.jpg" />
-    <Content Include="Content\elijah_manor.jpg" />
-    <Content Include="Content\felix_fanboi.jpg" />
-    <Content Include="Content\fritz_onion.jpg" />
-    <Content Include="Content\hans_fjallemark.jpg" />
-    <Content Include="Content\howard_dierking.jpg" />
-    <Content Include="Content\icon.png" />
-    <Content Include="Content\jim_cowart.jpg" />
-    <Content Include="Content\john_papa.jpg" />
-    <Content Include="Content\mads_kristensen.jpg" />
-    <Content Include="Content\refresh.png" />
-    <Content Include="Content\ryan_niemeyer.jpg" />
-    <Content Include="Content\scott_guthrie.jpg" />
-    <Content Include="Content\scott_hunter.jpg" />
-    <Content Include="Content\stars.png" />
-    <Content Include="Content\steve_sanderson.jpg" />
-    <Content Include="Content\sue_menot.jpg" />
-    <Content Include="Content\trash.png" />
-    <Content Include="Content\unknown_person.jpg" />
-    <Content Include="Content\ward_bell.jpg" />
-    <Content Include="Content\bookmarkchecked.png" />
-    <Content Include="Content\bookmark.png" />
-    <Content Include="Content\icon-blue.png" />
+    <Content Include="App_Data\CodeCamper.sdf" />
+    <Content Include="Content\images\aaron_skonnard.jpg" />
+    <Content Include="Content\images\bookmarklocked.png" />
+    <Content Include="Content\images\checkbox_checked.png" />
+    <Content Include="Content\images\checkbox_unchecked.png" />
+    <Content Include="Content\images\clear.png" />
+    <Content Include="Content\images\dan_wahlin.jpg" />
+    <Content Include="Content\images\elijah_manor.jpg" />
+    <Content Include="Content\images\felix_fanboi.jpg" />
+    <Content Include="Content\images\fritz_onion.jpg" />
+    <Content Include="Content\images\hans_fjallemark.jpg" />
+    <Content Include="Content\images\howard_dierking.jpg" />
+    <Content Include="Content\images\icon.png" />
+    <Content Include="Content\images\jim_cowart.jpg" />
+    <Content Include="Content\images\john_papa.jpg" />
+    <Content Include="Content\images\mads_kristensen.jpg" />
+    <Content Include="Content\images\refresh.png" />
+    <Content Include="Content\images\ryan_niemeyer.jpg" />
+    <Content Include="Content\images\scott_guthrie.jpg" />
+    <Content Include="Content\images\scott_hunter.jpg" />
+    <Content Include="Content\images\stars.png" />
+    <Content Include="Content\images\steve_sanderson.jpg" />
+    <Content Include="Content\images\sue_menot.jpg" />
+    <Content Include="Content\images\trash.png" />
+    <Content Include="Content\images\unknown_person.jpg" />
+    <Content Include="Content\images\ward_bell.jpg" />
+    <Content Include="Content\images\bookmarkchecked.png" />
+    <Content Include="Content\images\bookmark.png" />
+    <Content Include="Content\images\icon-blue.png" />
     <Content Include="Scripts\app\jquery.activity-ex.js" />
     <Content Include="Scripts\app\ko.binding.handlers.js" />
     <Content Include="Scripts\app\config.js" />
@@ -210,6 +211,7 @@
     <Content Include="Scripts\app\vm.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />
     <Content Include="Test\webapi.session-cud.tests.js" />
+    <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\lib\jquery.validate.js" />
     <Content Include="Scripts\lib\jquery.validate.min.js">
@@ -235,7 +237,7 @@
     <Content Include="Test\qunit\qunit-composite.css" />
     <Content Include="Test\qunit\qunit-composite.js" />
     <Content Include="Test\qunit\qunit.css" />
-    <Content Include="Content\search.png" />
+    <Content Include="Content\images\search.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Content\toastr.css" />
@@ -282,7 +284,6 @@
     <Content Include="Scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>

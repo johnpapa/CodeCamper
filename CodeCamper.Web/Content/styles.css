@@ -41,7 +41,7 @@ body {
 }
 
 	body > header > h1 {
-		background: url(icon-blue.png) no-repeat left center;
+		background: url(images/icon-blue.png) no-repeat left center;
 		background-size: 45px;
 		font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 		font-size: 300%;
@@ -96,7 +96,7 @@ body {
 
             .filter-box {
             /*.view > div > input {*/
-				background: url(search.png) white no-repeat 10px center;
+				background: url(images/search.png) white no-repeat 10px center;
 				border: solid 1px rgb(200,200,200);
 				box-sizing: border-box;
 				color: black;
@@ -229,24 +229,25 @@ body {
 		}
 
         label.markfavorite > input[type=checkbox] + span {
-		   background: url(bookmark.png);
-		   cursor: pointer;
-		   display: inline-block;
-		   float: right;
-		   height: 32px;
-		   opacity: .6;
-		   padding: 0;
-		   width: 32px;
-           margin-top: -5%;
+		    background: url(images/bookmark.png);
+            background-repeat: no-repeat;
+		    cursor: pointer;
+		    display: inline-block;
+		    float: right;
+		    height: 32px;
+		    opacity: .6;
+		    padding: 0;
+		    width: 32px;
+            margin-top: -5%;
 		}
 
         label.markfavorite > input[type=checkbox]:checked + span {
-		   background: url(bookmarkchecked.png);
-		   opacity: 1;
-		}
+		    background: url(images/bookmarkchecked.png);
+		    opacity: 1;
+        }
 
         label.markfavorite > input[type=checkbox]:disabled + span {
-            background: url(bookmarklocked.png);
+            background: url(images/bookmarklocked.png);
         }
 
         label.markfavorite > input[type=checkbox] + span:hover {
@@ -255,7 +256,7 @@ body {
 		
 
         label.favoritesonly > input[type=checkbox] + span {
-		   background-image: url(checkbox_unchecked.png);
+		   background-image: url(images/checkbox_unchecked.png);
 		   background-position: right center;
 		   background-repeat: no-repeat;
 		   cursor: pointer;
@@ -266,7 +267,7 @@ body {
 		}
 
         label.favoritesonly > input[type=checkbox]:checked + span {
-		   background-image: url(checkbox_checked.png);
+		   background-image: url(images/checkbox_checked.png);
 		   opacity: 1;
 		}
 
@@ -355,14 +356,14 @@ button {
 /* 2.5 ICONS
 --------------------------------------------------------- */
 .refresh {
-	background-image: url(refresh.png);
+	background-image: url(images/refresh.png);
     cursor: pointer;
 	float: right;
 	margin-top: 5px;
 }
 
 .clear-text {
-    background: url(clear.png);
+    background: url(images/clear.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     width: 12px;
@@ -379,7 +380,7 @@ button {
 }
 
 .clear-trash {
-	background-image: url(trash.png);
+	background-image: url(images/trash.png);
     cursor: pointer;
 	margin-top: 15px;
 }
@@ -440,7 +441,7 @@ button {
 
 .starRating span { width:24px; 
                    height:24px; 
-                   background-image: url(/content/stars.png); 
+                   background-image: url(images/stars.png); 
                    display:inline-block; 
                    cursor: pointer; 
                    background-position: -24px 0;
@@ -502,6 +503,12 @@ button {
 		margin: 2% 0 2% 0px;
 	}
 
+    label.markfavorite > input[type=checkbox] + span {
+        background-size: 24px;
+        width: 24px;
+        height: 24px;
+    }
+
 	.view > nav { /* PAPA - This fixes thead width problem of thead left nav on smaller device sizes*/
 		float: none;
 		margin: 0 0 7% 0;
@@ -562,9 +569,9 @@ button {
 		}
 
 		label.markfavorite > input[type=checkbox] + span {
-			background-size: 20px;
-			height: 20px;
-			width: 20px;
+			background-size: 16px;
+			height: 16px;
+			width: 16px;
 		}
 		
 
