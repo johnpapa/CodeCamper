@@ -9,10 +9,18 @@
             timeslots = ko.observableArray(),
             
             //TODO: refactor the template name to be dynamic
-            tmplName = ko.computed(function () {
-                return session() ? 'session.edit' : 'should not display' ;
+            tmplName = function() {
+                return canEditSession() ? 'session.edit' : 'session.view';
+            },
+            
+            canEditSession = ko.computed(function () {
+                return session() && config.currentUser().id() === session().speakerId();
             }),
-
+            
+            canEditEval = ko.computed(function () {
+                return session() && config.currentUser().id() !== session().speakerId();
+            }),
+            
             canLeave = function () {
                 return true;
             },
@@ -83,6 +91,8 @@
 
         return {
             activate: activate,
+            canEditSession: canEditSession,
+            canEditEval: canEditEval,
             canLeave: canLeave,
             rooms: rooms,
             session: session,

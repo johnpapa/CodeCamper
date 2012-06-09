@@ -277,6 +277,7 @@
     <Content Include="Scripts\lib\sammy.js" />
     <Content Include="Scripts\lib\toastr.js" />
     <Content Include="Test\webapi.endpoint.tests.js" />
+    <Content Include="Tmpl\_session.view.tmpl.html" />
     <Content Include="Tmpl\_session.edit.tmpl.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

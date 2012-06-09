@@ -33,10 +33,10 @@
     </div>
     <img data-bind="attr: {src: speaker().imageName}" />
     <address data-bind="text: speaker().fullName"></address>
-    <label class="markfavorite" title="Mark as favorite">
-        <input
-            data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
-            type="checkbox" /><span></span></label>
+        <label class="markfavorite" title="Mark as favorite">
+            <input
+                data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
+                type="checkbox" /><span></span></label>
 </div>
 <div class="right">
     <div>
@@ -45,9 +45,9 @@
     </div>
     <div>
         <label for="feedback">Feedback</label>
-        <span id="feedback" data-bind="text: attendance().text"></span>
+        <textarea id="feedback" data-bind="value: attendance().text"></textarea>
     </div>
     <div>
-        <span data-bind="starRating: attendance().rating, enable:false"></span>
+        <span data-bind="starRating: attendance().rating"></span>
     </div>
 </div>

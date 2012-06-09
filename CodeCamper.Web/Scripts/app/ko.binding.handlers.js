@@ -26,32 +26,63 @@ function ($, ko) {
     };
 
     ko.bindingHandlers.starRating = {
-        init: function(element, valueAccessor) {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var allBindings = allBindingsAccessor(),
+                enable = true;
+            
+            if(allBindings.enable !== 'undefined') {
+                if (ko.isObservable(allBindings.enable)) {
+                    enable = allBindings.enable();
+                }
+                else {
+                    enable = allBindings.enable;
+                }
+            }
+            
             $(element).addClass("starRating");
             for (var i = 0; i < 5; i++) {
-                $("<span>").appendTo(element);
+                $('<span>').appendTo(element);
             }
-            // Handle mouse events on the stars
-            $("span", element).each(function(index) {
-                $(this).hover(
-                    function() {
-                        $(this).prevAll().add(this).addClass("hoverChosen");
-                    },
-                    function() {
-                        $(this).prevAll().add(this).removeClass("hoverChosen");
-                    }).click(function() {
-                        var ratingObservable = valueAccessor(); // Get the associated observable
-                        ratingObservable(index + 1); // Write the new rating to it
-                    });
-            });
+
+            if (enable) {
+                // Handle mouse events on the stars
+                $("span", element).each(function (index) {
+                    var $star = $(this);
+                    var ratingObservable = valueAccessor(); // Get the associated observable
+                    $star.hover(
+                        function () {
+                            $star.prevAll().add(this).addClass("hoverChosen");
+                        },
+                        function () {
+                            $star.prevAll().add(this).removeClass("hoverChosen");
+                        }).click(function () {
+                            //var ratingObservable = valueAccessor(); // Get the associated observable
+                            ratingObservable(index + 1); // Write the new rating to it
+                        });
+                });
+            }
         },
 
-        update: function(element, valueAccessor) {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             // Give the first x stars the "chosen" class, where x <= rating
-            var ratingObservable = valueAccessor();
-            $("span", element).each(function(index) {
-                $(this).toggleClass("chosen", index < ratingObservable());
-            });
+            var
+                ratingObservable = valueAccessor(),
+                allBindings = allBindingsAccessor(),
+                enable = true;
+
+            if (allBindings.enable !== 'undefined') {
+                if (ko.isObservable(allBindings.enable)) {
+                    enable = allBindings.enable();
+                }
+                else {
+                    enable = allBindings.enable;
+                }
+            }
+            if (enable) {
+                $("span", element).each(function(index) {
+                    $(this).toggleClass("chosen", index < ratingObservable());
+                });
+            }
         }
     };
 
