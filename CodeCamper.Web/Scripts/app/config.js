@@ -1,5 +1,5 @@
-﻿define(['toastr', 'mock/mock'],
-    function (toastr, mock, window) {
+﻿define(['toastr', 'mock/mock', 'infuser'],
+    function (toastr, mock, infuser, window) {
 
         var// properties
             useMocks = false, // Set this to toggle mocks
@@ -11,13 +11,21 @@
                 viewModelActivated: 'viewmodel-activation'
             },
             // methods
-            dataserviceInit = function () { };
+            dataserviceInit = function () { },
 
-        if (useMocks) {
-            dataserviceInit = mock.dataserviceInit;
-        }
+            init = function () {
+                if (useMocks) {
+                    dataserviceInit = mock.dataserviceInit;
+                }
 
-        toastr.options.timeOut = toastrTimeout;
+                infuser.defaults.templatePrefix = "_";
+                infuser.defaults.templateSuffix = ".tmpl.html";
+                infuser.defaults.templateUrl = "/Tmpl";
+
+                toastr.options.timeOut = toastrTimeout;
+            };
+
+        init();
 
         return {
             dataserviceInit: dataserviceInit,

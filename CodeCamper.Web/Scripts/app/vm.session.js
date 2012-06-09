@@ -1,9 +1,5 @@
-﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'infuser'],
-    function (ko, datacontext, config, messenger, sort, infuser) {
-
-        infuser.defaults.templatePrefix = "_";
-        infuser.defaults.templateSuffix = ".tmpl.html";
-        infuser.defaults.templateUrl = "/Tmpl";
+﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort'],
+    function (ko, datacontext, config, messenger, sort) {
 
         var
             logger = config.logger,
@@ -11,8 +7,8 @@
             rooms = ko.observableArray(),
             tracks = ko.observableArray(),
             timeslots = ko.observableArray(),
-            //tmplName = 'session.edit',
-            //tmplName = ko.observable('session.edit'),
+            
+            //TODO: refactor the template name to be dynamic
             tmplName = ko.computed(function () {
                 return session() ? 'session.edit' : 'should not display' ;
             }),

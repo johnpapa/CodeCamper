@@ -4,10 +4,11 @@
 // License: MIT (http://www.opensource.org/licenses/mit-license)
 // Version 2.0.4
 
+// This is the AMD style module version of the KO External Template Engine
+// If you need the standard 'js lib' version, please go to https://github.com/ifandelse/Knockout.js-External-Template-Engine
 
-define(['ko', 'jquery', 'infuser'],
-    function (ko, jQuery, infuser, undefined) {
-    //    (function ( global, ko, jQuery, infuser, undefined ) {
+define(['ko','jquery', 'infuser'], function(ko, jQuery, infuser){
+
 	var ExternalTemplateSource = function(templateId, options) {
 	    var self = this, origAfterRender;
 	    self.templateId = templateId;
@@ -99,4 +100,3 @@ define(['ko', 'jquery', 'infuser'],
 	}
 
 });
-//})( window, ko, jQuery, infuser );
