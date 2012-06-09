@@ -1,7 +1,25 @@
 ﻿<style>
+    .titleblock {
+        /*float: left;*/
+        /*width: 600px;*/
+    }
+
+    .titleblock > label {
+        clear: both;
+        display: block;
+        float: left;
+        line-height: 35px;
+        width: 100px;
+    }
+
+    .titleblock > input {
+        width: 515px;
+    }
+
     .left {
         float: left;
         width: 300px;
+        clear: both;
     }
 
         .left > div {
@@ -16,17 +34,35 @@
                 width: 100px;
             }
 
+            .left > div > input {
+                width: 150px;
+            }
+
+            .left > div > select {
+                width: 160px;
+            }
+
+    .right {
+        float: left;
+    }
             .right > div > label {
                 display: block;
             }
+
+            .right > div > textarea {
+                font-family: 'Segoe UI';
+                width: 320px;
+                height: 100px
+            }
+
 </style>
 
 <section data-bind="with: session" id="session" class="view">
+    <div class="titleblock">
+        <label for="title">Title</label>
+        <input id="title" data-bind="value: title" />
+    </div>
     <div class="left">
-        <div>
-            <label for="title">Title</label>
-            <input id="title" data-bind="value: title" />
-        </div>
         <div>
             <label for="track">Track</label>
             <select id="track" data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id'">
@@ -54,6 +90,12 @@
             <label for="level">Level</label>
             <input id="level" data-bind="value: level" />
         </div>
+        <img data-bind="attr: {src: speaker().imageName}" />
+        <address data-bind="text: speaker().fullName"></address>
+            <label class="markfavorite" title="Mark as favorite">
+                <input
+                    data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
+                    type="checkbox" /><span></span></label>
     </div>
     <div class="right">
         <div>
@@ -66,13 +108,6 @@
         </div>
         <div>
             <span data-bind="starRating: attendance().rating"></span>
-            <label class="markfavorite" title="Mark as favorite">
-                <input
-                    data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
-                    type="checkbox" /><span></span></label>
         </div>
-
-        <img data-bind="attr: {src: speaker().imageName}" />
-        <address data-bind="text: speaker().fullName"></address>
     </div>
 </section>
