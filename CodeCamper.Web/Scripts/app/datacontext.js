@@ -63,7 +63,8 @@
                     },
 
                     getLocalById = function (id) {
-                        return !!id && !!items[id] ? items[id] : nullo; //{ isNullo: true }; //nullo;
+                        //TODO: only place we set to NULLO
+                        return !!id && !!items[id] ? items[id] : nullo; //{ isNullo: true }; //nullo; 
                     },
 
                     getData = function (options) {

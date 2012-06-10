@@ -141,12 +141,12 @@
                     ? datacontext.attendanceCud.deleteAttendance
                     : datacontext.attendanceCud.addAttendance;
                 cudMethod(s,
-                    { success: saveFavoriteDone(), error: saveFavoriteDone() });
+                    { success: saveFavoriteDone, error: saveFavoriteDone });
             },
             
             saveFavoriteDone = function () {
-                session().isBusy = false;
                 forceDirty.notifySubscribers(); // Trigger re-evaluation of isDirty
+                session().isBusy = false;
             },
             
             init = function () {
