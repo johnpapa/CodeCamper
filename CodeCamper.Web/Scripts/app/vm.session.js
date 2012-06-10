@@ -4,7 +4,7 @@
         var
             logger = config.logger,
             currentSessionId = ko.observable(),
-            forceDirty = ko.observable(),
+            isDirtyRefresh = ko.observable(),
             session = ko.observable(),
             rooms = ko.observableArray(),
             tracks = ko.observableArray(),
@@ -57,7 +57,7 @@
             }),
             
             canLeave = function () {
-                return true;
+                return !isDirty();
             },
 
             activate = function (routeData) {
@@ -91,7 +91,7 @@
             },
             
             isDirty = ko.computed(function () {
-                forceDirty(); // to notify the computed
+                isDirtyRefresh(); // to notify the computed
                 if (session() && session().attendance && session().attendance()) {
                     return session().attendance().dirtyFlag().isDirty();
                 }
@@ -145,7 +145,7 @@
             },
             
             saveFavoriteDone = function () {
-                forceDirty.notifySubscribers(); // Trigger re-evaluation of isDirty
+                isDirtyRefresh.notifySubscribers(); // Trigger re-evaluation of isDirty
                 session().isBusy = false;
             },
             
