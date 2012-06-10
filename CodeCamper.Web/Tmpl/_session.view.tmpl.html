@@ -46,6 +46,9 @@
         <div>
             <span data-bind="starRating: attendance().rating, enable:isFavorite"></span>
         </div>
+        <div>
+            <small class="tips" data-bind="hidden:isFavorite">Must favorite this session before being able to rate it.</small>
+        </div>
         <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
         <input
             data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"

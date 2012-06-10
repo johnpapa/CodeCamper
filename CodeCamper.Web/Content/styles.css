@@ -321,6 +321,12 @@ small {
 	text-transform: uppercase;
 }
 
+    small.tips {
+        text-transform: none;
+        font-size: 80%;
+        color: #119EDA;
+    }
+
 nav label {
 	display: block;
 	margin-bottom: 3%;
@@ -459,7 +465,7 @@ button {
 }
 
 .starRating-readonly,
-.starRating { margin: 0 2px 0 2px; }
+.starRating { margin: 0 2px 0 2px; clear: both; display: block; }
 
 .starRating-readonly span,
 .starRating span { width:24px; 
