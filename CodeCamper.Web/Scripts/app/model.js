@@ -109,8 +109,8 @@
             self.isFavorite = ko.computed({
                 read: function () {
                     var id = self.id();
-                    self.isFavoriteUpdate(); // This exists so we can notify ifthe isFavorite to reevaluate
-                    var match = self.attendance() ? self.attendance().sessionId() === id : null; //TODO: update all nav to check by self.attendance()
+                    self.isFavoriteUpdate(); // This exists so we can notify the isFavorite to reevaluate
+                    var match = self.attendance() ? self.attendance().sessionId() === id : null;
                     return !!match;
                 },
 

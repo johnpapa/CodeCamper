@@ -69,9 +69,46 @@ function ($, ko) {
 
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             // Give the first x stars the 'chosen' class, where x <= rating
-            var ratingObservable = valueAccessor();
+            var ratingObservable = valueAccessor(),
+                allBindings = allBindingsAccessor(),
+                enable = true;
 
-            $('span', element).each(function(index) {
+            if (allBindings.enable !== undefined) {
+                if (ko.isObservable(allBindings.enable)) {
+                    enable = allBindings.enable();
+                }
+                else {
+                    enable = allBindings.enable;
+                }
+            }
+            
+            if (enable) {
+                $(element).addClass('starRating').removeClass('starRating-readonly');
+            }else {
+                $(element).removeClass('starRating').addClass('starRating-readonly');
+            }
+            
+            if (enable) {
+                // Handle mouse events on the stars
+                $('span', element).each(function (index) {
+                    var $star = $(this);
+
+                    $star.hover(
+                        function () {
+                            $star.prevAll().add(this).addClass('hoverChosen');
+                        },
+                        function () {
+                            $star.prevAll().add(this).removeClass('hoverChosen');
+                        });
+
+                    $star.click(function () {
+                        //var ratingObservable = valueAccessor(); // Get the associated observable
+                        ratingObservable(index + 1); // Write the new rating to it
+                    });
+                });
+            }
+            
+            $('span', element).each(function (index) {
                 $(this).toggleClass('chosen', index < ratingObservable());
             });
         }

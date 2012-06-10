@@ -23,7 +23,8 @@
             
             cancel = ko.asyncCommand({
                 execute: function (complete) {
-                    getSession(complete);
+                    //getSession(complete, true);
+                    getAttendance(complete, true);
                 },
                 canExecute: function (isExecuting) {
                     return true;
@@ -33,10 +34,18 @@
             save = ko.asyncCommand({
                 execute: function (complete) {
                     var s = session();
+                    if (s.isBusy()) {
+                        complete();
+                        return; // Already in the middle of a save on this session
+                    }
+                    s.isBusy(true);
+                    var cudMethod = s.attendance().isNullo
+                        ? datacontext.attendanceCud.addAttendance
+                        : datacontext.attendanceCud.updateAttendance;
                     $.when(
 //                        datacontext.sessionCud.updateSession(
 //                            session,
-                        datacontext.attendanceCud.updateAttendance(
+                        cudMethod(
                             s, {
                                 success: function () { s.isBusy(false); },
                                 error: function () { s.isBusy(false); }
@@ -62,9 +71,10 @@
                 getRooms();
                 getTimeslots();
                 getTracks();
+                session().isBusy(false);
             },
             
-            getSession = function (completeCallback) {
+            getSession = function (completeCallback, forceRefresh) {
                 var
                     callback = completeCallback || function () { },
                     result = datacontext.sessions.getFullSessionById(
@@ -76,9 +86,14 @@
                                 error: function () {
                                     callback();
                                 }
-                            }
+                            },
+                        forceRefresh
                         );
                 session(result);
+            },
+
+            getAttendance = function (completeCallback, forceRefresh) {
+                //TODO : need to refactor this to handle attendance or session
             },
 
             getRooms = function () {
@@ -117,10 +132,8 @@
                 var cudMethod = s.isFavorite()
                     ? datacontext.attendanceCud.deleteAttendance
                     : datacontext.attendanceCud.addAttendance;
-                if (s.isFavorite()) {
-                    cudMethod(s,
-                        { success: function () { s.isBusy(false); }, error: function () { s.isBusy(false); } });
-                }
+                cudMethod(s,
+                    { success: function () { s.isBusy(false); }, error: function () { s.isBusy(false); } });
             },
             
             init = function () {

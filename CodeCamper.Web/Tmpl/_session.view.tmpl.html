@@ -41,10 +41,10 @@
         </div>
         <div>
             <label for="feedback">Feedback</label>
-            <textarea id="feedback" data-bind="value: attendance().text"></textarea>
+            <textarea id="feedback" data-bind="value: attendance().text, enable:isFavorite"></textarea>
         </div>
         <div>
-            <span data-bind="starRating: attendance().rating"></span>
+            <span data-bind="starRating: attendance().rating, enable:isFavorite"></span>
         </div>
         <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
         <input
