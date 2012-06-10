@@ -32,16 +32,14 @@
 
             save = ko.asyncCommand({
                 execute: function (complete) {
+                    var s = session();
                     $.when(
-                        datacontext.sessionCud.updateSession(
-                            session,
-                            {
-                                success: function () {
-                                    
-                                },
-                                error: function () {
-                                    
-                                }
+//                        datacontext.sessionCud.updateSession(
+//                            session,
+                        datacontext.attendanceCud.updateAttendance(
+                            s, {
+                                success: function () { s.isBusy(false); },
+                                error: function () { s.isBusy(false); }
                             }
                         )
                     ).always(complete);

@@ -229,9 +229,22 @@
                     }, attendanceModelJson);
                 },
 
-                updateAttendance: function () {
-                    //TODO: implement updateAttendance
-                    logger.warning('implement updateAttendance');
+                updateAttendance: function (sessionModel, callbacks) {
+                    var
+                        attendanceModel = sessionModel.attendance(),
+                        attendanceModelJson = ko.toJSON(attendanceModel);
+                    
+                    dataservice.attendance.updateAttendance({
+                        success: function (response) {
+                            logger.success('Updated attendance!'); 
+                            if (callbacks && callbacks.success) { callbacks.success(); }
+                        },
+                        error: function (response) {
+                            logger.error('oops! data could not be posted'); //TODO: revise error message
+                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            return;
+                        }
+                    }, attendanceModelJson);
                 },
                 
                 deleteAttendance: function (sessionModel, callbacks) {

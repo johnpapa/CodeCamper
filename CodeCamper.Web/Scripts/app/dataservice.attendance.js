@@ -16,6 +16,13 @@
                     contentType: 'application/json; charset=utf-8'
                 });
 
+                amplify.request.define('attendanceUpdate', 'ajax', {
+                    url: '/api/attendance',
+                    dataType: 'json',
+                    type: 'PUT',
+                    contentType: 'application/json; charset=utf-8'
+                });
+
                 // DELETE /api/attendance/?pid=2&sid=1
                 amplify.request.define('attendanceDelete', 'ajax', {
                     url: '/api/attendance/?pid={personId}&sid={sessionId}',
@@ -43,6 +50,15 @@
                 });
             },
             
+            updateAttendance = function(callbacks, data) {
+                return amplify.request({
+                    resourceId: "attendanceUpdate",
+                    data: data,
+                    success: callbacks.success,
+                    error: callbacks.error
+                });
+            },
+            
             deleteAttendance = function(callbacks, personId, sessionId) {
                 return amplify.request({
                     resourceId: "attendanceDelete",
@@ -60,6 +76,7 @@
     return {
         getAttendance: getAttendance,
         addAttendance: addAttendance,
-        deleteAttendance: deleteAttendance
+        deleteAttendance: deleteAttendance,
+        updateAttendance: updateAttendance
     };
 });
