@@ -34,18 +34,18 @@
             save = ko.asyncCommand({
                 execute: function (complete) {
                     var s = session();
-                    if (s.isBusy()) {
+                    if (s.isBusy) {
                         complete();
                         return; // Already in the middle of a save on this session
                     }
-                    s.isBusy(true);
+                    s.isBusy = true;
                     $.when(
 //                        datacontext.sessionCud.updateSession(
 //                            session,
                         datacontext.attendanceCud.updateAttendance(
                             s, {
-                                success: function () { s.isBusy(false); },
-                                error: function () { s.isBusy(false); }
+                                success: function () { s.isBusy = false; },
+                                error: function () { s.isBusy = false; }
                             }
                         )
                     ).always(complete);
@@ -68,7 +68,7 @@
                 getRooms();
                 getTimeslots();
                 getTracks();
-                session().isBusy(false);
+                session().isBusy = false;
             },
             
             getSession = function (completeCallback, forceRefresh) {
@@ -122,15 +122,15 @@
 
             saveFavorite = function () {
                 var s = session();
-                if (s.isBusy()) {
+                if (s.isBusy) {
                     return; // Already in the middle of a save on this session
                 }
-                s.isBusy(true);
+                s.isBusy = true;
                 var cudMethod = s.isFavorite()
                     ? datacontext.attendanceCud.deleteAttendance
                     : datacontext.attendanceCud.addAttendance;
                 cudMethod(s,
-                    { success: function () { s.isBusy(false); }, error: function () { s.isBusy(false); } });
+                    { success: function () { s.isBusy = false; }, error: function () { s.isBusy = false; } });
             },
             
             init = function () {

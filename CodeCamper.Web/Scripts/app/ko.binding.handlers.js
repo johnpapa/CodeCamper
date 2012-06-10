@@ -27,24 +27,21 @@ function ($, ko) {
 
     ko.bindingHandlers.starRating = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            var allBindings = allBindingsAccessor(),
-                enable = true;
-            
-            if(allBindings.enable !== undefined) {
-                if (ko.isObservable(allBindings.enable)) {
-                    enable = allBindings.enable();
-                }
-                else {
-                    enable = allBindings.enable;
-                }
-            }
-            
+            var
+                allBindings = allBindingsAccessor(),
+                enable = (allBindings.enable !== undefined) ? ko.utils.unwrapObservable(allBindings.enable) : true;
+
+            // Add the appropriate CSS class
             var starClass = enable ? 'starRating' : 'starRating-readonly';
             $(element).addClass(starClass);
+
+            // Create the span's (only do in init)
             for (var i = 0; i < 5; i++) {
                 $('<span>').appendTo(element);
             }
+            //ko.bindingHandlers.starRating.update(element, valueAccessor, allBindings, viewModel);
 
+            // Wire up the event handlers, if enabled
             if (enable) {
                 // Handle mouse events on the stars
                 $('span', element).each(function (index) {
@@ -71,23 +68,16 @@ function ($, ko) {
             // Give the first x stars the 'chosen' class, where x <= rating
             var ratingObservable = valueAccessor(),
                 allBindings = allBindingsAccessor(),
-                enable = true;
+                enable = (allBindings.enable !== undefined) ? ko.utils.unwrapObservable(allBindings.enable) : true;
 
-            if (allBindings.enable !== undefined) {
-                if (ko.isObservable(allBindings.enable)) {
-                    enable = allBindings.enable();
-                }
-                else {
-                    enable = allBindings.enable;
-                }
-            }
-            
+            // Toggle the appropriate CSS classes
             if (enable) {
                 $(element).addClass('starRating').removeClass('starRating-readonly');
             }else {
                 $(element).removeClass('starRating').addClass('starRating-readonly');
             }
             
+            // Wire up the event handlers, if enabled
             if (enable) {
                 // Handle mouse events on the stars
                 $('span', element).each(function (index) {
@@ -108,6 +98,8 @@ function ($, ko) {
                 });
             }
             
+            // Toggle the chosen CSS class (fills in the stars for the rating)
+            // (only on update)
             $('span', element).each(function (index) {
                 $(this).toggleClass('chosen', index < ratingObservable());
             });

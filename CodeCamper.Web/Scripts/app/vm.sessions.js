@@ -85,16 +85,16 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
             },
 
             saveFavorite = function (selectedSession) {
-                if (selectedSession.isBusy()) {
+                if (selectedSession.isBusy) {
                     return; // Already in the middle of a save on this session
                 }
-                selectedSession.isBusy(true);
+                selectedSession.isBusy = true;
                 var cudMethod = selectedSession.isFavorite()
                     ? datacontext.attendanceCud.deleteAttendance
                     : datacontext.attendanceCud.addAttendance;
                 cudMethod(
                         selectedSession,
-                        { success: function () { selectedSession.isBusy(false); }, error: function () { selectedSession.isBusy(false); } }
+                        { success: function () { selectedSession.isBusy = false; }, error: function () { selectedSession.isBusy = false; } }
                     );
             },
 

@@ -98,7 +98,7 @@
             self.tags = ko.observable();
             self.rating = ko.observable();
             self.description = ko.observable();
-            self.isBusy = ko.observable(false); 
+            self.isBusy = false; 
             self.isFavoriteUpdate = ko.observable(); 
 
             self.tagsFormatted = ko.computed(function () {
