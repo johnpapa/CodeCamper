@@ -7,18 +7,15 @@
     shim: {
         // jquery 1.7.x understands define; no shim needed.
         'activity-indicator': ['jquery'],
-        'jquery.activity-ex': { deps: ['jquery']}, 
         'amplify': {deps: [], exports: 'amplify'},
         'amplify.request': ['amplify'],
         'amplify.store': ['amplify'],
+        'jquery.activity-ex': { deps: ['jquery'] },
         'jquery.mockjson': ['jquery'],
         'json2': { exports: 'JSON' }, // not really a module
-        //'ko': { deps: ['jquery'], exports: 'ko' },
-        // moment understands define; no shim needed.
-
+        //'ko': { deps: ['jquery'], exports: 'ko' }, ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
-        //'koExternalTemplateEngine': { deps: ['ko', 'jquery', 'infuser', 'trafficcop'] },
-
+        // moment understands define; no shim needed.
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': ['jquery', 'sammy'],
         'toastr': { deps: ['jquery'], exports: 'toastr' },
@@ -36,17 +33,15 @@
         'jquery': '../lib/jquery-1.7.2',//'.min',
         'jquery.mockjson': '../lib/jquery.mockjson',
         'json2': '../lib/json2',
-        
         'infuser': '../lib/infuser-amd',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
-        'trafficcop': '../lib/TrafficCop-amd',
-        //'knockout.changetracker': '../lib/knockout.changetracker',
-
+        'knockout.changetracker': '../lib/knockout.changetracker-amd',
         'ko': '../lib/knockout-2.1.0',
         'moment': '../lib/moment',
         'sammy': '../lib/sammy',
         'sammy.title': '../lib/sammy.title',
         'toastr': '../lib/toastr',
+        'trafficcop': '../lib/TrafficCop-amd',
         'underscore': '../lib/underscore'
     }       
 });
@@ -79,14 +74,12 @@ requirejs([
         'ko.binding.handlers', // Knockout custom binding handlers
         'ko.asyncCommand',    // Knockout custom asyncCommand
         'koExternalTemplateEngine',
-
-        //'knockout.changetracker',
-
+        'knockout.changetracker',
         'debug.helpers'       // our app's ko debugging plugin
 
     ], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper)
                  // no need for plugin params as they are always undefined
 {
-        //debugger; // uncomment to confirm that these dependencies are loaded.
+        //debugger; //TODO: uncomment to confirm that these dependencies are loaded.
         bootstrapper.run();
     })

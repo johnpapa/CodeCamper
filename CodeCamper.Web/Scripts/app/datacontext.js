@@ -63,7 +63,7 @@
                     },
 
                     getLocalById = function (id) {
-                        return !!id && !!items[id] ? items[id] : nullo;
+                        return !!id && !!items[id] ? items[id] : nullo; //{ isNullo: true }; //nullo;
                     },
 
                     getData = function (options) {
@@ -285,7 +285,7 @@
                         callbacks.success(session); 
                     },
                     error: function(response) {
-                        logger.error('oops! could not retrieve session '+id); //TODO: revise error message
+                        logger.error('oops! could not retrieve session ' + id); //TODO: revise error message
                         if (callbacks && callbacks.error) { callbacks.error(response); }
                     }
                                 

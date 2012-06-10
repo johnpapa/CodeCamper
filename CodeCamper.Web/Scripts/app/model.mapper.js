@@ -9,7 +9,9 @@
                 item = item || new model.Attendance()
                     .personId(dto.PersonId)
                     .sessionId(dto.SessionId);
-                return item.rating(dto.Rating).text(dto.Text);
+                item.rating(dto.Rating).text(dto.Text);
+                item.dirtyFlag().reset();
+                return item;
             }
         },
         

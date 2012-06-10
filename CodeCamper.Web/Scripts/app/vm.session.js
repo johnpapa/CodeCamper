@@ -4,6 +4,7 @@
         var
             logger = config.logger,
             currentSessionId = ko.observable(),
+            forceDirty = ko.observable(),
             session = ko.observable(),
             rooms = ko.observableArray(),
             tracks = ko.observableArray(),
@@ -88,9 +89,19 @@
                         );
                 session(result);
             },
+            
+            isDirty = ko.computed(function () {
+                forceDirty(); // to notify the computed
+                if (session() && session().attendance && session().attendance()) {
+                    return session().attendance().dirtyFlag().isDirty();
+                }
+                return false;
+            }),
 
             getAttendance = function (completeCallback, forceRefresh) {
                 //TODO : need to refactor this to handle attendance or session
+                var callback = completeCallback || function() {};
+                callback();
             },
 
             getRooms = function () {
@@ -130,11 +141,15 @@
                     ? datacontext.attendanceCud.deleteAttendance
                     : datacontext.attendanceCud.addAttendance;
                 cudMethod(s,
-                    { success: function () { s.isBusy = false; }, error: function () { s.isBusy = false; } });
+                    { success: saveFavoriteDone(), error: saveFavoriteDone() });
+            },
+            
+            saveFavoriteDone = function () {
+                session().isBusy = false;
+                forceDirty.notifySubscribers(); // Trigger re-evaluation of isDirty
             },
             
             init = function () {
-                
             };
 
         // Initialization
@@ -152,6 +167,7 @@
             saveFavorite: saveFavorite,
             timeslots: timeslots,
             tmplName: tmplName,
+            isDirty: isDirty,
             tracks: tracks
         };
     });

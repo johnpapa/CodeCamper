@@ -40,6 +40,8 @@
             
             self.rating = ko.observable();
             self.text = ko.observable();
+            //self.dirtyFlag = new ko.DirtyFlag(self);
+            self.dirtyFlag = new ko.DirtyFlag([self.rating, self.text]);
             return self;
         };
 
@@ -48,6 +50,7 @@
             .personId(0)
             .rating(0)
             .text('');
+        attendanceNullo.dirtyFlag().reset();
         attendanceNullo.isNullo = true;
 
         Attendance.makeId = attendanceMakeId;
