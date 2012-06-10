@@ -1,53 +1,54 @@
-﻿<div class="titleblock">
-    <h1 data-bind="text:title"></h1>
-    <label for="title">Title</label>
-    <input id="title" data-bind="value: title" />
+﻿<div class="save-cancel-button-bar">
+    <button class="cancel" data-bind="command: cancel, activity: cancel.isExecuting">Cancel</button>
+    <button class="save" data-bind="command: save, activity: save.isExecuting">Save</button>
 </div>
-<div class="left">
-    <div>
-        <label for="track">Track</label>
-        <select id="track" data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id'">
-        </select>
+<div data-bind="with: session">    
+    <div class="titleblock">
+        <h1 data-bind="text:title"></h1>
     </div>
-    <div>
-        <label for="timeslot">Time slot</label>
-        <select id="timeslot" data-bind="options: $parent.timeslots, optionsText: 'shortStart', optionsValue: 'id'">
-        </select>
+    <div class="details-left">
+        <div>
+            <label for="track">Track</label>
+            <address id="track" data-bind="text: track().name"></address>
+        </div>
+        <div>
+            <label for="timeslot">Time slot</label>
+            <address id="timeslot" data-bind="text: timeslot().shortStart"></address>
+        </div>
+        <div>
+            <label for="room">Room</label>
+            <address id="room" data-bind="text: room().name"></address>
+        </div>
+        <div>
+            <label for="code">Code</label>
+            <address id="code" data-bind="text: code"></address>
+        </div>
+        <div>
+            <label for="tags">Tags</label>
+            <address id="tags" data-bind="text: tags"></address>
+        </div>
+        <div>
+            <label for="level">Level</label>
+            <address id="level" data-bind="text: level"></address>
+        </div>
+        <img data-bind="attr: {src: speaker().imageName}" />
+        <address data-bind="text: speaker().fullName"></address>
     </div>
-    <div>
-        <label for="room">Room</label>
-        <select id="room" data-bind="options: $parent.rooms, optionsText: 'name', optionsValue: 'id'">
-        </select>
-    </div>
-    <div>
-        <label for="code">Code</label>
-        <input id="code" data-bind="value: code" />
-    </div>
-    <div>
-        <label for="tags">Tags</label>
-        <input id="tags" data-bind="value: tags" />
-    </div>
-    <div>
-        <label for="level">Level</label>
-        <input id="level" data-bind="value: level" />
-    </div>
-    <img data-bind="attr: {src: speaker().imageName}" />
-    <address data-bind="text: speaker().fullName"></address>
-        <label class="markfavorite" title="Mark as favorite">
-            <input
-                data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
-                type="checkbox" /><span></span></label>
-</div>
-<div class="right">
-    <div>
-        <label for="description">Description</label>
-        <textarea id="description" data-bind="value: description"></textarea>
-    </div>
-    <div>
-        <label for="feedback">Feedback</label>
-        <textarea id="feedback" data-bind="value: attendance().text"></textarea>
-    </div>
-    <div>
-        <span data-bind="starRating: attendance().rating"></span>
+    <div class="details-right">
+        <div>
+            <label for="description">Description</label>
+            <span id="description" class="scrollable-text" data-bind="text: description"></span>
+        </div>
+        <div>
+            <label for="feedback">Feedback</label>
+            <textarea id="feedback" data-bind="value: attendance().text"></textarea>
+        </div>
+        <div>
+            <span data-bind="starRating: attendance().rating"></span>
+        </div>
+        <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
+        <input
+            data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
+            type="checkbox" /><span></span></label>
     </div>
 </div>

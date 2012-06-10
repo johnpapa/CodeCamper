@@ -210,6 +210,7 @@
     <Content Include="Scripts\app\utils.js" />
     <Content Include="Scripts\app\vm.js" />
     <Content Include="Scripts\lib\infuser-amd.js" />
+    <Content Include="Scripts\lib\knockout.changetracker.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
     <Content Include="Scripts\lib\TrafficCop-amd.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />

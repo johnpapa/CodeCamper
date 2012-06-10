@@ -5,7 +5,7 @@
     }
 
     .titleblock > label {
-        clear: both;
+        /*clear: both;*/
         display: block;
         float: left;
         line-height: 35px;
@@ -22,17 +22,17 @@
         margin-bottom: 1%;
     }
 
-    .left {
+    .details-left {
         float: left;
         width: 300px;
         clear: both;
     }
 
-    .left > div {
+    .details-left > div {
         height: 40px;
     }
 
-    .left > div > label {
+    .details-left label {
         clear: both;
         display: block;
         float: left;
@@ -40,28 +40,34 @@
         width: 100px;
     }
 
-    .left > div > input {
+    .details-left input {
         width: 150px;
     }
 
-    .left > div > select {
+    .details-left select {
         width: 160px;
     }
 
-    .right {
+    .details-right {
         float: left;
     }
-    .right > div > label {
+    .details-right label {
         display: block;
     }
 
-    .right > div > textarea,
-    #feedback{
+    .details-right textarea,
+    span.scrollable-text {
         font-family: 'Segoe UI Light';
-        width: 320px;
         height: 100px;
+        width: 300px;
         float: left;
         overflow-y:scroll;
+        margin-bottom: 6px;
+    }
+    span.scrollable-text {
+        border: 1px #808080 solid;
+        background-color: whitesmoke;
+        width: 310px;
     }
 
     img {
@@ -76,7 +82,16 @@
         padding: 4px;
     }
 
+    .details-left address{
+        line-height: 35px;
+    }
+
+    label.markfavorite-no-float > input[type="checkbox"] + span  {
+        float: none;
+        margin-top: 4%;
+    }
+
 </style>
-<section data-bind="with: session" id="session" class="view">
-    <div data-bind="template: {name: $parent.tmplName}"></div>
+<section id="session" class="view">
+    <div data-bind="template: {name: tmplName}"></div>
 </section>

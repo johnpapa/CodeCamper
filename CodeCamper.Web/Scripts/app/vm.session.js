@@ -3,12 +3,12 @@
 
         var
             logger = config.logger,
+            currentSessionId = ko.observable(),
             session = ko.observable(),
             rooms = ko.observableArray(),
             tracks = ko.observableArray(),
             timeslots = ko.observableArray(),
             
-            //TODO: refactor the template name to be dynamic
             tmplName = function() {
                 return canEditSession() ? 'session.edit' : 'session.view';
             },
@@ -21,6 +21,36 @@
                 return session() && config.currentUser().id() !== session().speakerId();
             }),
             
+            cancel = ko.asyncCommand({
+                execute: function (complete) {
+                    getSession(complete);
+                },
+                canExecute: function (isExecuting) {
+                    return true;
+                }
+            }),
+
+            save = ko.asyncCommand({
+                execute: function (complete) {
+                    $.when(
+                        datacontext.sessionCud.updateSession(
+                            session,
+                            {
+                                success: function () {
+                                    
+                                },
+                                error: function () {
+                                    
+                                }
+                            }
+                        )
+                    ).always(complete);
+                },
+                canExecute: function (isExecuting) {
+                    return true;
+                }
+            }),
+            
             canLeave = function () {
                 return true;
             },
@@ -29,15 +59,28 @@
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 //logger.info('activated session view model');
 
-                var
-                    sessionId = routeData.id,
-                    result = datacontext.sessions.getFullSessionById(
-                        sessionId, { success: function (s) { session(s); } }
-                    );
-                session(result);
+                currentSessionId(routeData.id);
+                getSession();
                 getRooms();
                 getTimeslots();
                 getTracks();
+            },
+            
+            getSession = function (completeCallback) {
+                var
+                    callback = completeCallback || function () { },
+                    result = datacontext.sessions.getFullSessionById(
+                            currentSessionId(), {
+                                success: function (s) {
+                                    session(s);
+                                    callback();
+                                },
+                                error: function () {
+                                    callback();
+                                }
+                            }
+                        );
+                session(result);
             },
 
             getRooms = function () {
@@ -91,11 +134,13 @@
 
         return {
             activate: activate,
+            cancel: cancel,
             canEditSession: canEditSession,
             canEditEval: canEditEval,
             canLeave: canLeave,
             rooms: rooms,
             session: session,
+            save: save,
             saveFavorite: saveFavorite,
             timeslots: timeslots,
             tmplName: tmplName,

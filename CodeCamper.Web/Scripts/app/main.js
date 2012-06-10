@@ -40,6 +40,7 @@
         'infuser': '../lib/infuser-amd',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'trafficcop': '../lib/TrafficCop-amd',
+        //'knockout.changetracker': '../lib/knockout.changetracker',
 
         'ko': '../lib/knockout-2.1.0',
         'moment': '../lib/moment',
@@ -76,13 +77,12 @@ requirejs([
         'jquery.mockjson',    // jquery plugin
         'jquery.activity-ex',    // jquery plugin
         'ko.binding.handlers', // Knockout custom binding handlers
-        'ko.asyncCommand'    // Knockout custom asyncCommand
+        'ko.asyncCommand',    // Knockout custom asyncCommand
+        'koExternalTemplateEngine',
 
-        , 'koExternalTemplateEngine'
+        //'knockout.changetracker',
 
-
-        , 'debug.helpers'       // our app's ko debugging plugin
-
+        'debug.helpers'       // our app's ko debugging plugin
 
     ], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper)
                  // no need for plugin params as they are always undefined

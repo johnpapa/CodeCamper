@@ -30,7 +30,7 @@ function ($, ko) {
             var allBindings = allBindingsAccessor(),
                 enable = true;
             
-            if(allBindings.enable !== 'undefined') {
+            if(allBindings.enable !== undefined) {
                 if (ko.isObservable(allBindings.enable)) {
                     enable = allBindings.enable();
                 }
@@ -39,50 +39,41 @@ function ($, ko) {
                 }
             }
             
-            $(element).addClass("starRating");
+            var starClass = enable ? 'starRating' : 'starRating-readonly';
+            $(element).addClass(starClass);
             for (var i = 0; i < 5; i++) {
                 $('<span>').appendTo(element);
             }
 
             if (enable) {
                 // Handle mouse events on the stars
-                $("span", element).each(function (index) {
+                $('span', element).each(function (index) {
                     var $star = $(this);
                     var ratingObservable = valueAccessor(); // Get the associated observable
+
                     $star.hover(
-                        function () {
-                            $star.prevAll().add(this).addClass("hoverChosen");
+                        function() {
+                            $star.prevAll().add(this).addClass('hoverChosen');
                         },
-                        function () {
-                            $star.prevAll().add(this).removeClass("hoverChosen");
-                        }).click(function () {
-                            //var ratingObservable = valueAccessor(); // Get the associated observable
-                            ratingObservable(index + 1); // Write the new rating to it
+                        function() {
+                            $star.prevAll().add(this).removeClass('hoverChosen');
                         });
+
+                    $star.click(function () {
+                        //var ratingObservable = valueAccessor(); // Get the associated observable
+                        ratingObservable(index + 1); // Write the new rating to it
+                    });
                 });
             }
         },
 
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            // Give the first x stars the "chosen" class, where x <= rating
-            var
-                ratingObservable = valueAccessor(),
-                allBindings = allBindingsAccessor(),
-                enable = true;
+            // Give the first x stars the 'chosen' class, where x <= rating
+            var ratingObservable = valueAccessor();
 
-            if (allBindings.enable !== 'undefined') {
-                if (ko.isObservable(allBindings.enable)) {
-                    enable = allBindings.enable();
-                }
-                else {
-                    enable = allBindings.enable;
-                }
-            }
-            if (enable) {
-                $("span", element).each(function(index) {
-                    $(this).toggleClass("chosen", index < ratingObservable());
-                });
-            }
+            $('span', element).each(function(index) {
+                $(this).toggleClass('chosen', index < ratingObservable());
+            });
         }
     };
 

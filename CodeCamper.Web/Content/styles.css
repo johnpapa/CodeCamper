@@ -298,7 +298,9 @@ a {
 body,
 button,
 input,
+textarea,
 select {
+    font-size: 100%;
 	font-family: "Segoe UI Light","Segoe Light","Segoe UI","Helvetica-Light",Arial,Helvetica,sans-serif;
 }
 
@@ -306,6 +308,7 @@ select {
 /* 2.4 ELEMENTS
 --------------------------------------------------------- */
 input,
+textarea,
 select {
 	padding: 5px;
 }
@@ -360,6 +363,19 @@ button {
     cursor: pointer;
 	float: right;
 	margin-top: 5px;
+}
+
+.save-cancel-button-bar {
+	float: right;
+    margin: 0 2% 2% 0;
+}
+.cancel {
+	background-image: url(images/refresh.png);
+    cursor: pointer;
+}
+.save {
+	background-image: url(images/refresh.png);
+    cursor: pointer;
 }
 
 .clear-text {
@@ -439,17 +455,21 @@ button {
   margin-left: -8px;
 }
 
+.starRating-readonly,
+.starRating { margin: 0 2px 0 2px; }
+
+.starRating-readonly span,
 .starRating span { width:24px; 
                    height:24px; 
                    background-image: url(images/stars.png); 
                    display:inline-block; 
-                   cursor: pointer; 
                    background-position: -24px 0;
                    margin: 0; }
+.starRating span { cursor: pointer; }
+
 .starRating span.chosen { background-position: 0 0; }
 .starRating:hover span { background-position: -24px 0; }
 .starRating:hover span.hoverChosen { background-position: 0 0; }
-
 
 /* 3.1 RESPONSIVENESS
 --------------------------------------------------------- */

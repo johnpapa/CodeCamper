@@ -258,9 +258,9 @@
         };
         
         // extend Sessions enttityset 
-        sessions.getFullSessionById = function(id, callbacks) {
+        sessions.getFullSessionById = function(id, callbacks, forceRefresh) {
             var session = sessions.getLocalById(id);
-            if (session.isNullo || session.isBrief())
+            if (session.isNullo || session.isBrief() || forceRefresh)
             {
                 // if nullo or brief, get fresh from database
                 dataservice.session.getSession(id, {
@@ -278,13 +278,14 @@
                                 
                 });
             }
+            callbacks.success(session);
             return session; // immediately return cached session (nullo, brief, or full)
         };
 
         // extend Persons entitySet 
-        persons.getFullPersonById = function(id, callbacks) {
+        persons.getFullPersonById = function (id, callbacks, Refresh) {
             var person = persons.getLocalById(id);
-            if (person.isNullo || person.isBrief())
+            if (person.isNullo || person.isBrief() || forceRefresh)
             {
                 // if nullo or brief, get fresh from database
                 dataservice.person.getPerson(id, {
@@ -302,6 +303,7 @@
                                 
                 });
             }
+            callbacks.success(person);
             return person; // immediately return cached person (nullo, brief, or full)
         };
         
