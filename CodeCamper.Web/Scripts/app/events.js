@@ -1,4 +1,8 @@
-﻿define(['jquery', 'ko', 'router'],
+﻿//
+// Helps with event delegation
+//
+/////////////////////////////////////////////////////////////////////
+define(['jquery', 'ko', 'router'],
     function ($, ko, router) {
         var navToSession = function(id) {
             router.navigateTo('#/sessions/' + id);
