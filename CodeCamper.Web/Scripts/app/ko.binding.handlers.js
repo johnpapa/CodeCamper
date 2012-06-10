@@ -27,41 +27,14 @@ function ($, ko) {
 
     ko.bindingHandlers.starRating = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            var
-                allBindings = allBindingsAccessor(),
-                enable = (allBindings.enable !== undefined) ? ko.utils.unwrapObservable(allBindings.enable) : true;
-
-            // Add the appropriate CSS class
-            var starClass = enable ? 'starRating' : 'starRating-readonly';
-            $(element).addClass(starClass);
+            var allBindings = allBindingsAccessor();
 
             // Create the span's (only do in init)
             for (var i = 0; i < 5; i++) {
                 $('<span>').appendTo(element);
             }
-            //ko.bindingHandlers.starRating.update(element, valueAccessor, allBindings, viewModel);
 
-            // Wire up the event handlers, if enabled
-            if (enable) {
-                // Handle mouse events on the stars
-                $('span', element).each(function (index) {
-                    var $star = $(this);
-                    var ratingObservable = valueAccessor(); // Get the associated observable
-
-                    $star.hover(
-                        function() {
-                            $star.prevAll().add(this).addClass('hoverChosen');
-                        },
-                        function() {
-                            $star.prevAll().add(this).removeClass('hoverChosen');
-                        });
-
-                    $star.click(function () {
-                        //var ratingObservable = valueAccessor(); // Get the associated observable
-                        ratingObservable(index + 1); // Write the new rating to it
-                    });
-                });
-            }
+            ko.bindingHandlers.starRating.update(element, valueAccessor, allBindingsAccessor, viewModel);
         },
 
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
@@ -99,7 +72,6 @@ function ($, ko) {
             }
             
             // Toggle the chosen CSS class (fills in the stars for the rating)
-            // (only on update)
             $('span', element).each(function (index) {
                 $(this).toggleClass('chosen', index < ratingObservable());
             });
