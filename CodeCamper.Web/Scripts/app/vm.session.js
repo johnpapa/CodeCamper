@@ -39,13 +39,10 @@
                         return; // Already in the middle of a save on this session
                     }
                     s.isBusy(true);
-                    var cudMethod = s.attendance().isNullo
-                        ? datacontext.attendanceCud.addAttendance
-                        : datacontext.attendanceCud.updateAttendance;
                     $.when(
 //                        datacontext.sessionCud.updateSession(
 //                            session,
-                        cudMethod(
+                        datacontext.attendanceCud.updateAttendance(
                             s, {
                                 success: function () { s.isBusy(false); },
                                 error: function () { s.isBusy(false); }
