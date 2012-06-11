@@ -459,6 +459,7 @@ button {
     top: 0;
     left: 0;
     margin-left: 50%;
+    line-height: 24px;
 }
 
 .accent-left {
@@ -515,6 +516,7 @@ button {
     .accent-top {
         width: 160px;
         height: 20px;
+        line-height: 16px;
     }
 
     .accent-left {
@@ -626,6 +628,7 @@ button {
     .accent-top {
         width: 120px;
         height: 10px;
+        line-height: 8px;
     }
 
     .accent-left {
