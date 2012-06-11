@@ -38,7 +38,7 @@
                 });
             },
 
-            getPerson = function (id, callbacks) {
+            getPerson = function (callbacks, id) {
                 return amplify.request({
                     resourceId: "person",
                     data: { id: id },

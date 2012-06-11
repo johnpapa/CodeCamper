@@ -266,66 +266,83 @@
                 }
             };
 
-        // extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
-        attendance.getSessionFavorite = function (sessionId) {
-            return attendance.getLocalById(model.Attendance.makeId(getCurrentUserId(), sessionId));
-        };
+            // extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
+            attendance.getSessionFavorite = function (sessionId, callbacks, forceRefresh) {
+                var att = attendance.getLocalById(model.Attendance.makeId(getCurrentUserId(), sessionId));
+                if (forceRefresh) {
+                    // get fresh from database
+                    dataservice.attendance.getAttendance(
+                        {
+                            success: function (dto) {
+                                // updates the session returned from getLocalById() above
+                                att = attendance.mapDtoToContext(dto);
+                                if (callbacks && callbacks.success) { callbacks.success(att); }
+                            },
+                            error: function (response) {
+                                logger.error('oops! could not retrieve attendance ' + sessionId); //TODO: revise error message
+                                if (callbacks && callbacks.error) { callbacks.error(response); }
+                            }
+                        },
+                        getCurrentUserId(),
+                        sessionId
+                    );
+                } else {
+                    if (callbacks && callbacks.success) { callbacks.success(att); }
+                }
+                return att;
+            };
         
-        // extend Sessions enttityset 
-        sessions.getFullSessionById = function(id, callbacks, forceRefresh) {
-            var session = sessions.getLocalById(id);
-            if (session.isNullo || session.isBrief() || forceRefresh)
-            {
-                // if nullo or brief, get fresh from database
-                dataservice.session.getSession(id, {
-                    success: function (dto) {
-                        // updates the session returned from getLocalById() above
-                        session = sessions.mapDtoToContext(dto);
-                        session.isBrief(false); // now a full session
-                        //logger.success('merged full session'); //TODO: revise message
-                        callbacks.success(session); 
+            // extend Sessions enttityset 
+            sessions.getFullSessionById = function(id, callbacks, forceRefresh) {
+                var session = sessions.getLocalById(id);
+                if (session.isNullo || session.isBrief() || forceRefresh) {
+                    // if nullo or brief, get fresh from database
+                    dataservice.session.getSession({
+                        success: function (dto) {
+                            // updates the session returned from getLocalById() above
+                            session = sessions.mapDtoToContext(dto);
+                            session.isBrief(false); // now a full session
+                            //logger.success('merged full session'); //TODO: revise message
+                            if (callbacks && callbacks.success) { callbacks.success(session); }
+                        },
+                        error: function (response) {
+                            logger.error('oops! could not retrieve session ' + id); //TODO: revise error message
+                            if (callbacks && callbacks.error) { callbacks.error(response); }
+                        }
                     },
-                    error: function(response) {
-                        logger.error('oops! could not retrieve session ' + id); //TODO: revise error message
-                        if (callbacks && callbacks.error) { callbacks.error(response); }
-                    }
-                                
-                });
-            }
-            callbacks.success(session);
-            return session; // immediately return cached session (nullo, brief, or full)
-        };
+                    id);
+                }
+                else {
+                    if (callbacks && callbacks.success) { callbacks.success(session); }
+                }
+                return session; // immediately return cached session (nullo, brief, or full)
+            };
 
-        // extend Persons entitySet 
-        persons.getFullPersonById = function (id, callbacks, Refresh) {
-            var person = persons.getLocalById(id);
-            if (person.isNullo || person.isBrief() || forceRefresh)
-            {
-                // if nullo or brief, get fresh from database
-                dataservice.person.getPerson(id, {
-                    success: function (dto) {
-                        // updates the person returned from getLocalById() above
-                        person = persons.mapDtoToContext(dto);
-                        person.isBrief(false); // now a full session
-                        logger.success('merged full person'); //TODO: revise message
-                        callbacks.success(person); 
+            // extend Persons entitySet 
+            persons.getFullPersonById = function (id, callbacks, Refresh) {
+                var person = persons.getLocalById(id);
+                if (person.isNullo || person.isBrief() || forceRefresh)
+                {
+                    // if nullo or brief, get fresh from database
+                    dataservice.person.getPerson({
+                        success: function (dto) {
+                            // updates the person returned from getLocalById() above
+                            person = persons.mapDtoToContext(dto);
+                            person.isBrief(false); // now a full session
+                            logger.success('merged full person'); //TODO: revise message
+                            callbacks.success(person); 
+                        },
+                        error: function(response) {
+                            logger.error('oops! could not retrieve person '+id); //TODO: revise error message
+                            if (callbacks && callbacks.error) { callbacks.error(response); }
+                        }
                     },
-                    error: function(response) {
-                        logger.error('oops! could not retrieve person '+id); //TODO: revise error message
-                        if (callbacks && callbacks.error) { callbacks.error(response); }
-                    }
-                                
-                });
-            }
-            callbacks.success(person);
-            return person; // immediately return cached person (nullo, brief, or full)
-        };
+                    id);
+                }
+                callbacks.success(person);
+                return person; // immediately return cached person (nullo, brief, or full)
+            };
         
-        //TODO: In dataContext:
-        // 1) I have not tested forceRefresh = true. it might work :D
-        // 2) Need to add code for allowing the datacontext.persons to get a real person vs speaker (brief).
-        // 3) Add code for allowing datacontext.sessions to get a real session, not a brief
-
         return {
             attendance: attendance,
             persons: persons,

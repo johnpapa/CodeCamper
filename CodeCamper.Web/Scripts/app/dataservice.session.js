@@ -35,7 +35,7 @@
                 error: callbacks.error
             });
         },
-        getSession = function (id, callbacks) {
+        getSession = function (callbacks, id) {
             return amplify.request({
                 resourceId: "session",
                 data: { id: id },

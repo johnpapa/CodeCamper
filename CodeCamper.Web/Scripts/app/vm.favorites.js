@@ -96,7 +96,7 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
             
             gotoDetails = function(selectedSession) {
                 if (selectedSession && selectedSession.id()) {
-                    events.navToSession(selectedSession.id());
+                    events.navigateToSession(selectedSession.id());
                 }
             },
 

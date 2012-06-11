@@ -9,6 +9,13 @@
                     //cache:
                 });
 
+                amplify.request.define('favorite', 'ajax', {
+                    url: '/api/attendance/?pid={personId}&sid={sessionId}',
+                    dataType: 'json',
+                    type: 'GET'
+                    //cache:
+                });
+
                 amplify.request.define('attendanceAdd', 'ajax', {
                     url: '/api/attendance',
                     dataType: 'json',
@@ -32,15 +39,19 @@
                 });
             },
             
-            getAttendance = function(callbacks, personId) {
+            getAttendance = function (callbacks, personId, sessionId) {
+                var 
+                    resourceId = sessionId ? 'favorite' : 'favorites',
+                    data = sessionId ? { personId: personId, sessionId: sessionId } : {personId: personId};
+
                 return amplify.request({
-                    resourceId: "favorites",
-                    data: { personId: personId },
+                    resourceId: resourceId,
+                    data: data,
                     success: callbacks.success,
                     error: callbacks.error
                 });
             },
-            
+
             addAttendance = function(callbacks, data) {
                 return amplify.request({
                     resourceId: "attendanceAdd",

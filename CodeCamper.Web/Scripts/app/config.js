@@ -1,5 +1,5 @@
 ﻿define(['toastr', 'mock/mock', 'infuser'],
-    function (toastr, mock, infuser, window) {
+    function (toastr, mock, infuser) { //, window) {
 
         var// properties
             useMocks = false, // Set this to toggle mocks

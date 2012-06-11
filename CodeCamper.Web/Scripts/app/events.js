@@ -4,10 +4,16 @@
 /////////////////////////////////////////////////////////////////////
 define(['jquery', 'ko', 'router'],
     function ($, ko, router) {
-        var navToSession = function(id) {
-            router.navigateTo('#/sessions/' + id);
-        },
-            favoritesListItem = function(callback, eventName) {
+        var
+            navigateBack = function () {
+                router.navigateBack();
+            },
+
+            navigateToSession = function (id) {
+                router.navigateTo('#/sessions/' + id);
+            },
+
+            favoritesListItem = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#favorites').on(eName, '.session-brief', function() {
                     //var context = ko.contextFor(this);
@@ -17,7 +23,8 @@ define(['jquery', 'ko', 'router'],
                     return false;
                 });
             },
-            sessionsListItem = function(callback, eventName) {
+
+            sessionsListItem = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#sessions').on(eName, '.session-brief', function() {
                     var session = ko.dataFor(this);
@@ -25,7 +32,8 @@ define(['jquery', 'ko', 'router'],
                     return false;
                 });
             },
-            favoritesFavorite = function(callback, eventName) {
+
+            favoritesFavorite = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#favorites').on(eName, '.markfavorite input[type=checkbox]', function() {
                     var session = ko.dataFor(this);
@@ -33,7 +41,8 @@ define(['jquery', 'ko', 'router'],
                     return false;
                 });
             },
-            sessionsFavorite = function(callback, eventName) {
+
+            sessionsFavorite = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#sessions').on(eName, '.markfavorite input[type=checkbox]', function() {
                     var session = ko.dataFor(this);
@@ -43,7 +52,8 @@ define(['jquery', 'ko', 'router'],
             };
 
         return {
-            navToSession: navToSession,
+            navigateBack: navigateBack,
+            navigateToSession: navigateToSession,
             favoritesListItem: favoritesListItem,
             favoritesFavorite: favoritesFavorite,
             sessionsListItem: sessionsListItem,

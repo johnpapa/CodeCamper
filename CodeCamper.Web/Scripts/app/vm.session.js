@@ -1,5 +1,5 @@
-﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort'],
-    function (ko, datacontext, config, messenger, sort) {
+﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'events'],
+    function (ko, datacontext, config, messenger, sort, events) {
 
         var
             logger = config.logger,
@@ -14,6 +14,14 @@
                 return canEditSession() ? 'session.edit' : 'session.view';
             },
             
+            isDirty = ko.computed(function () {
+                isDirtyRefresh(); // to notify the computed
+                if (session() && session().attendance && session().attendance()) {
+                    return session().attendance().dirtyFlag().isDirty();
+                }
+                return false;
+            }),
+
             canEditSession = ko.computed(function () {
                 return session() && config.currentUser().id() === session().speakerId();
             }),
@@ -22,13 +30,26 @@
                 return session() && config.currentUser().id() !== session().speakerId();
             }),
             
-            cancel = ko.asyncCommand({
+            goBack = ko.asyncCommand({
                 execute: function (complete) {
-                    //getSession(complete, true);
-                    getAttendance(complete, true);
+                    events.navigateBack();
+                    complete();
                 },
                 canExecute: function (isExecuting) {
-                    return true;
+                    return !isDirty();
+                }
+            }),
+
+            cancel = ko.asyncCommand({
+                execute: function (complete) {
+                    var callback = function () {
+                        complete();
+                        logger.success('Refreshed attendance');
+                    };
+                    getAttendance(callback, true);
+                },
+                canExecute: function (isExecuting) {
+                    return isDirty()
                 }
             }),
 
@@ -52,7 +73,7 @@
                     ).always(complete);
                 },
                 canExecute: function (isExecuting) {
-                    return true;
+                    return isDirty();
                 }
             }),
             
@@ -62,7 +83,6 @@
 
             activate = function (routeData) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-                //logger.info('activated session view model');
 
                 currentSessionId(routeData.id);
                 getSession();
@@ -90,18 +110,22 @@
                 session(result);
             },
             
-            isDirty = ko.computed(function () {
-                isDirtyRefresh(); // to notify the computed
-                if (session() && session().attendance && session().attendance()) {
-                    return session().attendance().dirtyFlag().isDirty();
-                }
-                return false;
-            }),
-
             getAttendance = function (completeCallback, forceRefresh) {
-                //TODO : need to refactor this to handle attendance or session
-                var callback = completeCallback || function() {};
-                callback();
+                // Refresh the attendance in teh datacontext
+                var
+                    callback = completeCallback || function () { },
+                    result = datacontext.attendance.getSessionFavorite(
+                            session().attendance().sessionId(),
+                            {
+                                success: function (a) {
+                                    callback();
+                                },
+                                error: function () {
+                                    callback();
+                                }
+                            },
+                        forceRefresh
+                        );
             },
 
             getRooms = function () {
@@ -161,6 +185,7 @@
             canEditSession: canEditSession,
             canEditEval: canEditEval,
             canLeave: canLeave,
+            goBack: goBack,
             rooms: rooms,
             session: session,
             save: save,

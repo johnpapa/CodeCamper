@@ -80,7 +80,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
 
             gotoDetails = function (selectedSession) {
                 if (selectedSession && selectedSession.id()) {
-                    events.navToSession(selectedSession.id());
+                    events.navigateToSession(selectedSession.id());
                 }
             },
 

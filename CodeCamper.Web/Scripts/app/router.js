@@ -69,7 +69,7 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                         isRedirecting = true;
                         logger.warning(response.message);
                         // Keep hash url the same in address bar
-                        window.history.back();
+                        navigateBack();
                         //this.redirect('#/Sessions'); 
                     }
                     else {
@@ -77,6 +77,10 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                     }
                     return response.val;
                 });
+            },
+
+            navigateBack = function () {
+                window.history.back();
             },
 
             run = function (url) {
@@ -87,6 +91,7 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
             };
 
         return {
+            navigateBack: navigateBack,
             navigateTo: navigateTo,
             register: register,
             run: run
