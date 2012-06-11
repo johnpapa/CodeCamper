@@ -1,5 +1,5 @@
 ﻿define(['toastr', 'mock/mock', 'infuser'],
-    function (toastr, mock, infuser, window) {
+    function (toastr, mock, infuser) {
 
         var// properties
             useMocks = false, // Set this to toggle mocks
@@ -33,6 +33,6 @@
             messages: messages,
             throttle: throttle,
             title: title,
-            window: window
+            window: this
         };
     });
