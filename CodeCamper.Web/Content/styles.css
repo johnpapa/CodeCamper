@@ -449,6 +449,8 @@ button {
 .accent{
     position: absolute;
     background: #119EDA;
+    color: white;
+    text-align: center;
 }
 
 .accent-top {

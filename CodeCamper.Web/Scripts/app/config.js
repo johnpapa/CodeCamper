@@ -34,6 +34,6 @@
             throttle: throttle,
             title: title,
             window: window
-            window: this
+            //window: this
         };
     });
