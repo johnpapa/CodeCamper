@@ -346,6 +346,7 @@ button {
 	margin: 0px;
 	padding: 7px 30px 8px 50px;
     cursor: pointer;
+    height: 33px;
 }
 
 	button:active, button:focus {
@@ -597,6 +598,10 @@ button {
 		padding-left: 50px;
 	}
 
+    button {
+        height: 26px;
+    }
+
     .view-list > article {
 		padding: 10px;
 	}
@@ -627,12 +632,12 @@ button {
 
     .accent-top {
         width: 120px;
-        height: 10px;
-        line-height: 8px;
+        height: 16px;
+        line-height: 12px;
     }
 
     .accent-left {
-        width: 10px;
+        width: 16px;
         height: 120px;
     }
 
