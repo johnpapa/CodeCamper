@@ -387,10 +387,10 @@ button {
 }
 
 .button-back {
-	/*background-image: url(images/save.png);*/
+	background-image: url(images/back.png);
     margin-left: -4%;
     float: left;
-    background-position: 0px center;
+    background-position: 8px center;
     padding: 4px 16px 8px 16px;
     font-size: 100%;
     margin-right: 1%;

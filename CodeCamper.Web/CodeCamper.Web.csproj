@@ -156,6 +156,7 @@
   <ItemGroup>
     <Content Include="App_Data\CodeCamper.sdf" />
     <Content Include="Content\images\aaron_skonnard.jpg" />
+    <Content Include="Content\images\back.png" />
     <Content Include="Content\images\bookmarklocked.png" />
     <Content Include="Content\images\checkbox_checked.png" />
     <Content Include="Content\images\checkbox_unchecked.png" />
