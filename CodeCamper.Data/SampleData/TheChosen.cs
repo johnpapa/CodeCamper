@@ -12,7 +12,7 @@ namespace CodeCamper.Data.SampleData
             _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
-            _madsKristensen, _elijahManor;
+            _madsKristensen, _elijahManor, _johnSmith;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -118,6 +118,16 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "",
                 Gender = "M",
                 Bio = "A co-founder of Pluralsight where he serves as the Editor in Chief.",
+            });
+            _theChosen.Add(_johnSmith = new Person
+            {
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "johns@contoso.com",
+                Blog = "http://johns.contoso.com",
+                Twitter = "https://twitter.com/#!/onefloridacoder",
+                Gender = "M",
+                Bio = "Christian .NET Dev & Orlando .NET User Group VP; 4,5,6-string bass player.",
             });
             _theChosen.Add(_scottHunter = new Person
             {
@@ -606,7 +616,21 @@ namespace CodeCamper.Data.SampleData
                 Tags = "ASP.NET|Web",
                 Description = "TBD",
             });
-            
+
+            // John Smith
+            addSession(true, new Session
+            {
+                Title = "Azure: 0 to 60",
+                Code = "CLD172",
+                SpeakerId = _johnSmith.Id,
+                TrackId = tracks.First(t => t.Name == "Cloud").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_fritzOnion),
+                Level = levels[1],
+                Tags = "ASP.NET|Web|Azure",
+                Description = "TBD",
+            });
+
             return sessions;
         }
 

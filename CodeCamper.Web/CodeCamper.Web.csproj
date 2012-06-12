@@ -154,7 +154,6 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CodeCamper.sdf" />
     <Content Include="Content\images\aaron_skonnard.jpg" />
     <Content Include="Content\images\back.png" />
     <Content Include="Content\images\bookmarklocked.png" />
@@ -170,6 +169,7 @@
     <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\jim_cowart.jpg" />
     <Content Include="Content\images\john_papa.jpg" />
+    <Content Include="Content\images\john_smith.jpg" />
     <Content Include="Content\images\mads_kristensen.jpg" />
     <Content Include="Content\images\refresh.png" />
     <Content Include="Content\images\ryan_niemeyer.jpg" />
@@ -291,6 +291,7 @@
     <Content Include="Scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>
