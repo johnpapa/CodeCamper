@@ -52,7 +52,7 @@ body {
 		padding-bottom: 4px;
 		text-shadow: 2px 2px rgba(0,0,0,.15);
 	    text-transform: uppercase;
-	    color: #119EDA;
+	    color: #194D7B; /*#119EDA;*/
 	}
 
 	nav.main-nav {
@@ -324,7 +324,7 @@ small {
     small.tips {
         text-transform: none;
         font-size: 80%;
-        color: #119EDA;
+        color: #194D7B; /*#119EDA;*/
     }
 
 nav label {
@@ -338,7 +338,7 @@ nav select {
 
 button {
 	border: 0;
-	background-color: #119EDA;
+	background-color: #194D7B; /*#119EDA;*/
 	background-position: 25px center;
 	background-repeat: no-repeat;
 	color: white;
@@ -424,7 +424,7 @@ button {
 /* 3.0 CUSTOM
 --------------------------------------------------------- */
 /*.text-accent {
-    color: #119EDA;
+    color: #194D7B; #119EDA;
 }*/
 
 .view { display: none; }
@@ -433,7 +433,7 @@ button {
 
 .route-active.route-top > a {
 	cursor: default;
-	color: #119EDA;
+	color: #194D7B; /*#119EDA;*/
 	font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 }
 
@@ -441,7 +441,7 @@ button {
 	cursor: default;
 	color: #FFFFFF;
 
-    background: #119EDA; /*#f58a00;*/
+    background: #194D7B; /*#119EDA; #f58a00;*/
 }
 
 /*#119EDA blue accent
@@ -449,7 +449,7 @@ button {
 
 .accent{
     position: absolute;
-    background: #119EDA;
+    background: #194D7B; /*#119EDA;*/
     color: white;
     text-align: center;
 }
