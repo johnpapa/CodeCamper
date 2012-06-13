@@ -184,10 +184,13 @@
     <Content Include="Content\images\bookmarkchecked.png" />
     <Content Include="Content\images\bookmark.png" />
     <Content Include="Content\images\icon-blue.png" />
+    <Content Include="Scripts\app\ko.utils.js" />
     <Content Include="Scripts\app\jquery.activity-ex.js" />
-    <Content Include="Scripts\app\ko.binding.handlers.js" />
+    <Content Include="Scripts\app\ko.bindingHandlers.activity.js" />
+    <Content Include="Scripts\app\ko.bindingHandlers.js" />
     <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\ko.asyncCommand.js" />
+    <Content Include="Scripts\app\ko.bindingHandlers.command.js" />
     <Content Include="Scripts\app\messenger.js" />
     <Content Include="Scripts\app\routeMediator.js" />
     <Content Include="Scripts\app\event.delegates.js" />
