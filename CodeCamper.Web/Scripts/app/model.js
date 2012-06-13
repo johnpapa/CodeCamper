@@ -100,8 +100,7 @@
             self.level = ko.observable();
             self.tags = ko.observable();
             self.description = ko.observable();
-            self.isBusy = false; 
-            self.isFavoriteUpdate = ko.observable(); 
+            self.isFavoriteRefresh = ko.observable(); 
 
             self.tagsFormatted = ko.computed(function () {
                 var text = self.tags();
@@ -110,9 +109,8 @@
 
             self.isFavorite = ko.computed({
                 read: function () {
-                    var id = self.id();
-                    self.isFavoriteUpdate(); // This exists so we can notify the isFavorite to reevaluate
-                    var match = self.attendance() ? self.attendance().sessionId() === id : null;
+                    self.isFavoriteRefresh(); // This exists so we can notify the isFavorite to reevaluate
+                    var match = self.attendance().sessionId() === self.id();
                     return !!match;
                 },
 
@@ -137,7 +135,7 @@
                         attendance = self.attendance(),
                         unlocked = !(attendance.rating() > 0 || (attendance.text() && attendance.text().length > 0));
 
-                    self.isFavoriteUpdate(); // This exists so we can notify ifthe isFavorite to reevaluate
+                    self.isFavoriteRefresh(); // This exists so we can notify ifthe isFavorite to reevaluate
 
                     return unlocked;
                 },

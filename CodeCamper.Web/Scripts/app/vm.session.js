@@ -4,9 +4,10 @@
         var
             logger = config.logger,
             currentSessionId = ko.observable(),
+            isBusy = false,
             isDirtyRefresh = ko.observable(),
-            session = ko.observable(),
             rooms = ko.observableArray(),
+            session = ko.observable(),
             tracks = ko.observableArray(),
             timeslots = ko.observableArray(),
             
@@ -56,18 +57,18 @@
             save = ko.asyncCommand({
                 execute: function (complete) {
                     var s = session();
-                    if (s.isBusy) {
+                    if (isBusy) {
                         complete();
                         return; // Already in the middle of a save on this session
                     }
-                    s.isBusy = true;
+                    isBusy = true;
                     $.when(
 //                        datacontext.sessionCud.updateSession(
 //                            session,
                         datacontext.attendanceCud.updateAttendance(
                             s, {
-                                success: function () { s.isBusy = false; },
-                                error: function () { s.isBusy = false; }
+                                success: function () { isBusy = false; },
+                                error: function () { isBusy = false; }
                             }
                         )
                     ).always(complete);
@@ -89,7 +90,7 @@
                 getRooms();
                 getTimeslots();
                 getTracks();
-                session().isBusy = false;
+                isBusy = false;
             },
             
             getSession = function (completeCallback, forceRefresh) {
@@ -157,10 +158,10 @@
 
             saveFavorite = function () {
                 var s = session();
-                if (s.isBusy) {
+                if (isBusy) {
                     return; // Already in the middle of a save on this session
                 }
-                s.isBusy = true;
+                isBusy = true;
                 var cudMethod = s.isFavorite()
                     ? datacontext.attendanceCud.deleteAttendance
                     : datacontext.attendanceCud.addAttendance;
@@ -170,7 +171,7 @@
             
             saveFavoriteDone = function () {
                 isDirtyRefresh.notifySubscribers(); // Trigger re-evaluation of isDirty
-                session().isBusy = false;
+                isBusy = false;
             },
             
             init = function () {

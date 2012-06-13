@@ -218,7 +218,7 @@
                             }
                             var newAtt = modelmapper.attendance.fromDto(dto); // Map DTO to Model
                             attendance.add(newAtt); // Add to the datacontext
-                            sessionModel.isFavoriteUpdate.notifySubscribers(); // Trigger re-evaluation of isFavorite
+                            sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
                             logger.success('Added attendance!'); //TODO: 
                             if (callbacks && callbacks.success) { callbacks.success(newAtt); }
                         },
@@ -253,7 +253,7 @@
                     dataservice.attendance.deleteAttendance({
                         success: function (response) {
                             attendance.removeById(attendanceModel.id());
-                            sessionModel.isFavoriteUpdate.notifySubscribers(); // Trigger re-evaluation of isFavorite
+                            sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
                             logger.success('Deleted attendance!'); //TODO: 
                             if (callbacks && callbacks.success) { callbacks.success(); }
                         },
