@@ -99,7 +99,6 @@
             self.roomId = ko.observable();
             self.level = ko.observable();
             self.tags = ko.observable();
-            self.rating = ko.observable();
             self.description = ko.observable();
             self.isBusy = false; 
             self.isFavoriteUpdate = ko.observable(); 

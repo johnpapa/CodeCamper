@@ -190,7 +190,7 @@
     <Content Include="Scripts\app\ko.asyncCommand.js" />
     <Content Include="Scripts\app\messenger.js" />
     <Content Include="Scripts\app\routeMediator.js" />
-    <Content Include="Scripts\app\events.js" />
+    <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
     <Content Include="Scripts\app\filter.js" />
     <Content Include="Scripts\app\main.js" />

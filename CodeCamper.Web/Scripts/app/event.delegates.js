@@ -1,18 +1,6 @@
-﻿//
-// Helps with event delegation
-//
-/////////////////////////////////////////////////////////////////////
-define(['jquery', 'ko', 'router'],
+﻿define(['jquery', 'ko', 'router'],
     function ($, ko, router) {
         var
-            navigateBack = function () {
-                router.navigateBack();
-            },
-
-            navigateToSession = function (id) {
-                router.navigateTo('#/sessions/' + id);
-            },
-
             favoritesListItem = function (callback, eventName) {
                 var eName = eventName || 'click';
                 $('#favorites').on(eName, '.session-brief', function() {
@@ -52,8 +40,6 @@ define(['jquery', 'ko', 'router'],
             };
 
         return {
-            navigateBack: navigateBack,
-            navigateToSession: navigateToSession,
             favoritesListItem: favoritesListItem,
             favoritesFavorite: favoritesFavorite,
             sessionsListItem: sessionsListItem,

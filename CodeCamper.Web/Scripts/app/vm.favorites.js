@@ -4,8 +4,8 @@
 //  The user can further filter this subset of Sessions by additional criteria,
 //  the same filter criteria that can be applied to all sessions.
 // ----------------------------------------------
-define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'events', 'messenger'],
-    function ($, ko, router, datacontext, filter, sort, group, utils, config, events, messenger) {
+define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger'],
+    function ($, ko, router, datacontext, filter, sort, group, utils, config, eventDelegates, messenger) {
         var
             selectedDate = ko.observable(),
             sessionsFilter = new filter.SessionsFilter(),
@@ -96,7 +96,7 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
             
             gotoDetails = function(selectedSession) {
                 if (selectedSession && selectedSession.id()) {
-                    events.navigateToSession(selectedSession.id());
+                    router.navigateTo('#/sessions/' + selectedSession.id());
                 }
             },
 
@@ -119,8 +119,8 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
             },
 
             init = function () {
-                events.favoritesListItem(gotoDetails);
-                events.favoritesFavorite(saveFavorite);
+                eventDelegates.favoritesListItem(gotoDetails);
+                eventDelegates.favoritesFavorite(saveFavorite);
                 sessionsFilter.searchText.subscribe(activate);
                 selectedDate.subscribe(synchSelectedDateWithIsSelected);
             };

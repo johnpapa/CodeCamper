@@ -3,8 +3,8 @@
 //  The user can further filter this subset of Sessions by additional criteria.
 //
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'messenger'],
-    function (ko, router, datacontext, filter, sort, events, utils, messenger) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger'],
+    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger) {
         var
             isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
@@ -80,7 +80,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
 
             gotoDetails = function (selectedSession) {
                 if (selectedSession && selectedSession.id()) {
-                    events.navigateToSession(selectedSession.id());
+                    router.navigateTo('#/sessions/' + selectedSession.id());
                 }
             },
 
@@ -119,8 +119,8 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'events', 'utils', 'mes
             },
 
             init = function () {
-                events.sessionsListItem(gotoDetails);
-                events.sessionsFavorite(saveFavorite);
+                eventDelegates.sessionsListItem(gotoDetails);
+                eventDelegates.sessionsFavorite(saveFavorite);
                 addFilterSubscriptions();
             };
 

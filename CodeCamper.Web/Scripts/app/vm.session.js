@@ -1,5 +1,5 @@
-﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'events'],
-    function (ko, datacontext, config, messenger, sort, events) {
+﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'router'],
+    function (ko, datacontext, config, messenger, sort, router) {
 
         var
             logger = config.logger,
@@ -32,7 +32,7 @@
             
             goBack = ko.asyncCommand({
                 execute: function (complete) {
-                    events.navigateBack();
+                    router.navigateBack();
                     complete();
                 },
                 canExecute: function (isExecuting) {
