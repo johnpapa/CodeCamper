@@ -20,7 +20,8 @@
                 // Favorites routes
                 router.register({
                     routes:
-                        [{ route: '#/favorites', title: 'Favorites', callback: vm.favorites.activate, group: '.route-top' },
+                        [
+                            { isDefault: true, route: '#/favorites', title: 'Favorites', callback: vm.favorites.activate, group: '.route-top' },
                             { route: '#/favorites/date/:date', title: 'Favorites', callback: vm.favorites.activate, group: '.route-left' }],
                     view: '#favorites'
                 });
@@ -28,8 +29,6 @@
                 router.register({
                     routes:
                         [{ route: '#/sessions', title: 'Sessions', callback: vm.sessions.activate, group: '.route-top' }],
-                    //{ route: '#/sessions/date/:date', callback: vm.sessions.activate, group: '.route-left' },
-                    //{ route: '#/sessions/track/:track', callback: vm.sessions.loadByTrack, group: '.route-left' },
                     view: '#sessions'
                 });
                 // Session details routes
@@ -39,7 +38,8 @@
 
                 // Catch invalid routes
                 router.register({ route: /.*/, title: '', callback: function () { toastr.error('invalid route'); }, view: '' });
-                router.run('#/favorites');
+                //router.run('#/favorites');
+                router.run();
             },
             
             run = function () {

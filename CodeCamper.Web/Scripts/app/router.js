@@ -10,6 +10,7 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
             window = config.window,
             logger = config.logger,
             isRedirecting = false,
+            defaultRoute = '',
             startupUrl = '',
 
             sammy = new Sammy.Application(function () {
@@ -17,7 +18,7 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                     this.use(Sammy.Title);
                     this.setTitle(config.title);
                 }else {
-                    logger.warning('Sammy.Title is not loaded.');
+                    logger.warning('Sammy.Title is not loaded.'); //TODO: remove this
                 }
 
                 this.get('', function () {
@@ -28,18 +29,41 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
             register = function (options) {
                 if (options.routes) {
                     _.each(options.routes, function (route) {
-                        registerRoute(route.route, route.title, route.callback, options.view, route.group);
+                        //registerRoute(route.route, route.title, route.callback, options.view, route.group);
+                        registerRoute({
+                            route: route.route,
+                            title: route.title,
+                            callback: route.callback,
+                            view: options.view,
+                            group: route.group,
+                            isDefault: !!route.isDefault
+                        });
                     });
                     return;
                 }
 
-                registerRoute(options.route, options.title, options.callback, options.view, options.group);
+                //registerRoute(options.route, options.title, options.callback, options.view, options.group);
+                registerRoute(options);
             },
 
-            registerRoute = function (route, title, callback, view, group) {
+            //registerRoute = function (route, title, callback, view, group, isDefault) {
+            registerRoute = function (options) {
+                var 
+                    route = options.route,
+                    title = options.title,
+                    callback = options.callback,
+                    view = options.view,
+                    group = options.group,
+                    isDefault = options.isDefault
+
                 if (!callback) {
                     throw Error('callback must be specified.');
                 }
+
+                if (isDefault) {
+                    defaultRoute = route;
+                }
+
                 //var hash = new RegExp('#\\/' + route + '.*')
                 //var hash = new RegExp('\\^' + route + '$.*')
 
@@ -84,11 +108,15 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
             },
 
             run = function (url) {
-                startupUrl = url;
+                startupUrl = sammy.getLocation() || url || defaultRoute;
+                if (!startupUrl) {
+                    logger.error('No route was indicated.');
+                    return;
+                }
                 sammy.run();
                 registerBeforeLeaving();
-                navigateTo(url);
-            };
+                navigateTo(startupUrl);
+           };
 
         return {
             navigateBack: navigateBack,
