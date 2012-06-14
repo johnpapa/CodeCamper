@@ -217,7 +217,6 @@
     <Content Include="Scripts\app\sort.js" />
     <Content Include="Scripts\app\utils.js" />
     <Content Include="Scripts\app\vm.js" />
-    <Content Include="Scripts\less-1.3.0.min.js" />
     <Content Include="Scripts\lib\infuser-amd.js" />
     <Content Include="Scripts\lib\knockout.changetracker-amd.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
