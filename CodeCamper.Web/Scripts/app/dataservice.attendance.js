@@ -54,7 +54,7 @@
 
             addAttendance = function(callbacks, data) {
                 return amplify.request({
-                    resourceId: "attendanceAdd",
+                    resourceId: 'attendanceAdd',
                     data: data,
                     success: callbacks.success,
                     error: callbacks.error
@@ -63,7 +63,7 @@
             
             updateAttendance = function(callbacks, data) {
                 return amplify.request({
-                    resourceId: "attendanceUpdate",
+                    resourceId: 'attendanceUpdate',
                     data: data,
                     success: callbacks.success,
                     error: callbacks.error
@@ -72,7 +72,7 @@
             
             deleteAttendance = function(callbacks, personId, sessionId) {
                 return amplify.request({
-                    resourceId: "attendanceDelete",
+                    resourceId: 'attendanceDelete',
                     data: {
                         personId: personId,
                         sessionId: sessionId,

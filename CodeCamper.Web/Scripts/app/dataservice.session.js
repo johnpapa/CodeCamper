@@ -23,21 +23,21 @@
         },
         getSessions = function (callbacks) {
             return amplify.request({
-                resourceId: "sessions",
+                resourceId: 'sessions',
                 success: callbacks.success,
                 error: callbacks.error
             });
         },
         getSessionBriefs = function (callbacks) {
             return amplify.request({
-                resourceId: "session-briefs",
+                resourceId: 'session-briefs',
                 success: callbacks.success,
                 error: callbacks.error
             });
         },
         getSession = function (callbacks, id) {
             return amplify.request({
-                resourceId: "session",
+                resourceId: 'session',
                 data: { id: id },
                 success: callbacks.success,
                 error: callbacks.error

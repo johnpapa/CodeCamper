@@ -24,7 +24,7 @@
 
             getSpeakers = function (callbacks) {
                 return amplify.request({
-                    resourceId: "speakers",
+                    resourceId: 'speakers',
                     success: callbacks.success,
                     error: callbacks.error
                 });
@@ -32,7 +32,7 @@
 
             getPersons = function (callbacks) {
                 return amplify.request({
-                    resourceId: "persons",
+                    resourceId: 'persons',
                     success: callbacks.success,
                     error: callbacks.error
                 });
@@ -40,7 +40,7 @@
 
             getPerson = function (callbacks, id) {
                 return amplify.request({
-                    resourceId: "person",
+                    resourceId: 'person',
                     data: { id: id },
                     success: callbacks.success,
                     error: callbacks.error

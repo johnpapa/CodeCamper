@@ -29,28 +29,28 @@
         },
         getLookups = function (callbacks) {
             return amplify.request({
-                resourceId: "lookups",
+                resourceId: 'lookups',
                 success: callbacks.success,
                 error: callbacks.error
             });
         },
         getRooms= function (callbacks) {
             return amplify.request({
-                resourceId: "rooms",
+                resourceId: 'rooms',
                 success: callbacks.success,
                 error: callbacks.error
             });
         },
         getTimeslots = function (callbacks) {
             return amplify.request({
-                resourceId: "timeslots",
+                resourceId: 'timeslots',
                 success: callbacks.success,
                 error: callbacks.error
             });
         },
         getTracks = function (callbacks) {
             return amplify.request({
-                resourceId: "tracks",
+                resourceId: 'tracks',
                 success: callbacks.success,
                 error: callbacks.error
             });

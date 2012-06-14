@@ -4,7 +4,6 @@
         var
             logger = config.logger,
             currentSessionId = ko.observable(),
-            isBusy = false,
             isDirtyRefresh = ko.observable(),
             rooms = ko.observableArray(),
             session = ko.observable(),
@@ -56,22 +55,18 @@
 
             save = ko.asyncCommand({
                 execute: function (complete) {
-                    var s = session();
-                    if (isBusy) {
-                        complete();
-                        return; // Already in the middle of a save on this session
-                    }
-                    isBusy = true;
                     $.when(
 //                        datacontext.sessionCud.updateSession(
 //                            session,
-                        datacontext.attendanceCud.updateAttendance(
-                            s, {
-                                success: function () { isBusy = false; },
-                                error: function () { isBusy = false; }
+                        datacontext.attendance.updateModel(
+                            session(), {
+                                success: function () { },
+                                error: function () { }
                             }
                         )
-                    ).always(complete);
+                    ).always(function () {
+                        complete()
+                    });
                 },
                 canExecute: function (isExecuting) {
                     return isDirty();
@@ -90,7 +85,6 @@
                 getRooms();
                 getTimeslots();
                 getTracks();
-                isBusy = false;
             },
             
             getSession = function (completeCallback, forceRefresh) {
@@ -156,22 +150,23 @@
                 }
             },
 
-            saveFavorite = function () {
-                var s = session();
-                if (isBusy) {
-                    return; // Already in the middle of a save on this session
+            saveFavorite = ko.asyncCommand({
+                execute: function (complete) {
+                    var cudMethod = session().isFavorite()
+                        ? datacontext.attendance.deleteModel
+                        : datacontext.attendance.addModel;
+                    cudMethod(session(),
+                        { success: saveFavoriteDone(complete), error: saveFavoriteDone(complete) });
+                    complete();
+                },
+                canExecute: function (isExecuting) {
+                    return session() && session().isUnlocked;
                 }
-                isBusy = true;
-                var cudMethod = s.isFavorite()
-                    ? datacontext.attendanceCud.deleteAttendance
-                    : datacontext.attendanceCud.addAttendance;
-                cudMethod(s,
-                    { success: saveFavoriteDone, error: saveFavoriteDone });
-            },
-            
-            saveFavoriteDone = function () {
+            }),
+
+            saveFavoriteDone = function (complete) {
                 isDirtyRefresh.notifySubscribers(); // Trigger re-evaluation of isDirty
-                isBusy = false;
+                complete();
             },
             
             init = function () {

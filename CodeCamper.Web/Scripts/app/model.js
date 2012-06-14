@@ -40,7 +40,6 @@
             
             self.rating = ko.observable();
             self.text = ko.observable();
-            //self.dirtyFlag = new ko.DirtyFlag(self);
             self.dirtyFlag = new ko.DirtyFlag([self.rating, self.text]);
             return self;
         };

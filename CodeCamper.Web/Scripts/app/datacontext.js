@@ -202,68 +202,92 @@
             sessionSpeakers = new SessionSpeakerEntitySet();
 
             // Attendance extensions
-            var attendanceCud = {
-                addAttendance: function (sessionModel, callbacks) {
-                    var attendanceModel = new model.Attendance()
-                            .sessionId(sessionModel.id())
-                            .personId(getCurrentUserId()),
-                            attendanceModelJson = ko.toJSON(attendanceModel);
-                    //var data2 = JSON.stringify(attendanceModel);
+            attendance.addModel = function (sessionModel, callbacks) {
+                var attendanceModel = new model.Attendance()
+                        .sessionId(sessionModel.id())
+                        .personId(getCurrentUserId()),
+                        attendanceModelJson = ko.toJSON(attendanceModel);
+
+                return $.Deferred(function (def) {
                     dataservice.attendance.addAttendance({
                         success: function (dto) {
                             if (!dto) {
                                 logger.error('oops! data could not be posted'); //TODO: revise error message
                                 if (callbacks && callbacks.error) { callbacks.error(); }
+                                def.reject();
                                 return;
                             }
                             var newAtt = modelmapper.attendance.fromDto(dto); // Map DTO to Model
                             attendance.add(newAtt); // Add to the datacontext
                             sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
                             logger.success('Added attendance!'); //TODO: 
-                            if (callbacks && callbacks.success) { callbacks.success(newAtt); }
+                            if (callbacks && callbacks.success) {
+                                def.resolve(dto);
+                                callbacks.success(newAtt);
+                            }
                         },
                         error: function (response) {
                             logger.error('oops! data could not be posted'); //TODO: revise error message
-                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            if (callbacks && callbacks.error) {
+                                def.reject(response);
+                                callbacks.error();
+                            }
                             return;
                         }
                     }, attendanceModelJson);
-                },
+                }).promise();
+            };
 
-                updateAttendance: function (sessionModel, callbacks) {
-                    var
-                        attendanceModel = sessionModel.attendance(),
-                        attendanceModelJson = ko.toJSON(attendanceModel);
+            attendance.updateModel = function (sessionModel, callbacks) {
+                var
+                    attendanceModel = sessionModel.attendance(),
+                    attendanceModelJson = ko.toJSON(attendanceModel);
                     
+                return $.Deferred(function(def) {
                     dataservice.attendance.updateAttendance({
                         success: function (response) {
                             logger.success('Updated attendance!'); 
-                            if (callbacks && callbacks.success) { callbacks.success(); }
+                            if (callbacks && callbacks.success) {
+                                attendanceModel.dirtyFlag().reset();
+                                def.resolve(response);
+                                callbacks.success();
+                            }
                         },
                         error: function (response) {
                             logger.error('oops! data could not be posted'); //TODO: revise error message
-                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            if (callbacks && callbacks.error) {
+                                def.reject(response);
+                                callbacks.error();
+                            }
                             return;
                         }
-                    }, attendanceModelJson);
-                },
+                    }, attendanceModelJson)
+                }).promise();
+            };
                 
-                deleteAttendance: function (sessionModel, callbacks) {
-                    var attendanceModel = sessionModel.attendance();
+            attendance.deleteModel = function (sessionModel, callbacks) {
+                var attendanceModel = sessionModel.attendance();
+                return $.Deferred(function (def) {
                     dataservice.attendance.deleteAttendance({
                         success: function (response) {
                             attendance.removeById(attendanceModel.id());
                             sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
                             logger.success('Deleted attendance!'); //TODO: 
-                            if (callbacks && callbacks.success) { callbacks.success(); }
+                            if (callbacks && callbacks.success) {
+                                def.resolve(response);
+                                callbacks.success();
+                            }
                         },
                         error: function (response) {
                             logger.error('oops! data could not be deleted'); //TODO: revise error message
-                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            if (callbacks && callbacks.error) {
+                                def.reject(response);
+                                callbacks.error();
+                            }
                             return;
                         }
                     }, attendanceModel.personId(), attendanceModel.sessionId());
-                }
+                }).promise();
             };
 
             // extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
@@ -350,7 +374,6 @@
             sessions: sessions,
             sessionSpeakers: sessionSpeakers,
             timeslots: timeslots,
-            tracks: tracks,
-            attendanceCud: attendanceCud
+            tracks: tracks
     };
 });
