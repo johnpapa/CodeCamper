@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CodeCamper.Model;
 
 namespace CodeCamper.Web.Controllers
@@ -11,13 +11,17 @@ namespace CodeCamper.Web.Controllers
             Uow = uow;
         }
 
+        #region OData Future: IQuerable<T>
         // http://localhost:1922/api/speakers/?$filter=FirstName%20eq%20Hans
+        //[Queryable]
+        //public IQueryable<Speaker> Get()
+        #endregion
+
         // GET /api/speakers
-        [Queryable]
-        public IQueryable<Speaker> Get()
-        //public IEnumerable<Speaker> Get()
+        public IEnumerable<Speaker> Get()
         {
-            return Uow.Persons.GetSpeakers().OrderBy(s => s.FirstName);
+            return Uow.Persons.GetSpeakers()
+                .OrderBy(s => s.FirstName);
         }
     }
 }

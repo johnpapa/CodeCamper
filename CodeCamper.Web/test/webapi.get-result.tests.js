@@ -28,14 +28,17 @@
         function() {
             stop();
             $.ajax({
-                url: '/api/speakers/?$filter=firstName%20eq%20\'Hans\'',
+                // url: '/api/persons/?$filter=firstName%20eq%20\'Hans\'', // Future OData syntax
+                url: '/api/persons/getbyfirstname/?value=Hans',
                 dataType: 'json',
                 success: function(result) {
                     okAsync(!!result, "Got data when searching for Hans");
-                    okAsync(result.length === 1 && result[0].FirstName === 'Hans',
+                    // person = result[0]; // If used OData ...
+                    var person = result;
+                    okAsync(person.FirstName === 'Hans',
                         "Got exactly one speaker w/ firstName = 'Hans'");
                     
-                    okAsync(result[0].ImageSource === expectedHansImageSource,
+                    okAsync(person.ImageSource === expectedHansImageSource,
                         "Got expected ImageSource = " + expectedHansImageSource);
                     start();
                 },

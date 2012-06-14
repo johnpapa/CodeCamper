@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -14,12 +14,16 @@ namespace CodeCamper.Web.Controllers
             Uow = uow;
         }
 
+        #region OData Future: IQueryable<T>
+        //[Queryable]
+        // public IQueryable<Attendance> Get()
+        #endregion
+
         // GET: api/attendance
-        [Queryable]
-        public IQueryable<Attendance> GetAttendance()
+        public IEnumerable<Attendance> GetAttendance()
         {
-            return Uow.Attendance.GetAll();
-            //throw new HttpResponseException(HttpStatusCode.Forbidden); //security violation
+            // Disallow fetching of all Attendance objects
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden)); 
         }
 
         // GET: api/attendance/?pid=2&sid=1
@@ -27,7 +31,6 @@ namespace CodeCamper.Web.Controllers
         {
             var attendance = Uow.Attendance.GetByIds(pid, sid);
             if (attendance != null) return attendance;
-            //throw new HttpResponseException(HttpStatusCode.NotFound);
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
         }
 

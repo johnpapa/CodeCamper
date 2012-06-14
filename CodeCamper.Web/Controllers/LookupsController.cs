@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using CodeCamper.Model;
 
@@ -13,24 +14,21 @@ namespace CodeCamper.Web.Controllers
 
         // GET: api/lookups/rooms
         [ActionName("rooms")]
-        [Queryable]
-        public IQueryable<Room> GetRooms()
+        public IEnumerable<Room> GetRooms()
         {
             return Uow.Rooms.GetAll().OrderBy(r => r.Name);
         }
 
         // GET: api/lookups/timeslots
         [ActionName("timeslots")]
-        [Queryable]
-        public IQueryable<TimeSlot> GetTimeSlots()
+        public IEnumerable<TimeSlot> GetTimeSlots()
         {
             return Uow.TimeSlots.GetAll().OrderBy(ts => ts.Start);
         }
 
         // GET: api/lookups/tracks
         [ActionName("tracks")]
-        [Queryable]
-        public IQueryable<Track> GetTracks()
+        public IEnumerable<Track> GetTracks()
         {
             return Uow.Tracks.GetAll().OrderBy(t => t.Name);
         }
@@ -49,5 +47,13 @@ namespace CodeCamper.Web.Controllers
             };
             return lookups;
         }
+
+        #region OData Future: IQueryable<T>
+        //[Queryable]
+        // public IQueryable<Room> Get()        
+        // public IQueryable<TimeSlot> Get()
+        // public IQueryable<Track> Get()
+        #endregion
+
     }
 }

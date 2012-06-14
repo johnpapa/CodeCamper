@@ -7,30 +7,37 @@
     module('Web API GET Endpoints respond successfully');
     
     var apiUrls = [
-        //'/api/BAD_ENDPOINT',
+       // '/api/BAD_ENDPOINT',
         '/api/lookups/all',
         '/api/lookups/rooms',
         '/api/lookups/tracks',
         '/api/lookups/timeslots/',
-        // Demo OData-ish filtering
-        '/api/lookups/timeslots/?$filter=id%20eq%203',
-        '/api/persons/?$top=3', // 'top 3' makes test 0.2 secs faster
+
+        '/api/persons/',
         '/api/persons/1',
+        '/api/persons/getbyfirstname/?value=Hans',
         '/api/favorites/1',
         '/api/speakers',
-        '/api/speakers/?$filter=firstName%20eq%20\'Hans\'',
-        '/api/sessions/?$top=3', // 'top 3' makes test ~1 second faster
+
+        '/api/sessions/',
         '/api/sessions/2',
         '/api/sessionbriefs',
-        '/api/attendance',
-        '/api/attendance/?$filter=personId%20eq%202', // without spaces
-        '/api/attendance/?$filter=personId eq 2', // with spaces
 
-        // These variations find the link with personId==2 && sessionId==1
-        '/api/attendance/?$filter=personId%20eq%202%20and%20sessionId%20eq%201',
+        // Find the Attendance with personId==2 && sessionId==1
         '/api/attendance/?pid=2&sid=1', // preferred
+        
+        // TESTING ONLY
+        '/api/tests/testsessions' 
 
-        '/api/tests/testsessions'
+        // These variations rely on Web API OData support (Future)
+
+        //'/api/lookups/timeslots/?$filter=id%20eq%203',
+        //'/api/persons/?$top=3', // 'top 3' makes test 0.2 secs faster
+        //'/api/speakers/?$filter=firstName%20eq%20\'Hans\'',
+        //'/api/sessions/?$top=3', // 'top 3' makes test ~1 second faster
+        //'/api/attendance/?$filter=personId%20eq%202%20and%20sessionId%20eq%201',
+        //'/api/attendance/?$filter=personId%20eq%202', // without spaces
+        //'/api/attendance/?$filter=personId eq 2', // with spaces
     ];
 
 

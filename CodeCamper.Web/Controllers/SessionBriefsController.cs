@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CodeCamper.Model;
 
 namespace CodeCamper.Web.Controllers
@@ -11,11 +11,16 @@ namespace CodeCamper.Web.Controllers
             Uow = uow;
         }
 
+        #region OData Future: IQueryable<T>
+        //[Queryable]
+        // public IQueryable<SessionBrief> Get()
+        #endregion
+
         // GET /api/sessionbriefs
-        [Queryable]
-        public IQueryable<SessionBrief> Get()
+        public IEnumerable<SessionBrief> Get()
         {
-            return Uow.Sessions.GetSessionBriefs().OrderBy(sb => sb.TimeSlotId);
+            return Uow.Sessions.GetSessionBriefs()
+                .OrderBy(sb => sb.TimeSlotId);
         }
     }
 }
