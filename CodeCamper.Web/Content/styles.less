@@ -132,15 +132,7 @@ body {
 					text-decoration: none;
 					text-transform: uppercase;
 				}
-		
-				> :after {
-					content: '►';
-					float: right;
-					font-family: Arial, Helvetica;
-					font-size: 11px;
-					opacity: .9;
-				}
-		
+
 				> a {
 					background: rgba(0,0,0,.05);
 					background: transparent;
@@ -151,6 +143,14 @@ body {
 					cursor: pointer;
 					color: @text-color;
 				}
+			}
+
+			> li:after {
+				content: '►';
+				float: right;
+				font-family: Arial, Helvetica;
+				font-size: 11px;
+				opacity: .9;
 			}
 		}
 	}
@@ -258,53 +258,58 @@ input[type=checkbox] {
 	display:none;
 }
 
-label.markfavorite > input[type=checkbox] {
-	+ span {
-		background: url(images/bookmark.png);
-		background-repeat: no-repeat;
-		cursor: pointer;
-		display: inline-block;
-		float: right;
-		height: 32px;
-		opacity: .6;
-		padding: 0;
-		width: 32px;
-		margin-top: -5%;
+label.markfavorite > {
+	input[type=checkbox] {
+		
+		+ span {
+			background: url(images/bookmark.png);
+			background-repeat: no-repeat;
+			cursor: pointer;
+			display: inline-block;
+			float: right;
+			height: 32px;
+			opacity: .6;
+			padding: 0;
+			width: 32px;
+			margin-top: -5%;
+		}
+		
+		+ span:hover {
+			opacity: .8;
+		}
+
 	}
 
-	:checked + span {
+	input[type=checkbox]:checked + span {
 		background: url(images/bookmarkchecked.png);
 		opacity: 1;
 	}
 
-	:disabled + span {
+	input[type=checkbox]:disabled + span {
 		background: url(images/bookmarklocked.png);
-	}
-
-	 + span:hover {
-		opacity: .8;
 	}
 }	
 
-label.favoritesonly > input[type=checkbox] {
-	 + span {
-		background-image: url(images/checkbox_unchecked.png);
-		background-position: right center;
-		background-repeat: no-repeat;
-		cursor: pointer;
-		display: inline-block;
-		height: 18px;
-		opacity: .6;
-		padding: 0 25px 0 0;
+label.favoritesonly > {
+	input[type=checkbox] {
+		 + span {
+			background-image: url(images/checkbox_unchecked.png);
+			background-position: right center;
+			background-repeat: no-repeat;
+			cursor: pointer;
+			display: inline-block;
+			height: 18px;
+			opacity: .6;
+			padding: 0 25px 0 0;
+		}
+		+ span:hover {
+			opacity: .8;
+		}
 	}
 
-    :checked + span {
+	input[type=checkbox]:checked + span {
 		background-image: url(images/checkbox_checked.png);
 		opacity: 1;
-	}
-
-    + span:hover {
-		opacity: .8;
 	}
 }
 
@@ -314,16 +319,14 @@ a {
     color: @text-color;
 	padding-bottom: 2px;
 	text-decoration: none;
+}
+a:hover {
+	opacity: .6;
+}
 
-	:hover {
-		opacity: .6;
-	}
-
-	:active, :focus {
-		position: relative;
-		top: 1px;
-	}
-
+a:active, a:focus {
+	position: relative;
+	top: 1px;
 }
 
 /* 2.3 FONTS
@@ -380,23 +383,22 @@ button {
 	padding: 7px 30px 8px 50px;
     cursor: pointer;
     height: 33px;
+}
 
-	:active, :focus {
-		position: relative;
-		top: 1px;
-	}
+button:active, button:focus {
+	position: relative;
+	top: 1px;
+}
 
-	:hover {
-		opacity: 0.6;
-	}
+button:hover {
+	opacity: 0.6;
+}
 
-    :disabled {
-        opacity: 0.6;
-        cursor: default;
-        position: relative;
-        top: 0;
-    }
-
+button:disabled {
+    opacity: 0.6;
+    cursor: default;
+    position: relative;
+    top: 0;
 }
 
 /* 2.5 ICONS
