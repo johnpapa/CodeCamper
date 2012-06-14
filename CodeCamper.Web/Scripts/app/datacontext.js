@@ -351,7 +351,7 @@
                 _.extend(options, {
                     getFunctionOverride: dataservice.person.getSpeakers
                 });
-                persons.getData(options);
+                return persons.getData(options);
             },
 
             persons.getFullPersonById = function (id, callbacks, Refresh) {
