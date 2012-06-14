@@ -1,10 +1,11 @@
-﻿define(['toastr', 'mock/mock', 'infuser'],
-    function (toastr, mock, infuser) {
+﻿define(['toastr', 'mock/mock', 'infuser', 'ko'],
+    function (toastr, mock, infuser, ko) {
 
         var// properties
             useMocks = false, // Set this to toggle mocks
             logger = toastr, // use toastr for the logger
             throttle = 400,
+            currentUser = ko.observable(),
             title = 'CodeCamper > ',
             toastrTimeout = 2000,
             messages = {
@@ -28,12 +29,12 @@
         init();
 
         return {
+            currentUser: currentUser,
             dataserviceInit: dataserviceInit,
             logger: logger,
             messages: messages,
             throttle: throttle,
             title: title,
             window: window
-            //window: this
         };
     });

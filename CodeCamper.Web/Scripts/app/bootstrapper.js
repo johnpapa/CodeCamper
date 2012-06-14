@@ -9,6 +9,7 @@
             logger = config.logger,
             
             bindViewModelsToViews = function () {
+                ko.applyBindings(vm.shell, $('#shellTop').get(0));
                 ko.applyBindings(vm.session, $('#session').get(0));
                 ko.applyBindings(vm.sessions, $('#sessions').get(0));
                 ko.applyBindings(vm.favorites, $('#favorites').get(0));
@@ -38,15 +39,18 @@
 
                 // Catch invalid routes
                 router.register({ route: /.*/, title: '', callback: function () { toastr.error('invalid route'); }, view: '' });
-                //router.run('#/favorites');
+
+                // Crank up the router
                 router.run();
             },
             
             run = function () {
 
                 //PAPA: hard coded the user
-                config.currentUser = ko.observable({ id: ko.observable(1) });
-                var userId = config.currentUser().id();
+
+                //config.currentUser({ id: ko.observable(1) });
+                var userId = 1;
+                //config.currentUser().id();
 
                 $('#busyindicator').activity(true);
 
@@ -62,8 +66,7 @@
                     timeslots: ko.observable(),
                     attendance: ko.observable(),
                     persons: ko.observable(),
-                    sessions: ko.observable(),
-                    user: ko.observable()
+                    sessions: ko.observable()
                 };
                 // TODO: END TESTING 
 
@@ -73,15 +76,23 @@
                     datacontext.attendance.getData({ param: userId, results: data.attendance }),
                     datacontext.persons.getSpeakers({ results: data.persons }), // TODO: this currently just gets speakers. need to refactor in DC
                     datacontext.sessions.getData({ results: data.sessions }),
-                    datacontext.persons.getFullPersonById(userId, { success: function (person) { data.user(person); }})
+                    datacontext.persons.getFullPersonById(userId,
+                        {
+                            success: function (person) {
+                                config.currentUser(person);
+                            }
+                        })
                     )
+
                     .pipe(function () {
-                        // Need sessions first
+                        // Need sessions first, before we can get speakers for the session
                         datacontext.sessionSpeakers.getData();
+                        alert('piping');
                     })
 
                     // TODO: TESTING 
                     .done(function () {
+                        alert('done piping');
                         logger.success('Fetched data for: '
                             + '<div>' + data.rooms().length + ' rooms </div>'
                             + '<div>' + data.tracks().length + ' rooms </div>'
@@ -89,7 +100,7 @@
                             + '<div>' + data.attendance().length + ' attendance </div>'
                             + '<div>' + data.persons().length + ' persons </div>'
                             + '<div>' + data.sessions().length + ' sessions </div>'
-                            + '<div>' + (data.user() ? 1 : 0) + ' current user profile </div>'
+                            + '<div>' + (config.currentUser() ? 1 : 0) + ' user profile </div>'
                             );
                     })
                     // TODO: END TESTING 
