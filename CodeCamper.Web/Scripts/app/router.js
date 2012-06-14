@@ -94,7 +94,6 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                         logger.warning(response.message);
                         // Keep hash url the same in address bar
                         navigateBack();
-                        //this.redirect('#/Sessions'); 
                     }
                     else {
                         isRedirecting = false;

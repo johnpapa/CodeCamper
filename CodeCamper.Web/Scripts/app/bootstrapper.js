@@ -71,7 +71,7 @@
                     datacontext.timeslots.getData({ results: data.timeslots }),
                     datacontext.tracks.getData({ results: data.tracks }),
                     datacontext.attendance.getData({ param: userId, results: data.attendance }),
-                    datacontext.persons.getData({ results: data.persons }), // TODO: this currently just gets speakers. need to refactor in DC
+                    datacontext.persons.getSpeakers({ results: data.persons }), // TODO: this currently just gets speakers. need to refactor in DC
                     datacontext.sessions.getData({ results: data.sessions }),
                     datacontext.persons.getFullPersonById(userId, { success: function (person) { data.user(person); }})
                     )

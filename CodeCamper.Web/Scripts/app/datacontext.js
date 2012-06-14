@@ -73,7 +73,11 @@
                                 sortFunction = options && options.sortFunction,
                                 filter = options && options.filter,
                                 forceRefresh = options && options.forceRefresh,
-                                param = options && options.param;
+                                param = options && options.param,
+                                getFunctionOverride = options && options.getFunctionOverride;
+
+                            getFunction = getFunctionOverride || getFunction;
+
                             if (!items || !utils.hasProperties(items) || forceRefresh) {
                                 getFunction({
                                     success: function(dtoList) {
@@ -196,7 +200,7 @@
             attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.attendanceNullo),
             rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.roomNullo),
             sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.sessionNullo),
-            persons = new EntitySet(dataservice.person.getSpeakers, modelmapper.person, model.personNullo),
+            persons = new EntitySet(dataservice.person.getPersons, modelmapper.person, model.personNullo),
             timeslots = new EntitySet(dataservice.lookup.getTimeslots, modelmapper.timeSlot, model.timeSlotNullo),
             tracks = new EntitySet(dataservice.lookup.getTracks, modelmapper.track, model.trackNullo),
             sessionSpeakers = new SessionSpeakerEntitySet();
@@ -343,6 +347,13 @@
             };
 
             // extend Persons entitySet 
+            persons.getSpeakers = function (options) {
+                _.extend(options, {
+                    getFunctionOverride: dataservice.person.getSpeakers
+                });
+                persons.getData(options);
+            },
+
             persons.getFullPersonById = function (id, callbacks, Refresh) {
                 var person = persons.getLocalById(id);
                 if (person.isNullo || person.isBrief() || forceRefresh)
