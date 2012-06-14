@@ -166,7 +166,6 @@
     <Content Include="Content\images\fritz_onion.jpg" />
     <Content Include="Content\images\hans_fjallemark.jpg" />
     <Content Include="Content\images\howard_dierking.jpg" />
-    <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\jim_cowart.jpg" />
     <Content Include="Content\images\john_papa.jpg" />
     <Content Include="Content\images\john_smith.jpg" />
@@ -178,12 +177,12 @@
     <Content Include="Content\images\stars.png" />
     <Content Include="Content\images\steve_sanderson.jpg" />
     <Content Include="Content\images\sue_menot.jpg" />
+    <Content Include="Content\images\icon-blue.png" />
     <Content Include="Content\images\trash.png" />
     <Content Include="Content\images\unknown_person.jpg" />
     <Content Include="Content\images\ward_bell.jpg" />
     <Content Include="Content\images\bookmarkchecked.png" />
     <Content Include="Content\images\bookmark.png" />
-    <Content Include="Content\images\icon-blue.png" />
     <Content Include="Scripts\app\ko.utils.js" />
     <Content Include="Scripts\app\jquery.activity-ex.js" />
     <Content Include="Scripts\app\ko.bindingHandlers.activity.js" />

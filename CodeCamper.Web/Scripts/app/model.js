@@ -134,7 +134,7 @@
                         attendance = self.attendance(),
                         unlocked = !(attendance.rating() > 0 || (attendance.text() && attendance.text().length > 0));
 
-                    self.isFavoriteRefresh(); // This exists so we can notify ifthe isFavorite to reevaluate
+                    self.isFavoriteRefresh(); // This exists so we can notify the isUnlocked to reevaluate
 
                     return unlocked;
                 },
