@@ -29,7 +29,6 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
             register = function (options) {
                 if (options.routes) {
                     _.each(options.routes, function (route) {
-                        //registerRoute(route.route, route.title, route.callback, options.view, route.group);
                         registerRoute({
                             route: route.route,
                             title: route.title,
@@ -42,11 +41,9 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                     return;
                 }
 
-                //registerRoute(options.route, options.title, options.callback, options.view, options.group);
                 registerRoute(options);
             },
 
-            //registerRoute = function (route, title, callback, view, group, isDefault) {
             registerRoute = function (options) {
                 var 
                     route = options.route,
