@@ -251,7 +251,6 @@
     <Content Include="Test\qunit\qunit-composite.js" />
     <Content Include="Test\qunit\qunit.css" />
     <Content Include="Content\images\search.png" />
-    <Content Include="Content\styles.css" />
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Global.asax" />
