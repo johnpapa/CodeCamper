@@ -317,6 +317,103 @@ label.favoritesonly > {
 	}
 } 
 
+.titleblock {
+
+    > label {
+        display: block;
+        float: left;
+        line-height: 35px;
+        width: 100px;
+    }
+
+    > input {
+        width: 515px;
+    }
+
+    > h1 {
+        color: @accent-color;
+        font-size: 130%;
+        margin-bottom: 1%;
+		font-weight: bold;
+    }
+
+}
+
+.details-left {
+    float: left;
+    width: 300px;
+    clear: both;
+
+    > div {
+    }
+
+    label {
+        clear: both;
+        display: block;
+        float: left;
+        line-height: 35px;
+        width: 100px;
+    }
+
+    input {
+        width: 150px;
+    }
+
+    select {
+        width: 160px;
+    }
+    
+	img {
+        background: rgba(255, 255, 255, .8);
+        border: 1px solid rgba(255, 255, 255, 1);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+        height: 90px;
+        margin: 4% 4% 1% 0;
+        padding: 4px;
+    }
+
+    div address {
+        line-height: 35px;
+        margin-left: 100px;
+    }
+
+}
+
+.details-right {
+    float: left;
+
+    label {
+        display: block;
+        clear: both;
+    }
+}
+
+.details-right textarea,
+span.scrollable-text {
+    font-family: 'Segoe UI Light';
+    height: 100px;
+    width: 300px;
+    float: left;
+    overflow-y:scroll;
+    margin-bottom: 6px;
+}
+
+span.scrollable-text {
+    /*border: 1px #808080 solid;*/
+    /*background-color: whitesmoke;*/
+    width: 310px;
+}
+
+label.markfavorite-no-float > input[type="checkbox"] + span  {
+    float: none;
+    margin-top: 4%;
+}
+
+
+
+
+
+
 /* 2.2 LINK STYLES
 --------------------------------------------------------- */
 a {
