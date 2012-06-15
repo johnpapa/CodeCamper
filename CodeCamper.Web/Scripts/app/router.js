@@ -7,6 +7,7 @@
 define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
     function ($, _, Sammy, presenter, config, routeMediator) {
         var
+            currentHash = '',
             window = config.window,
             logger = config.logger,
             isRedirecting = false,
@@ -90,10 +91,11 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                         isRedirecting = true;
                         logger.warning(response.message);
                         // Keep hash url the same in address bar
-                        navigateBack();
+                        context.app.setLocation(currentHash);
                     }
                     else {
                         isRedirecting = false;
+                        currentHash = context.app.getLocation();
                     }
                     return response.val;
                 });
