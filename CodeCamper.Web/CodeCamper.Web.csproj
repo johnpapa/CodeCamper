@@ -188,6 +188,7 @@
     <Content Include="Content\images\ward_bell.jpg" />
     <Content Include="Content\images\bookmarkchecked.png" />
     <Content Include="Content\images\bookmark.png" />
+    <Content Include="Scripts\app\vm.shell.js" />
     <Content Include="Scripts\app\ko.utils.js" />
     <Content Include="Scripts\app\jquery.activity-ex.js" />
     <Content Include="Scripts\app\ko.bindingHandlers.activity.js" />
