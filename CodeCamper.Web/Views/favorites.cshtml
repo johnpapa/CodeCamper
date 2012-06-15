@@ -2,7 +2,9 @@
     <nav>
         <ul data-bind="foreach: days">
             <li class="route-left" data-bind="css :{'route-active': isSelected()}">
-                <a data-bind="attr: {href: '#/favorites/date/' + date }, text: day"></a>
+                <a data-bind="attr: {href: '#/favorites/date/' + date }">
+                    <span data-bind="text: day"></span>
+                </a>
             </li>
         </ul>
     </nav>

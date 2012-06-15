@@ -2,10 +2,13 @@
     function(_, ko, moment) {
 
      var timeslotsToDays = function(timeslots) {
-            var result = _.reduce(timeslots, function(memo, slot) {
 
-                var date = moment(slot.start()).format('MM-DD-YYYY'),
+         var
+             result = _.reduce(timeslots, function (memo, slot) {
+                var
+                    date = moment(slot.start()).format('MM-DD-YYYY'),
                     day = moment(date).format('ddd MMM DD');
+
                 if (!memo.index[day.toString()]) {
                     // This is created so i dont have to loop through the array each time again
                     memo.index[day.toString()] = true;
@@ -16,13 +19,14 @@
                     });
                 }
                 return memo;
-            }, { index: {}, slots: [] });
-         
-            var sortedDays = result.slots.sort(function(a, b) {
+            }, { index: {}, slots: [] }),
+            
+            sortedDays = result.slots.sort(function(a, b) {
                 return a.date > b.date ? 1 : -1;
             });
          
-            return sortedDays;
+         return sortedDays;
+
         };
         
         return {

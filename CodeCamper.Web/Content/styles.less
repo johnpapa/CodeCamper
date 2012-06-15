@@ -145,14 +145,16 @@ body {
 				}
 			}
 
-			> li:after {
+			> li > a:after {
 				content: '►';
 				float: right;
 				font-family: Arial, Helvetica;
 				font-size: 11px;
 				opacity: .9;
-				margin: -26px 4px 0 0;
+				/*margin: -26px 4px 0 0;*/
+				/*color: @inverted-text-color;*/
 			}
+
 		}
 	}
 }
@@ -193,7 +195,7 @@ body {
 }
 
 .article-container-full-width {
-    margin: 4px;
+    margin: 6px;
     float: left;
     width: 110px;
     height: 140px;
@@ -588,7 +590,7 @@ button:disabled {
 		margin: 0 0 7% 0;
 		width: 100%;
 		
-		> ul > li:after {
+		> ul > li > a:after {
 			content: '▼';
 		}
 

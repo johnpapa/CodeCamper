@@ -48,13 +48,6 @@ define(['ko'], function(ko) {
                 };
                 return self;
             };
-    //result.isDirty = ko.computed(function () {
-    //        return hashFunction(objectToTrack) !== lastCleanState();
-    //    });
-
-    //    result.reset = function() {
-    //        lastCleanState(hashFunction(objectToTrack));
-    //    };
             
         return result;
     };
