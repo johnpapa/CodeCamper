@@ -87,12 +87,10 @@
                     .pipe(function () {
                         // Need sessions first, before we can get speakers for the session
                         datacontext.sessionSpeakers.getData();
-                        alert('piping');
                     })
 
                     // TODO: TESTING 
                     .done(function () {
-                        alert('done piping');
                         logger.success('Fetched data for: '
                             + '<div>' + data.rooms().length + ' rooms </div>'
                             + '<div>' + data.tracks().length + ' rooms </div>'

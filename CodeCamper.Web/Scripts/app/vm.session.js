@@ -4,7 +4,6 @@
         var
             logger = config.logger,
             currentSessionId = ko.observable(),
-            isDirtyRefresh = ko.observable(),
             rooms = ko.observableArray(),
             session = ko.observable(),
             tracks = ko.observableArray(),
@@ -15,7 +14,6 @@
             },
             
             isDirty = ko.computed(function () {
-                isDirtyRefresh(); // to notify the computed
                 if (session() && session().attendance && session().attendance()) {
                     return session().attendance().dirtyFlag().isDirty();
                 }
@@ -165,7 +163,7 @@
             }),
 
             saveFavoriteDone = function (complete) {
-                isDirtyRefresh.notifySubscribers(); // Trigger re-evaluation of isDirty
+                session().valueHasMutated(); // Trigger re-evaluation of isDirty
                 complete();
             },
             
