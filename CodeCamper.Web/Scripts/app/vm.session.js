@@ -163,7 +163,7 @@
             }),
 
             saveFavoriteDone = function (complete) {
-                session().valueHasMutated(); // Trigger re-evaluation of isDirty
+                session.valueHasMutated(); // Trigger re-evaluation of isDirty
                 complete();
             },
             
