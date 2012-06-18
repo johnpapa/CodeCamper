@@ -71,7 +71,9 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'routeMediator'],
                     $('.view').hide();
                     presenter.transitionTo($(view), context.path, group);
                     //context.$element().append('<h1>hello</h1>') //PAPA: for testing
-                    this.title(title);
+                    if (this.title) {
+                        this.title(title);
+                    }
                 });
             },
 
