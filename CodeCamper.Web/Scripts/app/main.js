@@ -84,5 +84,9 @@ requirejs([
                  // no need for plugin params as they are always undefined
 {
         //debugger; //TODO: uncomment to confirm that these dependencies are loaded.
-        bootstrapper.run();
+
+        // PAPA: Will this force all bootstrapper dedpendencies to load first? I hope so!
+        require('bootstrapper').run();
+
+        //bootstrapper.run();
     })
