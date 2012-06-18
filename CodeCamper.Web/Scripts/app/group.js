@@ -5,9 +5,10 @@
 
          var
              result = _.reduce(timeslots, function (memo, slot) {
-                var
-                    date = moment(slot.start()).format('MM-DD-YYYY'),
-                    day = moment(date).format('ddd MMM DD');
+                 var
+                    slotStart = slot.start(),
+                    date = moment(slotStart).format('MM-DD-YYYY'),
+                    day = moment(slotStart).format('ddd MMM DD');
 
                 if (!memo.index[day.toString()]) {
                     // This is created so i dont have to loop through the array each time again
