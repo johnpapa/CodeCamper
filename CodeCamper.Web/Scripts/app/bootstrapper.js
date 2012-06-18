@@ -1,9 +1,9 @@
-﻿define(['jquery', 'ko', 'toastr', 'config', 'router', 'vm', 'model', 'datacontext'],
-    function ($, ko, toastr, config, router, vm, model, datacontext) {
+﻿define(['jquery', 'ko', 'toastr', 'config', 'router', 'model', 'datacontext', 'vm'],
+    function ($, ko, toastr, config, router, model, datacontext, vm) {
 
         // all models use the one datacontext
         // avoids circular reference between model & datacontext
-        model.datacontext(datacontext);
+        //model.datacontext(datacontext);
 
         var
             logger = config.logger,

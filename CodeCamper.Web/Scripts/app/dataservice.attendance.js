@@ -75,7 +75,7 @@
                     resourceId: 'attendanceDelete',
                     data: {
                         personId: personId,
-                        sessionId: sessionId,
+                        sessionId: sessionId
                     },
                     success: callbacks.success,
                     error: callbacks.error

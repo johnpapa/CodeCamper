@@ -27,7 +27,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 define(['ko'], function(ko) {
     //    (function (ko) {
-    'use strict';
     ko.DirtyFlag = function (objectToTrack, isInitiallyDirty, hashFunction) {
 
         hashFunction = hashFunction || ko.toJSON;
@@ -39,13 +38,16 @@ define(['ko'], function(ko) {
 
             result = function () {
                 var self = this;
+
                 self.isDirty = ko.computed(function () {
                     return _isInitiallyDirty() || hashFunction(_objectToTrack) !== _lastCleanState();
                 });
+
                 self.reset = function () {
                     _lastCleanState(hashFunction(_objectToTrack));
                     _isInitiallyDirty(false);
                 };
+
                 return self;
             };
             

@@ -1,5 +1,5 @@
-﻿define(['ko'],
-    function (ko) {
+﻿define(['require', 'ko'],
+    function (require, ko) {
 
         var imageBasePath = '../content/images/',
             unknownPersonImageSource = 'unknown_person.jpg';
@@ -7,32 +7,38 @@
         // To avoid a circular model/datacontext reference
         // model.datacontext is set in Bootstrapper
         var _datacontext,
-            datacontext = function(dc) {
-                if (!!dc) {
-                    _datacontext = dc;
-                }
+            datacontext = function() {
+                _datacontext = require('datacontext')
                 return _datacontext;
             };       
+            //datacontext = function (dc) {
+            //    if (!!dc) {
+            //        _datacontext = dc;
+            //    } else {
+            //        _datacontext = require('datacontext')
+            //    }
+            //    return _datacontext;
+            //};
 
         // Attendance
         // ----------------------------------------------
         var attendanceMakeId = function (personId, sessionId) {
-            return (personId + "," + sessionId);
+            return (personId + ',' + sessionId);
         };
             
         var Attendance = function () {
             var self = this;
-            self.datacontext = datacontext;
+            //self.datacontext = datacontext;
             self.sessionId = ko.observable();
             self.personId = ko.observable();
             
-            // id is string compound key {personId,sessionId} like "3,10"    
+            // id is string compound key {personId,sessionId} like '3,10'    
             self.id = ko.computed({
                 read: function () {
                     return attendanceMakeId(self.personId(), self.sessionId());
                 },
                 write: function (value) {
-                    var idparts = value.split(",");
+                    var idparts = value.split(',');
                     self.personId(parseInt(idparts[0]));
                     self.sessionId(parseInt(idparts[1]));
                 }
@@ -55,12 +61,13 @@
         Attendance.makeId = attendanceMakeId;
         
         Attendance.prototype = function () {
-            person = function () {
-                return this.datacontext().persons.getLocalById(this.personId());
-            },
-            session = function () {
-                return this.datacontext().sessions.getLocalById(this.sessionId());
-            };
+            var
+                person = function () {
+                    return datacontext().persons.getLocalById(this.personId());
+                },
+                session = function () {
+                    return datacontext().sessions.getLocalById(self.sessionId());
+                };
             return {
                 isNullo: false,
                 person: person,
@@ -72,7 +79,7 @@
         // ----------------------------------------------
         var Room = function () {
             var self = this;
-            self.datacontext = datacontext;
+            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.name = ko.observable();
             self.isNullo = false;
@@ -88,7 +95,7 @@
         // ----------------------------------------------
         var Session = function () {
             var self = this;
-            self.datacontext = datacontext;
+            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.title = ko.observable();
             self.code = ko.observable();
@@ -114,7 +121,7 @@
                 },
 
                  // Chicken and the egg kind of situation (attendance or datacontext are setup later)
-                 // The "deferEvalation" flag will prevent it from running immediately
+                 // The 'deferEvalation' flag will prevent it from running immediately
                  // and it will wait until something actually tries to access its value.
                 deferEvaluation: true,
                 
@@ -138,7 +145,7 @@
 
                     return unlocked;
                 },
-                deferEvaluation: true,
+                deferEvaluation: true
             }),
 
             self.isBrief = ko.observable(true);
@@ -163,24 +170,24 @@
         Session.prototype = function () {
             var
                 attendance = function () {
-                    return this.datacontext().attendance.getSessionFavorite(this.id());
+                    return datacontext().attendance.getSessionFavorite(this.id());
                 },
                 
                 room = function () {
-                    return this.datacontext().rooms.getLocalById(this.roomId());
+                    return datacontext().rooms.getLocalById(this.roomId());
                 },
 
                 speaker = function () {
                     //TODO: do i get from persons or speakers?
-                    return this.datacontext().persons.getLocalById(this.speakerId());
+                    return datacontext().persons.getLocalById(this.speakerId());
                 },
 
                 timeslot = function () {
-                    return this.datacontext().timeslots.getLocalById(this.timeslotId());
+                    return datacontext().timeslots.getLocalById(this.timeslotId());
                 },
 
                 track = function () {
-                    return this.datacontext().tracks.getLocalById(this.trackId());
+                    return datacontext().tracks.getLocalById(this.trackId());
                 };
 
             return {
@@ -197,7 +204,7 @@
         // ----------------------------------------------
         var Person = function () {
             var self = this;
-            self.datacontext = datacontext;
+            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.firstName = ko.observable();
             self.lastName = ko.observable();
@@ -250,7 +257,7 @@
         // ----------------------------------------------
         var TimeSlot = function () {
             var self = this;
-            self.datacontext = datacontext;
+            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.start = ko.observable();
             self.duration = ko.observable();
@@ -283,7 +290,7 @@
         // ----------------------------------------------
         var Track = function () {
             var self = this;
-            self.datacontext = datacontext;
+            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.name = ko.observable();
             self.isNullo = false;

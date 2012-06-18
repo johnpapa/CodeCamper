@@ -6,18 +6,18 @@
     // shim in the libs that don't know define.amd
     shim: {
         // jquery 1.7.x understands define; no shim needed.
-        'activity-indicator': ['jquery'],
+        'activity-indicator': { deps: ['jquery'] },
         'amplify': {deps: [], exports: 'amplify'},
-        'amplify.request': ['amplify'],
-        'amplify.store': ['amplify'],
+        'amplify.request': { deps: ['jquery', 'amplify'] },
+        'amplify.store': { deps: ['amplify'] },
         'jquery.activity-ex': { deps: ['jquery'] },
-        'jquery.mockjson': ['jquery'],
+        'jquery.mockjson': { deps: ['jquery'] },
         'json2': { exports: 'JSON' }, // not really a module
         //'ko': { deps: ['jquery'], exports: 'ko' }, ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
-        'sammy.title': ['jquery', 'sammy'],
+        'sammy.title': { deps: ['jquery', 'sammy'] },
         'toastr': { deps: ['jquery'], exports: 'toastr' },
         'underscore': { deps: [], exports: '_' }
     },
@@ -80,8 +80,15 @@ requirejs([
         'knockout.changetracker',
         'debug.helpers'         // our app's ko debugging plugin
 
-    ], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper)
-                 // no need for plugin params as they are always undefined
+], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper,
+    activityIndicator, sammyTitle, amplifyRequest, amplifyStore,
+    jqueryMockJson, jqueryActivityEx, koUtils, koBindingHandlers,
+    koBindingHandlersActivity, koBindingHandlersCommand, koAsyncCommand,
+    koExternalTemplateEngine, knockoutChangeTracker, debugHelpers)
+    //WARD: no need for plugin params as they are always undefined
+    //PAPA: When I added the plugin parametes, I stopped getting load 
+    //      errors on some of the plugins (like koChangeTracker's ko.DirtyFlag)
+
 {
         //debugger; //TODO: uncomment to confirm that these dependencies are loaded.
 
