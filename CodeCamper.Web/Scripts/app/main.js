@@ -80,7 +80,7 @@ requirejs([
         'koExternalTemplateEngine',
         'debug.helpers'         // our app's ko debugging plugin
 
-], function (json2, $, _, moment, sammy, amplify, ko, toastr, knockoutChangeTracker, bootstrapper)
+], function (json2, $, _, moment, sammy, amplify, ko, toastr) //, knockoutChangeTracker) //, bootstrapper)
     //activityIndicator, sammyTitle, amplifyRequest, amplifyStore,
     //jqueryMockJson, jqueryActivityEx, koUtils, koBindingHandlers,
     //koBindingHandlersActivity, koBindingHandlersCommand, koAsyncCommand,

@@ -10,8 +10,6 @@
             itemsToArray = function (items, observableArray, filter, sortFunction) {
                 if (!observableArray) return;
 
-                observableArray([]); // clear the old observableArray
-
                 var underlyingArray = utils.mapMemoToArray(items);
 
                 if (filter) {
@@ -25,7 +23,6 @@
                 }
                 //logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records');
                 observableArray(underlyingArray);
-                //observableArray.valueHasMutated() /// dont need it since we blow away the old observable contents
             },
 
             mapToContext = function (dtoList, items, results, mapper, filter, sortFunction) {
@@ -354,28 +351,33 @@
                 return persons.getData(options);
             },
 
-            persons.getFullPersonById = function (id, callbacks, Refresh) {
-                var person = persons.getLocalById(id);
-                if (person.isNullo || person.isBrief() || forceRefresh)
-                {
-                    // if nullo or brief, get fresh from database
-                    dataservice.person.getPerson({
-                        success: function (dto) {
-                            // updates the person returned from getLocalById() above
-                            person = persons.mapDtoToContext(dto);
-                            person.isBrief(false); // now a full session
-                            logger.success('merged full person'); //TODO: revise message
-                            callbacks.success(person); 
+            persons.getFullPersonById = function (id, callbacks, forceRefresh) {
+                return $.Deferred(function (def) {
+                    var person = persons.getLocalById(id);
+                    if (person.isNullo || person.isBrief() || forceRefresh) {
+                        // if nullo or brief, get fresh from database
+                        dataservice.person.getPerson({
+                            success: function (dto) {
+                                // updates the person returned from getLocalById() above
+                                person = persons.mapDtoToContext(dto);
+                                person.isBrief(false); // now a full session
+                                logger.success('merged full person'); //TODO: revise message
+                                callbacks.success(person);
+                                def.resolve(dto);
+                            },
+                            error: function (response) {
+                                logger.error('oops! could not retrieve person ' + id); //TODO: revise error message
+                                if (callbacks && callbacks.error) { callbacks.error(response); }
+                                def.reject(response);
+                            }
                         },
-                        error: function(response) {
-                            logger.error('oops! could not retrieve person '+id); //TODO: revise error message
-                            if (callbacks && callbacks.error) { callbacks.error(response); }
-                        }
-                    },
-                    id);
-                }
-                callbacks.success(person);
-                return person; // immediately return cached person (nullo, brief, or full)
+                        id);
+                    } else {
+                        callbacks.success(person);
+                        def.resolve(person);
+                    }
+                    //return person; // immediately return cached person (nullo, brief, or full)
+                }).promise();
             };
         
         return {

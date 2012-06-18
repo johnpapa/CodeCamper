@@ -14,20 +14,20 @@
             
             getUser = function (completeCallback, currentUserId, forceRefresh) {
                 var
-                    callback = completeCallback || function () { },
-                    result = datacontext.persons.getFullPersonById(
-                            currentUserId, {
-                                success: function (user) {
-                                    currentUser(user);
-                                    callback();
-                                },
-                                error: function () {
-                                    callback();
-                                }
+                    callback = completeCallback || function () { };
+
+                datacontext.persons.getFullPersonById(
+                        currentUserId, {
+                            success: function (user) {
+                                currentUser(user);
+                                callback();
                             },
-                        forceRefresh
-                        );
-                currentUser(result);
+                            error: function () {
+                                callback();
+                            }
+                        },
+                    forceRefresh
+                    );
             },
 
             init = function () {

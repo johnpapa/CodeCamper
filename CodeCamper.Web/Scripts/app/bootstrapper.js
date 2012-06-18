@@ -74,19 +74,22 @@
                     datacontext.timeslots.getData({ results: data.timeslots }),
                     datacontext.tracks.getData({ results: data.tracks }),
                     datacontext.attendance.getData({ param: userId, results: data.attendance }),
-                    datacontext.persons.getSpeakers({ results: data.persons }), // TODO: this currently just gets speakers. need to refactor in DC
+                    datacontext.persons.getSpeakers({ results: data.persons }),
                     datacontext.sessions.getData({ results: data.sessions }),
                     datacontext.persons.getFullPersonById(userId,
                         {
                             success: function (person) {
                                 config.currentUser(person);
                             }
-                        })
+                        }, true)
                     )
 
-                    .pipe(function () {
+                    .pipe(function (data) {
                         // Need sessions first, before we can get speakers for the session
                         datacontext.sessionSpeakers.getData();
+
+                        //TODO: Testing only
+                        //if (config.currentUser().id() === 0) debugger;
                     })
 
                     // TODO: TESTING 
@@ -98,7 +101,7 @@
                             + '<div>' + data.attendance().length + ' attendance </div>'
                             + '<div>' + data.persons().length + ' persons </div>'
                             + '<div>' + data.sessions().length + ' sessions </div>'
-                            + '<div>' + (config.currentUser() ? 1 : 0) + ' user profile </div>'
+                            + '<div>' + (config.currentUser().isNullo ? 0 : 1) + ' user profile </div>'
                             );
                     })
                     // TODO: END TESTING 

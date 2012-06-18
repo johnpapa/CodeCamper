@@ -8,7 +8,6 @@
             self.minDate = ko.observable();
             self.maxDate = ko.observable();
             self.timeslot = ko.observable(); // object
-            //self.searchText = ko.observable('');
             self.searchText = ko.observable().extend({ throttle: config.throttle });
             self.speaker = ko.observable(); // object
             self.track = ko.observable(); // object
@@ -68,12 +67,14 @@
                     //PAPA: testing only
                     //var matchSearch = searchTest(self.searchText(), session),
                     //    matchFav = favoriteTest(self.favoriteOnly(), session),
-                    //    matchTime = timeSlotTest(self.minDate(), self.maxDate(), session);
+                    //    matchTime = timeSlotTest(self.minDate(), self.maxDate(), session),
+                    //    matchModels = modelTest(self.timeslot(), self.speaker(), self.track(), session);
                     //console.log('search filter matched: ' + matchSearch);
                     //console.log('favorites filter matched: ' + matchFav);
                     //console.log('time filter matched: ' + matchTime);
-                    //console.log('MATCH === ' + matchSearch && matchFav && matchTime);
-                    //return matchSearch && matchFav && matchTime;
+                    //console.log('models filter matched: ' + matchModels);
+                    //console.log('MATCH === ' + matchSearch && matchFav && matchTime && matchModels);
+                    return matchSearch && matchFav && matchTime && matchModels;
                 };
 
             return {
