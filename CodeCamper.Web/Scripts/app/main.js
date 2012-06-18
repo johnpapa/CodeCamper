@@ -61,6 +61,7 @@ requirejs([
         'amplify',
         'ko',
         'toastr',
+        'knockout.changetracker',
 
         'bootstrapper', 
     
@@ -77,14 +78,14 @@ requirejs([
         'ko.bindingHandlers.command', // Knockout custom binding handlers
         'ko.asyncCommand',      // Knockout custom asyncCommand
         'koExternalTemplateEngine',
-        'knockout.changetracker',
         'debug.helpers'         // our app's ko debugging plugin
 
-], function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper,
-    activityIndicator, sammyTitle, amplifyRequest, amplifyStore,
-    jqueryMockJson, jqueryActivityEx, koUtils, koBindingHandlers,
-    koBindingHandlersActivity, koBindingHandlersCommand, koAsyncCommand,
-    koExternalTemplateEngine, knockoutChangeTracker, debugHelpers)
+], function (json2, $, _, moment, sammy, amplify, ko, toastr, knockoutChangeTracker, bootstrapper)
+    //activityIndicator, sammyTitle, amplifyRequest, amplifyStore,
+    //jqueryMockJson, jqueryActivityEx, koUtils, koBindingHandlers,
+    //koBindingHandlersActivity, koBindingHandlersCommand, koAsyncCommand,
+    //koExternalTemplateEngine, knockoutChangeTracker, debugHelpers)
+    
     //WARD: no need for plugin params as they are always undefined
     //PAPA: When I added the plugin parametes, I stopped getting load 
     //      errors on some of the plugins (like koChangeTracker's ko.DirtyFlag)
