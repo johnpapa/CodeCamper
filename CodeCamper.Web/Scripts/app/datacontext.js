@@ -292,29 +292,43 @@
             };
 
             // extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
-            attendance.getSessionFavorite = function (sessionId, callbacks, forceRefresh) {
-                var att = attendance.getLocalById(model.Attendance.makeId(getCurrentUserId(), sessionId));
-                if (forceRefresh) {
-                    // get fresh from database
-                    dataservice.attendance.getAttendance(
-                        {
-                            success: function (dto) {
-                                // updates the session returned from getLocalById() above
-                                att = attendance.mapDtoToContext(dto);
-                                if (callbacks && callbacks.success) { callbacks.success(att); }
-                            },
-                            error: function (response) {
-                                logger.error('oops! could not retrieve attendance ' + sessionId); //TODO: revise error message
-                                if (callbacks && callbacks.error) { callbacks.error(response); }
-                            }
-                        },
-                        getCurrentUserId(),
-                        sessionId
-                    );
-                } else {
-                    if (callbacks && callbacks.success) { callbacks.success(att); }
-                }
+            attendance.getLocalSessionFavorite = function (sessionId) {
+                var
+                    id = model.Attendance.makeId(getCurrentUserId(), sessionId),
+                    att = attendance.getLocalById(id);
                 return att;
+            },
+
+            attendance.getSessionFavorite = function (sessionId, callbacks, forceRefresh) {
+                return $.Deferred(function (def) {
+                    var
+                        id = model.Attendance.makeId(getCurrentUserId(), sessionId),
+                        att = attendance.getLocalById(id);
+
+                    if (att.isNullo || forceRefresh) {
+                        // get fresh from database
+                        dataservice.attendance.getAttendance(
+                            {
+                                success: function (dto) {
+                                    // updates the session returned from getLocalById() above
+                                    att = attendance.mapDtoToContext(dto);
+                                    if (callbacks && callbacks.success) { callbacks.success(att); }
+                                    def.resolve(dto);
+                                },
+                                error: function (response) {
+                                    logger.error('oops! could not retrieve attendance ' + sessionId); //TODO: revise error message
+                                    if (callbacks && callbacks.error) { callbacks.error(response); }
+                                    def.reject(response);
+                                }
+                            },
+                            getCurrentUserId(),
+                            sessionId
+                        );
+                    } else {
+                        if (callbacks && callbacks.success) { callbacks.success(att); }
+                        def.resolve(att);
+                    }
+                }).promise();
             };
         
             // extend Sessions enttityset 

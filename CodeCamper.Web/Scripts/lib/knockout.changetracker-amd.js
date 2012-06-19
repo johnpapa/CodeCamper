@@ -8,22 +8,23 @@
 //          Knockout 
 //
 //  Notes:
-//          Special thanks to Steve Sanderson for his influence and help on
-//          this change tracker.
+//          Special thanks to Steve Sanderson and Ryan Niemeyer for 
+//          their influence and help.
 //
 //  Usage:      
 //          To Setup Tracking, add this tracker property to your viewModel    
-//              ===> viewModel.tracker = new ChangeTracker(viewModel);
+//              ===> viewModel.dirtyFlag = new ko.DirtyFlag(viewModel.model);
 //
 //          Hook these into your view ...
 //              Did It Change?          
-//              ===> viewModel.tracker().isDirty();
+//              ===> viewModel.dirtyFlag().isDirty();
 //
 //          Hook this into your view model functions (ex: load, save) ...
 //              Resync Changes
-//              ===> viewModel.tracker().reset;
+//              ===> viewModel.dirtyFlag().reset();
 //
 //          Optionally, you can pass your own hashFunction for state tracking.
+//
 ////////////////////////////////////////////////////////////////////////////////////////
 define(['ko'], function(ko) {
     //    (function (ko) {

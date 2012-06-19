@@ -170,7 +170,7 @@
         Session.prototype = function () {
             var
                 attendance = function () {
-                    return datacontext().attendance.getSessionFavorite(this.id());
+                    return datacontext().attendance.getLocalSessionFavorite(this.id());
                 },
                 
                 room = function () {

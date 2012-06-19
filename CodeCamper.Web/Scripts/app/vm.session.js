@@ -104,21 +104,22 @@
             },
             
             getAttendance = function (completeCallback, forceRefresh) {
-                // Refresh the attendance in teh datacontext
+                // Refresh the attendance in the datacontext
                 var
-                    callback = completeCallback || function () { },
-                    result = datacontext.attendance.getSessionFavorite(
-                            session().attendance().sessionId(),
-                            {
-                                success: function (a) {
-                                    callback();
-                                },
-                                error: function () {
-                                    callback();
-                                }
-                            },
-                        forceRefresh
-                        );
+                    callback = completeCallback || function () { };
+
+                datacontext.attendance.getSessionFavorite(
+                    session().attendance().sessionId(),
+                    {
+                        success: function (a) {
+                            callback();
+                        },
+                        error: function () {
+                            callback();
+                        }
+                    },
+                    forceRefresh
+                );
             },
 
             getRooms = function () {
