@@ -13,21 +13,26 @@
                 return canEditSession() ? 'session.edit' : 'session.view';
             },
             
+            canEditSession = ko.computed(function () {
+                return session() && config.currentUser().id() === session().speakerId();
+            }),
+
+            canEditEval = ko.computed(function () {
+                return session() && config.currentUser().id() !== session().speakerId();
+            }),
+
             isDirty = ko.computed(function () {
-                if (session() && session().attendance && session().attendance()) {
-                    return session().attendance().dirtyFlag().isDirty();
+                if (canEditSession()) {
+                    return session().dirtyFlag().isDirty();
+                }
+                if (canEditEval()) {
+                    if (session() && session().attendance && session().attendance()) {
+                        return session().attendance().dirtyFlag().isDirty();
+                    }
                 }
                 return false;
             }),
 
-            canEditSession = ko.computed(function () {
-                return session() && config.currentUser().id() === session().speakerId();
-            }),
-            
-            canEditEval = ko.computed(function () {
-                return session() && config.currentUser().id() !== session().speakerId();
-            }),
-            
             goBack = ko.asyncCommand({
                 execute: function (complete) {
                     router.navigateBack();
@@ -42,9 +47,9 @@
                 execute: function (complete) {
                     var callback = function () {
                         complete();
-                        logger.success('Refreshed attendance');
+                        logger.success('Refreshed');
                     };
-                    getAttendance(callback, true);
+                    canEditSession() ? getSession(callback, true) : getAttendance(callback, true);
                 },
                 canExecute: function (isExecuting) {
                     return isDirty()
@@ -53,18 +58,32 @@
 
             save = ko.asyncCommand({
                 execute: function (complete) {
-                    $.when(
-//                        datacontext.sessionCud.updateSession(
-//                            session,
-                        datacontext.attendance.updateModel(
-                            session(), {
-                                success: function () { },
-                                error: function () { }
-                            }
-                        )
-                    ).always(function () {
-                        complete()
-                    });
+                    if (canEditSession()) {
+                        $.when(
+                            datacontext.sessions.updateSession(
+                                session(), {
+                                    success: function () { },
+                                    error: function () { }
+                                }
+                            )
+                        ).always(function () {
+                            complete()
+                        });
+                        return;
+                    }
+                    if(canEditEval()){
+                        $.when(
+                            datacontext.attendance.updateModel(
+                                session(), {
+                                    success: function () { },
+                                    error: function () { }
+                                }
+                            )
+                        ).always(function () {
+                            complete()
+                        });
+                        return;
+                    }
                 },
                 canExecute: function (isExecuting) {
                     return isDirty();

@@ -363,6 +363,32 @@
                 }).promise();
             };
 
+            sessions.updateSession = function (sessionModel, callbacks) {
+                var
+                    sessionJson = ko.toJSON(sessionModel);
+
+                return $.Deferred(function (def) {
+                    dataservice.session.updateSession({
+                        success: function (response) {
+                            logger.success('Updated session!');
+                            if (callbacks && callbacks.success) {
+                                sessionModel.dirtyFlag().reset();
+                                def.resolve(response);
+                                callbacks.success();
+                            }
+                        },
+                        error: function (response) {
+                            logger.error('oops! data could not be posted'); //TODO: revise error message
+                            if (callbacks && callbacks.error) {
+                                def.reject(response);
+                                callbacks.error();
+                            }
+                            return;
+                        }
+                    }, sessionJson)
+                }).promise();
+            };
+
             // extend Persons entitySet 
             persons.getSpeakers = function (options) {
                 _.extend(options, {

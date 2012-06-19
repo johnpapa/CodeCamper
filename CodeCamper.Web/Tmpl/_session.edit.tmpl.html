@@ -6,17 +6,17 @@
     <div class="details-left">
         <div>
             <label for="track">Track</label>
-            <select id="track" data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id'">
+            <select id="track" data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id', value: trackId">
             </select>
         </div>
         <div>
             <label for="timeslot">Time slot</label>
-            <select id="timeslot" data-bind="options: $parent.timeslots, optionsText: 'shortStart', optionsValue: 'id'">
+            <select id="timeslot" data-bind="options: $parent.timeslots, optionsText: 'shortStart', optionsValue: 'id', value: timeslotId">
             </select>
         </div>
         <div>
             <label for="room">Room</label>
-            <select id="room" data-bind="options: $parent.rooms, optionsText: 'name', optionsValue: 'id'">
+            <select id="room" data-bind="options: $parent.rooms, optionsText: 'name', optionsValue: 'id', value: roomId">
             </select>
         </div>
         <div>
@@ -25,7 +25,7 @@
         </div>
         <div>
             <label for="tags">Tags</label>
-            <input id="tags" data-bind="value: tags" />
+            <input id="tags" data-bind="value: tagsFormatted" />
         </div>
         <div>
             <label for="level">Level</label>
@@ -33,22 +33,15 @@
         </div>
         <img data-bind="attr: {src: speaker().imageName}" />
         <address data-bind="text: speaker().fullName"></address>
-        <label class="markfavorite" title="Mark as favorite">
-            <input
-                data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
-                type="checkbox" /><span></span></label>
     </div>
     <div class="details-right">
         <div>
             <label for="description">Description</label>
             <textarea id="description" data-bind="value: description, valueUpdate: 'afterkeydown'"></textarea>
         </div>
-        <div>
-            <label for="feedback">Feedback</label>
-            <span id="feedback" class="scrollable-text" data-bind="text: attendance().text"></span>
-        </div>
-        <div>
-            <span data-bind="starRating: attendance().rating, enable:false"></span>
-        </div>
+        <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
+        <input
+            data-bind="checked:isFavorite, enable: isUnlocked, click: $parent.saveFavorite"
+            type="checkbox" /><span></span></label>
     </div>
 </div>

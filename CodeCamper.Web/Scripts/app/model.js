@@ -149,7 +149,16 @@
             }),
 
             self.isBrief = ko.observable(true);
-
+            self.dirtyFlag = new ko.DirtyFlag([
+                self.title,
+                self.code,
+                self.speakerId,
+                self.trackId,
+                self.timeslotId,
+                self.roomId,
+                self.level,
+                self.tags,
+                self.description]);
             return self;
         };
 
@@ -165,7 +174,8 @@
             .level('')
             .tags('');
         sessionNullo.isNullo = true;
-        sessionNullo.isBrief = function() { return false; }; // nullo is never brief
+        sessionNullo.isBrief = function () { return false; }; // nullo is never brief
+        sessionNullo.dirtyFlag().reset();
         
         Session.prototype = function () {
             var

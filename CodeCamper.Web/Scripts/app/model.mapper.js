@@ -6,8 +6,8 @@
                 return model.Attendance.makeId(dto.PersonId, dto.SessionId);
             },
             fromDto: function(dto, item) {
-                item = item || new model.Attendance()
-                    .personId(dto.PersonId)
+                item = item || new model.Attendance();
+                item.personId(dto.PersonId)
                     .sessionId(dto.SessionId);
                 item.rating(dto.Rating).text(dto.Text);
                 item.dirtyFlag().reset();
@@ -27,16 +27,17 @@
             getDtoId: function(dto) { return dto.Id; },
             fromDto: function(dto, item) {
                 item = item || new model.Session().id(dto.Id);
-                return item
-                    .title(dto.Title)
+                item.title(dto.Title)
                     .code(dto.Code)
+                    .description(dto.Description)
                     .speakerId(dto.SpeakerId)
                     .trackId(dto.TrackId)
                     .timeslotId(dto.TimeSlotId)
                     .roomId(dto.RoomId)
-                    .description(dto.Description)
                     .level(dto.Level)
                     .tags(dto.Tags);
+                item.dirtyFlag().reset();
+                return item
             }
         },
         
