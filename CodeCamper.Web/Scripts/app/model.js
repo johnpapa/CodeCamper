@@ -108,9 +108,15 @@
             self.description = ko.observable();
             self.isFavoriteRefresh = ko.observable(); 
 
-            self.tagsFormatted = ko.computed(function () {
-                var text = self.tags();
-                return text ? text.replace(/\|/g, ', ') : text;
+            self.tagsFormatted = ko.computed({
+                read: function () {
+                    var text = self.tags();
+                    return text ? text.replace(/\|/g, ', ') : text;
+                },
+
+                write: function (value) {
+                    self.tags(value.replace(/\, /g, '|'));
+                }
             }),
 
             self.isFavorite = ko.computed({
