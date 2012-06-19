@@ -1,15 +1,17 @@
-﻿define(['ko', 'datacontext', 'config'],
-    function (ko, datacontext, config) {
+﻿define(['ko', 'underscore', 'datacontext', 'config', 'model'],
+    function (ko, _, datacontext, config, model) {
 
         var
             logger = config.logger,
 
-            //currentUser = ko.observable(),
             currentUser = config.currentUser,
 
-            activate = function (routeData) {
-                //getUser(routeData.id);
-                //getUser();
+            demoUsers = ko.observableArray([]),
+
+            activate = function () {
+                _.each(config.demoUserIds, function (id) {
+                    demoUsers.push(datacontext.persons.getLocalById(id));
+                });
             },
             
             getUser = function (completeCallback, currentUserId, forceRefresh) {
@@ -37,6 +39,8 @@
         init();
 
         return {
-            currentUser: currentUser
+            currentUser: currentUser,
+            demoUsers: demoUsers,
+            activate: activate
         };
     });

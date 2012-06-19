@@ -9,7 +9,10 @@
             logger = config.logger,
             
             bindViewModelsToViews = function () {
+
                 ko.applyBindings(vm.shell, $('#shellTop').get(0));
+                vm.shell.activate();
+
                 ko.applyBindings(vm.session, $('#session').get(0));
                 ko.applyBindings(vm.sessions, $('#sessions').get(0));
                 ko.applyBindings(vm.favorites, $('#favorites').get(0));
@@ -47,10 +50,8 @@
             run = function () {
 
                 //PAPA: hard coded the user
-
-                //config.currentUser({ id: ko.observable(1) });
-                var userId = 1;
-                //config.currentUser().id();
+                //var userId = 1;
+                var userId = 3;
 
                 $('#busyindicator').activity(true);
 

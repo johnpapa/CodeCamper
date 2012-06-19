@@ -5,6 +5,7 @@
             useMocks = false, // Set this to toggle mocks
             logger = toastr, // use toastr for the logger
             throttle = 400,
+            demoUserIds = [1, 3, 5],
             currentUser = ko.observable(),
             title = 'CodeCamper > ',
             toastrTimeout = 2000,
@@ -31,6 +32,7 @@
         return {
             currentUser: currentUser,
             dataserviceInit: dataserviceInit,
+            demoUserIds: demoUserIds,
             logger: logger,
             messages: messages,
             throttle: throttle,
