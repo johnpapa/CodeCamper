@@ -87,20 +87,20 @@
             
             getSession = function (completeCallback, forceRefresh) {
                 var
-                    callback = completeCallback || function () { },
-                    result = datacontext.sessions.getFullSessionById(
-                            currentSessionId(), {
-                                success: function (s) {
-                                    session(s);
-                                    callback();
-                                },
-                                error: function () {
-                                    callback();
-                                }
-                            },
-                        forceRefresh
-                        );
-                session(result);
+                    callback = completeCallback || function () { };
+
+                datacontext.sessions.getFullSessionById(
+                    currentSessionId(), {
+                        success: function (s) {
+                            session(s);
+                            callback();
+                        },
+                        error: function () {
+                            callback();
+                        }
+                    },
+                    forceRefresh
+                );
             },
             
             getAttendance = function (completeCallback, forceRefresh) {

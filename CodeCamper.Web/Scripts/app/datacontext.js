@@ -291,7 +291,8 @@
                 }).promise();
             };
 
-            // extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
+            // Extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
+            // This is a "Local" method, so it gets it from the DC only, no promise returned, no callbacks.
             attendance.getLocalSessionFavorite = function (sessionId) {
                 var
                     id = model.Attendance.makeId(getCurrentUserId(), sessionId),
@@ -299,6 +300,7 @@
                 return att;
             },
 
+            // Extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
             attendance.getSessionFavorite = function (sessionId, callbacks, forceRefresh) {
                 return $.Deferred(function (def) {
                     var
@@ -333,28 +335,32 @@
         
             // extend Sessions enttityset 
             sessions.getFullSessionById = function(id, callbacks, forceRefresh) {
-                var session = sessions.getLocalById(id);
-                if (session.isNullo || session.isBrief() || forceRefresh) {
-                    // if nullo or brief, get fresh from database
-                    dataservice.session.getSession({
-                        success: function (dto) {
-                            // updates the session returned from getLocalById() above
-                            session = sessions.mapDtoToContext(dto);
-                            session.isBrief(false); // now a full session
-                            //logger.success('merged full session'); //TODO: revise message
-                            if (callbacks && callbacks.success) { callbacks.success(session); }
+                return $.Deferred(function (def) {
+                    var session = sessions.getLocalById(id);
+                    if (session.isNullo || session.isBrief() || forceRefresh) {
+                        // if nullo or brief, get fresh from database
+                        dataservice.session.getSession({
+                            success: function (dto) {
+                                // updates the session returned from getLocalById() above
+                                session = sessions.mapDtoToContext(dto);
+                                session.isBrief(false); // now a full session
+                                //logger.success('merged full session'); //TODO: revise message
+                                if (callbacks && callbacks.success) { callbacks.success(session); }
+                                def.resolve(dto);
+                            },
+                            error: function (response) {
+                                logger.error('oops! could not retrieve session ' + id); //TODO: revise error message
+                                if (callbacks && callbacks.error) { callbacks.error(response); }
+                                def.reject(response);
+                            }
                         },
-                        error: function (response) {
-                            logger.error('oops! could not retrieve session ' + id); //TODO: revise error message
-                            if (callbacks && callbacks.error) { callbacks.error(response); }
-                        }
-                    },
-                    id);
-                }
-                else {
-                    if (callbacks && callbacks.success) { callbacks.success(session); }
-                }
-                return session; // immediately return cached session (nullo, brief, or full)
+                        id);
+                    }
+                    else {
+                        if (callbacks && callbacks.success) { callbacks.success(session); }
+                        def.resolve(session);
+                    }
+                }).promise();
             };
 
             // extend Persons entitySet 
