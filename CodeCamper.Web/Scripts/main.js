@@ -1,6 +1,6 @@
 ﻿requirejs.config({
 
-    // by default load
+    // script default location
     baseUrl: 'scripts/app',
 
     // shim in the libs that don't know define.amd
@@ -16,16 +16,16 @@
         //'ko': { deps: ['jquery'], exports: 'ko' }, ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        //'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (I edited it)
+        //'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (JP edited it)
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
         'toastr': { deps: ['jquery'], exports: 'toastr' },
         'underscore': { deps: [], exports: '_' }
     },
 
+    // List paths to js files that are not in the baseUrl.
     // Could simplify for libraries that are conventionally named
-    // which is all of them except jquery which identifies the version.
-    // List paths to js files not in the baseUrl.
+    // (which is all of them except jquery which identifies the version).
     paths: {
         'activity-indicator': '../lib/activity-indicator',
         'amplify': '../lib/amplify.core',
@@ -51,9 +51,9 @@
 
 // Force immediate load of 3rd party libs and their plugins
 // ToDo: Pair back the ones that don't have plugins?
-// Probably not necessary but not sure how to get the plugins
-// loaded without naming them specifically in the modules that use
-// them and don't want those modules to know that they use plugins
+//       Probably not necessary but not sure how to get the plugins
+//       loaded without naming them specifically in the modules that use
+//       them and we don't want those modules to know that they use plugins
 requirejs([
         // 3rd party libraries
         'json2',
@@ -65,7 +65,8 @@ requirejs([
         'ko',
         'toastr',
         'bootstrapper',
-        // 3rd party plugins - they don't return modules
+    
+        // 3rd party plugins - they don't return module objects
         'activity-indicator', // jquery plugin
         'sammy.title', // sammy plugin
         'amplify.request', // amplify plugin
@@ -81,17 +82,19 @@ requirejs([
         'koExternalTemplateEngine',
         'ko.validation', // Knockout validation
         'debug.helpers'         // our app's ko debugging plugin
-], function (json2, $, _, moment, sammy, amplify, ko, toastr) //bootstrapper)
-
-    //WARD: no need for plugin params as they are always undefined
-    //PAPA: When I added the plugin parametes, I stopped getting load 
-    //      errors on some of the plugins (like koChangeTracker's ko.DirtyFlag)
-
+],
+    function (json2, $, _, moment, sammy, amplify, ko, toastr, bootstrapper)
+    /* 
+     * WARD: 
+     * We only use the 'bootstrapper' parameter within this function.
+     * the other listed parameters are present only for exploratory purposes
+     * (see the 'debugger;' line below).
+     * Did not bother to provide params for the plugin modules as these never
+     * return a result and therefore their corresponding params would always be undefined
+     */
 {
-    //debugger; //TODO: uncomment to confirm that these dependencies are loaded.
-
-    // PAPA: Will this force all bootstrapper dedpendencies to load first? I hope so!
-    require('bootstrapper').run();
+    //debugger; //TODO: uncomment to confirm that dependencies are loaded.
+    bootstrapper.run();
 
     //bootstrapper.run();
 });
