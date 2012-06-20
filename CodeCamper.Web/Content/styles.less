@@ -13,7 +13,11 @@
 @base-accent-top-height: 30px;
 @base-accent-top-line-height: 24px;
 
+@border-color-invalid: #B03535;
+@border-color-valid: #28921f;
+@validation-border-width: 1px;
 
+@input-transition: padding .25s;
 
 /* 1 RESET - http://meyerweb.com/eric/tools/css/reset
 --------------------------------------------------------- */
@@ -628,22 +632,25 @@ button:disabled {
 /* 3.0.2 CUSTOM VALIDATION
 --------------------------------------------------------- */
 
+input:invalid, textarea:invalid{
+	border-width: @validation-border-width;
+	border-color: @border-color-invalid;
+}
+
 /* input:focus, textarea:focus */
 input:required {
-	background: white url(images/val_asterisk.png) no-repeat 98% center;
+	background: #fff url(images/val_asterisk.png) no-repeat 98% center;
 }
 textarea:required, textarea:required:focus {
-	background: white url(images/val_asterisk.png) no-repeat 94% center;
+	background: #fff url(images/val_asterisk.png) no-repeat 94% center;
 }
 
 input:focus:invalid {
-	background: white url(images/invalid.png) no-repeat 98% center;
-	border-color: #B03535;
+	background: #fff url(images/invalid.png) no-repeat 98% center;
 }
 
 textarea:focus:invalid {
-	background: white url(images/invalid.png) no-repeat 94% center;
-	border-color: #B03535;
+	background: #fff url(images/invalid.png) no-repeat 94% center;
 }
 
 /* *:focus {outline: none;} */
@@ -657,13 +664,12 @@ textarea {
 	input, textarea { 
 		border:1px solid #aaa;
 		border-radius:2px;
-		-moz-transition: padding .25s; 
-		-webkit-transition: padding .25s; 
-		-o-transition: padding .25s;
-		transition: padding .25s;
+		-moz-transition: @input-transition; 
+		-webkit-transition: @input-transition; 
+		-o-transition: @input-transition;
+		transition: @input-transition;
 	}
 	input:focus, textarea:focus {
-		border:1px solid #555; 
 		padding-right:20px;
 	}
 
@@ -675,15 +681,14 @@ textarea:required {
 }
 input:required:valid, textarea:required:valid {
 	background: #fff url(images/valid.png) no-repeat 98% center;
-	/* box-shadow: 0 0 5px #5cd053; */
-	border-color: #28921f;
+	border-color: @border-color-valid;
 }
 textarea:required:valid {
 	background: #fff url(images/valid.png) no-repeat 94% center;
 }
 input:focus:invalid, textarea:focus:invalid {
 	background: #fff url(images/invalid.png) no-repeat 98% center;
-	border-color: #b03535
+	border-color: @border-color-invalid;
 }
 textarea:focus:invalid {
 	background: #fff url(images/invalid.png) no-repeat 94% center;
@@ -708,17 +713,11 @@ textarea:focus:invalid {
 	padding: 0 6px;
 	z-index: 999; /* hints stay above all other elements */
 	position: absolute; /* allows proper formatting if hint is two lines */
-	display: none; 
+/*	display: none; */ /* always show it, so IE is happy */
 }
 
-input:focus + .validationMessage {display: inline;}
-input:valid + .validationMessage {display: none;}
-textarea:focus + .validationMessage {display: inline;}
-textarea:valid + .validationMessage {display: none;}
-
-/*
-input:required:valid + .validationMessage {background: #28921f;}
-*/
+input:focus + .validationMessage, textarea:focus + .validationMessage {display: inline;}
+input:valid + .validationMessage, textarea:valid + .validationMessage {display: none;}
 	
 
 
