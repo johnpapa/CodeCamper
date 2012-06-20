@@ -158,7 +158,7 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\styles.less" />
+    <Content Include="Content\styles.less" />
     <Content Include="Content\images\aaron_skonnard.jpg" />
     <Content Include="Content\images\back.png" />
     <Content Include="Content\images\bookmarklocked.png" />
