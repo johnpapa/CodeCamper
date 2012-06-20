@@ -56,7 +56,7 @@
 // them and don't want those modules to know that they use plugins
 requirejs([
         // 3rd party libraries
-        'json2', 
+        'json2',
         'jquery',
         'underscore',
         'moment',
@@ -64,37 +64,34 @@ requirejs([
         'amplify',
         'ko',
         'toastr',
-
-        'bootstrapper', 
-    
+        'bootstrapper',
         // 3rd party plugins - they don't return modules
-        'activity-indicator',   // jquery plugin
-        'sammy.title',          // sammy plugin
-        'amplify.request',      // amplify plugin
-        'amplify.store',        // amplify plugin
-        'jquery.mockjson',      // jquery plugin
-        'jquery.activity-ex',   // jquery plugin
-        'ko.utils',             // Knockout custom utilities
-        'ko.bindingHandlers',   // Knockout custom binding handlers
+        'activity-indicator', // jquery plugin
+        'sammy.title', // sammy plugin
+        'amplify.request', // amplify plugin
+        'amplify.store', // amplify plugin
+        'jquery.mockjson', // jquery plugin
+        'jquery.activity-ex', // jquery plugin
+        'ko.utils', // Knockout custom utilities
+        'ko.bindingHandlers', // Knockout custom binding handlers
         'ko.bindingHandlers.activity', // Knockout custom binding handlers
         'ko.bindingHandlers.command', // Knockout custom binding handlers
-        'ko.asyncCommand',      // Knockout custom asyncCommand
+        'ko.asyncCommand', // Knockout custom asyncCommand
         'knockout.changetracker',
         'koExternalTemplateEngine',
-        'ko.validation',        // Knockout validation
+        'ko.validation', // Knockout validation
         'debug.helpers'         // our app's ko debugging plugin
-
 ], function (json2, $, _, moment, sammy, amplify, ko, toastr) //bootstrapper)
-    
+
     //WARD: no need for plugin params as they are always undefined
     //PAPA: When I added the plugin parametes, I stopped getting load 
     //      errors on some of the plugins (like koChangeTracker's ko.DirtyFlag)
 
 {
-        //debugger; //TODO: uncomment to confirm that these dependencies are loaded.
+    //debugger; //TODO: uncomment to confirm that these dependencies are loaded.
 
-        // PAPA: Will this force all bootstrapper dedpendencies to load first? I hope so!
-        require('bootstrapper').run();
+    // PAPA: Will this force all bootstrapper dedpendencies to load first? I hope so!
+    require('bootstrapper').run();
 
-        //bootstrapper.run();
-})
+    //bootstrapper.run();
+});
