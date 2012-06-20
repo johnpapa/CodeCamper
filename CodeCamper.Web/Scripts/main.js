@@ -65,21 +65,21 @@ requirejs([
         'toastr',
     
         // 3rd party plugins - they don't return module objects
-        'activity-indicator', // jquery plugin
-        'sammy.title', // sammy plugin
-        'amplify.request', // amplify plugin
-        'amplify.store', // amplify plugin
-        'jquery.mockjson', // jquery plugin
-        'jquery.activity-ex', // jquery plugin
-        'ko.utils', // Knockout custom utilities
-        'ko.bindingHandlers', // Knockout custom binding handlers
+        'activity-indicator',       // jquery plugin
+        'sammy.title',              // sammy plugin
+        'amplify.request',          // amplify plugin
+        'amplify.store',            // amplify plugin
+        'jquery.mockjson',          // jquery plugin
+        'jquery.activity-ex',       // jquery plugin
+        'ko.utils',                 // Knockout custom utilities
+        'ko.bindingHandlers',       // Knockout custom binding handlers
         'ko.bindingHandlers.activity', // Knockout custom binding handlers
         'ko.bindingHandlers.command', // Knockout custom binding handlers
-        'ko.asyncCommand', // Knockout custom asyncCommand
+        'ko.asyncCommand',          // Knockout custom asyncCommand
         'knockout.changetracker',
         'koExternalTemplateEngine',
-        'ko.validation', // Knockout validation
-        'debug.helpers'         // our app's ko debugging plugin
+        'ko.validation',            // Knockout validation
+        'debug.helpers'             // our app's ko debugging plugin
 ],
     function ()
         // json2, $, _, moment, sammy, amplify, ko, toastr)

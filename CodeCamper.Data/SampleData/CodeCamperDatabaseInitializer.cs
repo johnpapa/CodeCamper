@@ -7,11 +7,11 @@ using CodeCamper.Model;
 namespace CodeCamper.Data.SampleData
 {
     public class CodeCamperDatabaseInitializer :
-        //CreateDatabaseIfNotExists<CodeCamperDbContext>          // when model is stable
+        //CreateDatabaseIfNotExists<CodeCamperDbContext>      // when model is stable
         DropCreateDatabaseIfModelChanges<CodeCamperDbContext> // when iterating
     {
         private const int AttendeeCount = 1000;
-        private const int AttendeesWithFavoritesCount = 2;
+        private const int AttendeesWithFavoritesCount = 3;
 
         protected override void Seed(CodeCamperDbContext context)
         {
