@@ -1,7 +1,7 @@
 ﻿<div data-bind="with: session">    
     <div class="titleblock">
         <label for="title">Title</label>
-        <input id="title" data-bind="value: title"/>
+        <input id="title" data-bind="value: title" placeholder="Knockout Fundamentals" required/>
     </div>
     <div class="details-left">
         <div>
@@ -21,15 +21,15 @@
         </div>
         <div>
             <label for="code">Code</label>
-            <input id="code" data-bind="value: code"/>
+            <input id="code" data-bind="value: code" placeholder="WEB121" required/>
         </div>
         <div>
             <label for="level">Level</label>
-            <input id="level" data-bind="value: level" />
+            <input id="level" data-bind="value: level" placeholder="300" required/>
         </div>
         <div>
             <label for="tags">Tags</label>
-            <input id="tags" data-bind="value: tagsFormatted" />
+            <input id="tags" data-bind="value: tagsFormatted" placeholder="CSS, HTML5"/>
         </div>
         <img data-bind="attr: {src: speaker().imageName}" />
         <address data-bind="text: speaker().fullName"></address>
@@ -37,7 +37,8 @@
     <div class="details-right">
         <div>
             <label for="description">Description</label>
-            <textarea id="description" data-bind="value: description, valueUpdate: 'afterkeydown'"></textarea>
+            <textarea id="description" data-bind="value: description, valueUpdate: 'afterkeydown'" 
+                placeholder="Session description" required></textarea>
         </div>
         <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
         <input

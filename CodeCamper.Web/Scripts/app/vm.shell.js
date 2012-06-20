@@ -1,9 +1,7 @@
-﻿define(['ko', 'underscore', 'datacontext', 'config', 'model'],
-    function (ko, _, datacontext, config, model) {
+﻿define(['ko', 'underscore', 'datacontext', 'config'],
+    function (ko, _, datacontext, config) {
 
         var
-            logger = config.logger,
-
             currentUser = config.currentUser,
 
             demoUsers = ko.observableArray([]),

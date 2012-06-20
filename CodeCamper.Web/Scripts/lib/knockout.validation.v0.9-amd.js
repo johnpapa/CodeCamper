@@ -1,5 +1,5 @@
-
-define(['ko'], function(ko){
+define(['ko'],
+function (ko) {
     if (typeof (ko) === undefined) { throw 'Knockout is required, please ensure it is loaded before loading this validation plug-in'; }
 
     var configuration = {

@@ -46,7 +46,7 @@ html {
 	padding: 0 7%;
     color: #000000;
     background: @background-color;
-	overflow: scroll;
+	overflow: scroll; 
 }
 
 body {
@@ -113,7 +113,7 @@ body {
 			color: @text-color;
 			display: block;
 			font-size: 100%;
-			padding: 5px 7px;
+			padding: 3px 5px;
 			width: 100%;
 		}
 
@@ -341,7 +341,7 @@ label.favoritesonly > {
 
 .details-left {
     float: left;
-    width: 300px;
+    width: 320px;
     clear: both;
 
     > div {
@@ -447,7 +447,7 @@ select {
 input,
 textarea,
 select {
-	padding: 5px;
+	padding: 3px;
 }
 
 nav label,
@@ -469,7 +469,7 @@ nav {
 	}
 
 	select {
-		margin-bottom: 6%;
+		margin-bottom: 4%;
 	}
 }
 
@@ -622,23 +622,101 @@ button:disabled {
 .starRating:hover span.hoverChosen { background-position: 0 0; }
 
 
-/**************/
-/* validation */
-.validationMessage { 
+/* 3.0.2 CUSTOM VALIDATION
+--------------------------------------------------------- */
+
+/* input:focus, textarea:focus */
+input:required {
+	background: white url(images/val_asterisk.png) no-repeat 98% center;
+}
+textarea:required, textarea:required:focus {
+	background: white url(images/val_asterisk.png) no-repeat 94% center;
+}
+
+input:focus:invalid {
+	background: white url(images/invalid.png) no-repeat 98% center;
+	border-color: #B03535;
+}
+
+textarea:focus:invalid {
+	background: white url(images/invalid.png) no-repeat 94% center;
+	border-color: #B03535;
+}
+
+/* *:focus {outline: none;} */
+
+textarea:focus {outline: none;}
+textarea {
+	padding:5px; 
+	width:300px;
+}
+
+	input, textarea { 
+		border:1px solid #aaa;
+		border-radius:2px;
+		-moz-transition: padding .25s; 
+		-webkit-transition: padding .25s; 
+		-o-transition: padding .25s;
+		transition: padding .25s;
+	}
+	input:focus, textarea:focus {
+		border:1px solid #555; 
+		padding-right:20px;
+	}
+
+input:required {
+	background: #fff url(images/val_asterisk.png) no-repeat 98% center;
+}
+textarea:required {
+	background: #fff url(images/val_asterisk.png) no-repeat 94% center;
+}
+input:required:valid, textarea:required:valid {
+	background: #fff url(images/valid.png) no-repeat 98% center;
+	/* box-shadow: 0 0 5px #5cd053; */
+	border-color: #28921f;
+}
+textarea:required:valid {
+	background: #fff url(images/valid.png) no-repeat 94% center;
+}
+input:focus:invalid, textarea:focus:invalid {
+	background: #fff url(images/invalid.png) no-repeat 98% center;
+	border-color: #b03535
+}
+textarea:focus:invalid {
+	background: #fff url(images/invalid.png) no-repeat 94% center;
+}
+
+
+/* TODO: JUST FOR TESTING */
+/*
+.validationMessageBoring { 
 	padding: 0 8px 0 8px; 
 	color: red; 
+	z-index: 999; 
+	position: absolute; 
+}
+*/
+
+.validationMessage {
+	background: #d45252;
+	border-radius: 3px 3px 3px 3px;
+	color: white;
+	margin-left:8px;
+	padding: 0 6px;
+	z-index: 999; /* hints stay above all other elements */
+	position: absolute; /* allows proper formatting if hint is two lines */
+	display: none; 
 }
 
-input:required, input:focus {
-  -moz-box-shadow: none;
-	border: blue solid 1px;
-}
+input:focus + .validationMessage {display: inline;}
+input:valid + .validationMessage {display: none;}
+textarea:focus + .validationMessage {display: inline;}
+textarea:valid + .validationMessage {display: none;}
 
-input:required:invalid, input:focus:invalid {
-  /* insert your own styles for invalid form input */
-  -moz-box-shadow: none;
-	border: red solid 1px;
-}
+/*
+input:required:valid + .validationMessage {background: #28921f;}
+*/
+	
 
 
 /* 3.1 RESPONSIVENESS

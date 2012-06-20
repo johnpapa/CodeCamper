@@ -36,7 +36,7 @@
         'json2': '../lib/json2',
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
-        'knockout.validation' : '../lib/knockout.validation.v0.9-amd',
+        'ko.validation' : '../lib/knockout.validation.v0.9-amd',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'moment': '../lib/moment',
@@ -79,8 +79,8 @@ requirejs([
         'ko.bindingHandlers.activity', // Knockout custom binding handlers
         'ko.bindingHandlers.command', // Knockout custom binding handlers
         'ko.asyncCommand',      // Knockout custom asyncCommand
-        'knockout.validation', // Knockout validation
         'koExternalTemplateEngine',
+        'ko.validation',        // Knockout validation
         'debug.helpers'         // our app's ko debugging plugin
 
 ], function (json2, $, _, moment, sammy, amplify, ko, toastr) //, knockoutChangeTracker) //, bootstrapper)
@@ -100,4 +100,4 @@ requirejs([
         require('bootstrapper').run();
 
         //bootstrapper.run();
-    })
+})

@@ -1,4 +1,4 @@
-﻿define(['toastr', 'mock/mock', 'infuser', 'ko'],
+﻿define(['toastr', 'mock/mock', 'infuser', 'ko', 'ko.validation'],
     function (toastr, mock, infuser, ko) {
 
         var// properties
@@ -15,6 +15,16 @@
             // methods
             dataserviceInit = function () { },
 
+            validationInit = function () {
+                ko.validation.configure({
+                    registerExtenders: true,
+                    messagesOnModified: true,
+                    insertMessages: true,
+                    parseInputAttributes: true,
+                    messageTemplate: null
+                });
+            },
+
             init = function () {
                 if (useMocks) {
                     dataserviceInit = mock.dataserviceInit;
@@ -25,6 +35,8 @@
                 infuser.defaults.templateUrl = "/Tmpl";
 
                 toastr.options.timeOut = toastrTimeout;
+
+                validationInit();
             };
 
         init();

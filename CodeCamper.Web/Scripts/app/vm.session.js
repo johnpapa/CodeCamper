@@ -1,4 +1,4 @@
-﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'router'],
+﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'router', 'ko.validation'],
     function (ko, datacontext, config, messenger, sort, router) {
 
         var
@@ -20,6 +20,12 @@
             canEditEval = ko.computed(function () {
                 return session() && config.currentUser().id() !== session().speakerId();
             }),
+
+            validationErrors = ko.observableArray([]), // Override this after we get a session
+
+            //validationErrors = ko.computed(function(){
+            //    return session() ? ko.validation.group(session()) : ko.observableArray([]);
+            //}),
 
             isDirty = ko.computed(function () {
                 if (canEditSession()) {
@@ -86,12 +92,12 @@
                     }
                 },
                 canExecute: function (isExecuting) {
-                    return isDirty();
+                    return validationErrors().length === 0 && isDirty();
                 }
             }),
             
             canLeave = function () {
-                return !isDirty();
+                return validationErrors().length || !isDirty();
             },
 
             activate = function (routeData) {
@@ -105,8 +111,12 @@
             },
             
             getSession = function (completeCallback, forceRefresh) {
-                var
-                    callback = completeCallback || function () { };
+                var callback = function () {
+                    if (completeCallback) {
+                        completeCallback();
+                    }
+                    validationErrors = ko.validation.group(session());
+                };
 
                 datacontext.sessions.getFullSessionById(
                     currentSessionId(), {

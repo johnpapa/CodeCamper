@@ -1,15 +1,6 @@
 ﻿define(['require', 'ko'],
     function (require, ko) {
 
-        ko.validation.configure({
-            registerExtenders: true,
-            messagesOnModified: true,
-            insertMessages: true,
-            parseInputAttributes: true,
-            messageTemplate: null
-        });
-
-
         var imageBasePath = '../content/images/',
             unknownPersonImageSource = 'unknown_person.jpg';
 
@@ -54,7 +45,7 @@
             }),
             
             self.rating = ko.observable();
-            self.text = ko.observable();
+            self.text = ko.observable().extend({ required: true });
             self.dirtyFlag = new ko.DirtyFlag([self.rating, self.text]);
             return self;
         };
@@ -107,14 +98,14 @@
             //self.datacontext = datacontext;
             self.id = ko.observable();
             self.title = ko.observable().extend({required: true});
-            self.code = ko.observable();
+            self.code = ko.observable().extend({ required: true });
             self.speakerId = ko.observable();
             self.trackId = ko.observable();
             self.timeslotId = ko.observable();
             self.roomId = ko.observable();
-            self.level = ko.observable();
+            self.level = ko.observable().extend({ required: true });
             self.tags = ko.observable();
-            self.description = ko.observable();
+            self.description = ko.observable().extend({ required: true });
             self.isFavoriteRefresh = ko.observable(); 
 
             self.tagsFormatted = ko.computed({

@@ -158,6 +158,9 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\invalid.png" />
+    <Content Include="Content\images\valid.png" />
+    <Content Include="Content\images\val_asterisk.png" />
     <Content Include="Content\styles.less" />
     <Content Include="Content\images\aaron_skonnard.jpg" />
     <Content Include="Content\images\back.png" />
