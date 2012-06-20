@@ -16,7 +16,7 @@
         //'ko': { deps: ['jquery'], exports: 'ko' }, ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        //'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (JP edited it)
+        'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (JP edited it)
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
         'toastr': { deps: ['jquery'], exports: 'toastr' },
@@ -54,7 +54,7 @@
 //       loaded without naming them specifically in the modules that use
 //       them and we don't want those modules to know that they use plugins
 requirejs([
-        // 3rd party libraries
+        // 3rd party libraries (we can test for their existance)
         'json2',
         'jquery',
         'underscore',
@@ -81,7 +81,9 @@ requirejs([
         'ko.validation', // Knockout validation
         'debug.helpers'         // our app's ko debugging plugin
 ],
-    function (json2, $, _, moment, sammy, amplify, ko, toastr)
+    function ()
+        // json2, $, _, moment, sammy, amplify, ko, toastr)
+
     /* 
      * WARD: 
      * We only use the 'bootstrapper' parameter within this function.
