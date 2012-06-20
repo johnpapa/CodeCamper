@@ -16,7 +16,7 @@
         //'ko': { deps: ['jquery'], exports: 'ko' }, ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        'knockout.validation': { deps: ['ko'] },
+        //'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (I edited it)
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
         'toastr': { deps: ['jquery'], exports: 'toastr' },
@@ -37,6 +37,7 @@
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
         'ko.validation' : '../lib/knockout.validation-amd',
+        //'ko.validation': '../lib/knockout.validation',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'moment': '../lib/moment',
@@ -63,7 +64,6 @@ requirejs([
         'amplify',
         'ko',
         'toastr',
-        'knockout.changetracker',
 
         'bootstrapper', 
     
@@ -79,15 +79,12 @@ requirejs([
         'ko.bindingHandlers.activity', // Knockout custom binding handlers
         'ko.bindingHandlers.command', // Knockout custom binding handlers
         'ko.asyncCommand',      // Knockout custom asyncCommand
+        'knockout.changetracker',
         'koExternalTemplateEngine',
         'ko.validation',        // Knockout validation
         'debug.helpers'         // our app's ko debugging plugin
 
-], function (json2, $, _, moment, sammy, amplify, ko, toastr) //, knockoutChangeTracker) //, bootstrapper)
-    //activityIndicator, sammyTitle, amplifyRequest, amplifyStore,
-    //jqueryMockJson, jqueryActivityEx, koUtils, koBindingHandlers,
-    //koBindingHandlersActivity, koBindingHandlersCommand, koAsyncCommand,
-    //koExternalTemplateEngine, knockoutChangeTracker, debugHelpers)
+], function (json2, $, _, moment, sammy, amplify, ko, toastr) //bootstrapper)
     
     //WARD: no need for plugin params as they are always undefined
     //PAPA: When I added the plugin parametes, I stopped getting load 

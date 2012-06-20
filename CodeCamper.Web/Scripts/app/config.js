@@ -22,7 +22,7 @@
                     insertMessages: true,
                     parseInputAttributes: true,
                     messageTemplate: null,
-                    decorateElement: true
+                    decorateElement: true // applies the .validationElement CSS class
                 });
             },
 
