@@ -37,7 +37,6 @@
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
         'ko.validation' : '../lib/knockout.validation-amd',
-        //'ko.validation': '../lib/knockout.validation',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'moment': '../lib/moment',
@@ -94,7 +93,6 @@ requirejs([
      */
 {
     //debugger; //TODO: uncomment to confirm that dependencies are loaded.
+    //require('bootstrapper').run();
     bootstrapper.run();
-
-    //bootstrapper.run();
 });
