@@ -49,9 +49,7 @@
             
             run = function () {
 
-                //PAPA: hard coded the user
-                //var userId = 1;
-                var userId = 3;
+                var currentUserId = config.currentUserId;
 
                 $('#busyindicator').activity(true);
 
@@ -74,10 +72,10 @@
                 $.when(datacontext.rooms.getData({results: data.rooms}),
                     datacontext.timeslots.getData({ results: data.timeslots }),
                     datacontext.tracks.getData({ results: data.tracks }),
-                    datacontext.attendance.getData({ param: userId, results: data.attendance }),
+                    datacontext.attendance.getData({ param: currentUserId, results: data.attendance }),
                     datacontext.persons.getSpeakers({ results: data.persons }),
                     datacontext.sessions.getData({ results: data.sessions }),
-                    datacontext.persons.getFullPersonById(userId,
+                    datacontext.persons.getFullPersonById(currentUserId,
                         {
                             success: function (person) {
                                 config.currentUser(person);
