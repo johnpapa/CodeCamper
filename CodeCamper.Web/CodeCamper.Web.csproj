@@ -220,6 +220,8 @@
     <Content Include="Scripts\app\vm.js" />
     <Content Include="Scripts\lib\infuser-amd.js" />
     <Content Include="Scripts\lib\knockout.changetracker-amd.js" />
+    <Content Include="Scripts\lib\knockout.validation.v0.9-amd.js" />
+    <Content Include="Scripts\lib\knockout.validation.v0.9.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
     <Content Include="Scripts\lib\TrafficCop-amd.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />

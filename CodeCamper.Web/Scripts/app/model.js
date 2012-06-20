@@ -1,6 +1,15 @@
 ﻿define(['require', 'ko'],
     function (require, ko) {
 
+        ko.validation.configure({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: true,
+            parseInputAttributes: true,
+            messageTemplate: null
+        });
+
+
         var imageBasePath = '../content/images/',
             unknownPersonImageSource = 'unknown_person.jpg';
 
@@ -97,7 +106,7 @@
             var self = this;
             //self.datacontext = datacontext;
             self.id = ko.observable();
-            self.title = ko.observable();
+            self.title = ko.observable().extend({required: true});
             self.code = ko.observable();
             self.speakerId = ko.observable();
             self.trackId = ko.observable();

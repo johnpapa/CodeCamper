@@ -621,6 +621,26 @@ button:disabled {
 .starRating:hover span { background-position: -24px 0; }
 .starRating:hover span.hoverChosen { background-position: 0 0; }
 
+
+/**************/
+/* validation */
+.validationMessage { 
+	padding: 0 8px 0 8px; 
+	color: red; 
+}
+
+input:required, input:focus {
+  -moz-box-shadow: none;
+	border: blue solid 1px;
+}
+
+input:required:invalid, input:focus:invalid {
+  /* insert your own styles for invalid form input */
+  -moz-box-shadow: none;
+	border: red solid 1px;
+}
+
+
 /* 3.1 RESPONSIVENESS
 --------------------------------------------------------- */
 @media only screen and (max-width: 1000px) {
