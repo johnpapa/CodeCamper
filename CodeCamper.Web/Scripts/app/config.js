@@ -21,8 +21,15 @@
                     messagesOnModified: true,
                     insertMessages: true,
                     parseInputAttributes: true,
-                    messageTemplate: null
+                    messageTemplate: null,
+                    decorateElement: true
                 });
+            },
+
+            configureExternalTemplates = function () {
+                infuser.defaults.templatePrefix = "_";
+                infuser.defaults.templateSuffix = ".tmpl.html";
+                infuser.defaults.templateUrl = "/Tmpl";
             },
 
             init = function () {
@@ -30,12 +37,8 @@
                     dataserviceInit = mock.dataserviceInit;
                 }
 
-                infuser.defaults.templatePrefix = "_";
-                infuser.defaults.templateSuffix = ".tmpl.html";
-                infuser.defaults.templateUrl = "/Tmpl";
-
                 toastr.options.timeOut = toastrTimeout;
-
+                configureExternalTemplates();
                 validationInit();
             };
 

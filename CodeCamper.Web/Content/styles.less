@@ -632,9 +632,10 @@ button:disabled {
 /* 3.0.2 CUSTOM VALIDATION
 --------------------------------------------------------- */
 
+
 input:invalid, textarea:invalid{
 	border-width: @validation-border-width;
-	border-color: @border-color-invalid;
+/*	border-color: @border-color-valid; */
 }
 
 /* input:focus, textarea:focus */
@@ -681,19 +682,18 @@ textarea:required {
 }
 input:required:valid, textarea:required:valid {
 	background: #fff url(images/valid.png) no-repeat 98% center;
-	border-color: @border-color-valid;
+/*	border-color: @border-color-valid; */
 }
 textarea:required:valid {
 	background: #fff url(images/valid.png) no-repeat 94% center;
 }
 input:focus:invalid, textarea:focus:invalid {
 	background: #fff url(images/invalid.png) no-repeat 98% center;
-	border-color: @border-color-invalid;
+/*	border-color: @border-color-valid; */
 }
 textarea:focus:invalid {
 	background: #fff url(images/invalid.png) no-repeat 94% center;
 }
-
 
 /* TODO: JUST FOR TESTING */
 /*
@@ -716,8 +716,14 @@ textarea:focus:invalid {
 /*	display: none; */ /* always show it, so IE is happy */
 }
 
+.validationElement {
+	border: solid 1px @border-color-invalid;
+}
+
+
 input:focus + .validationMessage, textarea:focus + .validationMessage {display: inline;}
 input:valid + .validationMessage, textarea:valid + .validationMessage {display: none;}
+
 	
 
 

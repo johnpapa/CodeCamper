@@ -36,7 +36,7 @@
         'json2': '../lib/json2',
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
-        'ko.validation' : '../lib/knockout.validation.v0.9-amd',
+        'ko.validation' : '../lib/knockout.validation-amd',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'moment': '../lib/moment',
