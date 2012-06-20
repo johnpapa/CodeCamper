@@ -63,7 +63,6 @@ requirejs([
         'amplify',
         'ko',
         'toastr',
-//        'bootstrapper',
     
         // 3rd party plugins - they don't return module objects
         'activity-indicator', // jquery plugin
@@ -82,7 +81,7 @@ requirejs([
         'ko.validation', // Knockout validation
         'debug.helpers'         // our app's ko debugging plugin
 ],
-    function (json2, $, _, moment, sammy, amplify, ko, toastr) //, bootstrapper)
+    function (json2, $, _, moment, sammy, amplify, ko, toastr)
     /* 
      * WARD: 
      * We only use the 'bootstrapper' parameter within this function.

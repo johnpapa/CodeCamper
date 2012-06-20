@@ -4,7 +4,7 @@
 // 	2) Before registering routes with router,
 //      the viewmodels should exist.
 // ----------------------------------------------
-define(['jquery', 'underscore','sammy', 'presenter','config', 'route-mediator'], //, 'sammy.title'],
+define(['jquery', 'underscore','sammy', 'presenter','config', 'route-mediator'],
     function ($, _, Sammy, presenter, config, routeMediator) {
         var
             currentHash = '',
