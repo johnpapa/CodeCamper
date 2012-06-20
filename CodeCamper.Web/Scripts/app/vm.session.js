@@ -1,4 +1,4 @@
-﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'router', 'ko.validation'],
+﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'router'],
     function (ko, datacontext, config, messenger, sort, router) {
 
         var
