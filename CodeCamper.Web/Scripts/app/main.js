@@ -16,6 +16,7 @@
         //'ko': { deps: ['jquery'], exports: 'ko' }, ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
+        'knockout.validation': { deps: ['ko'] },
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
         'toastr': { deps: ['jquery'], exports: 'toastr' },
@@ -34,9 +35,10 @@
         'jquery.mockjson': '../lib/jquery.mockjson',
         'json2': '../lib/json2',
         'infuser': '../lib/infuser-amd',
-        'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
+        'knockout.validation' : '../lib/knockout.validation.v0.9-amd',
         'ko': '../lib/knockout-2.1.0',
+        'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'moment': '../lib/moment',
         'sammy': '../lib/sammy',
         'sammy.title': '../lib/sammy.title',
@@ -77,6 +79,7 @@ requirejs([
         'ko.bindingHandlers.activity', // Knockout custom binding handlers
         'ko.bindingHandlers.command', // Knockout custom binding handlers
         'ko.asyncCommand',      // Knockout custom asyncCommand
+        'knockout.validation', // Knockout validation
         'koExternalTemplateEngine',
         'debug.helpers'         // our app's ko debugging plugin
 
