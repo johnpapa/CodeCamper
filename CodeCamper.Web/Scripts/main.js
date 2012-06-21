@@ -3,25 +3,14 @@
     // script default location
     baseUrl: 'scripts/app',
 
-    // shim in the libs that don't know define.amd
+    // shim in the libs that don't know define.amd (excluding extensions)
     shim: {
-        // jquery 1.7.x understands define; no shim needed.
-        'activity-indicator': { deps: ['jquery'] },
         'amplify': { deps: [], exports: 'amplify' },
-        'amplify.request': { deps: ['jquery', 'amplify'] },
-        'amplify.store': { deps: ['amplify'] },
-        'jquery.activity-ex': { deps: ['jquery'] },
-        'jquery.mockjson': { deps: ['jquery'] },
-        //'jquery.ui': { deps: ['jquery'] },
-        //'jquery.wijmo': { deps: ['jquery.ui', 'jquery'] },
+        // jquery 1.7.x understands define; no shim needed.
         'json2': { exports: 'JSON' }, // not really a module
         //'ko': { deps: ['jquery'], exports: 'ko' }, //ko 2.1 understands define; no shim needed
-        // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        'knockout.validation': { deps: ['ko'] },
-        //'knockout.wijmo': { deps: ['jquery', 'ko', 'jquery.wijmo'] },
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
-        'sammy.title': { deps: ['jquery', 'sammy'] },
         'toastr': { deps: ['jquery'], exports: 'toastr' },
         'underscore': { deps: [], exports: '_' }
     },
