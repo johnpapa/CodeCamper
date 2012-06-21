@@ -13,6 +13,7 @@
             },
             
             init = function () {
+                activate();
             };
 
         // Initialization

@@ -60,12 +60,15 @@ define(['jquery'],
             //    .closest('nav')
             //    .find('a.route-active')
             //    .removeClass('route-active');
-            //PAPA: Find all NAV links by CSS classname instead. "It's impenetrable and brittle" ... Ward Bell
-            $(group + '.route-active').removeClass('route-active');
-            if (route) {
-                // Highlight the selected nav that matches the route
-                //$('nav > ul > li > a[href="' + route + '"]').addClass('route-active');
-                $(group).has('a[href="' + route + '"]').addClass('route-active');
+            // Find all NAV links by CSS classname instead. "It's impenetrable and brittle"
+            var $group = $(group);
+            if ($group) {
+                $(group + '.route-active').removeClass('route-active');
+                if (route) {
+                    // Highlight the selected nav that matches the route
+                    //$('nav > ul > li > a[href="' + route + '"]').addClass('route-active');
+                    $group.has('a[href="' + route + '"]').addClass('route-active');
+                }
             }
         };
         

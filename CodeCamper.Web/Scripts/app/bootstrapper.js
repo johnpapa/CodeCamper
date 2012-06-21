@@ -1,44 +1,44 @@
 ﻿define(['jquery', 'ko', 'toastr', 'config', 'router', 'model', 'datacontext', 'vm'],
     function ($, ko, toastr, config, router, model, datacontext, vm) {
-
-        // all models use the one datacontext
-        // avoids circular reference between model & datacontext
-        //model.datacontext(datacontext);
-
         var
             logger = config.logger,
             
             bindViewModelsToViews = function () {
-
-                ko.applyBindings(vm.shell, $('#shellTop').get(0));
-                vm.shell.activate();
-
-                ko.applyBindings(vm.favorites, $('#favorites').get(0));
-                ko.applyBindings(vm.session, $('#session').get(0));
-                ko.applyBindings(vm.sessions, $('#sessions').get(0));
-                ko.applyBindings(vm.speakers, $('#speakers').get(0));
+                ko.applyBindings(vm.shell, getView(config.viewIds.shellTop));
+                ko.applyBindings(vm.favorites, getView(config.viewIds.favorites));
+                ko.applyBindings(vm.session, getView(config.viewIds.session));
+                ko.applyBindings(vm.sessions, getView(config.viewIds.sessions));
+                ko.applyBindings(vm.speaker, getView(config.viewIds.speaker));
+                ko.applyBindings(vm.speakers, getView(config.viewIds.speakers));
+            },
+            
+            getView = function (viewName) {
+                return $(viewName).get(0);
             },
 
             registerRoutes = function () {
-                // Bind the views to the view models
+
                 // Favorites routes
                 router.register({
-                    routes:
-                        [
-                            { isDefault: true, route: '#/favorites', title: 'Favorites', callback: vm.favorites.activate, group: '.route-top' },
-                            { route: '#/favorites/date/:date', title: 'Favorites', callback: vm.favorites.activate, group: '.route-left' }],
-                    view: '#favorites'
+                    routes:[
+                        { isDefault: true, route: '#/favorites', title: 'Favorites', callback: vm.favorites.activate, group: '.route-top' },
+                        { route: '#/favorites/date/:date', title: 'Favorites', callback: vm.favorites.activate, group: '.route-left' }
+                    ],
+                    view: config.viewIds.favorites
                 });
+
                 // Sessions routes
                 router.register({
                     routes:
                         [{ route: '#/sessions', title: 'Sessions', callback: vm.sessions.activate, group: '.route-top' }],
-                    view: '#sessions'
+                    view: config.viewIds.sessions
                 });
                 // Session details routes
-                router.register({ route: '#/sessions/:id', title: 'Session', callback: vm.session.activate, view: '#session', group: '.route-left' }); // Speakers list routes
-                router.register({ route: '#/speakers', title: 'Speakers', callback: vm.speakers.activate, view: '#speakers', group: '.route-top' }); //// Speaker details routes
-                //router.register({ route: '#/speakers/:id', callback: vm.speaker.activate, view: '#speaker', group: '.route-left' })
+                router.register({ route: '#/sessions/:id', title: 'Session', callback: vm.session.activate, view: config.viewIds.session, group: '.route-left' });
+
+                // Speaker and speaker details routes
+                router.register({ route: '#/speakers', title: 'Speakers', callback: vm.speakers.activate, view: config.viewIds.speakers, group: '.route-top' });
+                router.register({ route: '#/speakers/:id', title: 'Speaker', callback: vm.speaker.activate, view: config.viewIds.speaker });
 
                 // Catch invalid routes
                 router.register({ route: /.*/, title: '', callback: function () { toastr.error('invalid route'); }, view: '' });
@@ -48,7 +48,6 @@
             },
             
             run = function () {
-
                 var currentUserId = config.currentUserId;
 
                 $('#busyindicator').activity(true);

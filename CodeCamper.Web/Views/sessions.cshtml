@@ -1,13 +1,13 @@
-﻿<section id="sessions" class="view">
+﻿<section id="sessions-view" class="view">
     <nav>
         <label for="track">Track</label>
         <select id="track" data-bind="options: tracks, value: sessionsFilter.track, optionsText: 'name', optionsCaption:'All'">
         </select>
-            
+
         <label for="speaker">Speaker</label>
-        <select id="speaker" data-bind="options: speakers, value: sessionsFilter.speaker, optionsText: 'fullName', optionsCaption:'All'">
+        <select id="speaker" data-bind="options: speakers, value: sessionsFilter.speaker, optionsText: 'fullName', optionsCaption: 'All'">
         </select>
-            
+
         <label for="timeslot">Time slot</label>
         <select id="timeslot" data-bind="options: timeslots, value: sessionsFilter.timeslot, optionsText: 'shortStart', optionsCaption:'All'">
         </select>

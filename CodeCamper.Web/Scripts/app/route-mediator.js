@@ -1,7 +1,6 @@
 ﻿define(['amplify', 'config'],
     function (amplify, config) {
         var
-            logger = config.logger,
             canleaveCallback,
             priority = 1,
             self = this,

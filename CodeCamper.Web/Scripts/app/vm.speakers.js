@@ -43,9 +43,9 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
                 }
             }),
 
-            gotoDetails = function (selectedspeaker) {
-                if (selectedspeaker && selectedspeaker.id()) {
-                    router.navigateTo('#/speakers/' + selectedspeaker.id());
+            gotoDetails = function (selectedSpeaker) {
+                if (selectedSpeaker && selectedSpeaker.id()) {
+                    router.navigateTo('#/speakers/' + selectedSpeaker.id());
                 }
             },
 

@@ -2,20 +2,27 @@
     function (toastr, mock, infuser, ko) {
 
         var// properties
-            useMocks = false, // Set this to toggle mocks
-            logger = toastr, // use toastr for the logger
-            throttle = 400,
-            
             //currentUserId = 1, // Default user - has favorites
             currentUserId = 3, // John Papa - no favorites      
             currentUser = ko.observable(),
             demoUserIds = [1, 3, 5],
-            
-            title = 'CodeCamper > ',
-            toastrTimeout = 2000,
+            logger = toastr, // use toastr for the logger
             messages = {
                 viewModelActivated: 'viewmodel-activation'
             },
+            throttle = 400,
+            title = 'CodeCamper > ',
+            toastrTimeout = 2000,
+            useMocks = false, // Set this to toggle mocks
+            viewIds = {
+                favorites: '#favorites-view',
+                session: '#session-view',
+                sessions: '#sessions-view',
+                shellTop: '#shellTop-view',
+                speaker: '#speaker-view',
+                speakers: '#speakers-view'
+            },
+
             // methods
             dataserviceInit = function () { },
 
@@ -57,6 +64,7 @@
             messages: messages,
             throttle: throttle,
             title: title,
+            viewIds: viewIds,
             window: window
         };
     });

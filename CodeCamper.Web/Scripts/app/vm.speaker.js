@@ -4,12 +4,11 @@
         var
             logger = config.logger,
             currentSpeakerId = ko.observable(),
-            rooms = ko.observableArray(),
             speaker = ko.observable(),
             sessions = ko.observableArray(),
             
             tmplName = function() {
-                return canEditSpeaker() ? 'speaker.edit' : 'speaker.view';
+                return canEdit() ? 'speaker.edit' : 'speaker.view';
             },
             
             canEdit = ko.computed(function () {
@@ -44,7 +43,7 @@
                     getSpeaker(callback, true);
                 },
                 canExecute: function (isExecuting) {
-                    return isDirty()
+                    return isDirty();
                 }
             }),
 
@@ -52,14 +51,14 @@
                 execute: function (complete) {
                     if (canEdit()) {
                         $.when(
-                            datacontext.persons.updatePerson(
+                            datacontext.persons.updateData(
                                 speaker(), {
                                     success: function () { },
                                     error: function () { }
                                 }
                             )
                         ).always(function () {
-                            complete()
+                            complete();
                         });
                         return;
                     } else {
@@ -67,20 +66,21 @@
                     }
                 },
                 canExecute: function (isExecuting) {
-                    return validationErrors().length === 0 && isDirty();
+                    return isDirty() && validationErrors().length === 0;
                 }
             }),
-            
+
             canLeave = function () {
-                return validationErrors().length === 0 || !isDirty();
+                return !isDirty() || validationErrors().length === 0;
             },
 
             activate = function (routeData) {
+                config.logger.info('here');
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
 
                 currentSpeakerId(routeData.id);
                 getSpeaker();
-                getSessions();
+                //getSessions();
             },
             
             getSpeaker = function (completeCallback, forceRefresh) {
@@ -106,12 +106,12 @@
             },
             
             getSessions = function () {
-                if (!sessions().length) {
-                    datacontext.sessions.getData({
-                        results: sessions,
-                        sortFunction: sort.sessionSort
-                    });
-                }
+                //if (!sessions().length) {
+                //    datacontext.sessions.getData({
+                //        results: sessions,
+                //        sortFunction: sort.sessionSort
+                //    });
+                //}
             },
 
             init = function () {
@@ -126,7 +126,7 @@
             canEdit: canEdit,
             canLeave: canLeave,
             goBack: goBack,
-            sessions: sessions,
+            //sessions: sessions,
             speaker: speaker,
             save: save,
             tmplName: tmplName,

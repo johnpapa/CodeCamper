@@ -1,0 +1,29 @@
+﻿<div data-bind="with: speaker">
+    <div class="titleblock">
+        <h1 data-bind="text:fullName"></h1>
+    </div>
+    <div class="details-left">
+        <div>
+            <img data-bind="attr: {src: imageName}" />
+            <address data-bind="text: fullName"></address>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <address id="email" data-bind="text: email"></address>
+        </div>
+        <div>
+            <label for="email">Twitter</label>
+            <address id="twitter" data-bind="text: twitter"></address>
+        </div>
+        <div>
+            <label for="blog">Blog</label>
+            <address id="blog" data-bind="text: blog"></address>
+        </div>
+    </div>
+    <div class="details-right">
+        <div>
+            <label for="bio">Bio</label>
+            <span id="bio" class="scrollable-text" data-bind="text: bio"></span>
+        </div>
+    </div>
+</div>

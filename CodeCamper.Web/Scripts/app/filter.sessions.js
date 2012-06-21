@@ -1,20 +1,21 @@
 ﻿define(['ko', 'utils', 'config'],
     function(ko, utils, config) {
 
-        // Ctor for a SessionFilter
-        var SessionsFilter = function() {
+        // Ctor for a SessionsFilter
+        var Sessions = function() {
             var self = this;
             self.favoriteOnly = ko.observable(false);
             self.minDate = ko.observable();
             self.maxDate = ko.observable();
-            self.timeslot = ko.observable(); // object
             self.searchText = ko.observable().extend({ throttle: config.throttle });
             self.speaker = ko.observable(); // object
+            self.test = ko.observable(); // object
+            self.timeslot = ko.observable(); // object
             self.track = ko.observable(); // object
             return self;
         };
 
-        SessionsFilter.prototype = function () {
+        Sessions.prototype = function () {
             var tagDelimiter = '|',
                 escapedTagDelimiter = '\\|',
                 searchTest = function(searchText, session) {
@@ -74,7 +75,7 @@
                     //console.log('time filter matched: ' + matchTime);
                     //console.log('models filter matched: ' + matchModels);
                     //console.log('MATCH === ' + matchSearch && matchFav && matchTime && matchModels);
-                    return matchSearch && matchFav && matchTime && matchModels;
+                    //return matchSearch && matchFav && matchTime && matchModels;
                 };
 
             return {
@@ -83,6 +84,6 @@
         }();
 
         return {
-            Sessions: SessionsFilter
+            Sessions: Sessions
         };
     });

@@ -9,6 +9,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             isBusy = false,
             isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
+            test = ko.observable(),
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
             timeslots = ko.observableArray(),
@@ -42,7 +43,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             },
 
             canLeave = function () {
-                return true; //sessions().length % 2 === 1;
+                return true; 
             },
 
             activate = function () {
@@ -105,8 +106,11 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
 
             clearSideFilters = function () {
                 isRefreshing = true;
-                sessionsFilter.favoriteOnly(false).speaker(null)
-                    .timeslot(null).track(null);
+                sessionsFilter
+                    .favoriteOnly(false)
+                    .speaker(null)
+                    .timeslot(null)
+                    .track(null);
                 isRefreshing = false;
                 refresh();
             },
@@ -139,5 +143,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             speakers: speakers,
             timeslots: timeslots,
             tracks: tracks
+            
+            ,test:test
         };
     });

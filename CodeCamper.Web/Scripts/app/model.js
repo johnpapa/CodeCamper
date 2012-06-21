@@ -20,7 +20,6 @@
             
         var Attendance = function () {
             var self = this;
-            //self.datacontext = datacontext;
             self.sessionId = ko.observable();
             self.personId = ko.observable();
             
@@ -71,7 +70,6 @@
         // ----------------------------------------------
         var Room = function () {
             var self = this;
-            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.name = ko.observable();
             self.isNullo = false;
@@ -87,7 +85,6 @@
         // ----------------------------------------------
         var Session = function () {
             var self = this;
-            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.title = ko.observable().extend({required: true});
             self.code = ko.observable().extend({ required: true });
@@ -212,17 +209,16 @@
         // ----------------------------------------------
         var Person = function () {
             var self = this;
-            //self.datacontext = datacontext;
             self.id = ko.observable();
-            self.firstName = ko.observable();
-            self.lastName = ko.observable();
+            self.firstName = ko.observable().extend({ required: true });
+            self.lastName = ko.observable().extend({ required: true });
             self.fullName = ko.computed(function () {
                 return self.firstName() + ' ' + self.lastName();
             }, self);
 
-            self.email = ko.observable();
-            self.blog = ko.observable();
-            self.twitter = ko.observable();
+            self.email = ko.observable().extend({ required: true });
+            self.blog = ko.observable().extend({ required: true });
+            self.twitter = ko.observable().extend({ required: true });
             self.gender = ko.observable();
             self.imageSource = ko.observable();
             self.imageName = ko.computed(function () {
@@ -232,8 +228,15 @@
                 }
                 return imageBasePath + source;
             }, self);
-            self.bio = ko.observable();
+            self.bio = ko.observable().extend({ required: true });
             self.isBrief = ko.observable(true);
+            self.dirtyFlag = new ko.DirtyFlag([
+                self.firstName,
+                self.lastName,
+                self.email,
+                self.blog,
+                self.twitter,
+                self.bio]);
             return self;
         };
 
@@ -249,6 +252,7 @@
             .bio('');
         personNullo.isNullo = true;
         personNullo.isBrief = function () { return false; }; // nullo is never brief
+        personNullo.dirtyFlag().reset();
 
         Person.prototype = function() {
             //TODO: Ward ... YAGNI or NOT?
@@ -265,16 +269,12 @@
         // ----------------------------------------------
         var TimeSlot = function () {
             var self = this;
-            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.start = ko.observable();
             self.duration = ko.observable();
             self.dateOnly = ko.computed(function () {
                 return self.start() ? moment(self.start()).format('MM-DD-YYYY') : '';
             }, self);
-            //self.displayDate = ko.computed(function () {
-            //    return self.start() ? moment(self.start()).format('ddd MMM DD') : '';
-            //}, self);
             self.fullStart = ko.computed(function () {
                 return self.start() ? moment(self.start()).format('dddd hh:mm a') : '';
             }, self);
@@ -298,7 +298,6 @@
         // ----------------------------------------------
         var Track = function () {
             var self = this;
-            //self.datacontext = datacontext;
             self.id = ko.observable();
             self.name = ko.observable();
             self.isNullo = false;

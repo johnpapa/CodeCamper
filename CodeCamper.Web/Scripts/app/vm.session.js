@@ -58,7 +58,7 @@
                     canEditSession() ? getSession(callback, true) : getAttendance(callback, true);
                 },
                 canExecute: function (isExecuting) {
-                    return isDirty()
+                    return isDirty();
                 }
             }),
 
@@ -73,7 +73,7 @@
                                 }
                             )
                         ).always(function () {
-                            complete()
+                            complete();
                         });
                         return;
                     }
@@ -86,7 +86,7 @@
                                 }
                             )
                         ).always(function () {
-                            complete()
+                            complete();
                         });
                         return;
                     }
@@ -140,7 +140,7 @@
                 datacontext.attendance.getSessionFavorite(
                     session().attendance().sessionId(),
                     {
-                        success: function (a) {
+                        success: function () {
                             callback();
                         },
                         error: function () {
