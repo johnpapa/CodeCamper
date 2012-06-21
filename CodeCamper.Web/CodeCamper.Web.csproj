@@ -230,11 +230,6 @@
     <Content Include="Test\webapi.session-cud.tests.html" />
     <Content Include="Test\webapi.session-cud.tests.js" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
-    <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\lib\jquery.validate.js" />
-    <Content Include="Scripts\lib\jquery.validate.min.js">
-      <DependentUpon>jquery.validate.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\lib\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
     <Content Include="Scripts\lib\activity-indicator.js" />
@@ -278,10 +273,6 @@
     <Content Include="Scripts\lib\jquery-1.7.2.js" />
     <Content Include="Scripts\lib\jquery-1.7.2.min.js" />
     <Content Include="Scripts\lib\jquery.mockjson.js" />
-    <Content Include="Scripts\lib\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\lib\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\lib\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\lib\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\lib\modernizr-2.5.3.js" />
     <Content Include="Scripts\lib\moment.js" />
     <Content Include="Scripts\lib\moment.min.js">
