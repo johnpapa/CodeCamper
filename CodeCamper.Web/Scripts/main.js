@@ -7,7 +7,7 @@
     shim: {
         // jquery 1.7.x understands define; no shim needed.
         'activity-indicator': { deps: ['jquery'] },
-        'amplify': {deps: [], exports: 'amplify'},
+        'amplify': { deps: [], exports: 'amplify' },
         'amplify.request': { deps: ['jquery', 'amplify'] },
         'amplify.store': { deps: ['amplify'] },
         'jquery.activity-ex': { deps: ['jquery'] },
@@ -18,7 +18,7 @@
         //'ko': { deps: ['jquery'], exports: 'ko' }, //ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        'knockout.validation': { deps: ['ko'] }, 
+        'knockout.validation': { deps: ['ko'] },
         //'knockout.wijmo': { deps: ['jquery', 'ko', 'jquery.wijmo'] },
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
@@ -52,7 +52,7 @@
         'toastr': '../lib/toastr',
         'trafficcop': '../lib/TrafficCop-amd',
         'underscore': '../lib/underscore'
-    }       
+    }
 });
 
 // Require that pre-requisites be loaded immediately, before anything else
@@ -71,16 +71,14 @@ requirejs([
     // use the parameterized signature if you want to confirm that dependencies are loaded with the debugger
     // function (ko, json2, $, _, moment, Sammy, amplify, toastr) {
     //    debugger; 
-    
+
     function (ko) {
-        
-        // ensure 'ko' is in the global namespace ('this') 
-        // because certain ko extensions (e.g., ko.validation)
-        // count on it being there.
+
+        // ensure KO is in the global namespace ('this') 
         if (!this.ko) {
             this.ko = ko;
         };
-        
+
         // Require that plugins be loaded, after the prerequisite libraries
         //       We load the plugins here and now so that we don't have to 
         //       name them specifically in the modules that use them because
