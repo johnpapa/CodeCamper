@@ -13,9 +13,9 @@
                 ko.applyBindings(vm.shell, $('#shellTop').get(0));
                 vm.shell.activate();
 
+                ko.applyBindings(vm.favorites, $('#favorites').get(0));
                 ko.applyBindings(vm.session, $('#session').get(0));
                 ko.applyBindings(vm.sessions, $('#sessions').get(0));
-                ko.applyBindings(vm.favorites, $('#favorites').get(0));
                 ko.applyBindings(vm.speakers, $('#speakers').get(0));
             },
 
