@@ -407,7 +407,7 @@
                                 // updates the person returned from getLocalById() above
                                 person = persons.mapDtoToContext(dto);
                                 person.isBrief(false); // now a full session
-                                logger.success('merged full person'); //TODO: revise message
+                                //logger.success('merged full person'); //TODO: revise message
                                 callbacks.success(person);
                                 def.resolve(dto);
                             },

@@ -12,11 +12,14 @@
         'amplify.store': { deps: ['amplify'] },
         'jquery.activity-ex': { deps: ['jquery'] },
         'jquery.mockjson': { deps: ['jquery'] },
+        //'jquery.ui': { deps: ['jquery'] },
+        //'jquery.wijmo': { deps: ['jquery.ui', 'jquery'] },
         'json2': { exports: 'JSON' }, // not really a module
-        //'ko': { deps: ['jquery'], exports: 'ko' }, ko 2.1 understands define; no shim needed
+        //'ko': { deps: ['jquery'], exports: 'ko' }, //ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (JP edited it)
+        //'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (JP edited it)
+        //'knockout.wijmo': { deps: ['jquery', 'ko', 'jquery.wijmo'] },
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
         'toastr': { deps: ['jquery'], exports: 'toastr' },
@@ -31,12 +34,16 @@
         'amplify': '../lib/amplify.core',
         'amplify.request': '../lib/amplify.request',
         'amplify.store': '../lib/amplify.store',
-        'jquery': '../lib/jquery-1.7.2',//'.min',
+        'jquery': '../lib/jquery-1.7.2.min',
         'jquery.mockjson': '../lib/jquery.mockjson',
+        //'jquery.ui': '../lib/jquery-ui-1.8.18.custom.min',
+        //'jquery.wijmo': '../lib/jquery.wijmo-open.all.2.1.2.min',
         'json2': '../lib/json2',
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
-        'ko.validation' : '../lib/knockout.validation-amd',
+        //'knockout.wijmo': '../lib/knockout.wijmo',
+        //'knockout.wijmo': '../lib/knockout.wijmo-amd',
+        'ko.validation': '../lib/knockout.validation-amd',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'moment': '../lib/moment',
@@ -71,12 +78,15 @@ requirejs([
         'amplify.store',            // amplify plugin
         'jquery.mockjson',          // jquery plugin
         'jquery.activity-ex',       // jquery plugin
+        //'jquery.ui',                // jquery plugin
+        //'jquery.wijmo',             // jquery plugin
         'ko.utils',                 // Knockout custom utilities
         'ko.bindingHandlers',       // Knockout custom binding handlers
         'ko.bindingHandlers.activity', // Knockout custom binding handlers
         'ko.bindingHandlers.command', // Knockout custom binding handlers
         'ko.asyncCommand',          // Knockout custom asyncCommand
         'knockout.changetracker',
+        //'knockout.wijmo',           // Knockout wijmo binding handlers
         'koExternalTemplateEngine',
         'ko.validation',            // Knockout validation
         'debug.helpers'             // our app's ko debugging plugin
@@ -93,7 +103,15 @@ requirejs([
      * return a result and therefore their corresponding params would always be undefined
      */
 {
-    //debugger; //TODO: uncomment to confirm that dependencies are loaded.
-    require(['bootstrapper'], function (bs) { bs.run(); });
-    //bootstrapper.run();
+        //debugger; //TODO: uncomment to confirm that dependencies are loaded.
+
+        // This causes the bootstrapper to wait for the other 
+        // libraries to load first, then it loads its dependencies and runs.
+        require(['bootstrapper'],
+            function (bs) {
+                bs.run();
+            });
+
+        //bootstrapper.run();
+
 });

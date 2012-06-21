@@ -533,14 +533,14 @@ namespace CodeCamper.Data.SampleData
             // Shawn Wildermuth
             addSession(false, new Session
             {
-                Title = "Straighten Your Backbone",
-                Code = "JVS141",
+                Title = "A Better CSS: LESS is More",
+                Code = "CSS142",
                 SpeakerId = _shawnWildermuth.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TrackId = tracks.First(t => t.Name == "CSS").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_jimCowart),
                 Level = levels[0],
-                Tags = "Backbone|JavaScript|Web",
+                Tags = "CSS|Web",
                 Description =
                     "TBD",
             });
