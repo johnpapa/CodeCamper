@@ -18,7 +18,7 @@
         //'ko': { deps: ['jquery'], exports: 'ko' }, //ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        'knockout.validation': { deps: ['ko', 'global'] }, 
+        'knockout.validation': { deps: ['ko'] }, 
         //'knockout.wijmo': { deps: ['jquery', 'ko', 'jquery.wijmo'] },
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
@@ -58,23 +58,27 @@
 // Require that pre-requisites be loaded immediately, before anything else
 // ToDo: Pare back the ones that don't have plugins?
 requirejs([
-        // 3rd party libraries 
+        // 3rd party libraries
+        'ko',
         'json2',
         'jquery',
         'underscore',
         'moment',
         'sammy',
         'amplify',
-        'ko',
-        'toastr',
-        // our prerequisites
-        'global'
+        'toastr'
 ],
     // use the parameterized signature if you want to confirm that dependencies are loaded with the debugger
-    // function (json2, $, _, moment, Sammy, amplify, ko, toastr, global) {
+    // function (ko, json2, $, _, moment, Sammy, amplify, toastr) {
     //    debugger; 
     
-    function () {
+    function (ko) {
+        
+        // ensure KO is in the global namespace ('this') 
+        if (!this.ko) {
+            this.ko = ko;
+        };
+        
         // Require that plugins be loaded, after the prerequisite libraries
         //       We load the plugins here and now so that we don't have to 
         //       name them specifically in the modules that use them because
