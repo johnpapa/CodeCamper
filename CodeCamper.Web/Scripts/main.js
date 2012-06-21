@@ -74,7 +74,9 @@ requirejs([
     
     function (ko) {
         
-        // ensure KO is in the global namespace ('this') 
+        // ensure 'ko' is in the global namespace ('this') 
+        // because certain ko extensions (e.g., ko.validation)
+        // count on it being there.
         if (!this.ko) {
             this.ko = ko;
         };
