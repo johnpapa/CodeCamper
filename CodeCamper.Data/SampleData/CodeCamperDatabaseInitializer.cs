@@ -5,7 +5,7 @@ using System.Linq;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data.SampleData
-{
+{ 
     public class CodeCamperDatabaseInitializer :
         //CreateDatabaseIfNotExists<CodeCamperDbContext>      // when model is stable
         DropCreateDatabaseIfModelChanges<CodeCamperDbContext> // when iterating
