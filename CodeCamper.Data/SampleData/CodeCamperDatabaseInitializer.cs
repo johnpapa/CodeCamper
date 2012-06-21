@@ -133,11 +133,11 @@ namespace CodeCamper.Data.SampleData
 
             persons.Add(new Person
             {
-                FirstName = "Felix",
-                LastName = "Fanboi",
-                Email = "felix@fanboiz.com",
-                Blog = "http://loveeverythingapple.com",
-                Twitter = "@FelixDaBoy",
+                FirstName = "Landon",
+                LastName = "Papa",
+                Email = "landon@contoso.com",
+                Blog = "http://johnpapa.net",
+                Twitter = "@landonpapa",
                 Gender = "M",
                 ImageSource = "felix_fanboi.jpg",
                 Bio = bioTextGenerator.GenSentences(12, bioTextSource),

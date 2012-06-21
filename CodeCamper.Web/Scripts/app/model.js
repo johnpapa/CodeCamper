@@ -1,7 +1,7 @@
 ﻿define(['require', 'ko'],
     function (require, ko) {
 
-        var imageBasePath = '../content/images/',
+        var imageBasePath = '../content/images/photos/',
             unknownPersonImageSource = 'unknown_person.jpg';
 
         // To avoid a circular model/datacontext reference

@@ -16,7 +16,7 @@ namespace CodeCamper.Data.SampleData
                    new SampleTrack("Data", "DAT","Entity Framework", "SQL Server", "OData", "BI", "Oracle", "ORM"),
                    new SampleTrack("Mobile", "MOB","Mobile","WP7", "PhoneGap", "Android", "iPad", "iOS", "Xamarin","Kinect", "XNA", "Web"),
                    new SampleTrack("Cloud", "CLD","Cloud", "Node","Azure","Amazon", "EC2", "Service Bus", "SkyDrive", "Web"),
-                   new SampleTrack("Practices", "PRC","Practices", "Agility","TDD","Testing", "Mocks", "Scrum", "Lean", "Web"),
+                   new SampleTrack("Practices", "PRC","Practices", "TFS", "Agility","TDD","Testing", "Mocks", "Scrum", "Lean", "Web"),
                    new SampleTrack("Design", "DSN","Design", "Animation","3D","UX", "Metro", "SketchFlow"),
                 };
 

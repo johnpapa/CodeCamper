@@ -12,7 +12,8 @@ namespace CodeCamper.Data.SampleData
             _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
-            _madsKristensen, _elijahManor, _johnSmith;
+            _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
+            _shawnWildermuth;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -169,6 +170,27 @@ namespace CodeCamper.Data.SampleData
                 Gender = "M",
                 Bio = "I am a Christian and a family man. I develops at appendTo as a Senior Architect providing corporate jQuery support, training, and consulting.",
             });
+            _theChosen.Add(_estebanGarcia = new Person
+            {
+                FirstName = "Esteban",
+                LastName = "Garcia",
+                Email = "estebang@contoso.com",
+                Blog = "http://estebang.contoso.com",
+                Twitter = "https://twitter.com/#!/EstebanFGarcia",
+                Gender = "M",
+                Bio = "TFS | Visual Studio ALM Ranger | Scrum | .NET Development | Solutions Architect at @AgileThought | @ONETUG President | UCF Knight",
+            });
+            _theChosen.Add(_shawnWildermuth = new Person
+            {
+                FirstName = "Shawn",
+                LastName = "Wildermuth",
+                Email = "shawnw@contoso.com",
+                Blog = "http://shawnw.contoso.com",
+                Twitter = "https://twitter.com/#!/ShawnWildermuth",
+                Gender = "M",
+                Bio = "Author, trainer, software guy, Braves fan, guitar player, Xbox maven, coffee addict and astronomy fan.",
+            });
+            
 
             _theChosen.ForEach(p => p.ImageSource = 
                 (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
@@ -507,11 +529,13 @@ namespace CodeCamper.Data.SampleData
                 Tags = "JavaScript|Underscore|jQuery|Web",
                 Description = "TBD",
             });
+
+            // Shawn Wildermuth
             addSession(false, new Session
             {
-                Title = "Straighten Your Backbone with Jim Cowart",
+                Title = "Straighten Your Backbone",
                 Code = "JVS141",
-                SpeakerId = _jimCowart.Id,
+                SpeakerId = _shawnWildermuth.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_jimCowart),
@@ -629,6 +653,21 @@ namespace CodeCamper.Data.SampleData
                 Level = levels[1],
                 Tags = "ASP.NET|Web|Azure",
                 Description = "TBD",
+            });
+
+            // Esteban Garcia
+            addSession(false, new Session
+            {
+                Title = "TFS For the Win!",
+                Code = "JVS141",
+                SpeakerId = _estebanGarcia.Id,
+                TrackId = tracks.First(t => t.Name == "Practices").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_jimCowart),
+                Level = levels[0],
+                Tags = "TFS|Practices",
+                Description =
+                    "TBD",
             });
 
             return sessions;
