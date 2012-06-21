@@ -248,7 +248,7 @@ namespace CodeCamper.Data.SampleData
                 {
                     do
                     {
-                        speakerIx = Rand.Next(firstCrowdIx, personsCount);
+                        speakerIx = Rand.Next(firstCrowdIx, Math.Min(75, personsCount)); //Max speakers allowed are 75
                     } while (speakerIxs.Contains(speakerIx));
                 }
                 speakerIxs.Add(speakerIx);
