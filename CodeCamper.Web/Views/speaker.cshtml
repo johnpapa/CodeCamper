@@ -1,0 +1,8 @@
+﻿<section id="speaker" class="view">
+    <button class="button-back" data-bind="command: goBack, activity: goBack.isExecuting"></button>
+    <div class="save-cancel-button-bar">
+        <button class="button-cancel" data-bind="command: cancel, activity: cancel.isExecuting">Cancel</button>
+        <button class="button-save" data-bind="command: save, activity: save.isExecuting">Save</button>
+    </div>
+    <div data-bind="template: {name: tmplName}"></div>
+</section>

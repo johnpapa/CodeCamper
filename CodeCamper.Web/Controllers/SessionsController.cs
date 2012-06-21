@@ -52,7 +52,7 @@ namespace CodeCamper.Web.Controllers
             return response;
         }
 
-        // Update an existing Attendance 
+        // Update an existing Session
         // PUT /api/sessions/
         public HttpResponseMessage Put(Session session)
         {

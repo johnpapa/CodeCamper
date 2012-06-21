@@ -45,5 +45,15 @@ namespace CodeCamper.Web.Controllers
             if (person != null) return person;
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
         }
+
+        // Update an existing person
+        // PUT /api/persons/
+        public HttpResponseMessage Put(Person person)
+        {
+            Uow.Persons.Update(person);
+            Uow.Commit();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
     }
 }

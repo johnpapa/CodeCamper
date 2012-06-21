@@ -193,6 +193,7 @@
     <Content Include="Content\images\photos\ward_bell.jpg" />
     <Content Include="Content\images\bookmarkchecked.png" />
     <Content Include="Content\images\bookmark.png" />
+    <Content Include="Scripts\app\vm.speaker.js" />
     <Content Include="Scripts\app\vm.shell.js" />
     <Content Include="Scripts\app\ko.utils.js" />
     <Content Include="Scripts\app\jquery.activity-ex.js" />
@@ -229,6 +230,8 @@
     <Content Include="Scripts\lib\knockout.validation-amd.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
     <Content Include="Scripts\lib\TrafficCop-amd.js" />
+    <Content Include="Test\webapi.person-cud.tests.html" />
+    <Content Include="Test\webapi.person-cud.tests.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />
     <Content Include="Test\webapi.session-cud.tests.js" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
@@ -294,6 +297,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\speaker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
