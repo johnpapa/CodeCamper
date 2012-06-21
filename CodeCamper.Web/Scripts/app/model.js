@@ -11,14 +11,6 @@
                 _datacontext = require('datacontext')
                 return _datacontext;
             };       
-            //datacontext = function (dc) {
-            //    if (!!dc) {
-            //        _datacontext = dc;
-            //    } else {
-            //        _datacontext = require('datacontext')
-            //    }
-            //    return _datacontext;
-            //};
 
         // Attendance
         // ----------------------------------------------
@@ -45,7 +37,7 @@
             }),
             
             self.rating = ko.observable();
-            self.text = ko.observable().extend({ required: true });
+            self.text = ko.observable();
             self.dirtyFlag = new ko.DirtyFlag([self.rating, self.text]);
             return self;
         };

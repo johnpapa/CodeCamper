@@ -6,8 +6,8 @@
             logger = toastr, // use toastr for the logger
             throttle = 400,
             
-            currentUserId = 1, // Default user - has favorites
-            //currentUserId = 3, // John Papa - no favorites      
+            //currentUserId = 1, // Default user - has favorites
+            currentUserId = 3, // John Papa - no favorites      
             currentUser = ko.observable(),
             demoUserIds = [1, 3, 5],
             
