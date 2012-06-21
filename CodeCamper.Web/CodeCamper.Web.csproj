@@ -193,6 +193,7 @@
     <Content Include="Content\images\photos\ward_bell.jpg" />
     <Content Include="Content\images\bookmarkchecked.png" />
     <Content Include="Content\images\bookmark.png" />
+    <Content Include="Scripts\app\global.js" />
     <Content Include="Scripts\app\vm.speaker.js" />
     <Content Include="Scripts\app\vm.shell.js" />
     <Content Include="Scripts\app\ko.utils.js" />

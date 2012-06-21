@@ -18,7 +18,7 @@
         //'ko': { deps: ['jquery'], exports: 'ko' }, //ko 2.1 understands define; no shim needed
         // koExternalTemplateEngine is amd aware, now
         // moment understands define; no shim needed.
-        //'knockout.validation': { deps: ['ko'] }, // ko.val is now AMD aware (JP edited it)
+        'knockout.validation': { deps: ['ko', 'global'] }, 
         //'knockout.wijmo': { deps: ['jquery', 'ko', 'jquery.wijmo'] },
         'sammy': { deps: ['jquery'], exports: 'Sammy' },
         'sammy.title': { deps: ['jquery', 'sammy'] },
@@ -43,7 +43,7 @@
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
         //'knockout.wijmo': '../lib/knockout.wijmo',
         //'knockout.wijmo': '../lib/knockout.wijmo-amd',
-        'ko.validation': '../lib/knockout.validation-amd',
+        'ko.validation': '../lib/knockout.validation',//'../lib/knockout.validation-amd',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
         'moment': '../lib/moment',
@@ -55,13 +55,10 @@
     }       
 });
 
-// Force immediate load of 3rd party libs and their plugins
-// ToDo: Pair back the ones that don't have plugins?
-//       Probably not necessary but not sure how to get the plugins
-//       loaded without naming them specifically in the modules that use
-//       them and we don't want those modules to know that they use plugins
+// Require that pre-requisites be loaded immediately, before anything else
+// ToDo: Pare back the ones that don't have plugins?
 requirejs([
-        // 3rd party libraries (we can test for their existance)
+        // 3rd party libraries 
         'json2',
         'jquery',
         'underscore',
@@ -70,48 +67,46 @@ requirejs([
         'amplify',
         'ko',
         'toastr',
-    
-        // 3rd party plugins - they don't return module objects
-        'activity-indicator',       // jquery plugin
-        'sammy.title',              // sammy plugin
-        'amplify.request',          // amplify plugin
-        'amplify.store',            // amplify plugin
-        'jquery.mockjson',          // jquery plugin
-        'jquery.activity-ex',       // jquery plugin
-        //'jquery.ui',                // jquery plugin
-        //'jquery.wijmo',             // jquery plugin
-        'ko.utils',                 // Knockout custom utilities
-        'ko.bindingHandlers',       // Knockout custom binding handlers
-        'ko.bindingHandlers.activity', // Knockout custom binding handlers
-        'ko.bindingHandlers.command', // Knockout custom binding handlers
-        'ko.asyncCommand',          // Knockout custom asyncCommand
-        'knockout.changetracker',
-        //'knockout.wijmo',           // Knockout wijmo binding handlers
-        'koExternalTemplateEngine',
-        'ko.validation',            // Knockout validation
-        'debug.helpers'             // our app's ko debugging plugin
+        // our prerequisites
+        'global'
 ],
-    function ()
-        // json2, $, _, moment, sammy, amplify, ko, toastr)
-
-    /* 
-     * WARD: 
-     * We only use the 'bootstrapper' parameter within this function.
-     * the other listed parameters are present only for exploratory purposes
-     * (see the 'debugger;' line below).
-     * Did not bother to provide params for the plugin modules as these never
-     * return a result and therefore their corresponding params would always be undefined
-     */
-{
-        //debugger; //TODO: uncomment to confirm that dependencies are loaded.
-
-        // This causes the bootstrapper to wait for the other 
-        // libraries to load first, then it loads its dependencies and runs.
-        require(['bootstrapper'],
-            function (bs) {
-                bs.run();
-            });
-
-        //bootstrapper.run();
-
-});
+    // use the parameterized signature if you want to confirm that dependencies are loaded with the debugger
+    // function (json2, $, _, moment, Sammy, amplify, ko, toastr, global) {
+    //    debugger; 
+    
+    function () {
+        // Require that plugins be loaded, after the prerequisite libraries
+        //       We load the plugins here and now so that we don't have to 
+        //       name them specifically in the modules that use them because
+        //       we don't want those modules to know that they use plugins.
+        requirejs([
+                'activity-indicator',       // jquery plugin
+                'sammy.title',              // sammy plugin
+                'amplify.request',          // amplify plugin
+                'amplify.store',            // amplify plugin
+                'jquery.mockjson',          // jquery plugin
+                'jquery.activity-ex',       // jquery plugin
+                //'jquery.ui',                // jquery plugin
+                //'jquery.wijmo',             // jquery plugin
+                'ko.utils',                 // Knockout custom utilities
+                'ko.bindingHandlers',       // Knockout custom binding handlers
+                'ko.bindingHandlers.activity', // Knockout custom binding handlers
+                'ko.bindingHandlers.command', // Knockout custom binding handlers
+                'ko.asyncCommand',          // Knockout custom asyncCommand
+                'knockout.changetracker',
+                //'knockout.wijmo',           // Knockout wijmo binding handlers
+                'koExternalTemplateEngine',
+                'ko.validation',            // Knockout validation
+                'debug.helpers'             // our app's ko debugging plugin
+        ],
+        // Plugins generally don't return module objects
+        // so there would be point in passing parameters to the function
+        function () {
+            // Start-up the app, now that all prerequisites are in place.
+            require(['bootstrapper'],
+                function (bs) {
+                    bs.run();
+                });
+        });
+    }
+);
