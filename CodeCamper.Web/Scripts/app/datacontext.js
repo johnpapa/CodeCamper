@@ -39,7 +39,7 @@
                 return items; // must return these
             },
 
-            EntitySet = function(getFunction, mapper, nullo) {
+            EntitySet = function(getFunction, mapper, nullo, updateFunction) {
                 var
                     items = {},
 
@@ -91,6 +91,42 @@
                                 def.resolve(results);
                             }
                         }).promise();
+                    },
+
+                    updateData = function (entity, callbacks) {
+
+                        var
+                            entityJson = ko.toJSON(entity);
+
+                        return $.Deferred(function (def) {
+                            if (!updateFunction) {
+                                logger.error('updateData method not implemented'); //TODO: revise error message
+                                if (callbacks && callbacks.error) {
+                                    def.reject(response);
+                                    callbacks.error();
+                                }
+                                return;
+                            }
+
+                            updateFunction({
+                                success: function (response) {
+                                    logger.success('Updated entity!');
+                                    if (callbacks && callbacks.success) {
+                                        entity.dirtyFlag().reset();
+                                        def.resolve(response);
+                                        callbacks.success();
+                                    }
+                                },
+                                error: function (response) {
+                                    logger.error('oops! data could not be posted'); //TODO: revise error message
+                                    if (callbacks && callbacks.error) {
+                                        def.reject(response);
+                                        callbacks.error();
+                                    }
+                                    return;
+                                }
+                            }, entityJson)
+                        }).promise();
                     };
                 
                 return {
@@ -98,7 +134,8 @@
                     add: add,
                     getLocalById: getLocalById,
                     getData: getData,
-                    removeById: removeById
+                    removeById: removeById,
+                    updateData: updateData
                 };
             },
 
@@ -196,8 +233,8 @@
 
             attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.attendanceNullo),
             rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.roomNullo),
-            sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.sessionNullo),
-            persons = new EntitySet(dataservice.person.getPersons, modelmapper.person, model.personNullo),
+            sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.sessionNullo, dataservice.session.updateSession),
+            persons = new EntitySet(dataservice.person.getPersons, modelmapper.person, model.personNullo, dataservice.person.updatePerson),
             timeslots = new EntitySet(dataservice.lookup.getTimeslots, modelmapper.timeSlot, model.timeSlotNullo),
             tracks = new EntitySet(dataservice.lookup.getTracks, modelmapper.track, model.trackNullo),
             sessionSpeakers = new SessionSpeakerEntitySet();
@@ -298,7 +335,7 @@
                     id = model.Attendance.makeId(getCurrentUserId(), sessionId),
                     att = attendance.getLocalById(id);
                 return att;
-            },
+            };
 
             // Extend Attendance entityset with ability to get attendance for the current user (aka, the favorite)
             attendance.getSessionFavorite = function (sessionId, callbacks, forceRefresh) {
@@ -363,32 +400,6 @@
                 }).promise();
             };
 
-            sessions.updateSession = function (sessionModel, callbacks) {
-                var
-                    sessionJson = ko.toJSON(sessionModel);
-
-                return $.Deferred(function (def) {
-                    dataservice.session.updateSession({
-                        success: function (response) {
-                            logger.success('Updated session!');
-                            if (callbacks && callbacks.success) {
-                                sessionModel.dirtyFlag().reset();
-                                def.resolve(response);
-                                callbacks.success();
-                            }
-                        },
-                        error: function (response) {
-                            logger.error('oops! data could not be posted'); //TODO: revise error message
-                            if (callbacks && callbacks.error) {
-                                def.reject(response);
-                                callbacks.error();
-                            }
-                            return;
-                        }
-                    }, sessionJson)
-                }).promise();
-            };
-
             // extend Persons entitySet 
             persons.getSpeakers = function (options) {
                 _.extend(options, {
@@ -406,7 +417,7 @@
                             success: function (dto) {
                                 // updates the person returned from getLocalById() above
                                 person = persons.mapDtoToContext(dto);
-                                person.isBrief(false); // now a full session
+                                person.isBrief(false); // now a full person
                                 //logger.success('merged full person'); //TODO: revise message
                                 callbacks.success(person);
                                 def.resolve(dto);
@@ -425,7 +436,7 @@
                     //return person; // immediately return cached person (nullo, brief, or full)
                 }).promise();
             };
-        
+
         return {
             attendance: attendance,
             persons: persons,

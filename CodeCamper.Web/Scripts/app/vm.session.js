@@ -66,7 +66,7 @@
                 execute: function (complete) {
                     if (canEditSession()) {
                         $.when(
-                            datacontext.sessions.updateSession(
+                            datacontext.sessions.updateData(
                                 session(), {
                                     success: function () { },
                                     error: function () { }
@@ -92,12 +92,12 @@
                     }
                 },
                 canExecute: function (isExecuting) {
-                    return validationErrors().length === 0 && isDirty();
+                    return isDirty() && validationErrors().length === 0;
                 }
             }),
             
             canLeave = function () {
-                return validationErrors().length === 0 || !isDirty();
+                return !isDirty() || validationErrors().length === 0;
             },
 
             activate = function (routeData) {
