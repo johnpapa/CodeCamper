@@ -95,6 +95,8 @@
                     currentSpeakerId(), {
                         success: function (s) {
                             speaker(s);
+                            s.isRefresh.notifySubscribers();
+                            console.log(s.speakerSessions()); //ToDo: remove after done testing
                             callback();
                         },
                         error: function () {

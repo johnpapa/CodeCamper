@@ -209,6 +209,7 @@
         // ----------------------------------------------
         var Person = function () {
             var self = this;
+            self.isRefresh = ko.observable(); // This exists so we can notify the speakerSessions to reevaluate
             self.id = ko.observable();
             self.firstName = ko.observable().extend({ required: true });
             self.lastName = ko.observable().extend({ required: true });
@@ -229,7 +230,12 @@
                 return imageBasePath + source;
             }, self);
             self.bio = ko.observable().extend({ required: true });
+            self.speakerSessions = ko.computed(function () {
+                self.isRefresh(); 
+                return self.id() ? datacontext().persons.getSpeakerSessions(self.id()): [];
+            });
             self.isBrief = ko.observable(true);
+
             self.dirtyFlag = new ko.DirtyFlag([
                 self.firstName,
                 self.lastName,
@@ -255,7 +261,6 @@
         personNullo.dirtyFlag().reset();
 
         Person.prototype = function() {
-            //TODO: Ward ... YAGNI or NOT?
             //var attendanceList = function () {
             //        return this.datacontext().attendance.getByPersonId(this.personId());
             //}

@@ -435,7 +435,19 @@
                     }
                     //return person; // immediately return cached person (nullo, brief, or full)
                 }).promise();
-            };
+            },
+           
+            // Get the sessions in cache for which this person is a speaker
+           persons.getSpeakerSessions = function (personId) {
+               var result = [];
+               if (!personId) { return result; }
+               var sessionIds = sessionSpeakers.getLocalById(personId);
+               for (var key in sessionIds){
+                   if (_.has(sessionIds, key)){
+                       result.push(sessions.getLocalById(key));}
+               };
+               return result;
+           };
 
         return {
             attendance: attendance,
