@@ -31,7 +31,6 @@
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
         //'knockout.wijmo': '../lib/knockout.wijmo',
-        //'knockout.wijmo': '../lib/knockout.wijmo-amd',
         'ko.validation': '../lib/knockout.validation',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',

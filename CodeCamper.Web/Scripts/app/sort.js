@@ -17,6 +17,10 @@
             // sort first then last
             return speakerA.fullName() > speakerB.fullName() ? 1 : -1;
         },
+        
+        speakerSessionSort = function (sessionA, sessionB) {
+            return sessionA.title() > sessionB.title() ? 1 : -1;
+        },
 
         timeslotSort = function (slotA, slotB) {
             return slotA.start() > slotB.start() ? 1 : -1;
@@ -29,6 +33,7 @@
     return {
         roomSort: roomSort,
         sessionSort: sessionSort,
+        speakerSessionSort: speakerSessionSort,
         speakerSort: speakerSort,
         timeslotSort: timeslotSort,
         trackSort: trackSort

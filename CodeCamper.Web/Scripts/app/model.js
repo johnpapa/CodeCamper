@@ -8,7 +8,7 @@
         // model.datacontext is set in Bootstrapper
         var _datacontext,
             datacontext = function() {
-                _datacontext = require('datacontext')
+                _datacontext = require('datacontext');
                 return _datacontext;
             };       
 
@@ -209,7 +209,7 @@
         // ----------------------------------------------
         var Person = function () {
             var self = this;
-            self.isRefresh = ko.observable(); // This exists so we can notify the speakerSessions to reevaluate
+            self.personRefresh = ko.observable(); // This exists so we can notify the speakerSessions to reevaluate
             self.id = ko.observable();
             self.firstName = ko.observable().extend({ required: true });
             self.lastName = ko.observable().extend({ required: true });
@@ -230,10 +230,12 @@
                 return imageBasePath + source;
             }, self);
             self.bio = ko.observable().extend({ required: true });
+
             self.speakerSessions = ko.computed(function () {
-                self.isRefresh(); 
-                return self.id() ? datacontext().persons.getSpeakerSessions(self.id()): [];
+                self.personRefresh();
+                return self.id() ? datacontext().persons.getLocalSpeakerSessions(self.id()): [];
             });
+
             self.isBrief = ko.observable(true);
 
             self.dirtyFlag = new ko.DirtyFlag([

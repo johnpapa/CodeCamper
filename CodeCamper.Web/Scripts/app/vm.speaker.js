@@ -5,7 +5,7 @@
             logger = config.logger,
             currentSpeakerId = ko.observable(),
             speaker = ko.observable(),
-            sessions = ko.observableArray(),
+            speakerSessions = ko.observableArray(),
             
             tmplName = function() {
                 return canEdit() ? 'speaker.edit' : 'speaker.view';
@@ -95,8 +95,9 @@
                     currentSpeakerId(), {
                         success: function (s) {
                             speaker(s);
-                            s.isRefresh.notifySubscribers();
-                            console.log(s.speakerSessions()); //ToDo: remove after done testing
+                            getLocalSpeakerSessions();
+                            //s.personRefresh.notifySubscribers(); // Causes the speakerSession computed to reevaluate
+                            //console.log(s.speakerSessions()); //ToDo: remove after done testing
                             callback();
                         },
                         error: function () {
@@ -107,13 +108,12 @@
                 );
             },
             
-            getSessions = function () {
-                //if (!sessions().length) {
-                //    datacontext.sessions.getData({
-                //        results: sessions,
-                //        sortFunction: sort.sessionSort
-                //    });
-                //}
+            getLocalSpeakerSessions = function () {
+                var results = [];
+                speaker().personRefresh.notifySubscribers(); // Causes the speakerSession computed to reevaluate
+                results = speaker().speakerSessions();
+                results.sort(sort.speakerSessionSort);
+                speakerSessions(results);
             },
 
             init = function () {
@@ -128,9 +128,9 @@
             canEdit: canEdit,
             canLeave: canLeave,
             goBack: goBack,
-            //sessions: sessions,
-            speaker: speaker,
             save: save,
+            speaker: speaker,
+            speakerSessions: speakerSessions,
             tmplName: tmplName,
             isDirty: isDirty
         };

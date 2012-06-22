@@ -79,7 +79,7 @@
                     }
                     if(canEditEval()){
                         $.when(
-                            datacontext.attendance.updateModel(
+                            datacontext.attendance.updateData(
                                 session(), {
                                     success: function () { },
                                     error: function () { }
@@ -181,8 +181,8 @@
             saveFavorite = ko.asyncCommand({
                 execute: function (complete) {
                     var cudMethod = session().isFavorite()
-                        ? datacontext.attendance.deleteModel
-                        : datacontext.attendance.addModel;
+                        ? datacontext.attendance.deleteData
+                        : datacontext.attendance.addData;
                     cudMethod(session(),
                         { success: saveFavoriteDone(complete), error: saveFavoriteDone(complete) });
                     complete();

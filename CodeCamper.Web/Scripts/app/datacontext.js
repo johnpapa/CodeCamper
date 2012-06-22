@@ -240,7 +240,7 @@
             sessionSpeakers = new SessionSpeakerEntitySet();
 
             // Attendance extensions
-            attendance.addModel = function (sessionModel, callbacks) {
+            attendance.addData = function (sessionModel, callbacks) {
                 var attendanceModel = new model.Attendance()
                         .sessionId(sessionModel.id())
                         .personId(getCurrentUserId()),
@@ -276,7 +276,7 @@
                 }).promise();
             };
 
-            attendance.updateModel = function (sessionModel, callbacks) {
+            attendance.updateData = function (sessionModel, callbacks) {
                 var
                     attendanceModel = sessionModel.attendance(),
                     attendanceModelJson = ko.toJSON(attendanceModel);
@@ -303,7 +303,7 @@
                 }).promise();
             };
                 
-            attendance.deleteModel = function (sessionModel, callbacks) {
+            attendance.deleteData = function (sessionModel, callbacks) {
                 var attendanceModel = sessionModel.attendance();
                 return $.Deferred(function (def) {
                     dataservice.attendance.deleteAttendance({
@@ -418,7 +418,6 @@
                                 // updates the person returned from getLocalById() above
                                 person = persons.mapDtoToContext(dto);
                                 person.isBrief(false); // now a full person
-                                //logger.success('merged full person'); //TODO: revise message
                                 callbacks.success(person);
                                 def.resolve(dto);
                             },
@@ -433,21 +432,22 @@
                         callbacks.success(person);
                         def.resolve(person);
                     }
-                    //return person; // immediately return cached person (nullo, brief, or full)
                 }).promise();
             },
            
-            // Get the sessions in cache for which this person is a speaker
-           persons.getSpeakerSessions = function (personId) {
-               var result = [];
-               if (!personId) { return result; }
-               var sessionIds = sessionSpeakers.getLocalById(personId);
-               for (var key in sessionIds){
-                   if (_.has(sessionIds, key)){
-                       result.push(sessions.getLocalById(key));}
-               };
-               return result;
-           };
+            // Get the sessions in cache for which this person is 
+            // a speaker from local data (no 'promise')
+            persons.getLocalSpeakerSessions = function (personId) {
+                var result = [];
+                if (!personId) { return result; }
+                var sessionIds = sessionSpeakers.getLocalById(personId);
+                for (var key in sessionIds) {
+                    if (_.has(sessionIds, key)) {
+                        result.push(sessions.getLocalById(key));
+                    }
+                };
+                return result;
+            };
 
         return {
             attendance: attendance,

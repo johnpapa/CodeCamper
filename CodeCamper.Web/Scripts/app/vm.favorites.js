@@ -107,8 +107,8 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
                 }
                 isBusy = true;
                 var cudMethod = selectedSession.isFavorite()
-                    ? datacontext.attendance.deleteModel
-                    : datacontext.attendance.addModel;
+                    ? datacontext.attendance.deleteData
+                    : datacontext.attendance.addData;
                 cudMethod(
                         selectedSession,
                         { success: function () { isBusy = false; }, error: function () { isBusy = false; } }
