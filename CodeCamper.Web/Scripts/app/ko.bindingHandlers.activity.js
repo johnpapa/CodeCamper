@@ -6,14 +6,13 @@ function ($, ko) {
     ko.bindingHandlers.activity = {
         init: function (element, valueAccessor, allBindingsAccessor) {
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                $(element).activityEx(false)
-            })
+                $(element).activityEx(false);
+            });
         },
 
         update: function (element, valueAccessor) {
-            var activity = valueAccessor()()
-
-            typeof activity !== 'boolean' || $(element).activityEx(activity)
+            var activity = valueAccessor()();
+            typeof activity !== 'boolean' || $(element).activityEx(activity);
         }
-    }
+    };
 });

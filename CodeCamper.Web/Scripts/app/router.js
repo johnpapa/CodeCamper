@@ -46,13 +46,12 @@ define(['jquery', 'underscore','sammy', 'presenter','config', 'route-mediator'],
             },
 
             registerRoute = function (options) {
-                var 
-                    route = options.route,
+                var route = options.route,
                     title = options.title,
                     callback = options.callback,
                     view = options.view,
                     group = options.group,
-                    isDefault = options.isDefault
+                    isDefault = options.isDefault;
 
                 if (!callback) {
                     throw Error('callback must be specified.');

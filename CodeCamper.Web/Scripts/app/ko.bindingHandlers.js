@@ -21,8 +21,6 @@ function ($, ko) {
 
     ko.bindingHandlers.starRating = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            var allBindings = allBindingsAccessor();
-
             // Create the span's (only do in init)
             for (var i = 0; i < 5; i++) {
                 $('<span>').appendTo(element);

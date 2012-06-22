@@ -102,14 +102,14 @@
                             if (!updateFunction) {
                                 logger.error('updateData method not implemented'); //TODO: revise error message
                                 if (callbacks && callbacks.error) {
-                                    def.reject(response);
+                                    def.reject();
                                     callbacks.error();
                                 }
                                 return;
                             }
 
                             updateFunction({
-                                success: function (response) {
+                                success: function(response) {
                                     logger.success('Updated entity!');
                                     if (callbacks && callbacks.success) {
                                         entity.dirtyFlag().reset();
@@ -117,7 +117,7 @@
                                         callbacks.success();
                                     }
                                 },
-                                error: function (response) {
+                                error: function(response) {
                                     logger.error('oops! data could not be posted'); //TODO: revise error message
                                     if (callbacks && callbacks.error) {
                                         def.reject(response);
@@ -125,7 +125,7 @@
                                     }
                                     return;
                                 }
-                            }, entityJson)
+                            }, entityJson);
                         }).promise();
                     };
                 
@@ -283,15 +283,15 @@
                     
                 return $.Deferred(function(def) {
                     dataservice.attendance.updateAttendance({
-                        success: function (response) {
-                            logger.success('Updated attendance!'); 
+                        success: function(response) {
+                            logger.success('Updated attendance!');
                             if (callbacks && callbacks.success) {
                                 attendanceModel.dirtyFlag().reset();
                                 def.resolve(response);
                                 callbacks.success();
                             }
                         },
-                        error: function (response) {
+                        error: function(response) {
                             logger.error('oops! data could not be posted'); //TODO: revise error message
                             if (callbacks && callbacks.error) {
                                 def.reject(response);
@@ -299,7 +299,7 @@
                             }
                             return;
                         }
-                    }, attendanceModelJson)
+                    }, attendanceModelJson);
                 }).promise();
             };
                 
