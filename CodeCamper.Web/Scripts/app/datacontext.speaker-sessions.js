@@ -6,7 +6,30 @@
         var SpeakerSessions = function (persons, sessions) {
             
             var items,
-                crossMatchSpeakers,
+                crossMatchSpeakers = function (observableArray, filter, sortFunction) {
+
+                    // clear out the results observableArray
+                    observableArray([]);
+
+                    var underlyingArray = observableArray();
+                    // get an array of persons
+                    for (var prop in items) {
+                        if (items.hasOwnProperty(prop)) {
+                            underlyingArray.push(persons.getLocalById(prop));
+                        }
+                    }
+                    if (filter) {
+                        underlyingArray = _.filter(underlyingArray, function (o) {
+                            var match = filter.predicate(filter, o);
+                            return match;
+                        });
+                    }
+                    if (sortFunction) {
+                        underlyingArray.sort(sortFunction);
+                    }
+                    observableArray(underlyingArray);
+                },
+
                 // Rebuild this data "view" from the current state of the cache
                 refreshLocal = function() {
                     items = _.reduce(sessions.getAllLocal(), function(memo, s) {
@@ -16,6 +39,7 @@
                         return memo;
                     }, { });
                 },
+                
                 // Rebuild this data "view" from fresh server data.
                 // Returns a promise to get fresh session and person data and
                 // refresh this instance of SpeakerSessions.
@@ -28,6 +52,7 @@
                     )
                     .done(self.refresh);
                 },
+
                 // Get an array of sessions, sorted by title,
                 // for the speakerId (a person.id)
                 getLocalSessionsBySpeakerId = function (speakerId) {
@@ -36,6 +61,7 @@
 
                     return results.sort(function(l, r) { return l.title() > r.title() ? 1 : -1; });
                 },
+
                 // Fills the 'results' observable array with speakers
                 // optionally filtered and/or sorted
                 getLocalSpeakers = function (results, options) {
@@ -47,33 +73,12 @@
 
                     crossMatchSpeakers(results, filter, sortFunction);
 
-                };
-                        
-            crossMatchSpeakers = function(observableArray, filter, sortFunction) {
-
-                // clear out the results observableArray
-                observableArray([]);
-
-                var underlyingArray = observableArray();
-                // get an array of persons
-                for (var prop in items) {
-                    if (items.hasOwnProperty(prop)) {
-                        underlyingArray.push(persons.getLocalById(prop));
-                    }
-                }
-                if (filter) {
-                    underlyingArray = _.filter(underlyingArray, function(o) {
-                        var match = filter.predicate(filter, o);
-                        return match;
-                    });
-                }
-                if (sortFunction) {
-                    underlyingArray.sort(sortFunction);
-                }
-                observableArray(underlyingArray);
-            };
+                },
             
-            var init = function () { refreshLocal(); };
+                init = function () {
+                     refreshLocal();
+                };
+
             init();
 
             return {

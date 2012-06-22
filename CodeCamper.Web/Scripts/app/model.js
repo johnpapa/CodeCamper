@@ -94,7 +94,7 @@
             self.roomId = ko.observable();
             self.level = ko.observable().extend({ required: true });
             self.tags = ko.observable();
-            self.description = ko.observable().extend({ required: true });
+            self.description = ko.observable();
             self.isFavoriteRefresh = ko.observable(); 
 
             self.tagsFormatted = ko.computed({
