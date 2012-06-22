@@ -37,6 +37,7 @@
                         .level(dto.Level)
                         .tags(dto.Tags);
                     item.dirtyFlag().reset();
+                    item.isBrief(dto.Description === undefined); // detect if brief or full session
                     return item;
                 }
             },
@@ -54,6 +55,7 @@
                         .imageSource(dto.ImageSource)
                         .bio(dto.Bio);
                     item.dirtyFlag().reset();
+                    item.isBrief(dto.Bio === undefined); // detect if brief or full person
                     return item;
                 }
             },

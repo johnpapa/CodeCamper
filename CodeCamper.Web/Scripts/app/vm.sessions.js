@@ -17,8 +17,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
 
             getSpeakers = function () {
                 if (!speakers().length) {
-                    datacontext.sessionSpeakers.getData({
-                        results: speakers,
+                    datacontext.speakerSessions.getLocalSpeakers(speakers, {
                         sortFunction: sort.speakerSort
                     });
                 }

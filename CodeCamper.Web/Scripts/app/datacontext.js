@@ -1,5 +1,5 @@
-﻿define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils'],
-    function ($, _, ko, model, modelmapper, dataservice, config, utils) {
+﻿define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils', 'datacontext.speaker-sessions'],
+    function ($, _, ko, model, modelmapper, dataservice, config, utils, SpeakerSessions) {
         var
             logger = config.logger,
 
@@ -64,6 +64,10 @@
                         return !!id && !!items[id] ? items[id] : nullo; //{ isNullo: true }; //nullo; 
                     },
 
+                    getAllLocal = function () {
+                        return utils.mapMemoToArray(items);
+                    },
+                    
                     getData = function (options) {
                         return $.Deferred(function(def) {
                             var results = options && options.results,
@@ -132,102 +136,11 @@
                 return {
                     mapDtoToContext: mapDtoToContext,
                     add: add,
+                    getAllLocal: getAllLocal,
                     getLocalById: getLocalById,
                     getData: getData,
                     removeById: removeById,
                     updateData: updateData
-                };
-            },
-
-            SessionSpeakerEntitySet = function () {
-                var
-                    items = {},
-
-                    add = function (personId, sessionIds) {
-                        // adds a new property for the personId passed in with an array of session ids
-                        items[personId] = sessionIds;
-                    },
-
-                    removeById = function (personId) {
-                        // Removes an entire array of session ids for the personId passed in
-                        // Causes observables to be notified (ex: unmarking a favorite)
-                        items[personId] = [];
-                    },
-
-                    removeSessionById = function (personId, sessionId) {
-                        // Removes 1 session id for the personId passed in
-                        // Causes observables to be notified (ex: unmarking a favorite)
-                        items[personId] = _.without(items[personId], sessionId);
-                    },
-
-                    getLocalById = function (personId) {
-                        // Gets an array of session ids for the personId passed in
-                        return !!personId && !!items[personId] ? items[personId] : [];
-                    },
-
-                    crossMatchSpeakers = function (observableArray, filter, sortFunction) {
-                        if (!observableArray) return;
-                        // clear out the results observableArray
-                        observableArray([]);
-
-                        var underlyingArray = observableArray();
-                        // get an array of persons
-                        for (var prop in items) {
-                            if (items.hasOwnProperty(prop)) {
-                                underlyingArray.push(persons.getLocalById(prop));
-                            }
-                        }
-                        if (filter) {
-                            underlyingArray = _.filter(underlyingArray, function(o) {
-                                var match = filter.predicate(filter, o);
-                                return match;
-                            });
-                        }
-                        if (sortFunction) {
-                            underlyingArray.sort(sortFunction);
-                        }
-                        observableArray(underlyingArray);
-                    },
-
-                    getData = function (options) {
-                        var results = options && options.results,
-                            sortFunction = options && options.sortFunction,
-                            filter = options && options.filter,
-                            forceRefresh = options && options.forceRefresh;
-                        if (!results) {
-                            results = ko.observableArray([]);
-                        }
-                        if (!items || !utils.hasProperties(items) || forceRefresh) {
-                            // create the memo for it and go get the Person objects from the DC
-                            var sessionResults = ko.observableArray([]);
-                            $.when(sessions.getData({ results: sessionResults, forceRefresh: forceRefresh })
-                                .done(function() {
-                                    if (sessionResults() && sessionResults().length) {
-                                        var underlyingArraySessions = sessionResults();
-                                        // create the items memo of items[speakerId] = [sessionId_1, sessionId_1, sessionId_n]
-                                        items = _.reduce(underlyingArraySessions, function (memo, s) {
-                                            memo[s.speakerId()] = memo[s.speakerId()] || [];
-                                            memo[s.speakerId()].push(s.id());
-                                            return memo;
-                                        }, items);
-                                        crossMatchSpeakers(results, filter, sortFunction);
-                                    } else {
-                                        logger.error('oops! data could not be retrieved'); //TODO: get rid of this
-                                        return;
-                                    }
-
-                                }));
-                        } else {
-                            crossMatchSpeakers(results, filter, sortFunction);
-                        }
-                    };
-                
-                return {
-                    add: add,
-                    getLocalById: getLocalById,
-                    getData: getData,
-                    removeById: removeById,
-                    removeSessionById: removeSessionById
                 };
             },
 
@@ -237,7 +150,7 @@
             persons = new EntitySet(dataservice.person.getPersons, modelmapper.person, model.personNullo, dataservice.person.updatePerson),
             timeslots = new EntitySet(dataservice.lookup.getTimeslots, modelmapper.timeSlot, model.timeSlotNullo),
             tracks = new EntitySet(dataservice.lookup.getTracks, modelmapper.track, model.trackNullo),
-            sessionSpeakers = new SessionSpeakerEntitySet();
+            speakerSessions = new SpeakerSessions.SpeakerSessions(persons, sessions);
 
             // Attendance extensions
             attendance.addData = function (sessionModel, callbacks) {
@@ -438,15 +351,7 @@
             // Get the sessions in cache for which this person is 
             // a speaker from local data (no 'promise')
             persons.getLocalSpeakerSessions = function (personId) {
-                var result = [];
-                if (!personId) { return result; }
-                var sessionIds = sessionSpeakers.getLocalById(personId);
-                for (var key in sessionIds) {
-                    if (_.has(sessionIds, key)) {
-                        result.push(sessions.getLocalById(key));
-                    }
-                };
-                return result;
+                return speakerSessions.getLocalSessionsBySpeakerId(personId);
             };
 
         return {
@@ -454,7 +359,7 @@
             persons: persons,
             rooms: rooms,
             sessions: sessions,
-            sessionSpeakers: sessionSpeakers,
+            speakerSessions: speakerSessions,
             timeslots: timeslots,
             tracks: tracks
     };

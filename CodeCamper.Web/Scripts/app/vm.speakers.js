@@ -11,8 +11,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
             speakers = ko.observableArray(),
 
             getSpeakers = function () {
-                datacontext.sessionSpeakers.getData({
-                    results: speakers,
+                datacontext.speakerSessions.getLocalSpeakers(speakers, {
                     filter: speakersFilter,
                     sortFunction: sort.speakerSort
                 });
@@ -29,14 +28,9 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
 
             forceRefresh = ko.asyncCommand({
                 execute: function (complete) {
-                    $.when(
-                        datacontext.sessionSpeakers.getData({
-                            results: speakers,
-                            filter: speakersFilter,
-                            sortFunction: sort.speakerSort,
-                            forceRefresh: true
-                        })
-                    ).always(complete);
+                    datacontext.speakerSessions.forceDataRefresh()
+                    .done(getSpeakers)
+                    .always(complete);
                 },
                 canExecute: function (isExecuting) {
                     return true;
