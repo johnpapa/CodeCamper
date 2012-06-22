@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http.Dependencies;
-using Ninject;
-
-namespace CodeCamper.Web
+﻿namespace CodeCamper.Web
 {
     using System;
     using System.Collections.Generic;
@@ -27,7 +20,7 @@ namespace CodeCamper.Web
 
         public void Dispose()
         {
-            IDisposable disposable = resolver as IDisposable;
+            var disposable = resolver as IDisposable;
             if (disposable != null)
                 disposable.Dispose();
 

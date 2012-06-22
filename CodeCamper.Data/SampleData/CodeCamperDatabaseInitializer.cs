@@ -187,7 +187,13 @@ namespace CodeCamper.Data.SampleData
             }
         }
 
-        private List<Session> AddSessions(CodeCamperDbContext context, IList<Person> persons, IEnumerable<TimeSlot> timeSlots, IList<Track> tracks)
+        // TODO: We never use this methods
+        // but let's keep it here just in case.
+        private List<Session> AddSessions(
+            CodeCamperDbContext context, 
+            IList<Person> persons, 
+            IEnumerable<TimeSlot> timeSlots, 
+            IList<Track> tracks)
         {
             var slots = timeSlots.Where(t => t.IsSessionSlot).ToArray();
 
@@ -225,8 +231,8 @@ namespace CodeCamper.Data.SampleData
             var slotsCount = slots.Length;
  
             var personsCount = persons.Count;
-            var firstKnownSpeakerIx = 2; // skip the "reserved" attendees who we know are not speakers.
-            var firstCrowdIx = 4; // first person in the crowd who could be a speaker
+            const int firstKnownSpeakerIx = 2; // skip the "reserved" attendees who we know are not speakers.
+            const int firstCrowdIx = 4; // first person in the crowd who could be a speaker
 
             var speakerIxs = new List<int>(); // speakers assigned in the current timeslot
 
@@ -292,7 +298,7 @@ namespace CodeCamper.Data.SampleData
             var attendanceList = new List<Attendance>();
 
             var textGenerator = new SampleTextGenerator();
-            var textSource = SampleTextGenerator.SourceNames.Faust;
+            const SampleTextGenerator.SourceNames textSource = SampleTextGenerator.SourceNames.Faust;
 
             // NEEDED FOR RANDOMIZING WHICH WE NO LONGER DO
             // Unique TimeSlot.Ids and Ids of Sessions in those slots

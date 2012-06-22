@@ -69,8 +69,8 @@
 
     // Test each endpoint in apiUrls
     for (var i = 0; i < apiUrlslen; i++) {
-        var url = apiUrls[i];
-        test(url, endpointTestGenerator(url));
+        var apiUrl = apiUrls[i];
+        test(apiUrl, endpointTestGenerator(url));
     }
     ;
 })();

@@ -82,7 +82,7 @@
                         }, true)
                     )
 
-                    .pipe(function (data) {
+                    .pipe(function () {
                         // Need sessions and speakers in cache before we can make speakerSessions
                         datacontext.speakerSessions.refreshLocal();
 

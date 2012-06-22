@@ -109,9 +109,8 @@
             },
             
             getLocalSpeakerSessions = function () {
-                var results = [];
                 speaker().personRefresh.notifySubscribers(); // Causes the speakerSession computed to reevaluate
-                results = speaker().speakerSessions();
+                var results = speaker().speakerSessions();
                 results.sort(sort.speakerSessionSort);
                 speakerSessions(results);
             },

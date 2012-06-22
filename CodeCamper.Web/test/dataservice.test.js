@@ -57,11 +57,11 @@ app.test.dataservicesReturnData = function () {
     };
     
     for (var i = 0; i < retrievalTests.length; i++) {
-        var t = retrievalTests[i];
-        test(t.name,
+        var retTest = retrievalTests[i];
+        test(retTest.name,
             function (t) {
                  return function() { retrievalTest(t); };
-            }(t));
+            }(retTest));
     }
 
     module('CUD for Attendance');
