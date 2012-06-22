@@ -901,3 +901,58 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
         }
     }
 }
+
+
+
+
+
+
+.wijmo-checkbox
+{
+/*
+	height: 32px;
+	width: 32px;
+	background: url(images/bookmark.png);
+	*/
+	background-repeat: no-repeat;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	opacity: .6;
+	padding: 0;
+	margin-top: -5%;
+
+	margin-right: -10%;
+}
+div.wijmo-checkbox .wijmo-checkbox-box
+{
+	height: 32px;
+	width: 32px;
+	background: url(images/bookmark.png);
+	opacity: 1;
+}
+div.wijmo-checkbox .ui-state-hover
+{
+    background: url(images/bookmark.png);
+    opacity: 0.8;
+}
+div.wijmo-checkbox .ui-state-active
+{
+    background: url(images/bookmarkchecked.png);
+    opacity: 1;
+}
+div.wijmo-checkbox .ui-state-active.ui-state-hover
+{
+    background: url(images/bookmarkchecked.png);
+    opacity: 0.8;
+}
+div.wijmo-checkbox .ui-state-disabled
+{
+    background: url(images/bookmarklocked.png);
+}
+/*
+div.wijmo-checkbox .wijmo-checkbox-icon
+{
+   background:none;
+}
+*/

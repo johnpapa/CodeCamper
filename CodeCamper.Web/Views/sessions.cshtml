@@ -44,6 +44,9 @@
             <label class="markfavorite" title="Mark as favorite"><input 
                 data-bind="checked:isFavorite, enable: isUnlocked" 
                 type="checkbox"/><span></span></label>
+
+            <input type="checkbox" data-bind="wijcheckbox: {disabled: !isUnlocked()}, checked: isFavorite">
+
         </article>
     </div>
 

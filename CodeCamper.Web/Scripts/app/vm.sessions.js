@@ -3,13 +3,12 @@
 //  The user can further filter this subset of Sessions by additional criteria.
 //
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger'],
-    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery'],
+    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $) {
         var
             isBusy = false,
             isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
-            test = ko.observable(),
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
             timeslots = ko.observableArray(),
@@ -126,6 +125,13 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
                 eventDelegates.sessionsListItem(gotoDetails);
                 eventDelegates.sessionsFavorite(saveFavorite);
                 addFilterSubscriptions();
+
+                //TODO: Workaround til they fix their bug
+                $(function () {
+
+                    $(':wijmo-wijcheckbox').wijcheckbox('refresh');
+
+                });
             };
 
             // Initialization
@@ -142,7 +148,5 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             speakers: speakers,
             timeslots: timeslots,
             tracks: tracks
-            
-            ,test:test
         };
     });

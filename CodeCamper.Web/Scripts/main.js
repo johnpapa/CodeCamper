@@ -25,12 +25,12 @@
         'amplify.store': '../lib/amplify.store',
         'jquery': '../lib/jquery-1.7.2.min',
         'jquery.mockjson': '../lib/jquery.mockjson',
-        //'jquery.ui': '../lib/jquery-ui-1.8.18.custom.min',
-        //'jquery.wijmo': '../lib/jquery.wijmo-open.all.2.1.2.min',
-        'json2': '../lib/json2',
+        'jquery.ui': '../lib/jquery-ui.min',
+        'jquery.wijmo': '../lib/jquery.wijmo-open.all.2.1.2.min',
+        'json2': '../lib/json2.min',
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
-        //'knockout.wijmo': '../lib/knockout.wijmo',
+        'knockout.wijmo': '../lib/knockout.wijmo',
         'ko.validation': '../lib/knockout.validation',
         'ko': '../lib/knockout-2.1.0',
         'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
@@ -39,7 +39,7 @@
         'sammy.title': '../lib/sammy.title',
         'toastr': '../lib/toastr',
         'trafficcop': '../lib/TrafficCop-amd',
-        'underscore': '../lib/underscore'
+        'underscore': '../lib/underscore.min'
     }
 });
 
@@ -78,15 +78,15 @@ requirejs([
                 'amplify.store',            // amplify plugin
                 'jquery.mockjson',          // jquery plugin
                 'jquery.activity-ex',       // jquery plugin
-                //'jquery.ui',                // jquery plugin
-                //'jquery.wijmo',             // jquery plugin
+                'jquery.ui',                // jquery plugin
+                'jquery.wijmo',             // jquery plugin
                 'ko.utils',                 // Knockout custom utilities
                 'ko.bindingHandlers',       // Knockout custom binding handlers
                 'ko.bindingHandlers.activity', // Knockout custom binding handlers
                 'ko.bindingHandlers.command', // Knockout custom binding handlers
                 'ko.asyncCommand',          // Knockout custom asyncCommand
                 'knockout.changetracker',
-                //'knockout.wijmo',           // Knockout wijmo binding handlers
+                'knockout.wijmo',           // Knockout wijmo binding handlers
                 'koExternalTemplateEngine',
                 'ko.validation',            // Knockout validation
                 'debug.helpers'             // our app's ko debugging plugin

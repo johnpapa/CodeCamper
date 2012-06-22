@@ -163,6 +163,7 @@
     <Content Include="Content\images\photos\shawn_wildermuth.jpg" />
     <Content Include="Content\images\valid.png" />
     <Content Include="Content\images\val_asterisk.png" />
+    <Content Include="Content\jquery.wijmo-complete.all.2.1.2.min.css" />
     <Content Include="Content\styles.less" />
     <Content Include="Content\images\photos\aaron_skonnard.jpg" />
     <Content Include="Content\images\back.png" />
@@ -208,6 +209,9 @@
     <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
     <Content Include="Scripts\app\filter.js" />
+    <Content Include="Scripts\lib\jquery-ui.min.js" />
+    <Content Include="Scripts\lib\jquery.wijmo-open.all.2.1.2.min.js" />
+    <Content Include="Scripts\lib\knockout.wijmo.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\app\mock\mock.js" />
     <Content Include="Scripts\app\filter.speakers.js" />
