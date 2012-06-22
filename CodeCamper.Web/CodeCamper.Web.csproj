@@ -227,7 +227,6 @@
     <Content Include="Scripts\lib\infuser-amd.js" />
     <Content Include="Scripts\lib\knockout.changetracker-amd.js" />
     <Content Include="Scripts\lib\knockout.validation.js" />
-    <Content Include="Scripts\lib\knockout.validation-amd.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
     <Content Include="Scripts\lib\TrafficCop-amd.js" />
     <Content Include="Test\webapi.person-cud.tests.html" />
