@@ -188,7 +188,7 @@
                     complete();
                 },
                 canExecute: function (isExecuting) {
-                    return session() && session().isUnlocked;
+                    return session() && session().isUnlocked();
                 }
             }),
 

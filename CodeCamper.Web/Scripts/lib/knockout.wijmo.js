@@ -761,6 +761,7 @@
     createCustomBinding({
         widgetName: "wijcheckbox",
         observableOptions: {
+            checked: {},
             disabled: {}
         }
     });
@@ -768,7 +769,8 @@
     createCustomBinding({
         widgetName: "wijradio",
         observableOptions: {
-            disabled: {}
+            disabled: {},
+            checked: {}
         }
     });
 

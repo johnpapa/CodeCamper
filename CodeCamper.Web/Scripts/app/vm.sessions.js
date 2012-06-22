@@ -127,11 +127,13 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
                 addFilterSubscriptions();
 
                 //TODO: Workaround til they fix their bug
-                $(function () {
+                //$(function () {
 
-                    $(':wijmo-wijcheckbox').wijcheckbox('refresh');
+                //    if ($(':wijmo-wijcheckbox')) {
+                //        $(':wijmo-wijcheckbox').wijcheckbox('refresh');
+                //    }
 
-                });
+                //});
             };
 
             // Initialization
