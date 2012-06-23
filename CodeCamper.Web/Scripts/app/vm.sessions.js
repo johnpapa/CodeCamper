@@ -3,8 +3,8 @@
 //  The user can further filter this subset of Sessions by additional criteria.
 //
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery'],
-    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery', 'config'],
+    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $, config) {
         var
             isBusy = false,
             isRefreshing = false,

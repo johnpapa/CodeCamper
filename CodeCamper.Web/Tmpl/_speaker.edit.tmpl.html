@@ -5,19 +5,26 @@
     <div class="details-left">
         <div>
             <img data-bind="attr: {src: imageName}" />
-            <address data-bind="text: fullName"></address>
         </div>
         <div>
-            <label for="email">Email</label>
-            <address id="email" data-bind="text: email"></address>
+            <label>First Name</label>
+            <input data-bind="value: firstName" placeholder="John" required/>
         </div>
         <div>
-            <label for="email">Twitter</label>
-            <address id="twitter" data-bind="text: twitter"></address>
+            <label>Last Name</label>
+            <input data-bind="value: lastName" placeholder="Papa" required/>
         </div>
         <div>
-            <label for="blog">Blog</label>
-            <address id="blog" data-bind="text: blog"></address>
+            <label>Email</label>
+            <input data-bind="value: email" placeholder="john@contoso.com" required/>
+        </div>
+        <div>
+            <label>Twitter</label>
+            <input data-bind="value: twitter" placeholder="@john_papa"/>
+        </div>
+        <div>
+            <label>Blog</label>
+            <input data-bind="value: blog" placeholder="http://www.contoso.com"/>
         </div>
     </div>
     <div class="details-right">

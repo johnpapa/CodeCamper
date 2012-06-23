@@ -5,39 +5,41 @@
     </div>
     <div class="details-left">
         <div>
-            <label for="track">Track</label>
-            <select id="track" data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id', value: trackId">
+            <label>Track</label>
+            <select data-bind="options: $parent.tracks, optionsText: 'name', optionsValue: 'id', value: trackId">
             </select>
         </div>
         <div>
-            <label for="timeslot">Time slot</label>
-            <select id="timeslot" data-bind="options: $parent.timeslots, optionsText: 'shortStart', optionsValue: 'id', value: timeslotId">
+            <label>Time slot</label>
+            <select data-bind="options: $parent.timeslots, optionsText: 'shortStart', optionsValue: 'id', value: timeslotId">
             </select>
         </div>
         <div>
-            <label for="room">Room</label>
-            <select id="room" data-bind="options: $parent.rooms, optionsText: 'name', optionsValue: 'id', value: roomId">
+            <label>Room</label>
+            <select data-bind="options: $parent.rooms, optionsText: 'name', optionsValue: 'id', value: roomId">
             </select>
         </div>
         <div>
-            <label for="code">Code</label>
-            <input id="code" data-bind="value: code" placeholder="WEB121" required/>
+            <label>Code</label>
+            <input data-bind="value: code" placeholder="WEB121" required/>
         </div>
         <div>
-            <label for="level">Level</label>
-            <input id="level" data-bind="value: level" placeholder="300" required/>
+            <label>Level</label>
+            <input data-bind="value: level" placeholder="300" required/>
         </div>
         <div>
-            <label for="tags">Tags</label>
-            <input id="tags" data-bind="value: tagsFormatted" placeholder="CSS, HTML5"/>
+            <label>Tags</label>
+            <input data-bind="value: tagsFormatted" placeholder="CSS, HTML5"/>
         </div>
-        <img data-bind="attr: {src: speaker().imageName}" />
-        <address data-bind="text: speaker().fullName"></address>
+        <a data-bind="attr: {href: speaker().speakerHash, title: speaker().fullName}">
+            <img data-bind="attr: {src: speaker().imageName}" />
+            <address data-bind="text: speaker().fullName"></address>
+        </a>        
     </div>
     <div class="details-right">
         <div>
-            <label for="description">Description</label>
-            <textarea id="description" data-bind="value: description, valueUpdate: 'afterkeydown'" 
+            <label>Description</label>
+            <textarea data-bind="value: description, valueUpdate: 'afterkeydown'" 
                 placeholder="Session description"></textarea>
         </div>
         <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
