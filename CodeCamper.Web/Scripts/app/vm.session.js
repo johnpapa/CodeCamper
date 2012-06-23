@@ -97,7 +97,7 @@
             }),
             
             canLeave = function () {
-                return !isDirty() || validationErrors().length === 0;
+                return !isDirty() && validationErrors().length === 0;
             },
 
             activate = function (routeData) {
