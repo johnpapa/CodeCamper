@@ -28,7 +28,7 @@
         <label>Sessions</label>
         <ul data-bind="foreach: speakerSessions">
             <li>
-                <a data-bind="attr: {href: title, title: title}">
+                <a data-bind="attr: {href: sessionHash, title: title}">
                     <span data-bind="text: title"></span>
                     [ <span data-bind="text: timeslot().shortStart"></span> ]
                 </a>

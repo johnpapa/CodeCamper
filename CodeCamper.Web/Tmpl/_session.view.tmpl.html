@@ -27,8 +27,11 @@
             <label for="tags">Tags</label>
             <address id="tags" data-bind="text: tagsFormatted"></address>
         </div>
-        <img data-bind="attr: {src: speaker().imageName}" />
-        <address data-bind="text: speaker().fullName"></address>
+        <a data-bind="attr: {href: speaker().speakerHash, title: speaker().fullName}">
+            <img data-bind="attr: {src: speaker().imageName}" />
+            <address data-bind="text: speaker().fullName"></address>
+        </a>        
+
     </div>
     <div class="details-right">
         <div>

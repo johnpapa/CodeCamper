@@ -75,7 +75,6 @@
             },
 
             activate = function (routeData) {
-                config.logger.info('here');
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
 
                 currentSpeakerId(routeData.id);

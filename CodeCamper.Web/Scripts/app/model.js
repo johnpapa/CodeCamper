@@ -1,5 +1,5 @@
-﻿define(['require', 'ko'],
-    function (require, ko) {
+﻿define(['require', 'ko', 'config'],
+    function (require, ko, config) {
 
         var imageBasePath = '../content/images/photos/',
             unknownPersonImageSource = 'unknown_person.jpg',
@@ -96,7 +96,11 @@
             self.level = ko.observable().extend({ required: true });
             self.tags = ko.observable();
             self.description = ko.observable();
-            self.isFavoriteRefresh = ko.observable(); 
+            self.isFavoriteRefresh = ko.observable();
+
+            self.sessionHash = ko.computed(function() {
+                return config.hashes.sessions + '/' + self.id();
+            });
 
             self.tagsFormatted = ko.computed({
                 read: function () {
@@ -234,6 +238,10 @@
                 return imageBasePath + source;
             }, self);
             self.bio = ko.observable().extend({ required: true });
+
+            self.speakerHash = ko.computed(function () {
+                return config.hashes.speakers + '/' + self.id();
+            });
 
             self.speakerSessions = ko.computed(function () {
                 self.personRefresh(); // Use this to force reevaluation

@@ -5,7 +5,12 @@
             //currentUserId = 1, // Default user - has favorites
             currentUserId = 3, // John Papa - no favorites      
             currentUser = ko.observable(),
-            demoUserIds = [1, 3, 5],
+            hashes = {
+                favorites: '#/favorites',
+                favoritesByDate: '#/favorites/date',
+                sessions: '#/sessions',
+                speakers: '#/speakers'
+            },
             logger = toastr, // use toastr for the logger
             messages = {
                 viewModelActivated: 'viewmodel-activation'
@@ -59,7 +64,7 @@
             currentUserId: currentUserId,
             currentUser: currentUser,
             dataserviceInit: dataserviceInit,
-            demoUserIds: demoUserIds,
+            hashes: hashes,
             logger: logger,
             messages: messages,
             throttle: throttle,

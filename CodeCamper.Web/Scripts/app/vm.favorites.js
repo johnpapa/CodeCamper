@@ -97,7 +97,7 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
             
             gotoDetails = function(selectedSession) {
                 if (selectedSession && selectedSession.id()) {
-                    router.navigateTo('#/sessions/' + selectedSession.id());
+                    router.navigateTo(config.hashes.sessions + '/' + selectedSession.id());
                 }
             },
 

@@ -80,7 +80,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
 
             gotoDetails = function (selectedSession) {
                 if (selectedSession && selectedSession.id()) {
-                    router.navigateTo('#/sessions/' + selectedSession.id());
+                    router.navigateTo(config.hashes.sessions + '/' + selectedSession.id());
                 }
             },
 
