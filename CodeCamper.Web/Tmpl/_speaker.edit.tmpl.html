@@ -8,23 +8,24 @@
         </div>
         <div>
             <label>First Name</label>
-            <input data-bind="value: firstName" placeholder="John" required/>
+            <input data-bind="value: firstName" placeholder="John" />
         </div>
         <div>
             <label>Last Name</label>
-            <input data-bind="value: lastName" placeholder="Papa" required/>
+            <input data-bind="value: lastName" placeholder="Papa" />
         </div>
         <div>
             <label>Email</label>
-            <input data-bind="value: email" placeholder="john@contoso.com"/>
+            <input type="email" data-bind="value: email" placeholder="john@contoso.com" title="Email (ex: john@contoso.com)" />
         </div>
         <div>
             <label>Twitter</label>
-            <input data-bind="value: twitter" placeholder="@john_papa"/>
+            <input data-bind="value: twitter" placeholder="@john_papa" title="Twitter (ex: @john_papa)"/>
+
         </div>
         <div>
             <label>Blog</label>
-            <input data-bind="value: blog" placeholder="http://www.contoso.com"/>
+            <input type="url" data-bind="value: blog" placeholder="http://www.contoso.com"  title="Url (ex: www.contoso.com)"/>
         </div>
     </div>
     <div class="details-right">

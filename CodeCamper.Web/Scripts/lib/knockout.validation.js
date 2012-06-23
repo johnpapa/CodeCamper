@@ -461,6 +461,28 @@
         message: '{0} is not a proper email address'
     };
 
+    //ko.validation.rules['url'] = {
+    //    validator: function (val, validate) {
+    //        //I think an empty url is also a valid entry
+    //        //if one want's to enforce entry it should be done with 'required: true'
+    //        return utils.isEmptyVal(val) || (
+    //            validate && /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i.test(val)
+    //        );
+    //    },
+    //    message: 'Not a proper web site url (ex: www.johnpapa.net)'
+    //};
+    
+    //ko.validation.rules['twitter'] = {
+    //    validator: function (val, validate) {
+    //        //I think an empty twitter is also a valid entry
+    //        //if one want's to enforce entry it should be done with 'required: true'
+    //        return utils.isEmptyVal(val) || (
+    //            validate && /[@]([A-Za-z0-9_]{1,15})/i.test(val)
+    //        );
+    //    },
+    //    message: 'Not a proper twitter id (ex: @john_papa)'
+    //};
+
     ko.validation.rules['date'] = {
         validator: function (value, validate) {
             return utils.isEmptyVal(value) || (validate && !/Invalid|NaN/.test(new Date(value)));

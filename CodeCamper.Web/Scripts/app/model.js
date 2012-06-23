@@ -3,7 +3,9 @@
 
         var imageBasePath = '../content/images/photos/',
             unknownPersonImageSource = 'unknown_person.jpg',
-            twitterUrl = 'http://twitter.com/';
+            twitterUrl = 'http://twitter.com/',
+            twitterRegEx = /[@]([A-Za-z0-9_]{1,15})/i,
+            urlRegEx = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i;
 
         // To avoid a circular model/datacontext reference
         // model.datacontext is set in Bootstrapper
@@ -222,11 +224,21 @@
                 return self.firstName() + ' ' + self.lastName();
             }, self);
 
-            self.email = ko.observable().extend({ required: true });
-            self.blog = ko.observable().extend({ required: true });
-            self.twitter = ko.observable().extend({ required: true });
-            self.twitterLink = ko.computed(function() {
-                return twitterUrl + self.twitter();
+            self.email = ko.observable().extend({ email: true });
+            self.blog = ko.observable().extend({
+                pattern: {
+                    message: 'Not a valid url',
+                    params: urlRegEx
+                }
+            });
+            self.twitter = ko.observable().extend({
+                pattern: {
+                    message: 'Not a valid twitter id',
+                    params: twitterRegEx
+                }
+            });
+            self.twitterLink = ko.computed(function () {
+                return self.twitter() ? twitterUrl + self.twitter() : '';
             });
             self.gender = ko.observable();
             self.imageSource = ko.observable();
@@ -237,7 +249,7 @@
                 }
                 return imageBasePath + source;
             }, self);
-            self.bio = ko.observable().extend({ required: true });
+            self.bio = ko.observable();
 
             self.speakerHash = ko.computed(function () {
                 return config.hashes.speakers + '/' + self.id();
