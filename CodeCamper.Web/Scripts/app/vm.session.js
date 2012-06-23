@@ -23,10 +23,6 @@
 
             validationErrors = ko.observableArray([]), // Override this after we get a session
 
-            //validationErrors = ko.computed(function(){
-            //    return session() ? ko.validation.group(session()) : ko.observableArray([]);
-            //}),
-
             isDirty = ko.computed(function () {
                 if (canEditSession()) {
                     return session().dirtyFlag().isDirty();

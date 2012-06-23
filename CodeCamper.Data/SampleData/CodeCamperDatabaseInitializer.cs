@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data.SampleData
@@ -137,7 +138,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Papa",
                 Email = "landon@contoso.com",
                 Blog = "http://johnpapa.net",
-                Twitter = "@landonpapa",
+                Twitter = "landonpapa",
                 Gender = "M",
                 ImageSource = "felix_fanboi.jpg",
                 Bio = bioTextGenerator.GenSentences(12, bioTextSource),
@@ -148,7 +149,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Menot",
                 Email = "Suem@litiginy.com",
                 Blog = "http://tortsblog.com/",
-                Twitter = "@Menotany",
+                Twitter = "Menotany",
                 Gender = "F",
                 ImageSource = "sue_menot.jpg",
                 Bio = bioTextGenerator.GenSentences(20, bioTextSource),
@@ -176,7 +177,7 @@ namespace CodeCamper.Data.SampleData
                         {
                             FirstName = name.First,
                             LastName = name.Last,
-                            Email = netName+"@smartie.com",
+                            Email = netName+"@contoso.com",
                             Blog = "http://"+netName+"/blogdog.com",
                             Twitter = "@"+netName,
                             Gender = name.Gender,
@@ -264,7 +265,7 @@ namespace CodeCamper.Data.SampleData
                 var session =
                     new Session
                     {
-                        Title = textGenerator.GenWords(2)+" "+track.Name+" "+textGenerator.GenWords(5),
+                        Title = GenerateTitle(track),
                         Code = GenSessionCode(track.Name, level),
                         SpeakerId = speaker.Id, 
                         TrackId = track.Id,
@@ -274,7 +275,6 @@ namespace CodeCamper.Data.SampleData
                         Tags = TagsGenerator.GenTags(track.Name),
                         Description = textGenerator.GenSentences(40, descTextSource),
                     };
-
                 sessions.Add(session);
 
                 if (++trackIx != trackCount) continue;
@@ -284,6 +284,17 @@ namespace CodeCamper.Data.SampleData
                 trackIx = 0;
                 speakerIxs.Clear();
             }
+        }
+
+        private string GenerateTitle(Track track)
+        {
+            var textGenerator = new SampleTextGenerator();
+            var title = textGenerator.GenWords(2) + " " + track.Name + " " + textGenerator.GenWords(4);
+            var c = title[1];
+            var sb = new StringBuilder();
+            sb.Append(char.ToUpper(c));
+            sb.Append(title.Substring(1));
+            return sb.ToString();
         }
 
         private string GenSessionCode(string trackName, string level)

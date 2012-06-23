@@ -3,21 +3,19 @@
         <h1 data-bind="text:fullName"></h1>
     </div>
     <div class="details-left">
+        <img data-bind="attr: {src: imageName}" />
+        <address data-bind="text: fullName"></address>
         <div>
-            <img data-bind="attr: {src: imageName}" />
-            <address data-bind="text: fullName"></address>
+            <label>Email</label>
+            <a data-bind="attr: {href: email, title: email}, text: email"></a>
         </div>
         <div>
-            <label for="email">Email</label>
-            <address id="email" data-bind="text: email"></address>
+            <label>Twitter</label>
+            <a data-bind="attr: {href: twitterLink, title: twitter}, text: twitter"></a>
         </div>
         <div>
-            <label for="email">Twitter</label>
-            <address id="twitter" data-bind="text: twitter"></address>
-        </div>
-        <div>
-            <label for="blog">Blog</label>
-            <address id="blog" data-bind="text: blog"></address>
+            <label>Blog</label>
+            <a data-bind="attr: {href: blog, title: blog}, text: blog"></a>
         </div>
     </div>
     <div class="details-right">
@@ -25,8 +23,16 @@
             <label for="bio">Bio</label>
             <span id="bio" class="scrollable-text" data-bind="text: bio"></span>
         </div>
-<!--        <ul data-bind="foreach: sessions">
-            <li><address data-bind="text: title"></address></li>
-        </ul>-->
+    </div>
+    <div class="details-bottom">
+        <label>Sessions</label>
+        <ul data-bind="foreach: speakerSessions">
+            <li>
+                <a data-bind="attr: {href: title, title: title}">
+                    <span data-bind="text: title"></span>
+                    [ <span data-bind="text: timeslot().shortStart"></span> ]
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

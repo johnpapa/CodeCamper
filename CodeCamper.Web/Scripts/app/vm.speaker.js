@@ -71,7 +71,7 @@
             }),
 
             canLeave = function () {
-                return !isDirty() || validationErrors().length === 0;
+                return !isDirty() && validationErrors().length === 0;
             },
 
             activate = function (routeData) {
@@ -80,7 +80,6 @@
 
                 currentSpeakerId(routeData.id);
                 getSpeaker();
-                //getSessions();
             },
             
             getSpeaker = function (completeCallback, forceRefresh) {
@@ -95,9 +94,9 @@
                     currentSpeakerId(), {
                         success: function (s) {
                             speaker(s);
-                            getLocalSpeakerSessions();
-                            //s.personRefresh.notifySubscribers(); // Causes the speakerSession computed to reevaluate
-                            //console.log(s.speakerSessions()); //ToDo: remove after done testing
+                            // Cause the speakerSession computed to reevaluate
+                            speaker().personRefresh.notifySubscribers();
+                            //getLocalSpeakerSessions();
                             callback();
                         },
                         error: function () {
@@ -108,12 +107,13 @@
                 );
             },
             
-            getLocalSpeakerSessions = function () {
-                speaker().personRefresh.notifySubscribers(); // Causes the speakerSession computed to reevaluate
-                var results = speaker().speakerSessions();
-                results.sort(sort.speakerSessionSort);
-                speakerSessions(results);
-            },
+            //getLocalSpeakerSessions = function () {
+            //    // Cause the speakerSession computed to reevaluate
+            //    speaker().personRefresh.notifySubscribers(); 
+            //    var results = speaker().speakerSessions();
+            //    results.sort(sort.speakerSessionSort);
+            //    speakerSessions(results);
+            //},
 
             init = function () {
             };

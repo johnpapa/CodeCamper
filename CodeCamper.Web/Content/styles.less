@@ -107,6 +107,10 @@ body {
 .view {
 	margin-top: 3%;
 
+	a {
+		color: @accent-color;
+	}
+
 	> nav {
 		float: left;
 		width: 220px;
@@ -359,12 +363,13 @@ label.favoritesonly > {
         width: 100px;
     }
 
-    input, select, label {
+    select, label {
 		margin-bottom: 2%;
     }
 
     input {
         width: 150px;
+		margin-bottom: 4%;
     }
 
     select {
@@ -383,8 +388,48 @@ label.favoritesonly > {
     div address {
         line-height: 35px;
         margin-left: 100px;
+		margin-bottom: 2%;
     }
 
+    div a {
+        line-height: 35px;
+        margin-left: 100px;
+		margin-bottom: 2%;
+		display: block;
+    }
+}
+
+.details-bottom{
+	float:left;
+    clear: both;
+
+    > ul {
+		list-style-type: none;
+
+		> li {
+				
+			> a,
+			> span {
+				background: rgba(255,255,255,.1);
+				display: block;
+				line-height: 175%;
+				margin-bottom: 2px;
+				padding: 0 10px 0px 15px;
+				text-decoration: none;
+			}
+
+			> a {
+				background: rgba(0,0,0,.05);
+				background: transparent;
+			}
+
+			> a:hover {
+				background: rgba(0,0,0,.05);
+				cursor: pointer;
+				color: @text-color;
+			}
+		}
+	}
 }
 
 .details-right {

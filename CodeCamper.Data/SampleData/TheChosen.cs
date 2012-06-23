@@ -26,7 +26,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Papa",
                 Email = "johnp@contoso.com",
                 Blog = "http://johnp.contoso.com",
-                Twitter = "https://twitter.com/#!/john_papa",
+                Twitter = "@john_papa",
                 Gender = "M",
                 Bio = "Husband and father enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author for MSDN Magazine and Pluralsight.",
             });
@@ -36,7 +36,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Wahlin",
                 Email = "danw@contoso.com",
                 Blog = "http://danw.contoso.com",
-                Twitter = "https://twitter.com/#!/danwahlin",
+                Twitter = "@danwahlin",
                 Gender = "M",
                 Bio = "Chief Architect at Wahlin Consulting. Provide consulting & training on jQuery, HTML5, ASP.NET, SharePoint. Husband & father, like to write and record music.",
             });
@@ -46,7 +46,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Bell",
                 Email = "wardb@contoso.com",
                 Blog = "http://wardb.contoso.com",
-                Twitter = "https://twitter.com/#!/wardbell",
+                Twitter = "@wardbell",
                 Gender = "M",
                 Bio = "V.P. of Technology at IdeaBlade. Speaks often on client application development issues to anyone who will listen. Likes sociology, history, poetry, and ridiculous clothes.",
             });
@@ -56,7 +56,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Fjällemark",
                 Email = "hansf@contoso.com",
                 Blog = "http://hansf.contoso.com",
-                Twitter = "https://twitter.com/#!/hfjallemark",
+                Twitter = "@hfjallemark",
                 Gender = "M",
                 Bio = "Freelancing developer & designer based in Sweden. I spend most of my time implementing usable and attractive UX in HTML5 or Silverli.. no wait, just HTML5:) ",
             });
@@ -66,7 +66,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Cowart",
                 Email = "jimc@contoso.com",
                 Blog = "http://jimc.contoso.com",
-                Twitter = "https://twitter.com/#!/ifandelse",
+                Twitter = "@ifandelse",
                 Gender = "M",
                 Bio = "Husband, father, architect, developer, tea drinker. Opinions are my own. Unless they're good",
             });
@@ -76,7 +76,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Niemeyer",
                 Email = "ryann@contoso.com",
                 Blog = "http://ryann.contoso.com/",
-                Twitter = "https://twitter.com/#!/rpniemeyer",
+                Twitter = "@rpniemeyer",
                 Gender = "M",
                 Bio = "Coder, tester, father, and husband. Never short on ideas. Love to learn and collaborate.",
             });
@@ -86,7 +86,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Guthrie",
                 Email = "scottg@contoso.com",
                 Blog = "http://scottg.contoso.com",
-                Twitter = "https://twitter.com/#!/scottgu",
+                Twitter = "@scottgu",
                 Gender = "M",
                 Bio = "I live in Seattle and build a few products for Microsoft",
             });
@@ -96,7 +96,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Sanderson",
                 Email = "steves@contoso.com",
                 Blog = "http://steves.contoso.com",
-                Twitter = "https://twitter.com/#!/stevensanderson",
+                Twitter = "@stevensanderson",
                 Gender = "M",
                 Bio = "Also known as Steven Sanderson",
             });
@@ -106,7 +106,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Skonnard",
                 Email = "aarons@contoso.com",
                 Blog = "http://aarons.contoso.com",
-                Twitter = "https://twitter.com/#!/skonnard",
+                Twitter = "@skonnard",
                 Gender = "M",
                 Bio = "Changing the way software professionals learn. President/CEO of Pluralsight.",
             });
@@ -126,7 +126,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Smith",
                 Email = "johns@contoso.com",
                 Blog = "http://johns.contoso.com",
-                Twitter = "https://twitter.com/#!/onefloridacoder",
+                Twitter = "@onefloridacoder",
                 Gender = "M",
                 Bio = "Christian .NET Dev & Orlando .NET User Group VP; 4,5,6-string bass player.",
             });
@@ -136,7 +136,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Hunter",
                 Email = "scotth@contoso.com",
                 Blog = "http://scotth.contoso.com",
-                Twitter = "https://twitter.com/#!/coolcsh",
+                Twitter = "@coolcsh",
                 Gender = "M",
                 Bio = "Program Manager at Microsoft on web technologies such as Azure, ASP.NET, MVC, Web API, Entity Framework, NuGet and more...",
             });
@@ -146,7 +146,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Kristensen",
                 Email = "madsk@contoso.com",
                 Blog = "http://madsk.contoso.com",
-                Twitter = "https://twitter.com/#!/mkristensen",
+                Twitter = "@mkristensen",
                 Gender = "M",
                 Bio = "Program Manager for Microsoft Web Platform & Tools and founder of BlogEngine.NET",
             });
@@ -156,7 +156,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Dierking",
                 Email = "howardd@contoso.com",
                 Blog = "http://howardd.contoso.com",
-                Twitter = "https://twitter.com/#!/howard_dierking",
+                Twitter = "@howard_dierking",
                 Gender = "M",
                 Bio = "I like technology...a lot...",
             });
@@ -166,7 +166,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Manor",
                 Email = "elijahm@contoso.com",
                 Blog = "http://elijiahm.contoso.com",
-                Twitter = "https://twitter.com/#!/elijahmanor",
+                Twitter = "@elijahmanor",
                 Gender = "M",
                 Bio = "I am a Christian and a family man. I develops at appendTo as a Senior Architect providing corporate jQuery support, training, and consulting.",
             });
@@ -176,7 +176,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Garcia",
                 Email = "estebang@contoso.com",
                 Blog = "http://estebang.contoso.com",
-                Twitter = "https://twitter.com/#!/EstebanFGarcia",
+                Twitter = "@EstebanFGarcia",
                 Gender = "M",
                 Bio = "TFS | Visual Studio ALM Ranger | Scrum | .NET Development | Solutions Architect at @AgileThought | @ONETUG President | UCF Knight",
             });
@@ -186,7 +186,7 @@ namespace CodeCamper.Data.SampleData
                 LastName = "Wildermuth",
                 Email = "shawnw@contoso.com",
                 Blog = "http://shawnw.contoso.com",
-                Twitter = "https://twitter.com/#!/ShawnWildermuth",
+                Twitter = "@ShawnWildermuth",
                 Gender = "M",
                 Bio = "Author, trainer, software guy, Braves fan, guitar player, Xbox maven, coffee addict and astronomy fan.",
             });

@@ -2,7 +2,8 @@
     function (require, ko) {
 
         var imageBasePath = '../content/images/photos/',
-            unknownPersonImageSource = 'unknown_person.jpg';
+            unknownPersonImageSource = 'unknown_person.jpg',
+            twitterUrl = 'http://twitter.com/';
 
         // To avoid a circular model/datacontext reference
         // model.datacontext is set in Bootstrapper
@@ -220,6 +221,9 @@
             self.email = ko.observable().extend({ required: true });
             self.blog = ko.observable().extend({ required: true });
             self.twitter = ko.observable().extend({ required: true });
+            self.twitterLink = ko.computed(function() {
+                return twitterUrl + self.twitter();
+            });
             self.gender = ko.observable();
             self.imageSource = ko.observable();
             self.imageName = ko.computed(function () {
@@ -232,7 +236,7 @@
             self.bio = ko.observable().extend({ required: true });
 
             self.speakerSessions = ko.computed(function () {
-                self.personRefresh();
+                self.personRefresh(); // Use this to force reevaluation
                 return self.id() ? datacontext().persons.getLocalSpeakerSessions(self.id()): [];
             });
 
