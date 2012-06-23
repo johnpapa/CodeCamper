@@ -16,7 +16,7 @@
         </div>
         <div>
             <label>Email</label>
-            <input data-bind="value: email" placeholder="john@contoso.com" required/>
+            <input data-bind="value: email" placeholder="john@contoso.com"/>
         </div>
         <div>
             <label>Twitter</label>
@@ -32,5 +32,16 @@
             <label for="bio">Bio</label>
             <span id="bio" class="scrollable-text" data-bind="text: bio"></span>
         </div>
+    </div>
+    <div class="details-bottom">
+        <label>Sessions</label>
+        <ul data-bind="foreach: speakerSessions">
+            <li>
+                <a data-bind="attr: {href: sessionHash, title: title}">
+                    <span data-bind="text: title"></span>
+                    [ <span data-bind="text: timeslot().shortStart"></span> ]
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
