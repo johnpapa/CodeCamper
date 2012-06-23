@@ -37,7 +37,7 @@
                 router.register({ route: config.hashes.sessions + '/:id', title: 'Session', callback: vm.session.activate, view: config.viewIds.session, group: '.route-left' });
 
                 // Speaker and speaker details routes
-                router.register({ route: config.hashes.speakers + '/', title: 'Speakers', callback: vm.speakers.activate, view: config.viewIds.speakers, group: '.route-top' });
+                router.register({ route: config.hashes.speakers, title: 'Speakers', callback: vm.speakers.activate, view: config.viewIds.speakers, group: '.route-top' });
                 router.register({ route: config.hashes.speakers + '/:id', title: 'Speaker', callback: vm.speaker.activate, view: config.viewIds.speaker });
 
                 // Catch invalid routes

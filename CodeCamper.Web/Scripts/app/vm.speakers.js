@@ -3,9 +3,8 @@
 //  The user can further filter this subset of speakers by additional criteria.
 //
 // ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger'],
-    function (ko, router, datacontext, filter, sort, messenger) {
-        //app.vm.speakers = (function (ko, logger, router, datacontext, config, filter, sort) {
+define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
+    function (ko, router, datacontext, filter, sort, messenger, config) {
         var
             speakersFilter = new filter.SpeakersFilter(),
             speakers = ko.observableArray(),
