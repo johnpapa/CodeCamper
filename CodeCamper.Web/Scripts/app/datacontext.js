@@ -60,8 +60,8 @@
                     },
 
                     getLocalById = function (id) {
-                        //TODO: only place we set to NULLO
-                        return !!id && !!items[id] ? items[id] : nullo; //{ isNullo: true }; //nullo; 
+                        // This is the only place we set to NULLO
+                        return !!id && !!items[id] ? items[id] : nullo;
                     },
 
                     getAllLocal = function () {
@@ -79,6 +79,9 @@
 
                             getFunction = getFunctionOverride || getFunction;
 
+                            // If the internal items object doesnt exist, 
+                            // or it exists but has no properties, 
+                            // or we force a refresh
                             if (!items || !utils.hasProperties(items) || forceRefresh) {
                                 getFunction({
                                     success: function(dtoList) {
@@ -86,7 +89,7 @@
                                         def.resolve(dtoList);
                                     },
                                     error: function() {
-                                        logger.error('oops! data could not be retrieved'); //TODO: get rid of this
+                                        logger.error('oops! data could not be retrieved'); 
                                         def.reject();
                                     }
                                 }, param);
