@@ -158,9 +158,11 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\photos\esteban_garcia.jpg" />
     <Content Include="Content\images\invalid.png" />
     <Content Include="Content\images\photos\shawn_wildermuth.jpg" />
+    <Content Include="Content\images\save.png" />
     <Content Include="Content\images\star-empty.png" />
     <Content Include="Content\images\star-full.png" />
     <Content Include="Content\images\valid.png" />
