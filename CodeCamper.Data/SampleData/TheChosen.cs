@@ -13,7 +13,7 @@ namespace CodeCamper.Data.SampleData
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
-            _shawnWildermuth, _peteBrown, _timHeuer;
+            _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -28,7 +28,7 @@ namespace CodeCamper.Data.SampleData
                 Blog = "http://johnp.contoso.com",
                 Twitter = "@john_papa",
                 Gender = "M",
-                Bio = "Husband and father enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author for MSDN Magazine and Pluralsight.",
+                Bio = "Husband, father, and Catholic enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author, and Pluralsight trainer.",
             });
             _theChosen.Add(_danWahlin =new Person
             {
@@ -209,6 +209,16 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "@timheuer",
                 Gender = "M",
                 Bio = "I work on XAML client platforms at Microsoft and trying to be the best dad/husband I can be when I'm not working.",
+            });
+            _theChosen.Add(_julieLerman = new Person
+            {
+                FirstName = "Julie",
+                LastName = "Lerman",
+                Email = "juliel@contoso.com",
+                Blog = "http://juliel.contoso.com",
+                Twitter = "@julielerman",
+                Gender = "F",
+                Bio = "Vermont Geekette, .NET (and Entity Framework) Mentor/Consultant, Author, MS MVP, INETA Speaker, Vermont.NET User Group Leader",
             });
             
 
@@ -506,6 +516,21 @@ namespace CodeCamper.Data.SampleData
                 Level = levels[2],
                 Tags = "MVC|HTML5|Entity Framework|jQuery|Web",
                 Description = "TBD",
+            });
+
+            // Julie Lerman
+            addSession(false, new Session
+            {
+                Title = "Entity Framework Code First",
+                Code = "DAT192",
+                SpeakerId = _julieLerman.Id,
+                TrackId = tracks.First(t => t.Name == "Data").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_julieLerman),
+                Level = levels[0],
+                Tags = "Data|Entity Framework|ORM",
+                Description =
+                    "Discover how Entity Framework Code First can improve your life!",
             });
 
             // Hans Fjällemark
