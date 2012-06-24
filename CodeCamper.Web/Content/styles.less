@@ -674,9 +674,11 @@ button:disabled {
 */
 .starRating span { width:32px; 
                    height:28px; 
+                   background-size:33px;
                    background-image: url(images/star-empty.png); 
                    display:inline-block; 
                    margin: 0; }
+
 .starRating span { cursor: pointer; }
 
 /*.starRating span.chosen { background-position: 0 0; }*/
@@ -842,6 +844,12 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
         height: 24px;
     }
 
+    .starRating-readonly span, .starRating span {
+        width: 24px;
+        height: 21px;
+        background-size: 24px;
+    }
+
 	.view > nav { 
 		float: none;
 		margin: 0 0 7% 0;
@@ -920,6 +928,11 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 		width: 16px;
 	}
 		
+    .starRating-readonly span, .starRating span {
+        width: 16px;
+        height: 14px;
+        background-size: 16px;
+    }
 
     .filter-box-container-full-width {
         margin: 0 0 7% 0;
