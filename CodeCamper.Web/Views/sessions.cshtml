@@ -47,7 +47,7 @@
             
             <!-- TODO: Testing of wijmo checkbox -->
             
-            <input type="checkbox" data-bind="wijcheckbox: {checked: isFavorite}">
+            <input type="checkbox" data-bind="wijcheckbox: { disabled: !isUnlocked() },  checked: isFavorite">
             
 
         </article>

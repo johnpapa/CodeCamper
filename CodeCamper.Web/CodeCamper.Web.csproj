@@ -161,6 +161,8 @@
     <Content Include="Content\images\photos\esteban_garcia.jpg" />
     <Content Include="Content\images\invalid.png" />
     <Content Include="Content\images\photos\shawn_wildermuth.jpg" />
+    <Content Include="Content\images\star-empty.png" />
+    <Content Include="Content\images\star-full.png" />
     <Content Include="Content\images\valid.png" />
     <Content Include="Content\images\val_asterisk.png" />
     <Content Include="Content\jquery.wijmo-complete.all.2.1.2.min.css" />
@@ -185,7 +187,6 @@
     <Content Include="Content\images\photos\ryan_niemeyer.jpg" />
     <Content Include="Content\images\photos\scott_guthrie.jpg" />
     <Content Include="Content\images\photos\scott_hunter.jpg" />
-    <Content Include="Content\images\stars.png" />
     <Content Include="Content\images\photos\steve_sanderson.jpg" />
     <Content Include="Content\images\photos\sue_menot.jpg" />
     <Content Include="Content\images\icon-blue.png" />

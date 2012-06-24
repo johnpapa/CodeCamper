@@ -662,17 +662,29 @@ button:disabled {
 .starRating { margin: 0 2px 0 2px; clear: both; display: block; }
 
 .starRating-readonly span,
+/*
 .starRating span { width:24px; 
                    height:24px; 
                    background-image: url(images/stars.png); 
                    display:inline-block; 
                    background-position: -24px 0;
                    margin: 0; }
+*/
+.starRating span { width:32px; 
+                   height:28px; 
+                   background-image: url(images/star-empty.png); 
+                   display:inline-block; 
+                   margin: 0; }
 .starRating span { cursor: pointer; }
 
-.starRating span.chosen { background-position: 0 0; }
-.starRating:hover span { background-position: -24px 0; }
-.starRating:hover span.hoverChosen { background-position: 0 0; }
+/*.starRating span.chosen { background-position: 0 0; }*/
+.starRating span.chosen { background-image: url(images/star-full.png);  }
+
+/*.starRating:hover span { background-position: -24px 0; }*/
+.starRating:hover span { background-image: url(images/star-empty.png); }
+
+/*.starRating:hover span.hoverChosen { background-position: 0 0; }*/
+.starRating:hover span.hoverChosen { background-image: url(images/star-full.png); }
 
 
 /* 3.0.2 CUSTOM VALIDATION
