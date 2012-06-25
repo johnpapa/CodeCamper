@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\cancel.png" />
+    <Content Include="Content\images\photos\jesse_liberty.jpg" />
     <Content Include="Content\images\photos\esteban_garcia.jpg" />
     <Content Include="Content\images\invalid.png" />
     <Content Include="Content\images\photos\glenn_block.jpg" />
@@ -299,6 +300,8 @@
     <Content Include="Scripts\lib\sammy.js" />
     <Content Include="Scripts\lib\toastr.js" />
     <Content Include="Test\webapi.endpoint.tests.js" />
+    <Content Include="Tmpl\_sessions.view.tmpl.html" />
+    <Content Include="Tmpl\_speakers.view.tmpl.html" />
     <Content Include="Tmpl\_speaker.edit.tmpl.html" />
     <Content Include="Tmpl\_speaker.view.tmpl.html" />
     <Content Include="Tmpl\_session.view.tmpl.html" />

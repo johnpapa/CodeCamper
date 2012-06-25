@@ -14,7 +14,7 @@ namespace CodeCamper.Data.SampleData
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
             _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman,
-            _scottHanselman, _glennBlock;
+            _scottHanselman, _glennBlock, _jesseLiberty;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -240,6 +240,16 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "@shanselman",
                 Gender = "M",
                 Bio = "Tech, Diabetes, Parenting, Race, Linguistics, Fashion, Podcasting, Open Source, Culture, Code, Ratchet, Phony.",
+            });
+            _theChosen.Add(_jesseLiberty = new Person
+            {
+                FirstName = "Jesse",
+                LastName = "Liberty",
+                Email = "jliberty@contoso.com",
+                Blog = "http://jliberty.contoso.com",
+                Twitter = "@JesseLiberty",
+                Gender = "M",
+                Bio = "Telerik XAML Evangelist",
             });
             
 
@@ -669,16 +679,18 @@ namespace CodeCamper.Data.SampleData
                 Tags = "Knockout|JavaScript|Web",
                 Description = "TBD",
             });
+
+            // Jesse Liberty
             addSession(false, new Session
             {
-                Title = "The Expert jsFiddler",
-                Code = "JVS253",
-                SpeakerId = _ryanNiemeyer.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                Title = "Building A Succesful Windows 8 Metro App",
+                Code = "WIN110",
+                SpeakerId = _jesseLiberty.Id,
+                TrackId = tracks.First(t => t.Name == "Windows 8").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_ryanNiemeyer),
+                RoomId = getRoomId(_jesseLiberty),
                 Level = levels[1],
-                Tags = "jsFiddle|JavaScript|Web",
+                Tags = "XAML|WinRT|C#|Metro|Windows",
                 Description = "TBD",
             });
 
