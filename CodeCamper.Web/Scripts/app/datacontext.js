@@ -60,8 +60,8 @@
                     },
 
                     getLocalById = function (id) {
-                        //TODO: only place we set to NULLO
-                        return !!id && !!items[id] ? items[id] : nullo; //{ isNullo: true }; //nullo; 
+                        // This is the only place we set to NULLO
+                        return !!id && !!items[id] ? items[id] : nullo;
                     },
 
                     getAllLocal = function () {
@@ -79,14 +79,21 @@
 
                             getFunction = getFunctionOverride || getFunction;
 
-                            if (!items || !utils.hasProperties(items) || forceRefresh) {
+                            // If the internal items object doesnt exist, 
+                            // or it exists but has no properties, 
+                            // or we force a refresh
+                            var localStoreHasData = false; //TODO: Check local store for data
+                            
+                            var getFreshData = forceRefresh || ((!items || !utils.hasProperties(items) && !localStoreHasData));
+
+                            if (getFreshData) {
                                 getFunction({
                                     success: function(dtoList) {
                                         items = mapToContext(dtoList, items, results, mapper, filter, sortFunction);
                                         def.resolve(dtoList);
                                     },
                                     error: function() {
-                                        logger.error('oops! data could not be retrieved'); //TODO: get rid of this
+                                        logger.error('oops! data could not be retrieved'); 
                                         def.reject();
                                     }
                                 }, param);

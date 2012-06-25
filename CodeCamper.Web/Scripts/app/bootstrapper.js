@@ -85,15 +85,6 @@
                     .pipe(function () {
                         // Need sessions and speakers in cache before we can make speakerSessions
                         datacontext.speakerSessions.refreshLocal();
-
-                        //TODO: Testing only
-                        //if (config.currentUser().id() === 0) debugger;
-                        //var ss = datacontext.speakerSessions;
-                        //var speakers = ko.observableArray();
-                        //ss.getLocalSpeakers(speakers);
-                        //console.log(speakers());
-                        //console.log(ss.getLocalSessionsBySpeakerId(3));
-
                     })
 
                     // TODO: TESTING 

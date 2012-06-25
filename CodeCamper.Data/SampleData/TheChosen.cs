@@ -13,7 +13,7 @@ namespace CodeCamper.Data.SampleData
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
-            _shawnWildermuth;
+            _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -28,7 +28,7 @@ namespace CodeCamper.Data.SampleData
                 Blog = "http://johnp.contoso.com",
                 Twitter = "@john_papa",
                 Gender = "M",
-                Bio = "Husband and father enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author for MSDN Magazine and Pluralsight.",
+                Bio = "Husband, father, and Catholic enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author, and Pluralsight trainer.",
             });
             _theChosen.Add(_danWahlin =new Person
             {
@@ -189,6 +189,36 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "@ShawnWildermuth",
                 Gender = "M",
                 Bio = "Author, trainer, software guy, Braves fan, guitar player, Xbox maven, coffee addict and astronomy fan.",
+            });
+            _theChosen.Add(_peteBrown = new Person
+            {
+                FirstName = "Pete",
+                LastName = "Brown",
+                Email = "peteb@contoso.com",
+                Blog = "http://peteb.contoso.com",
+                Twitter = "@Pete_Brown",
+                Gender = "M",
+                Bio = "Microsoft XAML and blinky lights guy. Father of two, author, woodworker, C64.",
+            });
+            _theChosen.Add(_timHeuer = new Person
+            {
+                FirstName = "Tim",
+                LastName = "Heuer",
+                Email = "timh@contoso.com",
+                Blog = "http://timh.contoso.com",
+                Twitter = "@timheuer",
+                Gender = "M",
+                Bio = "I work on XAML client platforms at Microsoft and trying to be the best dad/husband I can be when I'm not working.",
+            });
+            _theChosen.Add(_julieLerman = new Person
+            {
+                FirstName = "Julie",
+                LastName = "Lerman",
+                Email = "juliel@contoso.com",
+                Blog = "http://juliel.contoso.com",
+                Twitter = "@julielerman",
+                Gender = "F",
+                Bio = "Vermont Geekette, .NET (and Entity Framework) Mentor/Consultant, Author, MS MVP, INETA Speaker, Vermont.NET User Group Leader",
             });
             
 
@@ -488,6 +518,21 @@ namespace CodeCamper.Data.SampleData
                 Description = "TBD",
             });
 
+            // Julie Lerman
+            addSession(false, new Session
+            {
+                Title = "Entity Framework Code First",
+                Code = "DAT192",
+                SpeakerId = _julieLerman.Id,
+                TrackId = tracks.First(t => t.Name == "Data").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_julieLerman),
+                Level = levels[0],
+                Tags = "Data|Entity Framework|ORM",
+                Description =
+                    "Discover how Entity Framework Code First can improve your life!",
+            });
+
             // Hans Fjällemark
             addSession(false, new Session
             {
@@ -538,27 +583,44 @@ namespace CodeCamper.Data.SampleData
                 SpeakerId = _shawnWildermuth.Id,
                 TrackId = tracks.First(t => t.Name == "CSS").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_jimCowart),
+                RoomId = getRoomId(_shawnWildermuth),
                 Level = levels[0],
                 Tags = "CSS|Web",
                 Description =
                     "TBD",
             });
 
-            // Steve Sanderson
+            // Tim Heuer
             addSession(true, new Session
             {
-                Title = "Going for the Knockout",
-                Code = "JVS242",
-                SpeakerId = _steveSanderson.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                Title = "Building Windows 8 Business Apps",
+                Code = "WIN348",
+                SpeakerId = _timHeuer.Id,
+                TrackId = tracks.First(t => t.Name == "Windows 8").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_steveSanderson),
+                RoomId = getRoomId(_timHeuer),
                 Level = levels[2],
-                Tags = "Knockout|JavaScript|Web",
+                Tags = "Windows 8|XAML|WinRT|Metro|C#",
                 Description =
                     "TBD",
             });
+
+            // Pete Brown
+            addSession(true, new Session
+            {
+                Title = "Windows 8 Form Factors",
+                Code = "WIN338",
+                SpeakerId = _peteBrown.Id,
+                TrackId = tracks.First(t => t.Name == "Windows 8").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_peteBrown),
+                Level = levels[2],
+                Tags = "Windows 8|XAML|WinRT|Metro|C#",
+                Description =
+                    "TBD",
+            });
+
+            // Steve Sanderson
             addSession(false, new Session
             {
                 Title = "The Upshot is ...",
@@ -617,7 +679,7 @@ namespace CodeCamper.Data.SampleData
             addSession(true, new Session
             {
                 Title = "Web Services at their Finest",
-                Code = "JVS351",
+                Code = "NET451",
                 SpeakerId = _aaronSkonnard.Id,
                 TrackId = tracks.First(t => t.Name == ".NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
@@ -649,7 +711,7 @@ namespace CodeCamper.Data.SampleData
                 SpeakerId = _johnSmith.Id,
                 TrackId = tracks.First(t => t.Name == "Cloud").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_fritzOnion),
+                RoomId = getRoomId(_johnSmith),
                 Level = levels[1],
                 Tags = "ASP.NET|Web|Azure",
                 Description = "TBD",
@@ -659,11 +721,11 @@ namespace CodeCamper.Data.SampleData
             addSession(false, new Session
             {
                 Title = "TFS For the Win!",
-                Code = "JVS141",
+                Code = "PRC141",
                 SpeakerId = _estebanGarcia.Id,
                 TrackId = tracks.First(t => t.Name == "Practices").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_jimCowart),
+                RoomId = getRoomId(_estebanGarcia),
                 Level = levels[0],
                 Tags = "TFS|Practices",
                 Description =
