@@ -8,6 +8,8 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
         var
             speakersFilter = new filter.SpeakersFilter(),
             speakers = ko.observableArray(),
+            
+            tmplName = 'speakers.view',
 
             getSpeakers = function () {
                 datacontext.speakerSessions.getLocalSpeakers(speakers, {
@@ -61,6 +63,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
             forceRefresh: forceRefresh,
             gotoDetails: gotoDetails,
             speakersFilter: speakersFilter,
-            speakers: speakers
+            speakers: speakers,
+            tmplName: tmplName
         };
     });

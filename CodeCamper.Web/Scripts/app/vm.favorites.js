@@ -12,6 +12,7 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
             sessionsFilter = new filter.SessionsFilter(),
             timeslots = ko.observableArray(),
             sessions = ko.observableArray(), //.trackReevaluations(),
+            tmplName = 'sessions.view',
             
             days = ko.computed(function() {
                 return group.timeslotsToDays(timeslots());
@@ -139,6 +140,7 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
             activate: activate,
             sessionsFilter: sessionsFilter,
             sessions: sessions,
-            timeslots: timeslots
+            timeslots: timeslots,
+            tmplName: tmplName
         };
     });

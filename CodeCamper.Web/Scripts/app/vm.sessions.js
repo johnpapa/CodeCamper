@@ -13,6 +13,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             speakers = ko.observableArray(),
             timeslots = ko.observableArray(),
             tracks = ko.observableArray(),
+            tmplName = 'sessions.view',
 
             getSpeakers = function () {
                 if (!speakers().length) {
@@ -149,6 +150,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             sessions: sessions,
             speakers: speakers,
             timeslots: timeslots,
-            tracks: tracks
+            tracks: tracks,
+            tmplName: tmplName
         };
     });
