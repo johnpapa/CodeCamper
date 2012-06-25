@@ -161,8 +161,10 @@
     <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\photos\esteban_garcia.jpg" />
     <Content Include="Content\images\invalid.png" />
+    <Content Include="Content\images\photos\glenn_block.jpg" />
     <Content Include="Content\images\photos\julie_lerman.jpg" />
     <Content Include="Content\images\photos\pete_brown.jpg" />
+    <Content Include="Content\images\photos\scott_hanselman.jpg" />
     <Content Include="Content\images\photos\shawn_wildermuth.jpg" />
     <Content Include="Content\images\photos\tim_heuer.jpg" />
     <Content Include="Content\images\save.png" />
