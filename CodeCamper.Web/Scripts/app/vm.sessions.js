@@ -14,6 +14,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             timeslots = ko.observableArray(),
             tracks = ko.observableArray(),
             tmplName = 'sessions.view',
+            filterTmpl = 'sessions.filterbox',
 
             getSpeakers = function () {
                 if (!speakers().length) {
@@ -145,6 +146,7 @@ define(['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'uti
             canLeave: canLeave,
             clearFilter: clearFilter,
             clearSideFilters: clearSideFilters,
+            filterTmpl: filterTmpl,
             forceRefresh: forceRefresh,
             sessionsFilter: sessionsFilter,
             sessions: sessions,
