@@ -75,6 +75,11 @@
     left: 0;
 }
 
+.route-a-base(@color, @font-weight: bold) {
+	/*cursor: default;*/
+	color: @color;
+    font-weight: @font-weight;
+}
 
 /* 1 RESET - http://meyerweb.com/eric/tools/css/reset
 --------------------------------------------------------- */
@@ -109,6 +114,8 @@ html {
     background: @background-color;
 	overflow: scroll; 
 }
+
+a { cursor: pointer; }
 
 body {
 	font-size: 18px;
@@ -680,32 +687,19 @@ button:disabled {
 --------------------------------------------------------- */
 .view { display: none; }
 
-.route-top > a {
-	cursor: default;
-	color: @text-color-subtle;
-	font-family: @font-family;
-}
+.route-top > a { route-a-base(@text-color-subtle); }
 
-.route-active.route-top > a {
-	cursor: default;
-	color: @text-color-title;
-	font-family: @font-family;
-}
+.route-active.route-top > a { .route-a-base(@text-color-title); }
 
 .route-left > a {
-	cursor: default;
-	color: @text-color-subtle;
+    .route-a-base(@text-color-subtle, bold);
     background: @accent-color;
-    font-weight: bold;
 }
 
 .route-active.route-left > a {
-	cursor: default;
-	color: @text-color-title;
+    .route-a-base(@text-color-title, bold);
     background: @accent-color;
-    font-weight: bold;
 }
-
 
 .accent-top {
     .accent-top-base;
@@ -713,7 +707,6 @@ button:disabled {
     left: 0;
     margin-left: 50%;
 }
-
 
 .accent-left {
     .accent-left-base;
