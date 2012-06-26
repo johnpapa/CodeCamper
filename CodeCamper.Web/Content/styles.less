@@ -260,7 +260,8 @@ body {
 
 .article-right-content {
 	border-bottom: solid 1px rgba(0, 0, 0, .1);
-	margin: 0 0 0 260px;
+	/* margin: 0 0 0 260px; */
+	margin-left: 4%;
 	min-height: 100px;
 	padding: 20px;
 }
@@ -277,7 +278,11 @@ body {
 
 .view-list {
 	
-	> article:hover {
+	overflow-y: scroll;
+	margin-top: 4%;
+	height: 450px;
+	
+		> article:hover {
 		background: @background-hover-color;
         /*background: rgba(0,0,0,.05);*/
 		cursor: pointer;
@@ -885,7 +890,11 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 		> span { padding: 0 10px; }
 	}
 
-	.view-list > article > div > img { height: 90px; }
+	.view-list { 
+		margin-top: 6%; 
+
+		> article > div > img { height: 90px; }
+	}
 
     .clear-text { margin-top: -50px; }
 
@@ -904,17 +913,25 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
     button { height: 26px; }
 
-    .view-list > article { padding: 10px; }
+	.view-list { 
+		margin-top: 8%; 
+		
+		> article { 
+			padding: 10px; 
+		
+			> div {
+				> h1 { margin-top: 1%; }
+
+				> img { height: 70px; }
+			}
+		}
+
+	}
+
 
 	.article-container-full-width {
 		height: 110px;
 		width: 80px;
-	}
-
-	.view-list > article > div {
-		> h1 { margin-top: 1%; }
-
-		> img { height: 70px; }
 	}
 
 	label.markfavorite > input[type=checkbox] + span {
