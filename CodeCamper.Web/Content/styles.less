@@ -3,13 +3,20 @@
 @font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 @font-family-light: "Segoe UI Light","Segoe Light","Segoe UI","Helvetica-Light",Arial,Helvetica,sans-serif;
 
-/*#119EDA blue accent
-#f58a00 orange accent*/
+/*
+#119EDA light blue accent
+#194D7B dark blue accent
+#f58a00 orange accent
+#FFFFFF white background
+*/
 
-@background-color: #FFFFFF;
-@text-color: #000000;
-@inverted-text-color: #FFFFFF;
-@accent-color: #194D7B;
+@accent-color: #119EDA;
+@background-color: #194D7B;
+@background-hover-color: #25425C;
+@text-color: #FFFFFF;
+@text-color-opposite: #000000;
+@text-color-subtle: lightgray;
+@text-color-title: #FFFFFF; /* for selected navigation and titles */
 
 @base-accent-top-width: 200px;
 @base-accent-top-height: 30px;
@@ -25,7 +32,7 @@
 @favorite-unchecked: url(images/bookmark.png);
 @favorite-locked: url(images/bookmarklocked.png);
 
-@star-full: url(images/star-full.png);
+@star-full: url(images/star-full-light.png);
 @star-empty: url(images/star-empty.png);
 
 @star-width: 32px;
@@ -45,8 +52,9 @@
 .accent(){
     position: absolute;
     background: @accent-color;
-    color: @inverted-text-color;
+    color: @text-color;
     text-align: center;
+    font-weight: bold;
 }
 
 .accent-top-base(@sizeMultiplier: 1, @lineHeightMultiplier: 1) {
@@ -54,6 +62,7 @@
     width: @base-accent-top-width * @sizeMultiplier;
     height: @base-accent-top-height * @sizeMultiplier;
     line-height: @base-accent-top-line-height * @lineHeightMultiplier;
+    text-transform: uppercase;
 }
 
 .accent-left-base(@sizeMultiplier: 1) {
@@ -93,7 +102,7 @@ input {
 --------------------------------------------------------- */
 html {
 	padding: 0 7%;
-    color: #000000;
+    color: @text-color;
     background: @background-color;
 	overflow: scroll; 
 }
@@ -117,7 +126,7 @@ body {
 		padding-bottom: 4px;
 		text-shadow: 2px 2px rgba(0,0,0,.15);
 	    text-transform: uppercase;
-	    color: @accent-color;
+	    color: @text-color-title;
 	}
 
 	nav.main-nav {
@@ -152,9 +161,7 @@ body {
 .view {
 	margin-top: 3%;
 
-	a {
-		color: @accent-color;
-	}
+	a { color: @text-color; }
 
 	> nav {
 		float: left;
@@ -163,7 +170,7 @@ body {
 		> select {
 			border: solid 1px rgb(200,200,200);
 			box-sizing: border-box;
-			color: @text-color;
+			color: @text-color-opposite;
 			display: block;
 			font-size: 100%;
 			padding: 3px 5px;
@@ -192,7 +199,8 @@ body {
 				}
 
 				> a:hover {
-					background: rgba(0,0,0,.05);
+                    background: @background-hover-color;
+					/*background: rgba(0,0,0,.05);*/
 					cursor: pointer;
 					color: @text-color;
 				}
@@ -205,7 +213,7 @@ body {
 				font-size: 11px;
 				opacity: .9;
 				/*margin: -26px 4px 0 0;*/
-				/*color: @inverted-text-color;*/
+				/*color: @text-color-subtle;*/
 			}
 
 		}
@@ -221,10 +229,10 @@ body {
 }
 
 .filter-box {
-	background: url(images/search.png) @background-color no-repeat 10px center;
+	background: url(images/search.png) #FFFFFF no-repeat 10px center;
 	border: solid 1px rgb(200,200,200);
 	box-sizing: border-box;
-	color: @text-color;
+	color: @text-color-opposite;
 	display: block;
 	font-size: 100%;
 	padding: 5px 10px 7px 35px;
@@ -260,7 +268,8 @@ body {
 .view-list {
 	
 	> article:hover {
-		background: rgba(0,0,0,.05);
+		background: @background-hover-color;
+        /*background: rgba(0,0,0,.05);*/
 		cursor: pointer;
 	}
 
@@ -389,7 +398,7 @@ label.favoritesonly > {
     }
 
     > h1 {
-        color: @accent-color;
+        color: @text-color-title;
         font-size: 130%;
         margin-bottom: 1%;
 		font-weight: bold;
@@ -558,7 +567,7 @@ select {
 
 nav label,
 small {
-	color: gray;
+	color: @text-color-subtle;
 	text-transform: uppercase;
 }
 
@@ -583,7 +592,8 @@ button {
 	background-color: @accent-color;
 	background-position: 25px center;
 	background-repeat: no-repeat;
-	color: @inverted-text-color;
+	color: @text-color;
+    font-weight: bold;
 	font-size: 100%;
 	margin: 0px;
 	padding: 4px 30px 8px 50px;
@@ -667,17 +677,30 @@ button:disabled {
 --------------------------------------------------------- */
 .view { display: none; }
 
+.route-top > a {
+	cursor: default;
+	color: @text-color-subtle;
+	font-family: @font-family;
+}
+
 .route-active.route-top > a {
 	cursor: default;
-	color: @accent-color;
+	color: @text-color-title;
 	font-family: @font-family;
+}
+
+.route-left > a {
+	cursor: default;
+	color: @text-color-subtle;
+    background: @accent-color;
+    font-weight: bold;
 }
 
 .route-active.route-left > a {
 	cursor: default;
-	color: @inverted-text-color;
-
+	color: @text-color-title;
     background: @accent-color;
+    font-weight: bold;
 }
 
 
@@ -786,7 +809,7 @@ textarea:focus:invalid {
 .validationMessage {
 	background: #d45252;
 	border-radius: 3px 3px 3px 3px;
-	color: white;
+	color: @text-color-title;
 	margin-left:8px;
 	padding: 0 6px;
 	z-index: 999; /* hints stay above all other elements */
