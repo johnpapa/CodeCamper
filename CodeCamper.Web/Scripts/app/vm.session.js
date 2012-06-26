@@ -176,12 +176,19 @@
 
             saveFavorite = ko.asyncCommand({
                 execute: function (complete) {
+                    var wrapper = function() {
+                        saveFavoriteDone(complete);
+                    };
                     var cudMethod = session().isFavorite()
                         ? datacontext.attendance.deleteData
                         : datacontext.attendance.addData;
-                    cudMethod(session(),
-                        { success: saveFavoriteDone(complete), error: saveFavoriteDone(complete) });
-                    complete();
+
+                    cudMethod(
+                        session(),
+                        {
+                            success: wrapper,
+                            error: wrapper
+                        });
                 },
                 canExecute: function (isExecuting) {
                     return session() && session().isUnlocked();
