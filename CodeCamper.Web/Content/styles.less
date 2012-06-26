@@ -280,7 +280,7 @@ body {
 	
 	overflow-y: scroll;
 	margin-top: 4%;
-	height: 450px;
+	height: 580px;
 	
 		> article:hover {
 		background: @background-hover-color;
@@ -970,7 +970,9 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
     }
 }
 
-
+@media only screen and (max-height: 768px) {
+    .view-list { height: 330px; }
+}
 
 
 /*   TODO: WIJMO STYLES GO HERE   */
