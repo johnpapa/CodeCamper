@@ -42,6 +42,9 @@
 @validation-icon-valid: url(images/valid.png);
 @validation-icon-invalid: url(images/invalid.png);
 
+@checkbox-image: url(images/white-checkbox_unchecked.png);
+@checkbox-image-checked: url(images/white-checkbox_checked.png);
+
 
 /* MIXINs
 ---------------------------------------------------*/
@@ -364,7 +367,7 @@ label.markfavorite > {
 label.favoritesonly > {
 	input[type=checkbox] {
 		 + span {
-			background-image: url(images/checkbox_unchecked.png);
+			background-image: @checkbox-image;
 			background-position: right center;
 			background-repeat: no-repeat;
 			cursor: pointer;
@@ -379,7 +382,7 @@ label.favoritesonly > {
 	}
 
 	input[type=checkbox]:checked + span {
-		background-image: url(images/checkbox_checked.png);
+		background-image: @checkbox-image-checked;
 		opacity: 1;
 	}
 } 
@@ -737,11 +740,11 @@ button:disabled {
 
 .starRating span { cursor: pointer; }
 
+.starRating span.chosen  { background-image: @star-full; }
+
 .starRating:hover span { background-image: @star-empty; }
 
-.starRating span.chosen,
 .starRating:hover span.hoverChosen { background-image: @star-full; }
-
 
 
 /* 3.0.2 CUSTOM VALIDATION

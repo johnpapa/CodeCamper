@@ -178,6 +178,8 @@
     <Content Include="Content\images\star-full.png" />
     <Content Include="Content\images\valid.png" />
     <Content Include="Content\images\val_asterisk.png" />
+    <Content Include="Content\images\white-checkbox_checked.png" />
+    <Content Include="Content\images\white-checkbox_unchecked.png" />
     <Content Include="Content\jquery.wijmo-complete.all.2.1.2.min.css" />
     <Content Include="Content\styles.less" />
     <Content Include="Content\images\photos\aaron_skonnard.jpg" />
