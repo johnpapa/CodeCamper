@@ -1,13 +1,22 @@
-﻿@font-family: "Segoe UI",Arial,Helvetica,sans-serif;
+﻿/* 01 LESS variables and MIXINs
+--------------------------------------------------------- */
+@font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 @font-family-light: "Segoe UI Light","Segoe Light","Segoe UI","Helvetica-Light",Arial,Helvetica,sans-serif;
 
-/*#119EDA blue accent
-#f58a00 orange accent*/
+/*
+#119EDA light blue accent
+#194D7B dark blue accent
+#f58a00 orange accent
+#FFFFFF white background
+*/
 
-@background-color: #FFFFFF;
-@text-color: #000000;
-@inverted-text-color: #FFFFFF;
-@accent-color: #194D7B;
+@accent-color: #119EDA;
+@background-color: #194D7B;
+@background-hover-color: #25425C;
+@text-color: #FFFFFF;
+@text-color-opposite: #000000;
+@text-color-subtle: lightgray;
+@text-color-title: #FFFFFF; /* for selected navigation and titles */
 
 @base-accent-top-width: 200px;
 @base-accent-top-height: 30px;
@@ -18,6 +27,59 @@
 @validation-border-width: 1px;
 
 @input-transition: padding .25s;
+
+@favorite-checked: url(images/bookmarkchecked.png);
+@favorite-unchecked: url(images/white-bookmark.png);
+@favorite-locked: url(images/bookmarklocked.png);
+
+@star-full: url(images/star-full-light.png);
+@star-empty: url(images/star-empty.png);
+
+@star-width: 32px;
+@star-height: 28px;
+
+@validation-icon-required: url(images/val_asterisk.png);
+@validation-icon-valid: url(images/valid.png);
+@validation-icon-invalid: url(images/invalid.png);
+
+@checkbox-image: url(images/white-checkbox_unchecked.png);
+@checkbox-image-checked: url(images/white-checkbox_checked.png);
+
+
+/* MIXINs
+---------------------------------------------------*/
+.validation-icon(@icon, @offset) {
+	background: #fff @icon no-repeat @offset center;
+}
+
+.accent(){
+    position: absolute;
+    background: @accent-color;
+    color: @text-color;
+    text-align: center;
+    font-weight: bold;
+}
+
+.accent-top-base(@sizeMultiplier: 1, @lineHeightMultiplier: 1) {
+    .accent;
+    width: @base-accent-top-width * @sizeMultiplier;
+    height: @base-accent-top-height * @sizeMultiplier;
+    line-height: @base-accent-top-line-height * @lineHeightMultiplier;
+    text-transform: uppercase;
+}
+
+.accent-left-base(@sizeMultiplier: 1) {
+    .accent;
+    width: @base-accent-top-height * @sizeMultiplier;
+    height: @base-accent-top-width * @sizeMultiplier;
+    left: 0;
+}
+
+.route-a-base(@color, @font-weight: bold) {
+	/*cursor: default;*/
+	color: @color;
+    font-weight: @font-weight;
+}
 
 /* 1 RESET - http://meyerweb.com/eric/tools/css/reset
 --------------------------------------------------------- */
@@ -48,10 +110,12 @@ input {
 --------------------------------------------------------- */
 html {
 	padding: 0 7%;
-    color: #000000;
+    color: @text-color;
     background: @background-color;
 	overflow: scroll; 
 }
+
+a { cursor: pointer; }
 
 body {
 	font-size: 18px;
@@ -72,7 +136,7 @@ body {
 		padding-bottom: 4px;
 		text-shadow: 2px 2px rgba(0,0,0,.15);
 	    text-transform: uppercase;
-	    color: @accent-color;
+	    color: @text-color-title;
 	}
 
 	nav.main-nav {
@@ -107,9 +171,7 @@ body {
 .view {
 	margin-top: 3%;
 
-	a {
-		color: @accent-color;
-	}
+	a { color: @text-color; }
 
 	> nav {
 		float: left;
@@ -118,7 +180,7 @@ body {
 		> select {
 			border: solid 1px rgb(200,200,200);
 			box-sizing: border-box;
-			color: @text-color;
+			color: @text-color-opposite;
 			display: block;
 			font-size: 100%;
 			padding: 3px 5px;
@@ -147,7 +209,8 @@ body {
 				}
 
 				> a:hover {
-					background: rgba(0,0,0,.05);
+                    background: @background-hover-color;
+					/*background: rgba(0,0,0,.05);*/
 					cursor: pointer;
 					color: @text-color;
 				}
@@ -160,7 +223,7 @@ body {
 				font-size: 11px;
 				opacity: .9;
 				/*margin: -26px 4px 0 0;*/
-				/*color: @inverted-text-color;*/
+				/*color: @text-color-subtle;*/
 			}
 
 		}
@@ -176,10 +239,10 @@ body {
 }
 
 .filter-box {
-	background: url(images/search.png) @background-color no-repeat 10px center;
+	background: url(images/search.png) #FFFFFF no-repeat 10px center;
 	border: solid 1px rgb(200,200,200);
 	box-sizing: border-box;
-	color: @text-color;
+	color: @text-color-opposite;
 	display: block;
 	font-size: 100%;
 	padding: 5px 10px 7px 35px;
@@ -215,7 +278,8 @@ body {
 .view-list {
 	
 	> article:hover {
-		background: rgba(0,0,0,.05);
+		background: @background-hover-color;
+        /*background: rgba(0,0,0,.05);*/
 		cursor: pointer;
 	}
 
@@ -270,19 +334,24 @@ input[type=checkbox] {
 	display:none;
 }
 
+.square-background-container(@size: 32px) {
+    background-size: @size;
+	height: @size;
+	width: @size;
+}
+
 label.markfavorite > {
 	input[type=checkbox] {
 		
 		+ span {
-			background: url(images/bookmark.png);
+			background: @favorite-unchecked;
 			background-repeat: no-repeat;
 			cursor: pointer;
 			display: inline-block;
 			float: right;
-			height: 32px;
+            .square-background-container;
 			opacity: .6;
 			padding: 0;
-			width: 32px;
 			margin-top: -5%;
 		}
 		
@@ -293,19 +362,19 @@ label.markfavorite > {
 	}
 
 	input[type=checkbox]:checked + span {
-		background: url(images/bookmarkchecked.png);
+		background: @favorite-checked;
 		opacity: 1;
 	}
 
 	input[type=checkbox]:disabled + span {
-		background: url(images/bookmarklocked.png);
+		background: @favorite-locked
 	}
 }	
 
 label.favoritesonly > {
 	input[type=checkbox] {
 		 + span {
-			background-image: url(images/checkbox_unchecked.png);
+			background-image: @checkbox-image;
 			background-position: right center;
 			background-repeat: no-repeat;
 			cursor: pointer;
@@ -320,7 +389,7 @@ label.favoritesonly > {
 	}
 
 	input[type=checkbox]:checked + span {
-		background-image: url(images/checkbox_checked.png);
+		background-image: @checkbox-image-checked;
 		opacity: 1;
 	}
 } 
@@ -339,7 +408,7 @@ label.favoritesonly > {
     }
 
     > h1 {
-        color: @accent-color;
+        color: @text-color-title;
         font-size: 130%;
         margin-bottom: 1%;
 		font-weight: bold;
@@ -508,7 +577,7 @@ select {
 
 nav label,
 small {
-	color: gray;
+	color: @text-color-subtle;
 	text-transform: uppercase;
 }
 
@@ -533,7 +602,8 @@ button {
 	background-color: @accent-color;
 	background-position: 25px center;
 	background-repeat: no-repeat;
-	color: @inverted-text-color;
+	color: @text-color;
+    font-weight: bold;
 	font-size: 100%;
 	margin: 0px;
 	padding: 4px 30px 8px 50px;
@@ -617,39 +687,29 @@ button:disabled {
 --------------------------------------------------------- */
 .view { display: none; }
 
-.route-active.route-top > a {
-	cursor: default;
-	color: @accent-color;
-	font-family: @font-family;
+.route-top > a { .route-a-base(@text-color-subtle); }
+
+.route-active.route-top > a { .route-a-base(@text-color-title); }
+
+.route-left > a {
+    .route-a-base(@text-color-subtle, bold);
+    background: @accent-color;
 }
 
 .route-active.route-left > a {
-	cursor: default;
-	color: @inverted-text-color;
-
+    .route-a-base(@text-color-title, bold);
     background: @accent-color;
-}
-
-.accent{
-    position: absolute;
-    background: @accent-color;
-    color: @inverted-text-color;
-    text-align: center;
 }
 
 .accent-top {
-    width: @base-accent-top-width;
-    height: @base-accent-top-height;
+    .accent-top-base;
     top: 0;
     left: 0;
     margin-left: 50%;
-    line-height: @base-accent-top-line-height;
 }
 
 .accent-left {
-    width: @base-accent-top-height;
-    height: @base-accent-top-width;
-    left: 0;
+    .accent-left-base;
 }
 
 #busyindicator {
@@ -664,56 +724,43 @@ button:disabled {
 .starRating { margin: 0 2px 0 2px; clear: both; display: block; }
 
 .starRating-readonly span,
-/*
-.starRating span { width:24px; 
-                   height:24px; 
-                   background-image: url(images/stars.png); 
-                   display:inline-block; 
-                   background-position: -24px 0;
-                   margin: 0; }
-*/
-.starRating span { width:32px; 
-                   height:28px; 
+.starRating span { width: @star-width;
+                   height: @star-height; 
                    background-size:33px;
-                   background-image: url(images/star-empty.png); 
+                   background-image: @star-empty; 
                    display:inline-block; 
                    margin: 0; }
 
 .starRating span { cursor: pointer; }
 
-/*.starRating span.chosen { background-position: 0 0; }*/
-.starRating span.chosen { background-image: url(images/star-full.png);  }
+.starRating span.chosen  { background-image: @star-full; }
 
-/*.starRating:hover span { background-position: -24px 0; }*/
-.starRating:hover span { background-image: url(images/star-empty.png); }
+.starRating:hover span { background-image: @star-empty; }
 
-/*.starRating:hover span.hoverChosen { background-position: 0 0; }*/
-.starRating:hover span.hoverChosen { background-image: url(images/star-full.png); }
+.starRating:hover span.hoverChosen { background-image: @star-full; }
 
 
 /* 3.0.2 CUSTOM VALIDATION
 --------------------------------------------------------- */
 
-
 input:invalid, textarea:invalid{
 	border-width: @validation-border-width;
-/*	border-color: @border-color-valid; */
 }
 
 /* input:focus, textarea:focus */
 input:required {
-	background: #fff url(images/val_asterisk.png) no-repeat 98% center;
+    .validation-icon(@validation-icon-required, 98%)
 }
 textarea:required, textarea:required:focus {
-	background: #fff url(images/val_asterisk.png) no-repeat 94% center;
+    .validation-icon(@validation-icon-required, 94%)
 }
 
 input:focus:invalid {
-	background: #fff url(images/invalid.png) no-repeat 98% center;
+    .validation-icon(@validation-icon-invalid, 98%)
 }
 
 textarea:focus:invalid {
-	background: #fff url(images/invalid.png) no-repeat 94% center;
+    .validation-icon(@validation-icon-invalid, 94%)
 }
 
 /* *:focus {outline: none;} */
@@ -737,30 +784,28 @@ textarea {
 	}
 
 input:required {
-	background: #fff url(images/val_asterisk.png) no-repeat 98% center;
+    .validation-icon(@validation-icon-required, 98%)
 }
 textarea:required {
-	background: #fff url(images/val_asterisk.png) no-repeat 94% center;
+    .validation-icon(@validation-icon-required, 94%)
 }
 input:required:valid, textarea:required:valid {
-	background: #fff url(images/valid.png) no-repeat 98% center;
-/*	border-color: @border-color-valid; */
+	.validation-icon(@validation-icon-valid, 98%)
 }
 textarea:required:valid {
-	background: #fff url(images/valid.png) no-repeat 94% center;
+    .validation-icon(@validation-icon-valid, 94%)
 }
 input:focus:invalid, textarea:focus:invalid {
-	background: #fff url(images/invalid.png) no-repeat 98% center;
-/*	border-color: @border-color-valid; */
+	.validation-icon(@validation-icon-invalid, 98%)
 }
 textarea:focus:invalid {
-	background: #fff url(images/invalid.png) no-repeat 94% center;
+	.validation-icon(@validation-icon-invalid, 94%)
 }
 
 .validationMessage {
 	background: #d45252;
 	border-radius: 3px 3px 3px 3px;
-	color: white;
+	color: @text-color-title;
 	margin-left:8px;
 	padding: 0 6px;
 	z-index: 999; /* hints stay above all other elements */
@@ -778,59 +823,32 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
 	
 
-
 /* 3.1 RESPONSIVENESS
 --------------------------------------------------------- */
 @media only screen and (max-width: 1000px) {
-	body {
-		font-size: 16px;
-	}
+	body { font-size: 16px; }
 }
 
 @media only screen and (max-width: 900px) {
-	body {
-		font-size: 14px;
-	}
+	body { font-size: 14px; }
 
     nav {
-		label {
-			margin-bottom: 1%;
-		}
-
-		select {
-			margin-bottom: 1%;
-		}
+		label { margin-bottom: 1%; }
+		select { margin-bottom: 1%; }
 	}
 
-    .accent-top {
-        width: @base-accent-top-width * .8;
-        height: @base-accent-top-height * .8;
-        line-height: @base-accent-top-line-height * .67;
-    }
+    .accent-top {.accent-top-base(.8, .67); }
 
-    .accent-left {
-        width: @base-accent-top-height * .8;
-        height: @base-accent-top-width * .8;
-    }
+    .accent-left { .accent-left-base(.8); }
 
-	.titleblock > input {
-		width: 300px;
-	}
+	.titleblock > input { width: 300px; }
 }
 
 @media only screen and (max-width: 800px) {
-	body > header > h1 {
-		background-size: 45px;
-		padding-left: 60px;
-	}
 
-	.filter-box-container {
-		margin: 0 0 2% 0;
-	}
+	.filter-box-container { margin: 0 0 2% 0; }
 
-    .filter-box-container-full-width {
-        margin: 0 0 5% 0;
-    }
+    .filter-box-container-full-width { margin: 0 0 5% 0; }
 
 	.filter-box > input {
 		background-position: 5px center;
@@ -839,14 +857,12 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 	}
 
     label.markfavorite > input[type=checkbox] + span {
-        background-size: 24px;
-        width: 24px;
-        height: 24px;
+        .square-background-container(24px);
     }
 
     .starRating-readonly span, .starRating span {
-        width: 24px;
-        height: 21px;
+        width: @star-width * .8;
+        height: @star-height * .75;
         background-size: 24px;
     }
 
@@ -855,36 +871,23 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 		margin: 0 0 7% 0;
 		width: 100%;
 		
-		> ul > li > a:after {
-			content: '▼';
-		}
-
+		> ul > li > a:after { content: '▼'; }
 	}
 
     .view > h1,
 	.view-list > article,
-    .filter-box {
-        margin: 0 0 4% 0;
-	}
+    .filter-box { margin: 0 0 4% 0; }
 
-	.view > h1 {
-		margin-bottom: 6%;
-	}
+	.view > h1 { margin-bottom: 6%; }
 
     .view > nav > ul > li {
 		> a,
-		> span {
-			padding: 0 10px;
-		}
+		> span { padding: 0 10px; }
 	}
 
-	.view-list > article > div > img {
-		height: 90px;
-	}
+	.view-list > article > div > img { height: 90px; }
 
-    .clear-text {
-        margin-top: -50px;
-    }
+    .clear-text { margin-top: -50px; }
 
 }
 
@@ -899,13 +902,9 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 		}
 	}
 
-    button {
-        height: 26px;
-    }
+    button { height: 26px; }
 
-    .view-list > article {
-		padding: 10px;
-	}
+    .view-list > article { padding: 10px; }
 
 	.article-container-full-width {
 		height: 110px;
@@ -913,41 +912,26 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 	}
 
 	.view-list > article > div {
-		> h1 {
-			margin-top: 1%;
-		}
+		> h1 { margin-top: 1%; }
 
-		> img {
-			height: 70px;
-		}
+		> img { height: 70px; }
 	}
 
 	label.markfavorite > input[type=checkbox] + span {
-		background-size: 16px;
-		height: 16px;
-		width: 16px;
+		.square-background-container(16px);
 	}
 		
     .starRating-readonly span, .starRating span {
-        width: 16px;
-        height: 14px;
+        width: @star-width * .5;
+        height: @star-height * .5;
         background-size: 16px;
     }
 
-    .filter-box-container-full-width {
-        margin: 0 0 7% 0;
-    }
+    .filter-box-container-full-width { margin: 0 0 7% 0; }
 
-    .accent-top {
-        width: @base-accent-top-width * .6;
-        height: @base-accent-top-height * .6;
-        line-height: @base-accent-top-line-height * .5;
-    }
+    .accent-top { .accent-top-base(.6, .6); }
 
-    .accent-left {
-        width: @base-accent-top-height * .6;
-        height: @base-accent-top-width * .6;
-    }
+    .accent-left { .accent-left-base(.6); }
 
     .clear-text {
         margin-top: -30px;
@@ -976,11 +960,6 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
 .wijmo-checkbox
 {
-/*
-	height: 32px;
-	width: 32px;
-	background: url(images/bookmark.png);
-	*/
 	background-repeat: no-repeat;
 	cursor: pointer;
 	display: inline-block;
@@ -995,27 +974,27 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 {
 	height: 32px;
 	width: 32px;
-	background: url(images/bookmark.png);
+	background: @favorite-unchecked;
 	opacity: 1;
 }
 .wijmo-checkbox .ui-state-hover
 {
-    background: url(images/bookmark.png);
+    background: @favorite-unchecked;
     opacity: 0.8;
 }
 .wijmo-checkbox .ui-state-active
 {
-    background: url(images/bookmarkchecked.png);
+    background: @favorite-checked;
     opacity: 1;
 }
 .wijmo-checkbox .ui-state-active.ui-state-hover
 {
-    background: url(images/bookmarkchecked.png);
+    background: @favorite-checked;
     opacity: 0.8;
 }
 .wijmo-checkbox .ui-state-disabled
 {
-    background: url(images/bookmarklocked.png);
+    background: @favorite-locked;
 }
 /*
 .wijmo-checkbox .wijmo-checkbox-icon

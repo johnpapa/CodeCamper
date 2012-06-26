@@ -4,28 +4,28 @@
     </div>
     <div class="details-left">
         <div>
-            <label for="track">Track</label>
-            <address id="track" data-bind="text: track().name"></address>
+            <label>Track</label>
+            <address data-bind="text: track().name"></address>
         </div>
         <div>
-            <label for="timeslot">Time slot</label>
-            <address id="timeslot" data-bind="text: timeslot().shortStart"></address>
+            <label>Time slot</label>
+            <address data-bind="text: timeslot().shortStart"></address>
         </div>
         <div>
-            <label for="room">Room</label>
-            <address id="room" data-bind="text: room().name"></address>
+            <label>Room</label>
+            <address data-bind="text: room().name"></address>
         </div>
         <div>
-            <label for="code">Code</label>
-            <address id="code" data-bind="text: code"></address>
+            <label>Code</label>
+            <address data-bind="text: code"></address>
         </div>
         <div>
-            <label for="level">Level</label>
-            <address id="level" data-bind="text: level"></address>
+            <label>Level</label>
+            <address data-bind="text: level"></address>
         </div>
         <div>
-            <label for="tags">Tags</label>
-            <address id="tags" data-bind="text: tagsFormatted"></address>
+            <label>Tags</label>
+            <address data-bind="text: tagsFormatted"></address>
         </div>
         <a data-bind="attr: {href: speaker().speakerHash, title: speaker().fullName}">
             <img data-bind="attr: {src: speaker().imageName}" />
@@ -34,12 +34,19 @@
     </div>
     <div class="details-right">
         <div>
-            <label for="description">Description</label>
-            <span id="description" class="scrollable-text" data-bind="text: description"></span>
+            <!--
+                FOR DEBUGGING
+                <span data-bind="text:$parent.isDirty"></span>
+                <span data-bind="text:isDirty"></span>
+                <span data-bind="text:attendance().isDirty"></span>
+             -->
+
+            <label>Description</label>
+            <span class="scrollable-text" data-bind="text: description"></span>
         </div>
         <div>
-            <label for="feedback">Feedback</label>
-            <textarea id="feedback" data-bind="value: attendance().text, valueUpdate: 'afterkeydown', enable:isFavorite"
+            <label>Feedback</label>
+            <textarea data-bind="value: attendance().text, valueUpdate: 'afterkeydown', enable:isFavorite"
                  placeholder="Enter feedback"></textarea>
         </div>
         <div>

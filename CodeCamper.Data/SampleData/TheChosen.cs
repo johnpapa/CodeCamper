@@ -13,7 +13,8 @@ namespace CodeCamper.Data.SampleData
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
-            _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman;
+            _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman,
+            _scottHanselman, _glennBlock, _jesseLiberty;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -219,6 +220,36 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "@julielerman",
                 Gender = "F",
                 Bio = "Vermont Geekette, .NET (and Entity Framework) Mentor/Consultant, Author, MS MVP, INETA Speaker, Vermont.NET User Group Leader",
+            });
+            _theChosen.Add(_glennBlock = new Person
+            {
+                FirstName = "Glenn",
+                LastName = "Block",
+                Email = "glennb@contoso.com",
+                Blog = "http://glennb.contoso.com",
+                Twitter = "@gblock",
+                Gender = "M",
+                Bio = "Father, Husband, Spiritualist, Software geek, Change agent, REST Head",
+            });
+            _theChosen.Add(_scottHanselman = new Person
+            {
+                FirstName = "Scott",
+                LastName = "Hanselman",
+                Email = "shanselman@contoso.com",
+                Blog = "http://shanselman.contoso.com",
+                Twitter = "@shanselman",
+                Gender = "M",
+                Bio = "Tech, Diabetes, Parenting, Race, Linguistics, Fashion, Podcasting, Open Source, Culture, Code, Ratchet, Phony.",
+            });
+            _theChosen.Add(_jesseLiberty = new Person
+            {
+                FirstName = "Jesse",
+                LastName = "Liberty",
+                Email = "jliberty@contoso.com",
+                Blog = "http://jliberty.contoso.com",
+                Twitter = "@JesseLiberty",
+                Gender = "M",
+                Bio = "Telerik XAML Evangelist",
             });
             
 
@@ -452,16 +483,16 @@ namespace CodeCamper.Data.SampleData
             // Mads Kristensen
             addSession(true, new Session
             {
-                Title = "Structuring JavaScript Code",
-                Code = "JVS212",
+                Title = "Be More Productive in Visual Studio 2012",
+                Code = "NET282",
                 SpeakerId = _madsKristensen.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TrackId = tracks.First(t => t.Name == ".NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_madsKristensen),
                 Level = levels[1],
-                Tags = "Web Forms|ASP|Web",
+                Tags = "Web Forms|ASP|Web|.NET|",
                 Description =
-                    "This session walks through several key patterns that can be used to encapsulate and modularize JavaScript code. Throughout the course you’ll learn how closures and other techniques can be used to better organize your JavaScript code and make it easier to re-use and maintain in HTML5 applications.",
+                    "Scale tall buildings, defeat fire breathing dragons, and be more productive in Visual Studio!",
             });
 
             // Ward Bell
@@ -648,16 +679,18 @@ namespace CodeCamper.Data.SampleData
                 Tags = "Knockout|JavaScript|Web",
                 Description = "TBD",
             });
+
+            // Jesse Liberty
             addSession(false, new Session
             {
-                Title = "The Expert jsFiddler",
-                Code = "JVS253",
-                SpeakerId = _ryanNiemeyer.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                Title = "Building A Succesful Windows 8 Metro App",
+                Code = "WIN110",
+                SpeakerId = _jesseLiberty.Id,
+                TrackId = tracks.First(t => t.Name == "Windows 8").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_ryanNiemeyer),
+                RoomId = getRoomId(_jesseLiberty),
                 Level = levels[1],
-                Tags = "jsFiddle|JavaScript|Web",
+                Tags = "XAML|WinRT|C#|Metro|Windows",
                 Description = "TBD",
             });
 
@@ -730,6 +763,35 @@ namespace CodeCamper.Data.SampleData
                 Tags = "TFS|Practices",
                 Description =
                     "TBD",
+            });
+
+
+            // Glenn BLock
+            addSession(true, new Session
+            {
+                Title = "Web API Best Practices",
+                Code = "ASP245",
+                SpeakerId = _glennBlock.Id,
+                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_glennBlock),
+                Level = levels[1],
+                Tags = "ASP.NET|Web|Web API",
+                Description = "TBD",
+            });
+
+            // Scott Hanselman
+            addSession(true, new Session
+            {
+                Title = "NuGet Package Management",
+                Code = "PRC150",
+                SpeakerId = _scottHanselman.Id,
+                TrackId = tracks.First(t => t.Name == "Practices").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_scottHanselman),
+                Level = levels[1],
+                Tags = "NuGet",
+                Description = "TBD",
             });
 
             return sessions;

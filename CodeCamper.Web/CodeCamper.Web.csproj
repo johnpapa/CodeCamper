@@ -158,18 +158,28 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\blue-bookmark.png" />
+    <Content Include="Content\images\blue-bookmarkchecked.png" />
+    <Content Include="Content\images\blue-bookmarklocked.png" />
     <Content Include="Content\images\cancel.png" />
+    <Content Include="Content\images\white-bookmark.png" />
+    <Content Include="Content\images\photos\jesse_liberty.jpg" />
     <Content Include="Content\images\photos\esteban_garcia.jpg" />
     <Content Include="Content\images\invalid.png" />
+    <Content Include="Content\images\photos\glenn_block.jpg" />
     <Content Include="Content\images\photos\julie_lerman.jpg" />
     <Content Include="Content\images\photos\pete_brown.jpg" />
+    <Content Include="Content\images\photos\scott_hanselman.jpg" />
     <Content Include="Content\images\photos\shawn_wildermuth.jpg" />
     <Content Include="Content\images\photos\tim_heuer.jpg" />
     <Content Include="Content\images\save.png" />
     <Content Include="Content\images\star-empty.png" />
+    <Content Include="Content\images\star-full-light.png" />
     <Content Include="Content\images\star-full.png" />
     <Content Include="Content\images\valid.png" />
     <Content Include="Content\images\val_asterisk.png" />
+    <Content Include="Content\images\white-checkbox_checked.png" />
+    <Content Include="Content\images\white-checkbox_unchecked.png" />
     <Content Include="Content\jquery.wijmo-complete.all.2.1.2.min.css" />
     <Content Include="Content\styles.less" />
     <Content Include="Content\images\photos\aaron_skonnard.jpg" />
@@ -297,6 +307,9 @@
     <Content Include="Scripts\lib\sammy.js" />
     <Content Include="Scripts\lib\toastr.js" />
     <Content Include="Test\webapi.endpoint.tests.js" />
+    <Content Include="Tmpl\_sessions.filterbox.tmpl.html" />
+    <Content Include="Tmpl\_sessions.view.tmpl.html" />
+    <Content Include="Tmpl\_speakers.view.tmpl.html" />
     <Content Include="Tmpl\_speaker.edit.tmpl.html" />
     <Content Include="Tmpl\_speaker.view.tmpl.html" />
     <Content Include="Tmpl\_session.view.tmpl.html" />

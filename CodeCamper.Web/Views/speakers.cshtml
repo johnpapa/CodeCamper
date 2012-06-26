@@ -11,14 +11,7 @@
         </div>
     </div>
 
-    <div id="speaker-list" class="view-list" data-bind="foreach: speakers">
-        <article class="article-container-full-width">
-            <div data-bind="click: $parent.gotoDetails" title="Go to speaker details">
-                <img data-bind="attr: {src: imageName}"/>
-                <address data-bind="text: firstName"></address>
-                <address data-bind="text: lastName"></address>
-            </div>
-        </article>
+    <div class="view-list" data-bind="template: {name: tmplName, foreach: speakers}">
     </div>
     
 </section>
