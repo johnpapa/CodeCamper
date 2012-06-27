@@ -9,11 +9,22 @@
         <address data-bind="text: speaker().fullName"></address>
         <small data-bind="text:tagsFormatted"></small>
     </div>
-    <label class="markfavorite" title="Mark as favorite">
-        <input data-bind="checked:isFavorite, enable: isUnlocked"
-            type="checkbox" /><span></span></label>
 
-    <!-- TODO: Testing of wijmo checkbox -->
+    <button data-bind="favoriteCheckbox: {enable: isUnlocked, checked: isFavorite}"></button>
 
+<!-- Without a binding handler -->
+<!--    
+    // Without a binding handler
+
+    <button
+        class="markfavorite" style="margin-right:50px"
+        data-bind="
+            attr: { title: !isUnlocked() ? 'locked' : (isFavorite() ? 'remove favorite' : 'mark as favorite') },
+            css: { locked: !isUnlocked(), selected: isFavorite },
+            enable: isUnlocked"></button>
+-->
+
+    <!-- With WijMo -->
     <!--<input type="checkbox" data-bind="checked: isFavorite, wijcheckbox: { disabled: !isUnlocked() }">-->
+
 </article>

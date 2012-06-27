@@ -345,59 +345,31 @@ input[type=checkbox] {
 	width: @size;
 }
 
-label.markfavorite > {
-	input[type=checkbox] {
-		
-		+ span {
-			background: @favorite-unchecked;
-			background-repeat: no-repeat;
-			cursor: pointer;
-			display: inline-block;
-			float: right;
-            .square-background-container;
-			opacity: .6;
-			padding: 0;
-			margin-top: -5%;
-		}
-		
-		+ span:hover {
-			opacity: .8;
+button {
+	&.markfavorite {
+		background: @favorite-unchecked;
+		.square-background-container;
+		float: right;
+		height: 32px;
+		margin-top: -5%;
+		padding: 0px;
+		width: 32px;
+
+		&.selected {
+			background: @favorite-checked;
 		}
 
-	}
-
-	input[type=checkbox]:checked + span {
-		background: @favorite-checked;
-		opacity: 1;
-	}
-
-	input[type=checkbox]:disabled + span {
-		background: @favorite-locked
-	}
-}	
-
-label.favoritesonly > {
-	input[type=checkbox] {
-		 + span {
-			background-image: @checkbox-image;
-			background-position: right center;
-			background-repeat: no-repeat;
-			cursor: pointer;
-			display: inline-block;
-			height: 18px;
-			opacity: .6;
-			padding: 0 25px 0 0;
-		}
-		+ span:hover {
-			opacity: .8;
+		&.locked {
+			background: @favorite-locked;
+			opacity: 1;
 		}
 	}
 
-	input[type=checkbox]:checked + span {
-		background-image: @checkbox-image-checked;
-		opacity: 1;
+	&.markfavorite-no-float {
+		float: none;
+		margin-top: 4%;
 	}
-} 
+}
 
 .titleblock {
 
@@ -533,13 +505,6 @@ span.scrollable-text {
     /*background-color: whitesmoke;*/
     width: 310px;
 }
-
-label.markfavorite-no-float > input[type="checkbox"] + span  {
-    float: none;
-    margin-top: 4%;
-}
-
-
 
 
 
@@ -861,9 +826,11 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 		margin: 2% 0 2% 0px;
 	}
 
-    label.markfavorite > input[type=checkbox] + span {
-        .square-background-container(24px);
-    }
+	button {
+		&.markfavorite {
+			.square-background-container(24px);
+		}
+	}
 
     .starRating-readonly span, .starRating span {
         width: @star-width * .8;
@@ -934,8 +901,10 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 		width: 80px;
 	}
 
-	label.markfavorite > input[type=checkbox] + span {
-		.square-background-container(16px);
+	button {
+		&.markfavorite {
+			.square-background-container(16px);
+		}
 	}
 		
     .starRating-readonly span, .starRating span {

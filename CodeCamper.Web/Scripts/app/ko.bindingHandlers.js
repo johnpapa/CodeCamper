@@ -19,6 +19,44 @@ function ($, ko) {
         }
     };
 
+    ko.bindingHandlers.favoriteCheckbox = {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var $el = $(element);
+
+            $el.addClass('markfavorite');
+
+            ko.bindingHandlers.favoriteCheckbox.update(
+                element, valueAccessor, allBindingsAccessor, viewModel);
+        },
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var $el = $(element),
+                valueAccessor = valueAccessor(),
+                enable = (valueAccessor.enable !== undefined) ? ko.utils.unwrapObservable(valueAccessor.enable()) : true,
+                checked = (valueAccessor.checked !== undefined) ? ko.utils.unwrapObservable(valueAccessor.checked()) : true;
+
+            // Toggle the appropriate CSS classes
+            $el.enable = enable;
+            if (checked) {
+                if (enable) {
+                    $el.attr('title', 'remove favorite');
+                } else {
+                    $el.attr('title', 'locked');
+                }
+            } else {
+                $el.attr('title', 'mark as favorite');
+            }
+
+            checked ? $el.addClass('selected') : $el.removeClass('selected');
+            enable ? $el.removeClass('locked') : $el.addClass('locked');
+        }
+    };
+    //data-bind="favoriteCheckbox: {enabled: isUnlocked, checked: isFavorite}"
+    //
+    //data-bind="
+    //attr: { title: !isUnlocked() ? 'locked' : (isFavorite() ? 'remove favorite' : 'mark as favorite') },
+    //css: { locked: !isUnlocked(), selected: isFavorite },
+    //enable: isUnlocked"></button>
+
     ko.bindingHandlers.starRating = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             // Create the span's (only do in init)

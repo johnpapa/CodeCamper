@@ -55,9 +55,13 @@
         <div>
             <small class="tips" data-bind="hidden:isFavorite">Must favorite this session before being able to rate it.</small>
         </div>
-        <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
+        <button data-bind="favoriteCheckbox: {enable: isUnlocked, checked: isFavorite}, 
+            command: $parent.saveFavorite"
+            class="markfavorite-no-float"></button>
+
+<!--        <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
         <input
             data-bind="checked:isFavorite, enable: isUnlocked, command: $parent.saveFavorite"
-            type="checkbox" /><span></span></label>
+            type="checkbox" /><span></span></label>-->
     </div>
 </div>

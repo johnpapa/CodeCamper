@@ -1,9 +1,10 @@
 ﻿define(['jquery', 'ko', 'config'],
     function ($, ko, config) {
         var
-            favoritesListItem = function (callback, eventName) {
+            bindClickEventToSessionList = function (rootSelector, callback, eventName) {
                 var eName = eventName || 'click';
-                $(config.viewIds.favorites).on(eName, '.session-brief', function() {
+                var selector = '.session-brief';
+                $(rootSelector).on(eName, selector, function () {
                     //var context = ko.contextFor(this);
                     //var session = context.$data;
                     var session = ko.dataFor(this);
@@ -12,9 +13,19 @@
                 });
             },
 
+            favoritesListItem = function (callback, eventName) {
+                bindClickEventToSessionList(config.viewIds.favorites, callback, eventName);
+            },
+
             sessionsListItem = function (callback, eventName) {
+                bindClickEventToSessionList(config.viewIds.sessions, callback, eventName);
+            },
+
+            bindClickEventToFavorite = function (rootSelector, callback, eventName) {
                 var eName = eventName || 'click';
-                $(config.viewIds.sessions).on(eName, '.session-brief', function () {
+                //var selector = '.markfavorite input[type=checkbox]';
+                var selector = 'button.markfavorite';
+                $(rootSelector).on(eName, selector, function () {
                     var session = ko.dataFor(this);
                     callback(session);
                     return false;
@@ -22,21 +33,11 @@
             },
 
             favoritesFavorite = function (callback, eventName) {
-                var eName = eventName || 'click';
-                $(config.viewIds.favorites).on(eName, '.markfavorite input[type=checkbox]', function () {
-                    var session = ko.dataFor(this);
-                    callback(session);
-                    return false;
-                });
+                bindClickEventToFavorite(config.viewIds.favorites, callback, eventName);
             },
 
             sessionsFavorite = function (callback, eventName) {
-                var eName = eventName || 'click';
-                $(config.viewIds.sessions).on(eName, '.markfavorite input[type=checkbox]', function () {
-                    var session = ko.dataFor(this);
-                    callback(session);
-                    return false;
-                });
+                bindClickEventToFavorite(config.viewIds.sessions, callback, eventName);
             };
 
         return {
