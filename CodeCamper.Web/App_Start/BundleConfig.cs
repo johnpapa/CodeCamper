@@ -6,6 +6,14 @@ namespace CodeCamper.Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            // .debug.js, -vsdoc.js and .intellisense.js files 
+            // are in BundleTable.Bundles.IgnoreList by default.
+            // Clear out the list and add back the ones we want to ignore.
+            // Don't add back .debug.js.
+            bundles.IgnoreList.Clear();
+            bundles.IgnoreList.Ignore("*-vsdoc.js");
+            bundles.IgnoreList.Ignore("*intellisense.js");
+
             // Modernizr goes separate since its a shiv
             bundles.Add(new ScriptBundle("~/jsbundles/modernizr")
                 .Include("~/Scripts/lib/modernizr-*"));
@@ -25,8 +33,8 @@ namespace CodeCamper.Web
                     "~/Scripts/lib/infuser.js", // depends on TrafficCop
 
                     // Knockout and its plugins
-                    "~/Scripts/lib/knockout-2.1.0.js",
-                    //"~/Scripts/lib/knockout-2.1.0.xdebug.js",  //TODO: Exclude the debug exclusions
+                    //"~/Scripts/lib/knockout-2.1.0.js",
+                    "~/Scripts/lib/knockout-2.1.0.debug.js",  //TODO: Exclude the debug exclusions
                     "~/Scripts/lib/knockout.validation.js",
                     "~/Scripts/lib/knockout.wijmo.js", // depends on jquery-ui and ko
                     "~/Scripts/lib/koExternalTemplateEngine.js",
