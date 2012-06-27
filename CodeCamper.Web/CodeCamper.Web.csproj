@@ -48,9 +48,9 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\WebGrease.1.0.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="dotless.Core, Version=1.3.0.3, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+    <Reference Include="dotless.Core, Version=1.3.0.4, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\dotless.1.3.0.3\lib\dotless.Core.dll</HintPath>
+      <HintPath>..\packages\dotless.1.3.0.4\lib\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,7 +63,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -159,11 +159,9 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\images\blue-bookmark.png" />
-    <Content Include="Content\images\blue-bookmarkchecked.png" />
-    <Content Include="Content\images\blue-bookmarklocked.png" />
     <Content Include="Content\images\cancel.png" />
-    <Content Include="Content\images\white-bookmark.png" />
+    <Content Include="Content\images\heart-locked-black.png" />
+    <Content Include="Content\images\heart-white.png" />
     <Content Include="Content\images\photos\jesse_liberty.jpg" />
     <Content Include="Content\images\photos\esteban_garcia.jpg" />
     <Content Include="Content\images\invalid.png" />
@@ -176,18 +174,18 @@
     <Content Include="Content\images\save.png" />
     <Content Include="Content\images\star-empty.png" />
     <Content Include="Content\images\star-full-light.png" />
-    <Content Include="Content\images\star-full.png" />
+    <Content Include="Content\images\star-full-dark.png" />
     <Content Include="Content\images\valid.png" />
     <Content Include="Content\images\val_asterisk.png" />
-    <Content Include="Content\images\white-checkbox_checked.png" />
-    <Content Include="Content\images\white-checkbox_unchecked.png" />
+    <Content Include="Content\images\checkbox-checked-white.png" />
+    <Content Include="Content\images\checkbox-unchecked-white.png" />
     <Content Include="Content\jquery.wijmo-complete.all.2.1.2.min.css" />
     <Content Include="Content\styles.less" />
     <Content Include="Content\images\photos\aaron_skonnard.jpg" />
     <Content Include="Content\images\back.png" />
-    <Content Include="Content\images\bookmarklocked.png" />
-    <Content Include="Content\images\checkbox_checked.png" />
-    <Content Include="Content\images\checkbox_unchecked.png" />
+    <Content Include="Content\images\heart-locked-white.png" />
+    <Content Include="Content\images\checkbox-checked-black.png" />
+    <Content Include="Content\images\checkbox-unchecked-black.png" />
     <Content Include="Content\images\clear.png" />
     <Content Include="Content\images\photos\dan_wahlin.jpg" />
     <Content Include="Content\images\photos\elijah_manor.jpg" />
@@ -209,8 +207,8 @@
     <Content Include="Content\images\trash.png" />
     <Content Include="Content\images\photos\unknown_person.jpg" />
     <Content Include="Content\images\photos\ward_bell.jpg" />
-    <Content Include="Content\images\bookmarkchecked.png" />
-    <Content Include="Content\images\bookmark.png" />
+    <Content Include="Content\images\heart-checked.png" />
+    <Content Include="Content\images\heart-black.png" />
     <Content Include="Scripts\app\datacontext.speaker-sessions.js" />
     <Content Include="Scripts\app\vm.speaker.js" />
     <Content Include="Scripts\app\vm.shell.js" />
@@ -226,6 +224,21 @@
     <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
     <Content Include="Scripts\app\filter.js" />
+    <Content Include="Scripts\lib\infuser-amd.min.gz.js" />
+    <Content Include="Scripts\lib\infuser.js" />
+    <Content Include="Scripts\lib\infuser.min.gz.js" />
+    <Content Include="Scripts\lib\infuser.min.js">
+      <DependentUpon>infuser.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\lib\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\lib\koExternalTemplateEngine.js" />
+    <Content Include="Scripts\lib\koExternalTemplateEngine.min.js">
+      <DependentUpon>koExternalTemplateEngine.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\lib\koExternalTemplateEngine_all.js" />
+    <Content Include="Scripts\lib\koExternalTemplateEngine_all.min.js">
+      <DependentUpon>koExternalTemplateEngine_all.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\lib\jquery-ui.min.js" />
     <Content Include="Scripts\lib\jquery.wijmo-open.all.2.1.2.min.js" />
     <Content Include="Scripts\lib\knockout.wijmo.js" />
@@ -247,10 +260,16 @@
     <Content Include="Scripts\app\utils.js" />
     <Content Include="Scripts\app\vm.js" />
     <Content Include="Scripts\lib\infuser-amd.js" />
-    <Content Include="Scripts\lib\knockout.changetracker-amd.js" />
+    <Content Include="Scripts\lib\knockout.changetracker.js" />
     <Content Include="Scripts\lib\knockout.validation.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
     <Content Include="Scripts\lib\TrafficCop-amd.js" />
+    <Content Include="Scripts\lib\TrafficCop-amd.min.gz.js" />
+    <Content Include="Scripts\lib\TrafficCop.js" />
+    <Content Include="Scripts\lib\TrafficCop.min.gz.js" />
+    <Content Include="Scripts\lib\TrafficCop.min.js">
+      <DependentUpon>TrafficCop.js</DependentUpon>
+    </Content>
     <Content Include="shivs.txt" />
     <Content Include="Test\webapi.person-cud.tests.html" />
     <Content Include="Test\webapi.person-cud.tests.js" />
@@ -316,7 +335,9 @@
     <Content Include="Tmpl\_speaker.view.tmpl.html" />
     <Content Include="Tmpl\_session.view.tmpl.html" />
     <Content Include="Tmpl\_session.edit.tmpl.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

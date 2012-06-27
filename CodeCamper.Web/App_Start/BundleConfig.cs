@@ -6,27 +6,31 @@ namespace CodeCamper.Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            // Could break into smaller bundles
+            // Modernizr goes separate since its a shiv
+            bundles.Add(new ScriptBundle("~/bundles/modernizr")
+                .Include("~/Scripts/lib/modernizr-*"));
+
+            // 3rd Party JavaScript files
             bundles.Add(new ScriptBundle("~/bundles/extlibs")
                 .Include(
-                    "~/Scripts/lib/json2.min.js", //
+                    "~/Scripts/lib/json2.min.js", // IE7 needs this
 
                     // jQuery and its plugins
-                    "~/Scripts/lib/jquery-1.7.2.min.js", // todo: wildcard ?
+                    "~/Scripts/lib/jquery-1.7.2.min.js", // Wildcard used so we get latest jquery
                     "~/Scripts/lib/activity-indicator.js",
                     "~/Scripts/lib/jquery.mockjson.js",
                     "~/Scripts/lib/jquery-ui.min.js",
                     "~/Scripts/lib/jquery.wijmo-open.all.2.1.2.min.js", // depends on jquery-ui
-                    //"~/Scripts/lib/TrafficCop-amd.js",
-                    //"~/Scripts/lib/infuser-amd.js", // depends on TrafficCop
+                    "~/Scripts/lib/TrafficCop.js",
+                    "~/Scripts/lib/infuser.js", // depends on TrafficCop
 
                     // Knockout and its plugins
                     // "~/Scripts/lib/knockout-2.1.0.js",
-                    "~/Scripts/lib/knockout-2.1.0.xdebug.js", 
-                    //"~/Scripts/lib/knockout.changetracker-amd.js",
+                    "~/Scripts/lib/knockout-2.1.0.xdebug.js",  //TODO: Exclude the debug exclusions
+                    "~/Scripts/lib/knockout.changetracker.js",
                     "~/Scripts/lib/knockout.validation.js",
                     "~/Scripts/lib/knockout.wijmo.js", // depends on jquery-ui and ko
-                    //"~/Scripts/lib/koExternalTemplateEngine-amd.js",
+                    "~/Scripts/lib/koExternalTemplateEngine.js",
 
                     "~/Scripts/lib/underscore.min.js",
                     "~/Scripts/lib/moment.js",
@@ -41,9 +45,7 @@ namespace CodeCamper.Web
                      "~/Scripts/lib/toastr.js"                
                     ));
 
-            bundles.Add(new ScriptBundle("~/bundles/modernizr")
-                .Include("~/Scripts/lib/modernizr-*"));
-
+            // 3rd Party CSS files
             bundles.Add(new StyleBundle("~/Content/css")
                 .Include(
                         "~/Content/jquery.wijmo-*",
@@ -51,6 +53,7 @@ namespace CodeCamper.Web
                         "~/Content/toastr-responsive.css"
             ));
 
+            // Custom LESS files
             var lessBundle = new Bundle("~/Content/Less")
                 .Include("~/Content/styles.less");
             lessBundle.Transforms.Add(new LessTransform());

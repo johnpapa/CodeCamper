@@ -6,17 +6,14 @@
         {
             baseUrl: 'scripts/app', /* script default location */
          
-            // List paths to js files that are not in the baseUrl.
-            /*** TEMPORARY ***/
-            // ToDo: use the non-amd versions of these libs so we can bundle them in with others 
-            //       then we wouldn't need paths.
-            paths: {
+            //// List paths to js files that are not in the baseUrl.
+            ///*** TEMPORARY ***/
+            //// ToDo: use the non-amd versions of these libs so we can bundle them in with others 
+            ////       then we wouldn't need paths.
+            //paths: {
 
-                'infuser': '../lib/infuser-amd',
-                'knockout.changetracker': '../lib/knockout.changetracker-amd',
-                'koExternalTemplateEngine': '../lib/koExternalTemplateEngine-amd',
-                'trafficcop': '../lib/TrafficCop-amd',
-            }
+            //    'knockout.changetracker': '../lib/knockout.changetracker-amd',
+            //}
 
         }
     );
@@ -29,6 +26,7 @@
         define('jquery', [], function () { return root.jQuery; });
         define('ko', [], function () { return root.ko; });
         define('amplify', [], function () { return root.amplify; });
+        define('infuser', [], function () { return root.infuser; });
         define('moment', [], function () { return root.moment; });
         define('sammy', [], function () { return root.Sammy; });
         define('toastr', [], function () { return root.toastr; });
@@ -47,9 +45,9 @@
                 'ko.bindingHandlers', // Knockout custom binding handlers
                 'ko.bindingHandlers.activity', // Knockout custom binding handlers
                 'ko.bindingHandlers.command', // Knockout custom binding handlers
-                'ko.utils', // Knockout custom utilities
-                'knockout.changetracker', // TODO: move into app?
-                'koExternalTemplateEngine' // TODO: move out when not using '-amd' scripts
+                'ko.utils' // Knockout custom utilities
+                //'knockout.changetracker' // TODO: move into app?
+                //'koExternalTemplateEngine' // TODO: move out when not using '-amd' scripts
         ], boot);
     }
     
