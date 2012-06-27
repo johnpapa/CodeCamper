@@ -162,6 +162,7 @@
     <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\heart-locked-black.png" />
     <Content Include="Content\images\heart-white.png" />
+    <Content Include="Content\images\icon-light-blue.png" />
     <Content Include="Content\images\photos\jesse_liberty.jpg" />
     <Content Include="Content\images\photos\esteban_garcia.jpg" />
     <Content Include="Content\images\invalid.png" />
