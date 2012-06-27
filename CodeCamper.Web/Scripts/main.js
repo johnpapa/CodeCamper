@@ -5,25 +5,28 @@
     
     requirejs.config(
         {
+            // Let require.js load all app/custom modules asynchronously as needed.
+            // They are all in this folder.
             baseUrl: 'scripts/app', /* script default location */
          
-            //// List paths to js files that are not in the baseUrl.
-            ///*** TEMPORARY ***/
-            //// ToDo: use the non-amd versions of these libs so we can bundle them in with others 
-            ////       then we wouldn't need paths.
+            // List paths to js files that are not in the baseUrl and not in bundles.
+            // If we use the non-amd versions of 3rd libs we can bundle them instead.
+            // In which case we don;t need the paths.
+            // Example:
             //paths: {
-
             //    'knockout.changetracker': '../lib/knockout.changetracker-amd',
             //}
-
         }
     );
+
+    // Load the 3rd party libraries
     registerNonAmdLibs();
+    // Load our app/custom plug-ins and bootstrap the app
     loadExtensionsAndBoot();
 
-    // supporting fncs
-    
     function registerNonAmdLibs() {
+        // Load the 3rd party libraries that the app needs.
+        // These are in the bundle (BundleConfig.cs).
         define('jquery', [], function () { return root.jQuery; });
         define('ko', [], function () { return root.ko; });
         define('amplify', [], function () { return root.amplify; });
@@ -34,6 +37,7 @@
         define('underscore', [], function () { return root._; });
     }
     
+    // Load our app/custom plug-ins and bootstrap the app
     function loadExtensionsAndBoot() {
         // Require that these custom plugins be loaded now
         // so that we don't have to name them specifically in 
