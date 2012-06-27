@@ -139,30 +139,31 @@ body {
 	    color: @text-color-title;
 	}
 
-	nav.main-nav {
-		border-bottom: solid 1px rgba(0,0,0,.1);
-		border-top: solid 1px rgba(0,0,0,.1);
-		padding-bottom: .3%;
-		text-transform: lowercase;
+	nav {
+		&.main-nav {
+			border-bottom: solid 1px rgba(0,0,0,.1);
+			border-top: solid 1px rgba(0,0,0,.1);
+			padding-bottom: .3%;
+			text-transform: lowercase;
 
-		> ul {
-			> li {
-				display: inline;
-				margin-right: 4%;
-			}
+			> ul {
+				> li {
+					display: inline;
+					margin-right: 4%;
+					&:last-child {
+						margin-right: 0;
+					}
+				}
 
-			> li:last-child {
-				margin-right: 0;
-			}
+				> li > a,
+				> li > span {
+					font-size: 130%;
+					line-height: 200%;
+				}
 
-			> li > a,
-			> li > span {
-				font-size: 130%;
-				line-height: 200%;
-			}
-
-			> li > a {
-				text-decoration: none;
+				> li > a {
+					text-decoration: none;
+				}
 			}
 		}
 	}
@@ -206,13 +207,13 @@ body {
 				> a {
 					background: rgba(0,0,0,.05);
 					background: transparent;
-				}
-
-				> a:hover {
-                    background: @background-hover-color;
-					/*background: rgba(0,0,0,.05);*/
-					cursor: pointer;
-					color: @text-color;
+					
+					&:hover {
+						background: @background-hover-color;
+						/*background: rgba(0,0,0,.05);*/
+						cursor: pointer;
+						color: @text-color;
+					}
 				}
 			}
 
@@ -273,14 +274,11 @@ body {
     height: 140px;
     border-bottom: solid 0 rgba(0, 0, 0, 0);
 	padding: 1.5% .5%;
-    /*border: 1px dotted #D3D3D3;*/
 }
 
 .view-list {
 	
 	margin-top: 4%;
-	/*height: 580px;
-	overflow-y: scroll;*/
 	
 		> article:hover {
 		background: @background-hover-color;
@@ -431,20 +429,22 @@ button {
         padding: 4px;
     }
 
-    div address {
-        line-height: 35px;
-        height: 35px;
-        margin-left: 100px;
-		margin-bottom: 2%;
-    }
+    div {
+		address {
+			line-height: 35px;
+			height: 35px;
+			margin-left: 100px;
+			margin-bottom: 2%;
+		}
 
-    div a {
-        line-height: 35px;
-        height: 35px;
-        margin-left: 100px;
-		margin-bottom: 2%;
-		display: block;
-    }
+		a {
+			line-height: 35px;
+			height: 35px;
+			margin-left: 100px;
+			margin-bottom: 2%;
+			display: block;
+		}
+	}
 }
 
 .details-bottom{
@@ -469,12 +469,12 @@ button {
 			> a {
 				background: rgba(0,0,0,.05);
 				background: transparent;
-			}
 
-			> a:hover {
-				background: rgba(0,0,0,.05);
-				cursor: pointer;
-				color: @text-color;
+				&:hover {
+					background: rgba(0,0,0,.05);
+					cursor: pointer;
+					color: @text-color;
+				}
 			}
 		}
 	}
@@ -501,11 +501,8 @@ span.scrollable-text {
 }
 
 span.scrollable-text {
-    /*border: 1px #808080 solid;*/
-    /*background-color: whitesmoke;*/
     width: 310px;
 }
-
 
 
 
@@ -515,14 +512,16 @@ a {
     color: @text-color;
 	padding-bottom: 2px;
 	text-decoration: none;
-}
-a:hover {
-	opacity: .6;
-}
+	
+	&:hover {
+		opacity: .6;
+	}
 
-a:active, a:focus {
-	position: relative;
-	top: 1px;
+	&:active, 
+	&:focus {
+		position: relative;
+		top: 1px;
+	}
 }
 
 /* 2.3 FONTS
@@ -549,12 +548,12 @@ nav label,
 small {
 	color: @text-color-subtle;
 	text-transform: uppercase;
-}
 
-small.tips {
-    text-transform: none;
-    font-size: 80%;
-    color: @accent-color;
+	&.tips {
+		text-transform: none;
+		font-size: 80%;
+		color: @accent-color;
+	}
 }
 
 nav {
@@ -581,20 +580,23 @@ button {
     height: 33px;
 }
 
-button:active, button:focus {
-	position: relative;
-	top: 1px;
-}
+button {
+	&:active, 
+	&:focus {
+		position: relative;
+		top: 1px;
+	}
 
-button:hover {
-	opacity: 0.6;
-}
+	&:hover {
+		opacity: 0.6;
+	}
 
-button:disabled {
-    opacity: 0.6;
-    cursor: default;
-    position: relative;
-    top: 0;
+	&:disabled {
+		opacity: 0.6;
+		cursor: default;
+		position: relative;
+		top: 0;
+	}
 }
 
 /* 2.5 ICONS
@@ -700,14 +702,20 @@ button:disabled {
                    background-image: @star-empty; 
                    display:inline-block; 
                    margin: 0; }
+.starRating {
+	span { 
+		cursor: pointer; 
 
-.starRating span { cursor: pointer; }
+		&.chosen  { background-image: @star-full; }
+	}
+	
+	&:hover span { 
+		background-image: @star-empty; 
 
-.starRating span.chosen  { background-image: @star-full; }
+		&.hoverChosen { background-image: @star-full; }
+	}
+}
 
-.starRating:hover span { background-image: @star-empty; }
-
-.starRating:hover span.hoverChosen { background-image: @star-full; }
 
 
 /* 3.0.2 CUSTOM VALIDATION
@@ -945,10 +953,9 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
 
 /*   TODO: WIJMO STYLES GO HERE   */
-
+/*
 .wijmo-checkbox
 {
-	/*background-repeat: no-repeat;*/
 	cursor: pointer;
 	display: inline-block;
 	float: right;
@@ -965,7 +972,6 @@ div.wijmo-checkbox .wijmo-checkbox-box
 {
     height: 32px;
     width: 32px;
-    /*background: @favorite-unchecked;*/
     opacity: 1;
 }
 
@@ -1003,3 +1009,4 @@ div.wijmo-checkbox .ui-state-disabled .wijmo-checkbox-icon
 div.wijmo-checkbox .wijmo-checkbox-icon
 {
 }
+*/
