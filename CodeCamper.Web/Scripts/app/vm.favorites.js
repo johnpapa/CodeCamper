@@ -135,7 +135,7 @@ define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'uti
             canLeave: canLeave,
             clearFilter: clearFilter,
             days: days,
-            //debugInfo: debugInfo,
+            //debugInfo: ko.utils.debugInfo,
             filterTmpl: filterTmpl,
             forceRefresh: forceRefresh,
             gotoDetails: gotoDetails,

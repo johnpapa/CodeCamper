@@ -154,6 +154,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LessTransform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
@@ -225,6 +226,7 @@
     <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
     <Content Include="Scripts\app\filter.js" />
+    <Content Include="Scripts\main-old-delete.js" />
     <Content Include="Scripts\lib\jquery-ui.min.js" />
     <Content Include="Scripts\lib\jquery.wijmo-open.all.2.1.2.min.js" />
     <Content Include="Scripts\lib\knockout.wijmo.js" />
@@ -255,12 +257,12 @@
     <Content Include="Test\webapi.session-cud.tests.html" />
     <Content Include="Test\webapi.session-cud.tests.js" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
-    <Content Include="Scripts\lib\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\lib\knockout-2.1.0.xdebug.js" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
     <Content Include="Scripts\lib\activity-indicator.js" />
     <Content Include="Scripts\lib\json2.js" />
     <Content Include="Scripts\lib\json2.min.js" />
-    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\lib\require.js" />
     <Content Include="Scripts\lib\sammy.title.js" />
     <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Scripts\lib\underscore.min.js" />
