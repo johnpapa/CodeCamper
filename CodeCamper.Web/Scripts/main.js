@@ -9,7 +9,7 @@
         // jquery 1.7.x understands define; no shim needed.
         'jquery.ui': ['jquery'],
         'jquery.wijmo':['jquery.ui'],
-        'json2': { exports: 'JSON' }, 
+        //'json2': { exports: 'JSON' }, 
         'knockout.wijmo': ['ko', 'jquery.wijmo'],
         //'ko': { deps: ['jquery'], exports: 'ko' }, //ko 2.1 understands define; no shim needed
         // moment understands define; no shim needed.
@@ -30,7 +30,7 @@
         'jquery.mockjson': '../lib/jquery.mockjson',
         'jquery.ui': '../lib/jquery-ui.min',
         'jquery.wijmo': '../lib/jquery.wijmo-open.all.2.1.2.min',
-        'json2': '../lib/json2.min',
+        //'json2': '../lib/json2.min',
         'infuser': '../lib/infuser-amd',
         'knockout.changetracker': '../lib/knockout.changetracker-amd',
         'knockout.wijmo': '../lib/knockout.wijmo',
@@ -51,7 +51,7 @@
 requirejs([
         // 3rd party libraries
         'ko',
-        'json2',
+        //'json2',
         'jquery',
         'underscore',
         'moment',
