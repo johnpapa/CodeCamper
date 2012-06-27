@@ -979,45 +979,58 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
 .wijmo-checkbox
 {
-	background-repeat: no-repeat;
+	/*background-repeat: no-repeat;*/
 	cursor: pointer;
 	display: inline-block;
 	float: right;
 	opacity: .6;
 	padding: 0;
 	margin-top: -5%;
+	height: 32px;
+	width: 32px;
 
 	margin-right: -10%;
 }
-.wijmo-checkbox .wijmo-checkbox-box
+
+div.wijmo-checkbox .wijmo-checkbox-box
 {
-	height: 32px;
-	width: 32px;
-	background: @favorite-unchecked;
-	opacity: 1;
+    height: 32px;
+    width: 32px;
+    /*background: @favorite-unchecked;*/
+    opacity: 1;
 }
-.wijmo-checkbox .ui-state-hover
+
+div.wijmo-checkbox .wijmo-checkbox-box .wijmo-checkbox-icon
+{
+    display:block;
+    height: 32px;
+    width: 32px;
+    background: @favorite-unchecked;
+    opacity: 1;
+}
+
+div.wijmo-checkbox .ui-state-hover .wijmo-checkbox-icon
 {
     background: @favorite-unchecked;
     opacity: 0.8;
 }
-.wijmo-checkbox .ui-state-active
+
+div.wijmo-checkbox .ui-state-active .ui-icon-check
 {
     background: @favorite-checked;
     opacity: 1;
 }
-.wijmo-checkbox .ui-state-active.ui-state-hover
+
+div.wijmo-checkbox .ui-state-active.ui-state-hover .wijmo-checkbox-icon
 {
-    background: @favorite-checked;
     opacity: 0.8;
 }
-.wijmo-checkbox .ui-state-disabled
+
+div.wijmo-checkbox .ui-state-disabled .wijmo-checkbox-icon
 {
     background: @favorite-locked;
 }
-/*
-.wijmo-checkbox .wijmo-checkbox-icon
+
+div.wijmo-checkbox .wijmo-checkbox-icon
 {
-   background:none;
 }
-*/

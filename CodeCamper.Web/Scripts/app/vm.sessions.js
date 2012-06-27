@@ -125,11 +125,7 @@
 
                 //TODO: Workaround til they fix their bug
                 //$(function () {
-
-                //    if ($(':wijmo-wijcheckbox')) {
-                //        $(':wijmo-wijcheckbox').wijcheckbox('refresh');
-                //    }
-
+                //    $(':wijmo-wijcheckbox').wijcheckbox('refresh');
                 //});
             };
 
