@@ -12,11 +12,8 @@
         <select id="timeslot" data-bind="options: timeslots, value: sessionsFilter.timeslot, optionsText: 'shortStart', optionsCaption:'All'">
         </select>
         
-        <label class="favoritesonly" for="favoritesOnly">
-            <input data-bind="checked: sessionsFilter.favoriteOnly" id="favoritesOnly" type="checkbox"/>
-            <span>Favorites Only</span>
-        </label>
-        
+        <button data-bind="checkboxImage: {checked: sessionsFilter.favoriteOnly}"></button>
+
         <button class="clear-trash" data-bind="click: clearSideFilters">Clear Filters</button>
     </nav>
 

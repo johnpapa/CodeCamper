@@ -1,5 +1,6 @@
 ﻿define(['jquery', 'ko'],
 function ($, ko) {
+    var unwrap = ko.utils.unwrapObservable;
 
     ko.bindingHandlers.escape = {
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
@@ -14,8 +15,36 @@ function ($, ko) {
 
     ko.bindingHandlers.hidden = {
         update: function (element, valueAccessor) {
-            var value = ko.utils.unwrapObservable(valueAccessor());
+            var value = unwrap(valueAccessor());
             ko.bindingHandlers.visible.update(element, function () { return !value; });
+        }
+    };
+
+    ko.bindingHandlers.checkboxImage = {
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var $el = $(element),
+                settings = valueAccessor();
+
+            $el.addClass('checkbox');
+
+            $el.click(function () {
+                if (settings.checked) {
+                    settings.checked(!settings.checked());
+                }
+            });
+
+            ko.bindingHandlers.checkboxImage.update(
+                element, valueAccessor, allBindingsAccessor, viewModel);
+        },
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            var $el = $(element),
+                settings = valueAccessor(),
+                enable = (settings.enable !== undefined) ? unwrap(settings.enable()) : true,
+                checked = (settings.checked !== undefined) ? unwrap(settings.checked()) : true;
+
+            $el.enable = enable;
+
+            checked ? $el.addClass('selected') : $el.removeClass('selected');
         }
     };
 
@@ -31,10 +60,9 @@ function ($, ko) {
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var $el = $(element),
                 valueAccessor = valueAccessor(),
-                enable = (valueAccessor.enable !== undefined) ? ko.utils.unwrapObservable(valueAccessor.enable()) : true,
-                checked = (valueAccessor.checked !== undefined) ? ko.utils.unwrapObservable(valueAccessor.checked()) : true;
+                enable = (valueAccessor.enable !== undefined) ? unwrap(valueAccessor.enable()) : true,
+                checked = (valueAccessor.checked !== undefined) ? unwrap(valueAccessor.checked()) : true;
 
-            // Toggle the appropriate CSS classes
             $el.enable = enable;
             if (checked) {
                 if (enable) {
@@ -71,7 +99,7 @@ function ($, ko) {
             // Give the first x stars the 'chosen' class, where x <= rating
             var ratingObservable = valueAccessor(),
                 allBindings = allBindingsAccessor(),
-                enable = (allBindings.enable !== undefined) ? ko.utils.unwrapObservable(allBindings.enable) : true;
+                enable = (allBindings.enable !== undefined) ? unwrap(allBindings.enable) : true;
 
             // Toggle the appropriate CSS classes
             if (enable) {
