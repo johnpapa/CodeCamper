@@ -40,12 +40,12 @@
         // the modules that make use of them because
         // we don't want those modules to know that they use plugins.
         requirejs([
-                'ko.debug.helpers',             // the app's ko debugging plugin 
                 'jquery.activity-ex',           // jquery plugin
                 'ko.asyncCommand',              // Knockout custom asyncCommand
                 'ko.bindingHandlers',           // Knockout custom binding handlers
                 'ko.bindingHandlers.activity',  // Knockout custom binding handlers
                 'ko.bindingHandlers.command',   // Knockout custom binding handlers
+                'ko.debug.helpers',             // Knockout debugging plugin for the app
                 'ko.dirtyFlag',                 // Knockout dirtyFlag
                 'ko.utils'                      // Knockout custom utilities
         ], boot);

@@ -40,8 +40,8 @@ namespace CodeCamper.Web
                     "~/Scripts/lib/amplify.core.js",
                     "~/Scripts/lib/amplify.request.js",
                     "~/Scripts/lib/amplify.store.js",
-
-                     "~/Scripts/lib/toastr.js"
+                    
+                    "~/Scripts/lib/toastr.js"
                     ));
 
             // 3rd Party CSS files
