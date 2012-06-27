@@ -1,9 +1,4 @@
-﻿// Description
-//  vm.speakers is the ViewModel for a view displaying all speakers.
-//  The user can further filter this subset of speakers by additional criteria.
-//
-// ----------------------------------------------
-define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
+﻿define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
     function (ko, router, datacontext, filter, sort, messenger, config) {
         var
             speakersFilter = new filter.SpeakersFilter(),

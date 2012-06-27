@@ -1,10 +1,4 @@
-﻿// Description
-//  vm.favorites is the ViewModel for a view displaying just the sessions
-//  that the current user has marked as favorites.
-//  The user can further filter this subset of Sessions by additional criteria,
-//  the same filter criteria that can be applied to all sessions.
-// ----------------------------------------------
-define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger'],
+﻿define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger'],
     function ($, ko, router, datacontext, filter, sort, group, utils, config, eventDelegates, messenger) {
         var
             isBusy = false,

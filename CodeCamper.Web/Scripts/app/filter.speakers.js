@@ -1,9 +1,4 @@
-﻿// Depends on
-//  Knockout
-//  utils.js
-//  config.js
-// ----------------------------------------------
-define(['ko', 'utils', 'config'],
+﻿define(['ko', 'utils', 'config'],
     function (ko, utils, config) {
 
         // Ctor for a SpeakersFilter

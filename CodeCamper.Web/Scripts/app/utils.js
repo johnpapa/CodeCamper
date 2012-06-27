@@ -1,7 +1,4 @@
-﻿// Description
-//  Defines common utilities
-// ----------------------------------------------
-define(['moment'],
+﻿define(['moment'],
     function (moment) {
         var
             endOfDay = function (day) {

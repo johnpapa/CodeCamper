@@ -1,6 +1,3 @@
-// Depends on 
-//  jQuery
-//
 // Conventions
 //  1) all HTML tags that represent views must use the CSS class .view
 //      Active views will have .view-active class added to them.
