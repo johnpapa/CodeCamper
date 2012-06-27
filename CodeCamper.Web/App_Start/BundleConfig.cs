@@ -17,24 +17,24 @@ namespace CodeCamper.Web
             //            "~/Scripts/jquery.unobtrusive*",
             //            "~/Scripts/jquery.validate*"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-            //            "~/Scripts/modernizr-*"));
+            bundles.Add(new ScriptBundle("~/bundles/json2")
+                .Include("~/Scripts/lib/json2.min.js"));
 
-            //bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/modernizr")
+                .Include("~/Scripts/lib/modernizr-*"));
 
-            //bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-            //            "~/Content/themes/base/jquery.ui.core.css",
-            //            "~/Content/themes/base/jquery.ui.resizable.css",
-            //            "~/Content/themes/base/jquery.ui.selectable.css",
-            //            "~/Content/themes/base/jquery.ui.accordion.css",
-            //            "~/Content/themes/base/jquery.ui.autocomplete.css",
-            //            "~/Content/themes/base/jquery.ui.button.css",
-            //            "~/Content/themes/base/jquery.ui.dialog.css",
-            //            "~/Content/themes/base/jquery.ui.slider.css",
-            //            "~/Content/themes/base/jquery.ui.tabs.css",
-            //            "~/Content/themes/base/jquery.ui.datepicker.css",
-            //            "~/Content/themes/base/jquery.ui.progressbar.css",
-            //            "~/Content/themes/base/jquery.ui.theme.css"));
+            bundles.Add(new StyleBundle("~/bundles/css")
+                .Include(
+                        "~/Content/jquery.wijmo-complete.all.2.1.2.min.css",
+                        "~/Content/toastr.css",
+                        "~/Content/toastr-responsive.css"));
+
+            var lessBundle = new Bundle("~/bundles/less")
+                .Include("~/Content/styles.less");
+            lessBundle.Transforms.Add(new LessTransform());
+            lessBundle.Transforms.Add(new CssMinify());
+            bundles.Add(lessBundle);
+
         }
     }
 }

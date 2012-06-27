@@ -1,21 +1,29 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="Content/jquery.wijmo-complete.all.2.1.2.min.css" />
-    <link rel="stylesheet" type="text/css" href="Content/toastr.css" />
-    <link rel="stylesheet" type="text/css" href="Content/toastr-responsive.css" />
-    <link rel="stylesheet" href="~/content/styles.less" />
+    <!--
+        No need for these since we use ASP.NET bundling/minification. 
+        In debug mode true, there is no bundling/min. 
+
+        <link rel="stylesheet" type="text/css" href="Content/jquery.wijmo-complete.all.2.1.2.min.css" />
+        <link rel="stylesheet" type="text/css" href="Content/toastr.css" />
+        <link rel="stylesheet" type="text/css" href="Content/toastr-responsive.css" />
+        
+        <link rel="stylesheet" href="~/content/styles.less" />
+    -->
+    
+    @Scripts.Render("~/bundles/json2", "~/bundles/modernizr")
+
+    @Styles.Render("~/bundles/css")
+    @Styles.Render("~/bundles/less")
+
+
 
     <title>Code Camper</title>
-    <!--[if lt IE 9]>
-        <script type="text/javascript" src="Scripts/lib/modernizr-2.5.3.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-        <script type="text/javascript" src="Scripts/lib/json2.min.js"></script>
-    <![endif]-->
 </head>
 <body>
     <div id="busyindicator"></div>

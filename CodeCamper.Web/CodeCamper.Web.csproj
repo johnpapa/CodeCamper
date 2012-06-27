@@ -141,6 +141,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\LessTransform.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\SessionBriefsController.cs" />
     <Compile Include="Controllers\FavoritesController.cs" />
@@ -250,6 +251,7 @@
     <Content Include="Scripts\lib\knockout.validation.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
     <Content Include="Scripts\lib\TrafficCop-amd.js" />
+    <Content Include="shivs.txt" />
     <Content Include="Test\webapi.person-cud.tests.html" />
     <Content Include="Test\webapi.person-cud.tests.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />
