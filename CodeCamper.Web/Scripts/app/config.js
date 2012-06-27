@@ -1,7 +1,8 @@
 ﻿define(['toastr', 'mock/mock', 'infuser', 'ko'],
     function (toastr, mock, infuser, ko) {
 
-        var// properties
+        var
+            // properties
             //currentUserId = 1, // Default user - has favorites
             currentUserId = 3, // John Papa - no favorites      
             currentUser = ko.observable(),

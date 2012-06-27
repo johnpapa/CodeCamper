@@ -1,8 +1,6 @@
 ﻿// Conventions
 //	1) All Views must have their HTML element tags
 //      include a CSS class named .view.
-// 	2) Before registering routes with router,
-//      the viewmodels should exist.
 // ----------------------------------------------
 define(['jquery', 'underscore','sammy', 'presenter','config', 'route-mediator'],
     function ($, _, Sammy, presenter, config, routeMediator) {
