@@ -7,7 +7,7 @@
         {
             // Let require.js load all app/custom modules asynchronously as needed.
             // They are all in this folder.
-            baseUrl: 'scripts/app', /* script default location */
+            baseUrl: 'scripts/app' /* script default location */
          
             // List paths to js files that are not in the baseUrl and not in bundles.
             // If we use the non-amd versions of 3rd libs we can bundle them instead.
