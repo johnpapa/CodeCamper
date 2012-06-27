@@ -7,11 +7,11 @@ namespace CodeCamper.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             // Modernizr goes separate since its a shiv
-            bundles.Add(new ScriptBundle("~/bundles/modernizr")
+            bundles.Add(new ScriptBundle("~/jsbundles/modernizr")
                 .Include("~/Scripts/lib/modernizr-*"));
 
             // 3rd Party JavaScript files
-            bundles.Add(new ScriptBundle("~/bundles/extlibs")
+            bundles.Add(new ScriptBundle("~/jsbundles/extlibs")
                 .Include(
                     "~/Scripts/lib/json2.min.js", // IE7 needs this
 
@@ -25,9 +25,8 @@ namespace CodeCamper.Web
                     "~/Scripts/lib/infuser.js", // depends on TrafficCop
 
                     // Knockout and its plugins
-                    // "~/Scripts/lib/knockout-2.1.0.js",
+                // "~/Scripts/lib/knockout-2.1.0.js",
                     "~/Scripts/lib/knockout-2.1.0.xdebug.js",  //TODO: Exclude the debug exclusions
-                    "~/Scripts/lib/knockout.changetracker.js",
                     "~/Scripts/lib/knockout.validation.js",
                     "~/Scripts/lib/knockout.wijmo.js", // depends on jquery-ui and ko
                     "~/Scripts/lib/koExternalTemplateEngine.js",
@@ -40,9 +39,9 @@ namespace CodeCamper.Web
 
                     "~/Scripts/lib/amplify.core.js",
                     "~/Scripts/lib/amplify.request.js",
-                     "~/Scripts/lib/amplify.store.js",
- 
-                     "~/Scripts/lib/toastr.js"                
+                    "~/Scripts/lib/amplify.store.js",
+
+                     "~/Scripts/lib/toastr.js"
                     ));
 
             // 3rd Party CSS files

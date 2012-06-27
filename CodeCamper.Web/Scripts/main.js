@@ -2,6 +2,7 @@
     
     // Establish the root object, `window` in the browser, or `global` on the server.
     var root = this;
+    
     requirejs.config(
         {
             baseUrl: 'scripts/app', /* script default location */
@@ -34,20 +35,19 @@
     }
     
     function loadExtensionsAndBoot() {
-        // Require that these AMD plugins be loaded now
+        // Require that these custom plugins be loaded now
         // so that we don't have to name them specifically in 
         // the modules that make use of them because
         // we don't want those modules to know that they use plugins.
         requirejs([
-                'debug.helpers', // the app's ko debugging plugin 
-                'jquery.activity-ex', // jquery plugin
-                'ko.asyncCommand', // Knockout custom asyncCommand
-                'ko.bindingHandlers', // Knockout custom binding handlers
-                'ko.bindingHandlers.activity', // Knockout custom binding handlers
-                'ko.bindingHandlers.command', // Knockout custom binding handlers
-                'ko.utils' // Knockout custom utilities
-                //'knockout.changetracker' // TODO: move into app?
-                //'koExternalTemplateEngine' // TODO: move out when not using '-amd' scripts
+                'ko.debug.helpers',             // the app's ko debugging plugin 
+                'jquery.activity-ex',           // jquery plugin
+                'ko.asyncCommand',              // Knockout custom asyncCommand
+                'ko.bindingHandlers',           // Knockout custom binding handlers
+                'ko.bindingHandlers.activity',  // Knockout custom binding handlers
+                'ko.bindingHandlers.command',   // Knockout custom binding handlers
+                'ko.dirtyFlag',                 // Knockout dirtyFlag
+                'ko.utils'                      // Knockout custom utilities
         ], boot);
     }
     

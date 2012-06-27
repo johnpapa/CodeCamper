@@ -247,7 +247,7 @@
     <Content Include="Scripts\app\filter.speakers.js" />
     <Content Include="Scripts\app\group.js" />
     <Content Include="Scripts\app\dataservice.attendance.js" />
-    <Content Include="Scripts\app\debug.helpers.js" />
+    <Content Include="Scripts\app\ko.debug.helpers.js" />
     <Content Include="Scripts\app\mock\mock.dataservice.attendance.js" />
     <Content Include="Scripts\app\filter.sessions.js" />
     <Content Include="Scripts\app\dataservice.person.js" />
@@ -260,7 +260,7 @@
     <Content Include="Scripts\app\utils.js" />
     <Content Include="Scripts\app\vm.js" />
     <Content Include="Scripts\lib\infuser-amd.js" />
-    <Content Include="Scripts\lib\knockout.changetracker.js" />
+    <Content Include="Scripts\app\ko.dirtyFlag.js" />
     <Content Include="Scripts\lib\knockout.validation.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
     <Content Include="Scripts\lib\TrafficCop-amd.js" />

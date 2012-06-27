@@ -1,4 +1,4 @@
-﻿// Knockout.ChangeTracker
+﻿// Knockout.DirtyFlag
 //
 // John Papa 
 //          http://johnpapa.net

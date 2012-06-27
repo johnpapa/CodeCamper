@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Code Camper</title>
     @Styles.Render("~/Content/css")
+    
     @Styles.Render("~/Content/less")
-    @Scripts.Render("~/bundles/modernizr")
-    <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+    
+    @Scripts.Render("~/jsbundles/modernizr")
 </head>
 <body>
     <div id="busyindicator"></div>
@@ -38,8 +37,8 @@
 
     </section>
 
+    @Scripts.Render("~/jsbundles/extlibs")
 
-    @Scripts.Render("~/bundles/extlibs")
     <script src="~/Scripts/lib/require.js" type="text/javascript"></script>
     <script src="~/Scripts/main.js" type="text/javascript"></script>
 
