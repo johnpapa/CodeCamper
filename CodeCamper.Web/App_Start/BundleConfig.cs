@@ -23,13 +23,13 @@ namespace CodeCamper.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
                 .Include("~/Scripts/lib/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/bundles/css")
+            bundles.Add(new StyleBundle("~/Content/css")
                 .Include(
                         "~/Content/jquery.wijmo-complete.all.2.1.2.min.css",
                         "~/Content/toastr.css",
                         "~/Content/toastr-responsive.css"));
 
-            var lessBundle = new Bundle("~/bundles/less")
+            var lessBundle = new Bundle("~/Content/less")
                 .Include("~/Content/styles.less");
             lessBundle.Transforms.Add(new LessTransform());
             lessBundle.Transforms.Add(new CssMinify());
