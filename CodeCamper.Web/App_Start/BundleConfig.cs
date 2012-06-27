@@ -25,8 +25,8 @@ namespace CodeCamper.Web
                     "~/Scripts/lib/infuser.js", // depends on TrafficCop
 
                     // Knockout and its plugins
-                // "~/Scripts/lib/knockout-2.1.0.js",
-                    "~/Scripts/lib/knockout-2.1.0.xdebug.js",  //TODO: Exclude the debug exclusions
+                    "~/Scripts/lib/knockout-2.1.0.js",
+                    //"~/Scripts/lib/knockout-2.1.0.xdebug.js",  //TODO: Exclude the debug exclusions
                     "~/Scripts/lib/knockout.validation.js",
                     "~/Scripts/lib/knockout.wijmo.js", // depends on jquery-ui and ko
                     "~/Scripts/lib/koExternalTemplateEngine.js",
