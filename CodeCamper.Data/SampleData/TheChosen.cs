@@ -7,7 +7,7 @@ namespace CodeCamper.Data.SampleData
 {
     public static class TheChosen
     {
-        private static List<Person> _theChosen;
+        public static List<Person> _theChosen;
         private static Person 
             _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 

@@ -6,6 +6,9 @@ namespace CodeCamper.Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            // Force optimization to be on or off, regardless of web.config setting
+            BundleTable.EnableOptimizations = true;
+
             // Modernizr goes separate since its a shiv
             bundles.Add(new ScriptBundle("~/jsbundles/modernizr")
                 .Include("~/Scripts/lib/modernizr-*"));

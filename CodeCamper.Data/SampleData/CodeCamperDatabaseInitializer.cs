@@ -12,7 +12,7 @@ namespace CodeCamper.Data.SampleData
         DropCreateDatabaseIfModelChanges<CodeCamperDbContext> // when iterating
     {
         private const int AttendeeCount = 1000;
-        private const int AttendeesWithFavoritesCount = 3;
+        private const int AttendeesWithFavoritesCount = 10;
 
         protected override void Seed(CodeCamperDbContext context)
         {
@@ -145,11 +145,11 @@ namespace CodeCamper.Data.SampleData
             });
             persons.Add(new Person
             {
-                FirstName = "Sue",
-                LastName = "Menot",
-                Email = "Suem@litiginy.com",
-                Blog = "http://tortsblog.com/",
-                Twitter = "Menotany",
+                FirstName = "Ella",
+                LastName = "Papa",
+                Email = "ellap@contoso.com",
+                Blog = "http://contoso.com/",
+                Twitter = "ellapapa",
                 Gender = "F",
                 ImageSource = "sue_menot.jpg",
                 Bio = bioTextGenerator.GenSentences(20, bioTextSource),
@@ -178,7 +178,7 @@ namespace CodeCamper.Data.SampleData
                             FirstName = name.First,
                             LastName = name.Last,
                             Email = netName+"@contoso.com",
-                            Blog = "http://"+netName+"/blogdog.com",
+                            Blog = "http://"+netName+"/contoso.com",
                             Twitter = "@"+netName,
                             Gender = name.Gender,
                             Bio = bioTextGenerator.GenSentences(8, bioTextSource),
@@ -235,6 +235,8 @@ namespace CodeCamper.Data.SampleData
             const int firstKnownSpeakerIx = 2; // skip the "reserved" attendees who we know are not speakers.
             const int firstCrowdIx = 4; // first person in the crowd who could be a speaker
 
+            var chosenCount = TheChosen._theChosen.Count();
+
             var speakerIxs = new List<int>(); // speakers assigned in the current timeslot
 
 
@@ -250,7 +252,8 @@ namespace CodeCamper.Data.SampleData
 
                 // Weight the draw of speakers towards the "well-known" speakers
                 // Ensure a person only speaks once in a timeslot
-                var speakerIx = Rand.Next(firstKnownSpeakerIx, firstCrowdIx+5);
+                //var speakerIx = Rand.Next(firstKnownSpeakerIx, firstCrowdIx+5);
+                var speakerIx = Rand.Next(firstKnownSpeakerIx, firstKnownSpeakerIx + chosenCount);
                 if (speakerIx >= firstCrowdIx || speakerIxs.Contains(speakerIx))
                 {
                     do
@@ -275,7 +278,11 @@ namespace CodeCamper.Data.SampleData
                         Tags = TagsGenerator.GenTags(track.Name),
                         Description = textGenerator.GenSentences(40, descTextSource),
                     };
+
                 sessions.Add(session);
+
+                // Limit to 110 sessions
+                if (sessions.Count > 110) return;
 
                 if (++trackIx != trackCount) continue;
 
@@ -289,7 +296,7 @@ namespace CodeCamper.Data.SampleData
         private string GenerateTitle(Track track)
         {
             var textGenerator = new SampleTextGenerator();
-            var title = textGenerator.GenWords(2) + " " + track.Name + " " + textGenerator.GenWords(4);
+            var title = textGenerator.GenWords(2) + " " + track.Name + " " + textGenerator.GenWords(3);
             var c = title[1];
             var sb = new StringBuilder();
             sb.Append(char.ToUpper(c));
