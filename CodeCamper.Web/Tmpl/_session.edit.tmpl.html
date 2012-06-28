@@ -42,9 +42,8 @@
             <textarea data-bind="value: description, valueUpdate: 'afterkeydown'" 
                 placeholder="Session description"></textarea>
         </div>
-        <label class="markfavorite markfavorite-no-float" title="Mark as favorite">
-        <input
-            data-bind="checked:isFavorite, enable: isUnlocked, command: $parent.saveFavorite"
-            type="checkbox" /><span></span></label>
+        <button data-bind="favoriteCheckbox: {enable: isUnlocked, checked: isFavorite}, 
+            command: $parent.saveFavorite"
+            class="markfavorite-no-float"></button>
     </div>
 </div>
