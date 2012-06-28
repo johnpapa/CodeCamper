@@ -1,4 +1,5 @@
-﻿define(['ko'],
+﻿define('ko.debug.helpers',
+['ko'],
 function (ko) {
     //track the number of re-evaluations for a computed observable
     ko.observableArray.fn.trackReevaluations = function () {

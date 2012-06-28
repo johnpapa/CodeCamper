@@ -1,7 +1,8 @@
 ﻿//	All mock data is exposed through data  property
 // 	toggle mock usage on and off through useMocks property
 // ----------------------------------------------
-define(['jquery', 'moment'],
+define('mock/mock.generator',
+    ['jquery', 'moment'],
     function($, moment) {
         var init = function() {
             $.mockJSON.random = true;

@@ -1,4 +1,5 @@
-﻿define(['jquery', 'ko', 'toastr', 'config', 'router', 'model', 'datacontext', 'vm'],
+﻿define('bootstrapper',
+    ['jquery', 'ko', 'toastr', 'config', 'router', 'model', 'datacontext', 'vm'],
     function ($, ko, toastr, config, router, model, datacontext, vm) {
         var
             logger = config.logger,

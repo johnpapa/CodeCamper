@@ -1,4 +1,5 @@
-﻿define([
+﻿define('filter',
+    [
         'filter.sessions',
         'filter.speakers'
 ],

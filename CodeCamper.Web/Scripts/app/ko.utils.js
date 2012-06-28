@@ -1,4 +1,5 @@
-﻿define(['ko'],
+﻿define('ko.utils',
+['ko'],
 function (ko) {
 
     ko.utils.wrapAccessor = function (accessor) {

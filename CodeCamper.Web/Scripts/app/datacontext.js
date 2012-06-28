@@ -1,4 +1,5 @@
-﻿define(['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils', 'datacontext.speaker-sessions'],
+﻿define('datacontext', 
+    ['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils', 'datacontext.speaker-sessions'],
     function ($, _, ko, model, modelmapper, dataservice, config, utils, SpeakerSessions) {
         var
             logger = config.logger,

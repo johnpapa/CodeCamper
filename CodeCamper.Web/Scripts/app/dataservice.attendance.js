@@ -1,4 +1,5 @@
-﻿define(['amplify'],
+﻿define('dataservice.attendance', 
+    ['amplify'],
     function (amplify) {
         var
             init = function () {

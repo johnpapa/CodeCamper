@@ -1,4 +1,5 @@
-﻿define(['moment'],
+﻿define('utils',
+['moment'],
     function (moment) {
         var
             endOfDay = function (day) {

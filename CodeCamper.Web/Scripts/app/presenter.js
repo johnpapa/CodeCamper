@@ -12,7 +12,8 @@
 // 	presenter.transitionTo('#A');
 //
 // ----------------------------------------------
-define(['jquery'],
+define('presenter',
+['jquery'],
     function($) {
         var
         transitionOptions = {

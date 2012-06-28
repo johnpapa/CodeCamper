@@ -1,4 +1,5 @@
-﻿define(['ko', 'datacontext', 'config', 'messenger', 'sort', 'router'],
+﻿define('vm.session',
+    ['ko', 'datacontext', 'config', 'messenger', 'sort', 'router'],
     function (ko, datacontext, config, messenger, sort, router) {
 
         var

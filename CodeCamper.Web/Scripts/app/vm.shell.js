@@ -1,4 +1,5 @@
-﻿define(['ko', 'underscore', 'datacontext', 'config'],
+﻿define('vm.shell',
+    ['ko', 'underscore', 'datacontext', 'config'],
     function (ko, _, datacontext, config) {
 
         var

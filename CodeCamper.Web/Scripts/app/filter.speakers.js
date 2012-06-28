@@ -1,4 +1,5 @@
-﻿define(['ko', 'utils', 'config'],
+﻿define('filter.speakers',
+    ['ko', 'utils', 'config'],
     function (ko, utils, config) {
 
         // Ctor for a SpeakersFilter

@@ -1,4 +1,5 @@
-﻿define(['toastr', 'mock/mock', 'infuser', 'ko'],
+﻿define('config',
+    ['toastr', 'mock/mock', 'infuser', 'ko'],
     function (toastr, mock, infuser, ko) {
 
         var

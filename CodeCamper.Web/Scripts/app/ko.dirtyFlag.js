@@ -26,7 +26,7 @@
 //          Optionally, you can pass your own hashFunction for state tracking.
 //
 ////////////////////////////////////////////////////////////////////////////////////////
-//define(['ko'], function(ko) {
+//define('ko.dirtyFlags',['ko'], function(ko) {
 (function (ko) {
     ko.DirtyFlag = function (objectToTrack, isInitiallyDirty, hashFunction) {
 

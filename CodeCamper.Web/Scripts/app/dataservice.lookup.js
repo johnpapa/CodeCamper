@@ -1,4 +1,5 @@
-﻿define(['amplify'],
+﻿define('dataservice.lookup',
+    ['amplify'],
     function (amplify) {
         var
             init = function () {

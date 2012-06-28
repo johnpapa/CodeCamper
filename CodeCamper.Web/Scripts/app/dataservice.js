@@ -1,4 +1,5 @@
-﻿define([
+﻿define('dataservice',
+    [
         'dataservice.attendance',
         'dataservice.lookup',
         'dataservice.person',

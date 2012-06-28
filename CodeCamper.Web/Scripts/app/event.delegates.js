@@ -1,4 +1,5 @@
-﻿define(['jquery', 'ko', 'config'],
+﻿define('event.delegates',
+    ['jquery', 'ko', 'config'],
     function ($, ko, config) {
         var
             bindClickEventToSessionList = function (rootSelector, callback, eventName) {

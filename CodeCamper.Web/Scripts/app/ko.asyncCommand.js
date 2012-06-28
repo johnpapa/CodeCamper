@@ -1,7 +1,8 @@
 ﻿// By: Hans Fjällemark and John Papa
 // https://github.com/CodeSeven/KoLite
 
-define(['ko'],
+define('ko.asyncCommand',
+    ['ko'],
     function (ko) {
         ko.asyncCommand = function (options) {
             var

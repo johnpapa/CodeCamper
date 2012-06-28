@@ -1,4 +1,5 @@
-﻿define(['ko', 'utils', 'config'],
+﻿define('filter.sessions',
+    ['ko', 'utils', 'config'],
     function(ko, utils, config) {
 
         // Ctor for a SessionsFilter

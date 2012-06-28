@@ -1,4 +1,5 @@
-﻿define(['model'],
+﻿define('model.mapper',
+['model'],
     function (model) {
         var
             attendance = {

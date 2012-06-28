@@ -1,4 +1,5 @@
-﻿define(['amplify'],
+﻿define('dataservice.person',
+    ['amplify'],
     function (amplify) {
         var
             init = function () {

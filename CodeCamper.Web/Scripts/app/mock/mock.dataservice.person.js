@@ -1,4 +1,5 @@
-﻿define(['amplify'],
+﻿define('mock/mock.dataservice.person',
+    ['amplify'],
     function (amplify) {
         var
 		defineApi = function (model) {

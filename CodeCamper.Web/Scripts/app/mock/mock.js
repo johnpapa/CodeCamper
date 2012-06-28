@@ -1,4 +1,5 @@
-﻿define([
+﻿define('mock/mock',
+    [
     'mock/mock.generator',
     'mock/mock.dataservice.attendance',
     'mock/mock.dataservice.lookup',

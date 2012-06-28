@@ -1,4 +1,5 @@
-﻿define(['amplify', 'config'],
+﻿define('route-mediator',
+['amplify', 'config'],
     function (amplify, config) {
         var
             canleaveCallback,

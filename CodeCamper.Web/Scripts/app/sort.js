@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define('sort', [], function () {
 
     var
         roomSort = function (roomA, roomB) {

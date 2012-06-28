@@ -1,4 +1,5 @@
-﻿define(['require', 'ko', 'config'],
+﻿define('model',
+['require', 'ko', 'config'],
     function (require, ko, config) {
 
         var imageBasePath = '../content/images/photos/',

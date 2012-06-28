@@ -1,4 +1,5 @@
-﻿define(['jquery', 'underscore', 'ko'],
+﻿define('datacontext.speaker-sessions', 
+    ['jquery', 'underscore', 'ko'],
     function ($, _, ko) {
         /*
          * A data "view" of speakers in cache and their cached sessions

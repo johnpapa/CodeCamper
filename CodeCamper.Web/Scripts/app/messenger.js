@@ -1,4 +1,5 @@
-﻿define(['amplify', 'config'],
+﻿define('messenger',
+['amplify', 'config'],
     function (amplify, config) {
         var
             viewModelActivated = function (options) {

@@ -1,4 +1,5 @@
-﻿define([
+﻿define('vm',
+[
         'vm.favorites',
         'vm.session',
         'vm.sessions',

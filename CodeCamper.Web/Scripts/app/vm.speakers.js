@@ -1,4 +1,5 @@
-﻿define(['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
+﻿define('vm.speakers',
+    ['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
     function (ko, router, datacontext, filter, sort, messenger, config) {
         var
             speakersFilter = new filter.SpeakersFilter(),

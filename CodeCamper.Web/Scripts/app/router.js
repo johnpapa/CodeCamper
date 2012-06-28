@@ -2,7 +2,8 @@
 //	1) All Views must have their HTML element tags
 //      include a CSS class named .view.
 // ----------------------------------------------
-define(['jquery', 'underscore','sammy', 'presenter','config', 'route-mediator'],
+define('router',
+    ['jquery', 'underscore', 'sammy', 'presenter', 'config', 'route-mediator'],
     function ($, _, Sammy, presenter, config, routeMediator) {
         var
             currentHash = '',

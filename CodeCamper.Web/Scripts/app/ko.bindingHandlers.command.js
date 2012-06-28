@@ -1,7 +1,8 @@
 ﻿// By: Hans Fjällemark and John Papa
 // https://github.com/CodeSeven/KoLite
 
-define(['jquery', 'ko'],
+define('ko.bindingHandlers.command',
+['jquery', 'ko'],
 function ($, ko) {
     ko.bindingHandlers.command = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {

@@ -1,4 +1,5 @@
-﻿define(['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger'],
+﻿define('vm.favorites',
+    ['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger'],
     function ($, ko, router, datacontext, filter, sort, group, utils, config, eventDelegates, messenger) {
         var
             isBusy = false,
