@@ -82,11 +82,7 @@
                             // If the internal items object doesnt exist, 
                             // or it exists but has no properties, 
                             // or we force a refresh
-                            var localStoreHasData = false; //TODO: Check local store for data
-                            
-                            var getFreshData = forceRefresh || ((!items || !utils.hasProperties(items) && !localStoreHasData));
-
-                            if (getFreshData) {
+                            if (forceRefresh || !items || !utils.hasProperties(items)) {
                                 getFunction({
                                     success: function(dtoList) {
                                         items = mapToContext(dtoList, items, results, mapper, filter, sortFunction);
