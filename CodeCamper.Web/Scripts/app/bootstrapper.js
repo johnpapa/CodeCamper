@@ -1,6 +1,6 @@
 ﻿define('bootstrapper',
-    ['jquery', 'ko', 'toastr', 'config', 'router', 'model', 'datacontext', 'vm'],
-    function ($, ko, toastr, config, router, model, datacontext, vm) {
+    ['jquery', 'ko', 'config', 'router', 'model', 'datacontext', 'vm'],
+    function ($, ko, config, router, model, datacontext, vm) {
         var
             logger = config.logger,
             
@@ -77,7 +77,7 @@
                         route: /.*/,
                         title: '',
                         callback: function () {
-                            toastr.error('invalid route');
+                            logger.error('invalid route');
                         },
                         view: ''
                     }
