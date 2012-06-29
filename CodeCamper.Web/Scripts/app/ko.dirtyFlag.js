@@ -26,33 +26,32 @@
 //          Optionally, you can pass your own hashFunction for state tracking.
 //
 ////////////////////////////////////////////////////////////////////////////////////////
-//define('ko.dirtyFlags',['ko'], function(ko) {
-(function (ko) {
-    ko.DirtyFlag = function (objectToTrack, isInitiallyDirty, hashFunction) {
+define('ko.dirtyFlag', ['ko'],
+    function (ko) {
+        ko.DirtyFlag = function (objectToTrack, isInitiallyDirty, hashFunction) {
 
-        hashFunction = hashFunction || ko.toJSON;
+            hashFunction = hashFunction || ko.toJSON;
 
-        var
-            _objectToTrack = objectToTrack,
-            _lastCleanState = ko.observable(hashFunction(_objectToTrack)),
-            _isInitiallyDirty = ko.observable(isInitiallyDirty),
+            var
+                _objectToTrack = objectToTrack,
+                _lastCleanState = ko.observable(hashFunction(_objectToTrack)),
+                _isInitiallyDirty = ko.observable(isInitiallyDirty),
 
-            result = function () {
-                var self = this;
+                result = function () {
+                    var self = this;
 
-                self.isDirty = ko.computed(function () {
-                    return _isInitiallyDirty() || hashFunction(_objectToTrack) !== _lastCleanState();
-                });
+                    self.isDirty = ko.computed(function () {
+                        return _isInitiallyDirty() || hashFunction(_objectToTrack) !== _lastCleanState();
+                    });
 
-                self.reset = function () {
-                    _lastCleanState(hashFunction(_objectToTrack));
-                    _isInitiallyDirty(false);
+                    self.reset = function () {
+                        _lastCleanState(hashFunction(_objectToTrack));
+                        _isInitiallyDirty(false);
+                    };
+
+                    return self;
                 };
-
-                return self;
-            };
             
-        return result;
-    };
-}(ko));
-//});
+            return result;
+        };
+    });
