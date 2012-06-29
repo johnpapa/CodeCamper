@@ -27,7 +27,9 @@ namespace CodeCamper.Web
                     "~/Scripts/lib/json2.min.js", // IE7 needs this
 
                     // jQuery and its plugins
-                    "~/Scripts/lib/jquery-1.7.2.min.js", // Wildcard used so we get latest jquery
+                    //"~/Scripts/lib/jquery-1.7.2.min.js", // use CDN instead
+
+                    // jQuery plugins
                     "~/Scripts/lib/activity-indicator.js",
                     "~/Scripts/lib/jquery.mockjson.js",
                     "~/Scripts/lib/TrafficCop.js",
