@@ -17,6 +17,9 @@
             messages = {
                 viewModelActivated: 'viewmodel-activation'
             },
+            stateKeys = {
+                lastView: 'state.active-hash'
+            },
             throttle = 400,
             title = 'CodeCamper > ',
             toastrTimeout = 2000,
@@ -69,6 +72,7 @@
             hashes: hashes,
             logger: logger,
             messages: messages,
+            stateKeys: stateKeys,
             throttle: throttle,
             title: title,
             viewIds: viewIds,

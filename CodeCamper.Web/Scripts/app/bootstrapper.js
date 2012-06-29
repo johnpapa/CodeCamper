@@ -1,6 +1,6 @@
 ﻿define('bootstrapper',
-    ['jquery', 'ko', 'config', 'router', 'model', 'datacontext', 'vm'],
-    function ($, ko, config, router, model, datacontext, vm) {
+    ['jquery', 'ko', 'config', 'router', 'model', 'datacontext', 'vm', 'store'],
+    function ($, ko, config, router, model, datacontext, vm, store) {
         var
             logger = config.logger,
             
@@ -87,8 +87,16 @@
                     router.register(routeData[i]);
                 }
 
-                // Crank up the router
-                router.run();
+                var tombstoneView = store.fetch(config.stateKeys.lastView);
+
+                if (tombstoneView) {
+                    logger.info('Reloading tombstoned route: ' + tombstoneView);
+                    // Crank up the router
+                    router.run(tombstoneView);
+                } else {
+                    // Crank up the router
+                    router.run();
+                }
             },
             
             run = function () {

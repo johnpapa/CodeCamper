@@ -3,8 +3,8 @@
 //      include a CSS class named .view.
 // ----------------------------------------------
 define('router',
-    ['jquery', 'underscore', 'sammy', 'presenter', 'config', 'route-mediator'],
-    function ($, _, Sammy, presenter, config, routeMediator) {
+    ['jquery', 'underscore', 'sammy', 'presenter', 'config', 'route-mediator', 'store'],
+    function ($, _, Sammy, presenter, config, routeMediator, store) {
         var
             currentHash = '',
             window = config.window,
@@ -64,9 +64,10 @@ define('router',
                 //var hash = new RegExp('\\^' + route + '$.*')
 
                 sammy.get(route, function (context) {
+                    store.save(config.stateKeys.lastView, context.path);
                     //context is 'this'
                     callback(context.params);
-                    $('.view').hide();
+                    $('.view').hide(); // Hide all views
                     presenter.transitionTo($(view), context.path, group);
                     //context.$element().append('<h1>hello</h1>') //PAPA: for testing
                     if (this.title) {
@@ -77,7 +78,7 @@ define('router',
 
             navigateTo = function (url) {
                 //window.location.href = url;
-                sammy.setLocation(url); //TODO: test this
+                sammy.setLocation(url);
             },
 
             registerBeforeLeaving = function () {
