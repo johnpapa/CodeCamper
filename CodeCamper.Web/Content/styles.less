@@ -89,6 +89,12 @@
 	padding: 4px;
 }
 
+.image-profile-size(){
+    /*width: 88px;
+    height: 100px;*/
+    height: 90px;
+}
+
 
 /* 1 RESET - http://meyerweb.com/eric/tools/css/reset
 --------------------------------------------------------- */
@@ -239,7 +245,7 @@ body {
 		}
 	}
 }
-
+ 
 .filter-box-container {
 	margin: 0 0 4% 260px;
 	/*overflow: auto;*/
@@ -304,11 +310,11 @@ body {
 
 		> div {
 			> img {
+                .image-profile-size;
 				background: rgba(255, 255, 255, .8);
 				border: 1px solid rgba(255, 255, 255, 1);
 				box-shadow: 0 0 1px rgba(0,0,0,0.4);
 				float: left;
-				height: 90px;
 				margin-right: 4%;
 				padding: 4px;
 			}
@@ -442,10 +448,10 @@ button {
     }
     
 	img {
+        .image-profile-size;
         background: rgba(255, 255, 255, .8);
         border: 1px solid rgba(255, 255, 255, 1);
         box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
-        height: 90px;
         margin: 4% 4% 1% 0;
         padding: 4px;
     }
@@ -889,7 +895,7 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 	.view-list { 
 		margin-top: 6%; 
 
-		> article > div > img { height: 90px; }
+		> article > div > img { .image-profile-size; }
 	}
 
     .clear-text { margin-top: -50px; }

@@ -9,7 +9,7 @@
     
     @Styles.Render("~/Content/less")
     
-    @Scripts.Render("~/jsbundles/modernizr")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div id="busyindicator"></div>
@@ -36,8 +36,8 @@
         @RenderPage("Views/speaker.cshtml")
 
     </section>
-
-    @Scripts.Render("~/jsbundles/extlibs")
+    
+    @Scripts.Render("~/bundles/jsextlibs")
 
     <script src="~/Scripts/lib/require.js" type="text/javascript"></script>
     <script src="~/Scripts/main.js" type="text/javascript"></script>
