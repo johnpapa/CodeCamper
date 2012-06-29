@@ -1,10 +1,11 @@
 ﻿define('vm.speakers',
-    ['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config'],
-    function (ko, router, datacontext, filter, sort, messenger, config) {
+    ['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config', 'store'],
+    function (ko, router, datacontext, filter, sort, messenger, config, store) {
         var
             speakersFilter = new filter.SpeakersFilter(),
             speakers = ko.observableArray(),
-            
+            stateKey = { searchText: 'vm.speakers.searchText' },
+
             tmplName = 'speakers.view',
 
             getSpeakers = function () {
@@ -13,6 +14,11 @@
                     sortFunction: sort.speakerSort
                 });
             },
+            
+            refresh = function () {
+                restoreFilter();
+                getSpeakers();
+            },
 
             canLeave = function () {
                 return true;
@@ -20,13 +26,13 @@
 
             activate = function () {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-                getSpeakers();
+                refresh();
             },
 
             forceRefresh = ko.asyncCommand({
                 execute: function (complete) {
                     datacontext.speakerSessions.forceDataRefresh()
-                    .done(getSpeakers)
+                    .done(refresh)
                     .always(complete);
                 },
                 canExecute: function (isExecuting) {
@@ -46,8 +52,20 @@
                 }
             },
 
+            restoreFilter = function () {
+                var val = store.fetch(stateKey.searchText);
+                if (val !== speakersFilter.searchText) {
+                    speakersFilter.searchText(store.fetch(stateKey.searchText));
+                }
+            },
+
+            onFilterChange = function () {
+                store.save(stateKey.searchText, speakersFilter.searchText());
+                refresh();
+            },
+
             init = function () {
-                speakersFilter.searchText.subscribe(getSpeakers);
+                speakersFilter.searchText.subscribe(onFilterChange);
             };
 
         init();

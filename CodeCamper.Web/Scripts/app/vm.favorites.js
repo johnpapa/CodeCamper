@@ -1,6 +1,6 @@
 ﻿define('vm.favorites',
-    ['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger'],
-    function ($, ko, router, datacontext, filter, sort, group, utils, config, eventDelegates, messenger) {
+    ['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger', 'store'],
+    function ($, ko, router, datacontext, filter, sort, group, utils, config, eventDelegates, messenger, store) {
         var
             isBusy = false,
             selectedDate = ko.observable(),
@@ -8,6 +8,7 @@
             timeslots = ko.observableArray(),
             sessions = ko.observableArray(), //.trackReevaluations(),
             filterTmpl = 'sessions.filterbox',
+            stateKey = { searchText: 'vm.favorites.searchText' },
             tmplName = 'sessions.view',
             
             days = ko.computed(function() {
@@ -89,6 +90,7 @@
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getTimeslots();
                 setSelectedDay(data);
+                restoreFilter();
                 refresh();
             },
             
@@ -98,6 +100,13 @@
                 }
             },
 
+            restoreFilter = function () {
+                var val = store.fetch(stateKey.searchText);
+                if (val !== sessionsFilter.searchText) {
+                    sessionsFilter.searchText(store.fetch(stateKey.searchText));
+                }
+            },
+            
             saveFavorite = function (selectedSession) {
                 if (isBusy) {
                     return; // Already in the middle of a save on this session
@@ -116,10 +125,18 @@
                 sessionsFilter.searchText('');
             },
 
+            onFilterChange= function () {
+                store.save(stateKey.searchText, sessionsFilter.searchText());
+                activate();
+            },
+
             init = function () {
+                // Bind jQuery delegated events
                 eventDelegates.favoritesListItem(gotoDetails);
                 eventDelegates.favoritesFavorite(saveFavorite);
-                sessionsFilter.searchText.subscribe(activate);
+                
+                // Subscribe to specific changes of observables
+                sessionsFilter.searchText.subscribe(onFilterChange);
                 selectedDate.subscribe(synchSelectedDateWithIsSelected);
             };
 

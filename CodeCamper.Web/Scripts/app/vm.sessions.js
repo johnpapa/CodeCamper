@@ -1,12 +1,13 @@
 ﻿define('vm.sessions',
-    ['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery', 'config'],
-    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $, config) {
+    ['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery', 'config', 'store'],
+    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $, config, store) {
         var
             isBusy = false,
             isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
+            stateKey = { searchText: 'vm.sessions.searchText' },
             timeslots = ko.observableArray(),
             tracks = ko.observableArray(),
             tmplName = 'sessions.view',
@@ -68,6 +69,7 @@
 
             refresh = function () {
                 if (!isRefreshing) {
+                    restoreFilter();
                     datacontext.sessions.getData({
                         results: sessions,
                         filter: sessionsFilter,
@@ -79,6 +81,13 @@
             gotoDetails = function (selectedSession) {
                 if (selectedSession && selectedSession.id()) {
                     router.navigateTo(config.hashes.sessions + '/' + selectedSession.id());
+                }
+            },
+
+            restoreFilter = function () {
+                var val = store.fetch(stateKey.searchText);
+                if (val !== sessionsFilter.searchText) {
+                    sessionsFilter.searchText(store.fetch(stateKey.searchText));
                 }
             },
 
@@ -112,16 +121,24 @@
             },
             
             addFilterSubscriptions = function () {
-                sessionsFilter.searchText.subscribe(refresh);
+                sessionsFilter.searchText.subscribe(onFilterChange);
                 sessionsFilter.speaker.subscribe(refresh);
                 sessionsFilter.timeslot.subscribe(refresh);
                 sessionsFilter.track.subscribe(refresh);
                 sessionsFilter.favoriteOnly.subscribe(refresh);
             },
 
+            onFilterChange = function () {
+                store.save(stateKey.searchText, sessionsFilter.searchText());
+                refresh();
+            },
+
             init = function () {
+                // Bind jQuery delegated events
                 eventDelegates.sessionsListItem(gotoDetails);
                 eventDelegates.sessionsFavorite(saveFavorite);
+
+                // Subscribe to specific changes of observables
                 addFilterSubscriptions();
 
                 //TODO: Workaround til they fix their bug
