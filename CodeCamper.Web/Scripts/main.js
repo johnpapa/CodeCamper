@@ -51,8 +51,7 @@
                 'ko.bindingHandlers.command',   // Knockout custom binding handlers
                 'ko.debug.helpers',             // Knockout debugging plugin for the app
                 'ko.dirtyFlag',                 // Knockout dirtyFlag
-                'ko.utils',                      // Knockout custom utilities
-                'wijmo-gauge-defaults'
+                'ko.utils'                      // Knockout custom utilities
         ], boot);
     }
     
