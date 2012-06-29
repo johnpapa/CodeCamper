@@ -159,6 +159,7 @@
     <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\boilerplate-style.css" />
     <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\heart-locked-black.png" />
     <Content Include="Content\images\heart-white.png" />
@@ -272,6 +273,7 @@
     <Content Include="Test\webapi.person-cud.tests.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />
     <Content Include="Test\webapi.session-cud.tests.js" />
+    <Content Include=".htaccess" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <Content Include="Scripts\lib\knockout-2.1.0.xdebug.js" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
