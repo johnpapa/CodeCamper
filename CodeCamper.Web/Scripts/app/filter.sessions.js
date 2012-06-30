@@ -10,7 +10,6 @@
             self.maxDate = ko.observable();
             self.searchText = ko.observable().extend({ throttle: config.throttle });
             self.speaker = ko.observable(); // object
-            self.test = ko.observable(); // object
             self.timeslot = ko.observable(); // object
             self.track = ko.observable(); // object
             return self;

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Newtonsoft.Json.Serialization;
 
 namespace CodeCamper.Web
 {
@@ -24,6 +25,14 @@ namespace CodeCamper.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // To write JSON property names with camel casing, without changing 
+            // your data model, set the CamelCasePropertyNamesContractResolver 
+            // on the serializer:
+            //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            //json.SerializerSettings.ContractResolver =
+            //    new CamelCasePropertyNamesContractResolver();
+
 
         }
     }

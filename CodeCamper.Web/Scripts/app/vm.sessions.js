@@ -1,13 +1,13 @@
 ﻿define('vm.sessions',
-    ['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery', 'config', 'store'],
-    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $, config, store) {
+    ['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery', 'config', 'store', 'model.mapper'],
+    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $, config, store, modelMapper) {
         var
             isBusy = false,
             isRefreshing = false,
             sessionsFilter = new filter.SessionsFilter(),
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
-            stateKey = { searchText: 'vm.sessions.searchText' },
+            stateKey = { filter: 'vm.sessions.filter' },
             timeslots = ko.observableArray(),
             tracks = ko.observableArray(),
             tmplName = 'sessions.view',
@@ -69,12 +69,14 @@
 
             refresh = function () {
                 if (!isRefreshing) {
+                    isRefreshing = true;
                     restoreFilter();
                     datacontext.sessions.getData({
                         results: sessions,
                         filter: sessionsFilter,
                         sortFunction: sort.sessionSort
                     });
+                    isRefreshing = false;
                 }
             },
 
@@ -84,11 +86,38 @@
                 }
             },
 
-            restoreFilter = function () {
-                var val = store.fetch(stateKey.searchText);
-                if (val !== sessionsFilter.searchText) {
-                    sessionsFilter.searchText(store.fetch(stateKey.searchText));
+            restoreFilterProperty = function (rawProperty, filterProperty, fetchMethod) {
+                if (rawProperty && filterProperty() !== rawProperty) {
+                    if(fetchMethod) {
+                        var obj = fetchMethod(rawProperty.id);
+                        if (obj) { filterProperty(obj); }
+                    }else {
+                        filterProperty(rawProperty);
+                    }
                 }
+            },
+
+            restoreFilter = function () {
+                var localFilter = store.fetch(stateKey.filter);
+                if (!localFilter) { return; }
+                restoreFilterProperty(
+                    localFilter.favoriteOnly,
+                    sessionsFilter.favoriteOnly);
+                restoreFilterProperty(
+                    localFilter.searchText,
+                    sessionsFilter.searchText);
+                restoreFilterProperty(
+                    localFilter.speaker,
+                    sessionsFilter.speaker,
+                    datacontext.persons.getLocalById);
+                restoreFilterProperty(
+                    localFilter.timeslot,
+                    sessionsFilter.timeslot,
+                    datacontext.timeslots.getLocalById);
+                restoreFilterProperty(
+                    localFilter.track,
+                    sessionsFilter.track,
+                    datacontext.tracks.getLocalById);
             },
 
             saveFavorite = function (selectedSession) {
@@ -101,7 +130,10 @@
                     : datacontext.attendance.addData;
                 cudMethod(
                         selectedSession,
-                        { success: function () { isBusy = false; }, error: function () { isBusy = false; } }
+                        {
+                            success: function () { isBusy = false; },
+                            error: function () { isBusy = false; }
+                        }
                     );
             },
 
@@ -109,28 +141,30 @@
                 sessionsFilter.searchText('');
             },
 
-            clearSideFilters = function () {
-                isRefreshing = true;
+            clearAllFilters = function () {
                 sessionsFilter
                     .favoriteOnly(false)
                     .speaker(null)
                     .timeslot(null)
-                    .track(null);
-                isRefreshing = false;
+                    .track(null)
+                    .searchText('');
                 refresh();
             },
             
             addFilterSubscriptions = function () {
                 sessionsFilter.searchText.subscribe(onFilterChange);
-                sessionsFilter.speaker.subscribe(refresh);
-                sessionsFilter.timeslot.subscribe(refresh);
-                sessionsFilter.track.subscribe(refresh);
-                sessionsFilter.favoriteOnly.subscribe(refresh);
+                sessionsFilter.speaker.subscribe(onFilterChange);
+                sessionsFilter.timeslot.subscribe(onFilterChange);
+                sessionsFilter.track.subscribe(onFilterChange);
+                sessionsFilter.favoriteOnly.subscribe(onFilterChange);
             },
 
             onFilterChange = function () {
-                store.save(stateKey.searchText, sessionsFilter.searchText());
-                refresh();
+                if (!isRefreshing) {
+                    var o = ko.toJS(sessionsFilter);
+                    store.save(stateKey.filter, o);
+                    refresh();
+                }
             },
 
             init = function () {
@@ -147,14 +181,13 @@
                 //});
             };
 
-            // Initialization
             init();
 
         return {
             activate: activate,
             canLeave: canLeave,
             clearFilter: clearFilter,
-            clearSideFilters: clearSideFilters,
+            clearAllFilters: clearAllFilters,
             filterTmpl: filterTmpl,
             forceRefresh: forceRefresh,
             sessionsFilter: sessionsFilter,

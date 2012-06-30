@@ -26,7 +26,8 @@
 
             setFilter = function () {
                 var day = new Date(selectedDate());
-                sessionsFilter.minDate(day)
+                sessionsFilter
+                    .minDate(day)
                     .maxDate(utils.endOfDay(day))
                     .favoriteOnly(true);
             },
