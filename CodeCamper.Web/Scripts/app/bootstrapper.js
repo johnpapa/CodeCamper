@@ -89,14 +89,9 @@
 
                 var tombstoneView = store.fetch(config.stateKeys.lastView);
 
-                if (tombstoneView) {
-                    logger.info('Reloading tombstoned route: ' + tombstoneView);
-                    // Crank up the router
-                    router.run(tombstoneView);
-                } else {
-                    // Crank up the router
-                    router.run();
-                }
+                //logger.info('Reloading tombstoned route: ' + tombstoneView); //TODO: for testing
+                // Crank up the router
+                router.run(tombstoneView || null);
             },
             
             run = function () {
