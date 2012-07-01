@@ -6,6 +6,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamper.Data", "CodeCamp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamper.Model", "CodeCamper.Model\CodeCamper.Model.csproj", "{F4931817-0522-4814-A629-88D47230C8FA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoremIpsumGenerator", "LoremIpsumGenerator", "{21D0894D-6A65-4F5C-A897-C4C521BBE57A}"
+	ProjectSection(SolutionItems) = preProject
+		LoremIpsumGenerator\NLipsum.Core.dll = LoremIpsumGenerator\NLipsum.Core.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
