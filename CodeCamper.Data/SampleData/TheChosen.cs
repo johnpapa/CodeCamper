@@ -14,7 +14,7 @@ namespace CodeCamper.Data.SampleData
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
             _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman,
-            _scottHanselman, _glennBlock, _jesseLiberty;
+            _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -251,6 +251,16 @@ namespace CodeCamper.Data.SampleData
                 Gender = "M",
                 Bio = "Telerik XAML Evangelist",
             });
+            _theChosen.Add(_ericBarnard = new Person
+            {
+                FirstName = "Eric",
+                LastName = "Barnard",
+                Email = "ebarnard@contoso.com",
+                Blog = "http://ebarnard.contoso.com",
+                Twitter = "@EricBarnard",
+                Gender = "M",
+                Bio = "Technologist and Entrepreneur trying to find my where my path and the world's needs cross",
+            });
             
 
             _theChosen.ForEach(p => p.ImageSource = 
@@ -466,18 +476,20 @@ namespace CodeCamper.Data.SampleData
                 Tags = "MVC|HTML5|Entity Framework|jQuery|Web",
                 Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
             });
+
+            // Eric Barnard
             addSession(true, new Session
             {
-                Title = "jQuery Fundamentals",
-                Code = "JVS111",
-                SpeakerId = _danWahlin.Id,
+                Title = "KnockoutJS Validation",
+                Code = "JVS234",
+                SpeakerId = _ericBarnard.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_danWahlin),
+                RoomId = getRoomId(_ericBarnard),
                 Level = levels[0],
-                Tags = "jQuery|JavaScript|Web",
+                Tags = "Knockout|JavaScript|Web",
                 Description =
-                    "This session guides you through the features of the jQuery \"write less, do more\" library",
+                    "This session guides you through model validation with Knockout",
             });
 
             // Mads Kristensen
