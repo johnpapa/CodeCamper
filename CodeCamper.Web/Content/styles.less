@@ -402,16 +402,21 @@ button {
 }
 
 .titleblock {
-
+    float: left;
+    clear: both;
+    
     > label {
-        display: block;
         float: left;
-        line-height: 35px;
+        clear: both;
+        display: block;
+        /*line-height: 35px;*/
+        margin-bottom: 2%;
         width: 100px;
     }
 
     > input {
         width: 535px;
+        margin-bottom: 2%;
     }
 
     > h1 {
@@ -435,7 +440,7 @@ button {
         clear: both;
         display: block;
         float: left;
-        line-height: 35px;
+        /*line-height: 35px;*/
         width: 100px;
     }
 
@@ -445,7 +450,7 @@ button {
 
     input {
         width: 190px;
-		margin-bottom: 4%;
+		margin-bottom: 2%;
     }
 
     select {
@@ -463,14 +468,14 @@ button {
 
     div {
 		address {
-			line-height: 35px;
+			/*line-height: 35px;*/
 			height: 35px;
 			margin-left: 100px;
 			margin-bottom: 2%;
 		}
 
 		a {
-			line-height: 35px;
+			/*line-height: 35px;*/
 			height: 35px;
 			margin-left: 100px;
 			margin-bottom: 2%;
@@ -835,6 +840,14 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
 /* 3.1 RESPONSIVENESS
 --------------------------------------------------------- */
+@media only screen and (max-width: 1050px) {
+	.titleblock {
+        width: 320px;
+        
+        > input { width: 190px; }
+    }
+}
+
 @media only screen and (max-width: 1000px) {
 	body { font-size: 16px; }
 }
@@ -851,7 +864,7 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
     .accent-left { .accent-left-base(.8); }
 
-	.titleblock > input { width: 300px; }
+	/*.titleblock > input { width: 300px; }*/
 }
 
 @media only screen and (max-width: 800px) {
