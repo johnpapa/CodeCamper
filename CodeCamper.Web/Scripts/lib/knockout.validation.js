@@ -10,21 +10,25 @@
 
     if (typeof (ko) === undefined) { throw 'Knockout is required, please ensure it is loaded before loading this validation plug-in'; }
 
-    var configuration = {
+    var defaults = {
         registerExtenders: true,
         messagesOnModified: true,
         messageTemplate: null,
-        insertMessages: true,
-        parseInputAttributes: false,
-        decorateElement: false,         //false to keep backward compatibility
-        errorClass: null,               //single class for error message and element
-        errorElementClass: 'validationElement',  //class to decorate error element
-        errorMessageClass: 'validationMessage',  //class to decorate error message
+        insertMessages: true,           // automatically inserts validation messages as <span></span>
+        parseInputAttributes: false,    // parses the HTML5 validation attribute from a form element and adds that to the object
+        writeInputAttributes: false,    // adds HTML5 input validation attributes to form elements that ko observable's are bound to
+        decorateElement: false,         // false to keep backward compatibility
+        errorClass: null,               // single class for error message and element
+        errorElementClass: 'validationElement',  // class to decorate error element
+        errorMessageClass: 'validationMessage',  // class to decorate error message
         grouping: {
             deep: false,        //by default grouping is shallow
             observable: true    //and using observables
         }
     };
+
+    // make a copy  so we can use 'reset' later
+    var configuration = $.extend({}, defaults);
 
     var html5Attributes = ['required', 'pattern', 'min', 'max', 'step'];
 
@@ -154,9 +158,19 @@
 
                 isInitialized = 1;
             },
-            //backwards compatability
+            // backwards compatability
             configure: function (options) { ko.validation.init(options); },
 
+            // resets the config back to its original state
+            reset: function () { configuration = $.extend(configuration, defaults); },
+
+            // recursivly walks a viewModel and creates an object that
+            // provides validation information for the entire viewModel
+            // obj -> the viewModel to walk
+            // options -> {
+            //      deep: false, // if true, will walk past the first level of viewModel properties
+            //      observable: false // if true, returns a computed observable indicating if the viewModel is valid
+            // }
             group: function group(obj, options) { // array of observables or viewModel
                 var options = ko.utils.extend(configuration.grouping, options),
                 validatables = ko.observableArray([]),
@@ -244,7 +258,20 @@
                 obj.errors = result;
                 obj.isValid = function () {
                     return obj.errors().length === 0;
-                }
+                };
+                obj.isAnyMessageShown = function() {
+                    var invalidAndModifiedPresent = false;
+                    
+                    // ensure we have latest changes
+                    result();
+                    
+                    ko.utils.arrayForEach(validatables(), function (observable) {
+                        if (!observable.isValid() && observable.isModified()) {
+                            invalidAndModifiedPresent = true;
+                        }
+                    });
+                    return invalidAndModifiedPresent;
+                };
 
                 return result;
             },
@@ -303,20 +330,25 @@
                     //params can come in a few flavors
                     // 1. Just the params to be passed to the validator
                     // 2. An object containing the Message to be used and the Params to pass to the validator
+                    // 3. A condition when the validation rule to be applied
                     //
                     // Example:
                     // var test = ko.observable(3).extend({
                     //      max: {
                     //          message: 'This special field has a Max of {0}',
-                    //          params: 2
+                    //          params: 2,
+                    //          onlyIf: function() {
+                    //                      return specialField.IsVisible();
+                    //                  }  
                     //      }
                     //  )};
                     //
-                    if (params.message) { //if it has a message object, then its an object literal to use
+                    if (params.message || params.onlyIf) { //if it has a message or condition object, then its an object literal to use
                         return ko.validation.addRule(observable, {
                             rule: ruleName,
                             message: params.message,
-                            params: params.params || true
+                            params: utils.isEmptyVal(params.params) ? true : params.params,
+                            condition: params.onlyIf
                         });
                     } else {
                         return ko.validation.addRule(observable, {
@@ -344,7 +376,7 @@
             //creates a span next to the @element with the specified error class
             insertValidationMessage: function (element) {
                 var span = document.createElement('SPAN');
-                span.className = configuration.errorMessageClass;
+                span.className = utils.getConfigOptions(element).errorMessageClass;
                 utils.insertAfter(element, span);
                 return span;
             },
@@ -360,6 +392,45 @@
                         });
                     }
                 });
+            },
+
+            // writes html5 validation attributes on the element passed in
+            writeInputValidationAttributes: function (element, valueAccessor) {
+                var observable = valueAccessor();
+
+                if (!observable || !observable.rules) {
+                    return;
+                }
+
+                var contexts = observable.rules(); // observable array
+                var $el = $(element);
+
+                // loop through the attributes and add the information needed
+                ko.utils.arrayForEach(html5Attributes, function (attr) {
+                    var params;
+                    var ctx = ko.utils.arrayFirst(contexts, function (ctx) {
+                        return ctx.rule.toLowerCase() === attr.toLowerCase();
+                    });
+
+                    if (!ctx)
+                        return;
+
+                    params = ctx.params;
+
+                    // we have to do some special things for the pattern validation
+                    if (ctx.rule == "pattern") {
+                        if (ctx.params instanceof RegExp) {
+                            params = ctx.params.source; // we need the pure string representation of the RegExpr without the //gi stuff
+                        }
+                    }
+
+                    // we have a rule matching a validation attribute at this point
+                    // so lets add it to the element along with the params
+                    $el.attr(attr, params);
+                });
+
+                contexts = null;
+                $el = null;
             }
         };
     } ());
@@ -445,7 +516,10 @@
 
     ko.validation.rules['step'] = {
         validator: function (val, step) {
-            return utils.isEmptyVal(val) || val % step === 0;
+
+            // in order to handle steps of .1 & .01 etc.. Modulus won't work
+            // if the value is a decimal, so we have to correct for that
+            return utils.isEmptyVal(val) || (val * 100) % (step * 100) === 0;
         },
         message: 'The value must increment by {0}'
     };
@@ -460,28 +534,6 @@
         },
         message: '{0} is not a proper email address'
     };
-
-    //ko.validation.rules['url'] = {
-    //    validator: function (val, validate) {
-    //        //I think an empty url is also a valid entry
-    //        //if one want's to enforce entry it should be done with 'required: true'
-    //        return utils.isEmptyVal(val) || (
-    //            validate && /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i.test(val)
-    //        );
-    //    },
-    //    message: 'Not a proper web site url (ex: www.johnpapa.net)'
-    //};
-    
-    //ko.validation.rules['twitter'] = {
-    //    validator: function (val, validate) {
-    //        //I think an empty twitter is also a valid entry
-    //        //if one want's to enforce entry it should be done with 'required: true'
-    //        return utils.isEmptyVal(val) || (
-    //            validate && /[@]([A-Za-z0-9_]{1,15})/i.test(val)
-    //        );
-    //    },
-    //    message: 'Not a proper twitter id (ex: @john_papa)'
-    //};
 
     ko.validation.rules['date'] = {
         validator: function (value, validate) {
@@ -570,34 +622,63 @@
     //#endregion
 
     //#region Knockout Binding Handlers
-    //setup the 'init' bindingHandler override where we inject validation messages
-    (function () {
-        var init = ko.bindingHandlers.value.init;
 
-        ko.bindingHandlers.value.init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    // The core binding handler
+    // this allows us to setup any value binding that internally always
+    // performs the same functionality
+    ko.bindingHandlers['validationCore'] = (function () {
+
+        return {
+            init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                var config = utils.getConfigOptions(element);
+
+                // parse html5 input validation attributes, optional feature
+                if (config.parseInputAttributes) {
+                    async(function () { ko.validation.parseInputValidationAttributes(element, valueAccessor) });
+                }
+
+                // if requested insert message element and apply bindings
+                if (config.insertMessages && utils.isValidatable(valueAccessor())) {
+
+                    // insert the <span></span>
+                    var validationMessageElement = ko.validation.insertValidationMessage(element);
+
+                    // if we're told to use a template, make sure that gets rendered
+                    if (config.messageTemplate) {
+                        ko.renderTemplate(config.messageTemplate, { field: valueAccessor() }, null, validationMessageElement, 'replaceNode');
+                    } else {
+                        ko.applyBindingsToNode(validationMessageElement, { validationMessage: valueAccessor() });
+                    }
+                }
+
+                // write the html5 attributes if indicated by the config
+                if (config.writeInputAttributes && utils.isValidatable(valueAccessor())) {
+
+                    ko.validation.writeInputValidationAttributes(element, valueAccessor);
+                }
+
+                // if requested, add binding to decorate element
+                if (config.decorateElement && utils.isValidatable(valueAccessor())) {
+                    ko.applyBindingsToNode(element, { validationElement: valueAccessor() });
+                }
+            },
+
+            update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                // hook for future extensibility
+            }
+        };
+
+    }());
+
+    // override for KO's default 'value' binding
+    (function () {
+        var init = ko.bindingHandlers['value'].init;
+
+        ko.bindingHandlers['value'].init = function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
             init(element, valueAccessor, allBindingsAccessor);
 
-            var config = utils.getConfigOptions(element);
-
-            // parse html5 input validation attributes, optional feature
-            if (config.parseInputAttributes) {
-                async(function () { ko.validation.parseInputValidationAttributes(element, valueAccessor) });
-            }
-
-            //if requested insert message element and apply bindings
-            if (config.insertMessages && utils.isValidatable(valueAccessor())) {
-                var validationMessageElement = ko.validation.insertValidationMessage(element);
-                if (config.messageTemplate) {
-                    ko.renderTemplate(config.messageTemplate, { field: valueAccessor() }, null, validationMessageElement, 'replaceNode');
-                } else {
-                    ko.applyBindingsToNode(validationMessageElement, { validationMessage: valueAccessor() });
-                }
-            }
-            //if requested add binding to decorate element
-            if (config.decorateElement && utils.isValidatable(valueAccessor())) {
-                ko.applyBindingsToNode(element, { validationElement: valueAccessor() });
-            }
+            return ko.bindingHandlers['validationCore'].init(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext);
         };
     } ());
 
@@ -810,6 +891,9 @@
             var isValid = false,
                 msg = '';
 
+            // tell it that we're done
+            observable.isValidating(false);
+
             if (!observable.__valid__()) {
                 return; //if its already NOT valid, don't add to that
             }
@@ -828,7 +912,6 @@
 
             //not valid, so format the error message and stick it in the 'error' variable
             observable.error = ko.validation.formatMessage(msg || ctx.message || rule.message, ctx.params);
-            observable.isValidating(false);
             observable.__valid__(isValid);
         };
 
@@ -847,6 +930,10 @@
 
             //get the Rule Context info to give to the core Rule
             ctx = ruleContexts[i];
+
+            // checks an 'onlyIf' condition
+            if (ctx.condition && !ctx.condition())
+                continue;
 
             //get the core Rule to use for validation
             rule = ko.validation.rules[ctx.rule];

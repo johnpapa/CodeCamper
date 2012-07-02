@@ -39,12 +39,13 @@
 
             validationInit = function () {
                 ko.validation.configure({
-                    registerExtenders: true,
-                    messagesOnModified: true,
-                    insertMessages: true,
-                    parseInputAttributes: true,
-                    messageTemplate: null,
-                    decorateElement: true // applies the .validationElement CSS class
+                    registerExtenders: true,    //default is true
+                    messagesOnModified: true,   //default is true
+                    insertMessages: true,       //default is true
+                    parseInputAttributes: true, //default is false
+                    writeInputAttributes: true, //default is false
+                    messageTemplate: null,      //default is null
+                    decorateElement: true       //default is false. Applies the .validationElement CSS class
                 });
             },
 
