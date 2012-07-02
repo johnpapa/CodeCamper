@@ -17,8 +17,7 @@ namespace CodeCamper.Web
             bundles.IgnoreList.Ignore("*-vsdoc.js");
             bundles.IgnoreList.Ignore("*intellisense.js");
 
-            // All application JS files (except mocks and any file beginning "jquery.")
-            // The "jquery." exclusion is baked into ASP bundling
+            // All application JS files (except mocks")
             bundles.Add(new ScriptBundle("~/bundles/jsapplibs")
                 // Include all files in the named directory that match "*.js";
                 // Could include subdirs too by flipping the flag
@@ -26,7 +25,8 @@ namespace CodeCamper.Web
                 // which we would exclude anyway in production.
                 .IncludeDirectory("~/Scripts/app/", "*.js", searchSubdirectories: false));
 
-                // the following file-pattern alternative would not consider subdirectories
+                // the following equivalent file-pattern alternative 
+                // could not consider subdirectories if we wanted those
                 //.Include("~/Scripts/app/*.js")); 
 
             // Modernizr goes separate since its a shiv
