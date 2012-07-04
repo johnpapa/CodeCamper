@@ -51,7 +51,7 @@
             url: testUrl,
             success: function(result) {
                 onCallSuccess(msgPrefix);
-                okAsync(result.Id === testPersonId,
+                okAsync(result.id === testPersonId,
                     "returned key matches testPerson Id.");
                 if (typeof succeed !== 'function') {
                     start(); // no 'succeed' callback; end of the line
@@ -67,9 +67,9 @@
     // Step 2: Change test person and save it
     function changeTestPerson(person) {
         testPerson = person;
-        origEmail = testPerson.Email;
+        origEmail = testPerson.email;
         testEmail = origEmail === "wardb@contoso.com" ? "CHANGED@contoso.com" : "wardb@contoso.com"; // make it different
-        testPerson.Email = testEmail;
+        testPerson.email = testEmail;
 
         var msgPrefix = 'PUT (change)' + testMsgBase,
             data = JSON.stringify(testPerson);
@@ -90,13 +90,13 @@
 
     // Step 3: Confirm test person updated, then call restore
     function confirmUpdated(person) {
-        okAsync(person.Email === testEmail, "test person's Email was updated ");
+        okAsync(person.email === testEmail, "test person's Email was updated ");
         restoreTestPerson();
     };
 
     // Step 4: Restore orig test person in db
     function restoreTestPerson() {
-        testPerson.Email = origEmail;
+        testPerson.email = origEmail;
         var msgPrefix = 'PUT (restore)' + testMsgBase,
             data = JSON.stringify(testPerson);
 
@@ -115,7 +115,7 @@
 
     // Step 5: Confirm test person was restored
     function confirmRestored(person) {
-        okAsync(person.Email === origEmail, "test person's Email was restored ");
+        okAsync(person.email === origEmail, "test person's Email was restored ");
         start();
     };
 

@@ -56,8 +56,8 @@
             url: testUrl,
             success: function(result) {
                 onCallSuccess(msgPrefix);
-                okAsync(result.PersonId === testPersonId &&
-                        result.SessionId === testSessionId,
+                okAsync(result.personId === testPersonId &&
+                        result.sessionId === testSessionId,
                     "returned key matches testAttendance key.");
                 if (typeof succeed !== 'function') {
                     start(); // no 'succeed' callback; end of the line
@@ -96,7 +96,7 @@
 
     // Step 3: Confirm test attendance updated, then call restore
     function confirmUpdated(attendance) {
-        okAsync(attendance.Rating === testRatingValue, "test rating was updated ");
+        okAsync(attendance.rating === testRatingValue, "test rating was updated ");
         restoreTestAttendance();
     };
 
@@ -151,8 +151,8 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function(result) {
                     onCallSuccess(msgPrefix);
-                    okAsync(result.PersonId === dummyAttendance.personId &&
-                        result.SessionId === dummyAttendance.sessionId,
+                    okAsync(result.personId === dummyAttendance.personId &&
+                        result.sessionId === dummyAttendance.sessionId,
                         "returned key matches dummyAttendance key."
                     );
                     start();

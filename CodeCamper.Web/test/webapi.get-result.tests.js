@@ -5,14 +5,14 @@
     
     module('Web API GET result has expected shape');
     
-    test('Lookups url should return array of Rooms, Tracks, TimeSlots',
+    test('Lookups url should return array of rooms, tracks, timeSlots',
             function () {
                 stop();
                 $.ajax({
                     url: '/api/lookups/all',
                     dataType: 'json',
                     success: function (result) {
-                        okAsync(!!result.Rooms && !!result.Tracks && !!result.TimeSlots,
+                        okAsync(!!result.rooms && !!result.tracks && !!result.timeSlots,
                             'Got Rooms, Tracks, TimeSlots');
                         start();
                     },
@@ -35,10 +35,10 @@
                     okAsync(!!result, "Got data when searching for Hans");
                     // person = result[0]; // If used OData ...
                     var person = result;
-                    okAsync(person.FirstName === 'Hans',
+                    okAsync(person.firstName === 'Hans',
                         "Got exactly one speaker w/ firstName = 'Hans'");
                     
-                    okAsync(person.ImageSource === expectedHansImageSource,
+                    okAsync(person.imageSource === expectedHansImageSource,
                         "Got expected ImageSource = " + expectedHansImageSource);
                     start();
                 },

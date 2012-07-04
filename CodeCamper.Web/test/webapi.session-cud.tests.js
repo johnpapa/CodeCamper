@@ -51,7 +51,7 @@
             url: testUrl,
             success: function(result) {
                 onCallSuccess(msgPrefix);
-                okAsync(result.Id === testSessionId,
+                okAsync(result.id === testSessionId,
                     "returned key matches testSession Id.");
                 if (typeof succeed !== 'function') {
                     start(); // no 'succeed' callback; end of the line
@@ -67,7 +67,7 @@
     // Step 2: Change test session and save it
     function changeTestSession(session) {
         testSession = session;
-        origCode = testSession.Code;
+        origCode = testSession.code;
         testCode = origCode === "TST123" ? "TST987" : "TST123"; // make it different
         testSession.Code = testCode;
 
@@ -90,7 +90,7 @@
 
     // Step 3: Confirm test session updated, then call restore
     function confirmUpdated(session) {
-        okAsync(session.Code === testCode, "test session's code was updated ");
+        okAsync(session.code === testCode, "test session's code was updated ");
         restoreTestSession();
     };
 
@@ -115,7 +115,7 @@
 
     // Step 5: Confirm test session was restored
     function confirmRestored(session) {
-        okAsync(session.Code === origCode, "test session's code was restored ");
+        okAsync(session.code === origCode, "test session's code was restored ");
         start();
     };
 
@@ -159,7 +159,7 @@
     );
     
     function deleteAddedTestSession(session) {
-        var deleteUrl = '/api/tests/testsession/?id=' + session.Id,
+        var deleteUrl = '/api/tests/testsession/?id=' + session.id,
             msgPrefix = 'DELETE api call: ' + deleteUrl;
         $.ajax({
             type: 'DELETE',
