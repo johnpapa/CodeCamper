@@ -7,6 +7,7 @@
         {
             // Let require.js load all app/custom modules asynchronously as needed.
             // They are all in this folder.
+            // If we bundle this foler, this is not needed. But if we don't bundle, we need this.
             baseUrl: 'scripts/app' /* script default location */
          
             // List paths to js files that are not in the baseUrl and not in bundles.
@@ -27,6 +28,7 @@
     function registerNonAmdLibs() {
         // Load the 3rd party libraries that the app needs.
         // These are in the bundle (BundleConfig.cs).
+        // These are the core libraries that many others depend on.
         define('jquery', [], function () { return root.jQuery; });
         define('ko', [], function () { return root.ko; });
         define('amplify', [], function () { return root.amplify; });
@@ -44,9 +46,8 @@
         // the modules that make use of them because
         // we don't want those modules to know that they use plugins.
         requirejs([
-                'jquery.activity-ex',         // non-AMD jquery plugin that self-installs; loaded in bundle
-
                 // These plugins use "define" and we need to load them, so we kick them off here.
+                'jquery.activity-ex',           // AMD jquery plugin that self-installs; loaded in bundle
                 'ko.asyncCommand',              // Knockout custom asyncCommand
                 'ko.bindingHandlers',           // Knockout custom binding handlers
                 'ko.bindingHandlers.activity',  // Knockout custom binding handlers
