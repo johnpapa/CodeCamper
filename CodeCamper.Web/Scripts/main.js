@@ -44,7 +44,9 @@
         // the modules that make use of them because
         // we don't want those modules to know that they use plugins.
         requirejs([
-                //'jquery.activity-ex',         // non-AMD jquery plugin that self-installs; loaded in bundle
+                'jquery.activity-ex',         // non-AMD jquery plugin that self-installs; loaded in bundle
+
+                // These plugins use "define" and we need to load them, so we kick them off here.
                 'ko.asyncCommand',              // Knockout custom asyncCommand
                 'ko.bindingHandlers',           // Knockout custom binding handlers
                 'ko.bindingHandlers.activity',  // Knockout custom binding handlers

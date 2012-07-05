@@ -7,7 +7,7 @@ namespace CodeCamper.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             // Force optimization to be on or off, regardless of web.config setting
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = false;
        
             // .debug.js, -vsdoc.js and .intellisense.js files 
             // are in BundleTable.Bundles.IgnoreList by default.
