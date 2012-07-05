@@ -72,7 +72,11 @@
             }),
 
             canLeave = function () {
-                return !isDirty() && validationErrors().length === 0;
+                if (canEdit()) {
+                    return !isDirty() && validationErrors().length === 0;
+                } else {
+                    return true;
+                }
             },
 
             activate = function (routeData) {
