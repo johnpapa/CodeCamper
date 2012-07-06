@@ -36,6 +36,7 @@ namespace CodeCamper.Web.Controllers
 
         // GET /api/persons/?firstname=\'Hans\''
         // With OData query syntax we would not need such methods
+        // /api/persons/getbyfirstname?value=Joe1
         [ActionName("getbyfirstname")]
         public Person GetByFirstName(string value)
         {
