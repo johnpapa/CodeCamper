@@ -18,6 +18,10 @@
 
             validationErrors = ko.observableArray([]), // Override this after we get a session
 
+            isValid = ko.computed(function () {
+                return canEdit() ? validationErrors().length === 0 : true;
+            }),
+
             isDirty = ko.computed(function () {
                 if (canEdit()) {
                     return speaker().dirtyFlag().isDirty();
@@ -67,13 +71,13 @@
                     }
                 },
                 canExecute: function (isExecuting) {
-                    return isDirty() && validationErrors().length === 0;
+                    return isDirty() && isValid();
                 }
             }),
 
             canLeave = function () {
                 if (canEdit()) {
-                    return !isDirty() && validationErrors().length === 0;
+                    return !isDirty() && isValid();
                 } else {
                     return true;
                 }

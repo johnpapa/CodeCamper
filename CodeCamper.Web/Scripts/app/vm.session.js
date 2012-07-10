@@ -15,14 +15,18 @@
             },
             
             canEditSession = ko.computed(function () {
-                return session() && config.currentUser().id() === session().speakerId();
+                return session() && config.currentUser() && config.currentUser().id() === session().speakerId();
             }),
 
             canEditEval = ko.computed(function () {
-                return session() && config.currentUser().id() !== session().speakerId();
+                return session() && config.currentUser() && config.currentUser().id() !== session().speakerId();
             }),
-
+            
             validationErrors = ko.observableArray([]), // Override this after we get a session
+
+            isValid = ko.computed(function () {
+                return (canEditEval() || canEditSession()) ? validationErrors().length === 0 : true;
+            }),
 
             isDirty = ko.computed(function () {
                 if (canEditSession()) {
@@ -89,12 +93,12 @@
                     }
                 },
                 canExecute: function (isExecuting) {
-                    return isDirty() && validationErrors().length === 0;
+                    return isDirty() && isValid;
                 }
             }),
             
             canLeave = function () {
-                return !isDirty() && validationErrors().length === 0;
+                return !isDirty() && isValid;
             },
 
             activate = function (routeData) {
