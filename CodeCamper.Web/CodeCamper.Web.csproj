@@ -271,6 +271,8 @@
       <DependentUpon>TrafficCop.js</DependentUpon>
     </Content>
     <Content Include="shivs.txt" />
+    <None Include="Test\vm.speaker.tests.cshtml" />
+    <Content Include="Test\vm.speaker.tests.js" />
     <Content Include="Test\webapi.person-cud.tests.html" />
     <Content Include="Test\webapi.person-cud.tests.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />

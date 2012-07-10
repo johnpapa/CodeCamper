@@ -29,6 +29,10 @@ namespace CodeCamper.Web
                 // could not consider subdirectories if we wanted those
                 //.Include("~/Scripts/app/*.js")); 
 
+            bundles.Add(new ScriptBundle("~/bundles/jsmocks")
+                .IncludeDirectory("~/Scripts/app/mock", "*.js", searchSubdirectories: false));
+
+
             // Modernizr goes separate since its a shiv
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
                 .Include("~/Scripts/lib/modernizr-*"));

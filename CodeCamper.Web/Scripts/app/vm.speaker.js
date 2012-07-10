@@ -13,7 +13,7 @@
             },
             
             canEdit = ko.computed(function () {
-                return speaker() && config.currentUser().id() === speaker().id();
+                return speaker() && config.currentUser() && config.currentUser().id() === speaker().id();
             }),
 
             validationErrors = ko.observableArray([]), // Override this after we get a session
@@ -79,11 +79,11 @@
                 }
             },
 
-            activate = function (routeData) {
+            activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
 
                 currentSpeakerId(routeData.id);
-                getSpeaker();
+                getSpeaker(callback);
             },
             
             getSpeaker = function (completeCallback, forceRefresh) {
@@ -111,18 +111,9 @@
                 );
             },
             
-            //getLocalSpeakerSessions = function () {
-            //    // Cause the speakerSession computed to reevaluate
-            //    speaker().personRefresh.notifySubscribers(); 
-            //    var results = speaker().speakerSessions();
-            //    results.sort(sort.speakerSessionSort);
-            //    speakerSessions(results);
-            //},
-
             init = function () {
             };
 
-        // Initialization
         init();
 
         return {
