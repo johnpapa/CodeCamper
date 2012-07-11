@@ -4,6 +4,8 @@
 
         var
             // properties
+            //-----------------
+            
             //currentUserId = 1, // Default user - has favorites
             currentUserId = 3, // John Papa - no favorites      
             currentUser = ko.observable(),
@@ -20,7 +22,7 @@
             stateKeys = {
                 lastView: 'state.active-hash'
             },
-            storeExpirationMs = (1000 * 60 * 60 * 24),
+            storeExpirationMs = (1000 * 60 * 60 * 24), // 1 day
             throttle = 400,
             title = 'CodeCamper > ',
             toastrTimeout = 2000,
@@ -35,6 +37,8 @@
             },
 
             // methods
+            //-----------------
+
             dataserviceInit = function () { },
 
             validationInit = function () {

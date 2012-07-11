@@ -1,7 +1,9 @@
 ﻿define('mock/mock.dataservice.session',
     ['amplify'],
     function (amplify) {
-        var defineApi = function (model) {
+        var
+            defineApi = function (model) {
+
             amplify.request.define('sessions', function (settings) {
                 settings.success(model.generateSessions().sessions);
             });
@@ -14,6 +16,7 @@
                 settings.success(model.generateSessions().sessions[0]);
             });
         };
+        
         return {
             defineApi: defineApi
         };

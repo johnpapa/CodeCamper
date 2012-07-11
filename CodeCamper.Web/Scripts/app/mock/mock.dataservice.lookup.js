@@ -1,7 +1,8 @@
 ﻿define('mock/mock.dataservice.lookup',
     ['amplify'],
     function (amplify) {
-        var defineApi = function (model) {
+        var
+            defineApi = function (model) {
 
             amplify.request.define('lookups', function (settings) {
                 settings.success({
@@ -25,6 +26,7 @@
                 settings.success(model.generateTracks().tracks);
             });
         };
+
         return {
             defineApi: defineApi
         };

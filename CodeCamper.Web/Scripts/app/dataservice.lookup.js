@@ -9,18 +9,21 @@
                     type: 'GET'
                     //cache:
                 }),
+                
                 amplify.request.define('rooms', 'ajax', {
                     url: '/api/lookups/rooms',
                     dataType: 'json',
                     type: 'GET'
                     //cache:
                 }),
+                
                 amplify.request.define('timeslots', 'ajax', {
                     url: '/api/lookups/timeslots',
                     dataType: 'json',
                     type: 'GET'
                     //cache:
                 }),
+                
                 amplify.request.define('tracks', 'ajax', {
                     url: '/api/lookups/tracks',
                     dataType: 'json',

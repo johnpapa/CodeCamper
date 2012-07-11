@@ -34,75 +34,81 @@ define('mock/mock.generator',
             $.mockJSON.data.GENDER = ['F', 'M'];
             $.mockJSON.data.RATING = [1, 2, 3, 4, 5];
         },
-            generateAttendance = function() {
-                return $.mockJSON.generateFromTemplate({
+            generateAttendance = function () {
+                var data = $.mockJSON.generateFromTemplate({
                     'attendance|8-16': [{
-                        'PersonId': 1,
-                        'SessionId|+1': 1,
-                        Rating: '@RATING',
-                        Text: '@LOREM_IPSUM'
+                        'personId': 1,
+                        'sessionId|+1': 1,
+                        rating: '@RATING',
+                        text: '@LOREM_IPSUM'
                     }]
                 });
+                return data;
             },
             generateRooms = function() {
-                return $.mockJSON.generateFromTemplate({
+                var data = $.mockJSON.generateFromTemplate({
                     'rooms|10-20': [{
-                        'Id|+1': 1,
-                        Name: '@LOREM'
+                        'id|+1': 1,
+                        name: '@LOREM'
                     }]
                 });
+                return data;
             },
-            generateSessions = function() {
-                return $.mockJSON.generateFromTemplate({
+            generateSessions = function () {
+                var data = $.mockJSON.generateFromTemplate({
                     'sessions|100-120': [{
-                        'Id|+1': 1,
-                        Title: '@TITLE',
-                        Code: '@LOREM',
-                        'SpeakerId|1-50': 1,
-                        'TrackId|1-10': 1,
-                        'TimeSlotId|1-15': 1,
-                        'RoomId|1-10': 1,
-                        Level: '@LEVEL',
-                        'Tags|1-5': '@TAG ,',
-                        Description: '@LOREM_IPSUM'
+                        'id|+1': 1,
+                        title: '@TITLE',
+                        code: '@LOREM',
+                        'speakerId|1-50': 1,
+                        'trackId|1-10': 1,
+                        'timeSlotId|1-15': 1,
+                        'roomId|1-10': 1,
+                        level: '@LEVEL',
+                        'tags|1-5': '@TAG ,',
+                        description: '@LOREM_IPSUM'
                     }]
                 });
+                return data;
             },
             generatePersons = function() {
-                return $.mockJSON.generateFromTemplate({
+                var data = $.mockJSON.generateFromTemplate({
                     'persons|50-60': [{
-                        'Id|+1': 1,
-                        FirstName: '@SPEAKER_FIRST_NAME',
-                        LastName: '@SPEAKER_LAST_NAME',
-                        Email: '@EMAIL',
-                        Blog: '@URL',
-                        TWITTER: 'http://twitter.com/@' + '@TWITTER',
-                        GENDER: '@GENDER',
-                        ImageSource: '@IMAGE_SOURCE',
-                        Bio: '@LOREM_IPSUM'
+                        'id|+1': 1,
+                        firstName: '@SPEAKER_FIRST_NAME',
+                        lastName: '@SPEAKER_LAST_NAME',
+                        email: '@EMAIL',
+                        blog: '@URL',
+                        twitter: 'http://twitter.com/@' + '@TWITTER',
+                        gender: '@GENDER',
+                        imageSource: '@IMAGE_SOURCE',
+                        bio: '@LOREM_IPSUM'
                     }]
                 });
+                return data;
             },
             generateTimeslots = function() {
-                return $.mockJSON.generateFromTemplate({
+                var data = $.mockJSON.generateFromTemplate({
                     'timeslots|15-20': [{
-                        'Id|+1': 1,
-                        Start: '@DATE_FULL',
-                        Duration: 60
+                        'id|+1': 1,
+                        start: '@DATE_FULL',
+                        duration: 60
                     }]
                 });
+                return data;
             },
             generateTracks = function() {
-                return $.mockJSON.generateFromTemplate({
+                var data = $.mockJSON.generateFromTemplate({
                     'tracks|10-15': [{
-                        'Id|+1': 1,
-                        Name: '@LOREM'
+                        'id|+1': 1,
+                        name: '@LOREM'
                     }]
                 });
+                return data;
             };
 
-        init();
-        // ToDo: get rid of model?
+            init();
+        
         return {
             model: {
                 generateAttendance: generateAttendance,
