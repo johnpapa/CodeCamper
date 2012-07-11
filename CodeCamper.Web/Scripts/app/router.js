@@ -107,7 +107,11 @@ define('router',
             },
 
             run = function (url) {
+                // 1) if i browse to a location, use it
+                // 2) otherwise, use the url i pass in
+                // 3) otherwise use the default route
                 startupUrl = sammy.getLocation() || url || defaultRoute;
+                
                 if (!startupUrl) {
                     logger.error('No route was indicated.');
                     return;

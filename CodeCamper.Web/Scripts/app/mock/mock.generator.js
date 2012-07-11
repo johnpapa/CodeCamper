@@ -7,9 +7,9 @@ define('mock/mock.generator',
         var init = function() {
             $.mockJSON.random = true;
             $.mockJSON.log = false;
-            $.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward', 'Jim', 'Ryan'];
-            $.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell', 'Cowart', 'Niemeyer'];
-            $.mockJSON.data.IMAGE_SOURCE = ['john_papa.jpg', 'dan_wahlin.jpg', 'scott_guthrie.jpg', 'hans_fjallemark.jpg', 'ward_bell.jpg', 'jim_cowart.jpg', 'ryan_niemeyer.jpg'];
+            $.mockJSON.data.SPEAKER_FIRST_NAME = ['John', 'Dan', 'Scott', 'Hans', 'Ward', 'Jim', 'Ryan', 'Steve', 'Ella', 'Landon', 'Haley', 'Madelyn'];
+            $.mockJSON.data.SPEAKER_LAST_NAME = ['Papa', 'Wahlin', 'Guthrie', 'Fjällemark', 'Bell', 'Cowart', 'Niemeyer', 'Sanderson'];
+            $.mockJSON.data.IMAGE_SOURCE = ['john_papa.jpg', 'dan_wahlin.jpg', 'scott_guthrie.jpg', 'hans_fjallemark.jpg', 'ward_bell.jpg', 'jim_cowart.jpg', 'ryan_niemeyer.jpg', 'steve_sanderson.jpg'];
             $.mockJSON.data.DATE_TODAY = [moment().format('MMMM DD YYYY')];
             $.mockJSON.data.DATE_FULL = [new Date()];
             $.mockJSON.data.TAG = ['JavaScript', 'Knockout', 'MVVM', 'HTML5', 'Keynote', 'SQL', 'CSS', 'Metro', 'UX'];
@@ -69,6 +69,9 @@ define('mock/mock.generator',
                         description: '@LOREM_IPSUM'
                     }]
                 });
+                // Hard code first one to SPA
+                data.sessions[0].title = 'Single Page Apps';
+                data.sessions[0].speakerId = 1;
                 return data;
             },
             generatePersons = function() {
@@ -85,6 +88,10 @@ define('mock/mock.generator',
                         bio: '@LOREM_IPSUM'
                     }]
                 });
+                // Hard code first one to John Papa
+                data.persons[0].firstName = 'John';
+                data.persons[0].lastName = 'Papa';
+                data.persons[0].email = 'john@constoso.com';
                 return data;
             },
             generateTimeslots = function() {

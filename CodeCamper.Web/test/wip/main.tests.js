@@ -7,8 +7,8 @@
         {
             // Let require.js load all app/custom modules asynchronously as needed.
             // They are all in this folder.
-            // If we bundle this foler, this is not needed. But if we don't bundle, we need this.
-            baseUrl: 'scripts/app' /* script default location */
+            // If we bundle this folder, this is not needed. But if we don't bundle, we need this.
+            baseUrl: '../scripts/app' /* script default location */
          
             // List paths to js files that are not in the baseUrl and not in bundles.
             // If we use the non-amd versions of 3rd libs we can bundle them instead.
@@ -59,11 +59,16 @@
     }
     
     function boot() {
+
+        require(['testFn']);
+        //require('testFn');
+
+        
         // Start-up the app, now that all prerequisites are in place.
-        require(['bootstrapper'],
-            function (bs) {
-                //bs.run();
-            });
+        //require(['bootstrapper'],
+        //    function (bs) {
+        //        //bs.run();
+        //    });
     }
     
 })();

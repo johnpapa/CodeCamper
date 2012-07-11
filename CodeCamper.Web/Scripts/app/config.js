@@ -26,7 +26,16 @@
             throttle = 400,
             title = 'CodeCamper > ',
             toastrTimeout = 2000,
-            useMocks = false, // Set this to toggle mocks
+
+            _useMocks = false, // Set this to toggle mocks
+            useMocks = function (val) {
+                if(val) {
+                    _useMocks = val;
+                    init();
+                }
+                return _useMocks;
+            },
+            
             viewIds = {
                 favorites: '#favorites-view',
                 session: '#session-view',
@@ -60,7 +69,7 @@
             },
 
             init = function () {
-                if (useMocks) {
+                if (_useMocks) {
                     dataserviceInit = mock.dataserviceInit;
                 }
 
@@ -82,6 +91,7 @@
             storeExpirationMs: storeExpirationMs,
             throttle: throttle,
             title: title,
+            useMocks: useMocks,
             viewIds: viewIds,
             window: window
         };
