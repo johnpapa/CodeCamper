@@ -12,7 +12,12 @@ namespace CodeCamper.Data.SampleData
         DropCreateDatabaseIfModelChanges<CodeCamperDbContext> // when iterating
     {
         private const int AttendeeCount = 1000;
-        private const int AttendeesWithFavoritesCount = 10;
+
+        // I think we can say definitively that EF is NOT a good way to add a lot of new records.
+        // Never has been really. Not built for that.
+        // People should (and do) switch to ADO and bulk insert for that kind of thing
+        // It's really for interactive apps with humans driving data creation, not machines
+        private const int AttendeesWithFavoritesCount = 4;
 
         protected override void Seed(CodeCamperDbContext context)
         {
