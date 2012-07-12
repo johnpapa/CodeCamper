@@ -98,7 +98,7 @@ namespace CodeCamper.Data
             {
                 throw new NotImplementedException("No factory for repository type, " + typeof(T).FullName);
             }
-            T repo = (T)f(dbContext);
+            var repo = (T)f(dbContext);
             Repositories[typeof(T)] = repo;
             return repo;
         }

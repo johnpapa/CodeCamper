@@ -37,7 +37,7 @@ function ($, ko) {
             ko.bindingHandlers.checkboxImage.update(
                 element, valueAccessor, allBindingsAccessor, viewModel);
         },
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        update: function (element, valueAccessor) { 
             var $el = $(element),
                 settings = valueAccessor(),
                 enable = (settings.enable !== undefined) ? unwrap(settings.enable()) : true,
@@ -58,11 +58,11 @@ function ($, ko) {
             ko.bindingHandlers.favoriteCheckbox.update(
                 element, valueAccessor, allBindingsAccessor, viewModel);
         },
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        update: function (element, valueAccessor) {
             var $el = $(element),
-                valueAccessor = valueAccessor(),
-                enable = (valueAccessor.enable !== undefined) ? unwrap(valueAccessor.enable()) : true,
-                checked = (valueAccessor.checked !== undefined) ? unwrap(valueAccessor.checked()) : true;
+                valAccessor = valueAccessor(),
+                enable = (valAccessor.enable !== undefined) ? unwrap(valAccessor.enable()) : true,
+                checked = (valAccessor.checked !== undefined) ? unwrap(valAccessor.checked()) : true;
 
             $el.enable = enable;
             if (checked) {
@@ -96,7 +96,7 @@ function ($, ko) {
             ko.bindingHandlers.starRating.update(element, valueAccessor, allBindingsAccessor, viewModel);
         },
 
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        update: function (element, valueAccessor, allBindingsAccessor) {
             // Give the first x stars the 'chosen' class, where x <= rating
             var ratingObservable = valueAccessor(),
                 allBindings = allBindingsAccessor(),
