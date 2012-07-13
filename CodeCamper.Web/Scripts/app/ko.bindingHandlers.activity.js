@@ -5,7 +5,7 @@ define('ko.bindingHandlers.activity',
 ['jquery', 'ko'],
 function ($, ko) {
     ko.bindingHandlers.activity = {
-        init: function (element, valueAccessor, allBindingsAccessor) {
+        init: function (element) {
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 $(element).activityEx(false);
             });
