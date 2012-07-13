@@ -14,7 +14,8 @@ namespace CodeCamper.Data.SampleData
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
             _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman,
-            _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard;
+            _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard,
+            _daveWard;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -260,6 +261,16 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "@EricBarnard",
                 Gender = "M",
                 Bio = "Technologist and Entrepreneur trying to find my where my path and the world's needs cross",
+            });
+            _theChosen.Add(_daveWard = new Person
+            {
+                FirstName = "Dave",
+                LastName = "Ward",
+                Email = "dward@contoso.com",
+                Blog = "http://dward.contoso.com",
+                Twitter = "@encosia",
+                Gender = "M",
+                Bio = "Microsoft Regional Director",
             });
             
 
@@ -777,7 +788,6 @@ namespace CodeCamper.Data.SampleData
                     "TBD",
             });
 
-
             // Glenn BLock
             addSession(true, new Session
             {
@@ -787,6 +797,20 @@ namespace CodeCamper.Data.SampleData
                 TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_glennBlock),
+                Level = levels[1],
+                Tags = "ASP.NET|Web|Web API",
+                Description = "TBD",
+            });
+
+            // Dave Ward
+            addSession(true, new Session
+            {
+                Title = "RPC and REST with Web API",
+                Code = "ASP285",
+                SpeakerId = _daveWard.Id,
+                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_daveWard),
                 Level = levels[1],
                 Tags = "ASP.NET|Web|Web API",
                 Description = "TBD",
