@@ -271,7 +271,6 @@
     <Content Include="Scripts\lib\TrafficCop.min.js">
       <DependentUpon>TrafficCop.js</DependentUpon>
     </Content>
-    <Content Include="shivs.txt" />
     <Content Include="Test\webapi.person-cud.tests.html" />
     <Content Include="Test\webapi.person-cud.tests.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />
@@ -347,7 +346,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\favorites.cshtml" />
+    <Content Include="Views\session.cshtml" />
+    <Content Include="Views\sessions.cshtml" />
     <Content Include="Views\speaker.cshtml" />
+    <Content Include="Views\speakers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -367,19 +370,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\favorites.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\speakers.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\sessions.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\session.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
