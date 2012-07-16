@@ -68,7 +68,8 @@ namespace CodeCamper.Web
 
             // 3rd Party CSS files
             bundles.Add(new StyleBundle("~/Content/css")
-                .Include("~/Content/toastr*"));
+                .Include("~/Content/toastr.css")
+                .Include("~/Content/toastr-responsive.css"));
 
             // Custom LESS files
             var lessBundle = new Bundle("~/Content/Less")
