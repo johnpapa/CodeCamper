@@ -228,7 +228,6 @@
     <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
     <Content Include="Scripts\app\filter.js" />
-    <Content Include="Scripts\lib\infuser-amd.min.gz.js" />
     <Content Include="Scripts\lib\infuser.js" />
     <Content Include="Scripts\lib\infuser.min.gz.js" />
     <Content Include="Scripts\lib\infuser.min.js">
@@ -238,10 +237,6 @@
     <Content Include="Scripts\lib\koExternalTemplateEngine.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine.min.js">
       <DependentUpon>koExternalTemplateEngine.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\lib\koExternalTemplateEngine_all.js" />
-    <Content Include="Scripts\lib\koExternalTemplateEngine_all.min.js">
-      <DependentUpon>koExternalTemplateEngine_all.js</DependentUpon>
     </Content>
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\app\mock\mock.js" />
@@ -260,14 +255,9 @@
     <Content Include="Scripts\app\sort.js" />
     <Content Include="Scripts\app\utils.js" />
     <Content Include="Scripts\app\vm.js" />
-    <Content Include="Scripts\lib\infuser-amd.js" />
     <Content Include="Scripts\app\ko.dirtyFlag.js" />
     <Content Include="Scripts\lib\knockout.validation.js" />
-    <Content Include="Scripts\lib\koExternalTemplateEngine-amd.js" />
-    <Content Include="Scripts\lib\TrafficCop-amd.js" />
-    <Content Include="Scripts\lib\TrafficCop-amd.min.gz.js" />
     <Content Include="Scripts\lib\TrafficCop.js" />
-    <Content Include="Scripts\lib\TrafficCop.min.gz.js" />
     <Content Include="Scripts\lib\TrafficCop.min.js">
       <DependentUpon>TrafficCop.js</DependentUpon>
     </Content>
@@ -277,7 +267,6 @@
     <Content Include="Test\webapi.session-cud.tests.js" />
     <Content Include=".htaccess" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
-    <Content Include="Scripts\lib\knockout-2.1.0.xdebug.js" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
     <Content Include="Scripts\lib\activity-indicator.js" />
     <Content Include="Scripts\lib\json2.js" />
