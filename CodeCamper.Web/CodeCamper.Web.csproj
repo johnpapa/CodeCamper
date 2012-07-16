@@ -162,6 +162,7 @@
   <ItemGroup>
     <Content Include="Content\boilerplate-style.css" />
     <Content Include="Content\images\cancel.png" />
+    <Content Include="Content\images\photos\dave_ward.jpg" />
     <Content Include="Content\images\photos\eric_barnard.jpg" />
     <Content Include="Content\images\heart-locked-black.png" />
     <Content Include="Content\images\heart-white.png" />
