@@ -392,34 +392,7 @@ namespace CodeCamper.Data.SampleData
                 Tags = "Keynote",
                 Description = "",
             });
-            addSession(false, new Session
-            {
-                Title = "MVC 4 in Perspective",
-                Code = "ASP162",
-                SpeakerId = _scottGuthrie.Id,
-                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_scottGuthrie),
-                Level = levels[1],
-                Tags = "ASP|MVC|Web",
-                Description =
-                    "MVC 4 enables a wider variety of web applications than ever before. The libraries that are easily managed through Nuget and are truly opens source. Learn about the new capabilities and how you can contribute to ASP.NET MVC's evolution.",
-            });
-
-            //Scott Hunter
-            addSession(true, new Session
-            {
-                Title = "Azure: to the Cloud",
-                Code = "CLD163",
-                SpeakerId = _scottHunter.Id,
-                TrackId = tracks.First(t => t.Name == "Cloud").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_scottHunter),
-                Level = levels[1],
-                Tags = "Cloud|Azure|Node|Web",
-                Description = "Windows Azure offers reliable, affordable cloud computing for almost any application of any scale, built with any technology. Scott demonstates with examples of both Windows and non-Windows applications.",
-            });
-                
+            
             // John Papa
             addSession(false, new Session
             {
@@ -436,19 +409,6 @@ namespace CodeCamper.Data.SampleData
             });
             addSession(false, new Session
             {
-                Title = "JsRender Fundamentals",
-                Code = "JVS201",
-                SpeakerId = _johnPapa.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_johnPapa),
-                Level = levels[1],
-                Tags = "JavaScript|JsRender|Web",
-                Description =
-                    "Learn how to build fast, robust, and maintainable Web applications with JavaScript, jQuery and JsRender: the successor to jQuery Templates.",
-            });
-            addSession(false, new Session
-            {
                 Title = "Introduction to Building Windows 8 Metro Applications",
                 Code = "WIN102",
                 SpeakerId = _johnPapa.Id,
@@ -460,18 +420,35 @@ namespace CodeCamper.Data.SampleData
                 Description =
                     "This session covers everything you need to know to get started building Metro apps.",
             });
-            addSession(true, new Session
+
+            // Scott Guthrie
+            addSession(false, new Session
             {
-                Title = "Build a Custom Single Page Application",
-                Code = "JVS277",
-                SpeakerId = _johnPapa.Id,
-                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                Title = "MVC 4 in Perspective",
+                Code = "ASP162",
+                SpeakerId = _scottGuthrie.Id,
+                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_johnPapa),
-                Level = levels[2],
-                Tags = "Knockout|JavaScript|Web",
+                RoomId = getRoomId(_scottGuthrie),
+                Level = levels[1],
+                Tags = "ASP|MVC|Web",
                 Description =
-                    "Build a SPA, then hang out in one.",
+                    "MVC 4 enables a wider variety of web applications than ever before. The libraries that are easily managed through Nuget and are truly opens source. Learn about the new capabilities and how you can contribute to ASP.NET MVC's evolution.",
+            });
+
+            // Julie Lerman
+            addSession(false, new Session
+            {
+                Title = "Entity Framework Code First",
+                Code = "DAT192",
+                SpeakerId = _julieLerman.Id,
+                TrackId = tracks.First(t => t.Name == "Data").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_julieLerman),
+                Level = levels[0],
+                Tags = "Data|Entity Framework|ORM",
+                Description =
+                    "Discover how Entity Framework Code First can improve your life!",
             });
 
             // Dan Wahlin;
@@ -488,19 +465,46 @@ namespace CodeCamper.Data.SampleData
                 Description = "This session provides an end-to-end look at building a Web application using several different technologies.",
             });
 
-            // Eric Barnard
+            // John Papa
             addSession(true, new Session
             {
-                Title = "KnockoutJS Validation",
-                Code = "JVS234",
-                SpeakerId = _ericBarnard.Id,
+                Title = "Build a Custom Single Page Application",
+                Code = "JVS277",
+                SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_ericBarnard),
-                Level = levels[0],
+                RoomId = getRoomId(_johnPapa),
+                Level = levels[2],
                 Tags = "Knockout|JavaScript|Web",
                 Description =
-                    "This session guides you through model validation with Knockout",
+                    "Build a SPA, then hang out in one.",
+            });
+            addSession(false, new Session
+            {
+                Title = "JsRender Fundamentals",
+                Code = "JVS201",
+                SpeakerId = _johnPapa.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_johnPapa),
+                Level = levels[1],
+                Tags = "JavaScript|JsRender|Web",
+                Description =
+                    "Learn how to build fast, robust, and maintainable Web applications with JavaScript, jQuery and JsRender: the successor to jQuery Templates.",
+            });
+
+            //Scott Hunter
+            addSession(true, new Session
+            {
+                Title = "Azure: to the Cloud",
+                Code = "CLD163",
+                SpeakerId = _scottHunter.Id,
+                TrackId = tracks.First(t => t.Name == "Cloud").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_scottHunter),
+                Level = levels[1],
+                Tags = "Cloud|Azure|Node|Web",
+                Description = "Windows Azure offers reliable, affordable cloud computing for almost any application of any scale, built with any technology. Scott demonstates with examples of both Windows and non-Windows applications.",
             });
 
             // Mads Kristensen
@@ -572,21 +576,6 @@ namespace CodeCamper.Data.SampleData
                 Description = "TBD",
             });
 
-            // Julie Lerman
-            addSession(false, new Session
-            {
-                Title = "Entity Framework Code First",
-                Code = "DAT192",
-                SpeakerId = _julieLerman.Id,
-                TrackId = tracks.First(t => t.Name == "Data").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_julieLerman),
-                Level = levels[0],
-                Tags = "Data|Entity Framework|ORM",
-                Description =
-                    "Discover how Entity Framework Code First can improve your life!",
-            });
-
             // Hans Fjällemark
             addSession(false, new Session
             {
@@ -627,6 +616,21 @@ namespace CodeCamper.Data.SampleData
                 Level = levels[2],
                 Tags = "JavaScript|Underscore|jQuery|Web",
                 Description = "TBD",
+            });
+
+            // Eric Barnard
+            addSession(true, new Session
+            {
+                Title = "KnockoutJS Validation",
+                Code = "JVS234",
+                SpeakerId = _ericBarnard.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_ericBarnard),
+                Level = levels[0],
+                Tags = "Knockout|JavaScript|Web",
+                Description =
+                    "This session guides you through model validation with Knockout",
             });
 
             // Shawn Wildermuth
