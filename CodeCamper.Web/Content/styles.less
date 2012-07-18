@@ -179,6 +179,7 @@ body {
 
 				> li > a {
 					text-decoration: none;
+                    padding: .1em .2em .1em .2em;
 				}
 			}
 		}
@@ -697,7 +698,10 @@ button {
 
 .route-top > a { .route-a-base(@text-color-subtle); }
 
-.route-active.route-top > a { .route-a-base(@text-color-title); }
+.route-active.route-top > a { 
+    .route-a-base(@text-color-title); 
+    background: @accent-color;
+}
 
 .route-left > a {
     .route-a-base(@text-color-subtle, bold);
