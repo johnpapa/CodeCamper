@@ -17,8 +17,6 @@ define('router',
                 if (Sammy.Title) {
                     this.use(Sammy.Title);
                     this.setTitle(config.title);
-                }else {
-                    logger.warning('Sammy.Title is not loaded.'); //TODO: remove this
                 }
 
                 this.get('', function () {

@@ -30,6 +30,7 @@
                         if ((tagDelimiter + session.tags().toLowerCase() + tagDelimiter)
                             .search(escapedTagDelimiter + srch + escapedTagDelimiter) !== -1) return true;
                     } catch(err) {
+                        //PAPA: testing only. Can remove the try/catch
                         config.logger.error('filter failed for expression ' + searchText + '. ' + err.message);
                     }
                     return false;

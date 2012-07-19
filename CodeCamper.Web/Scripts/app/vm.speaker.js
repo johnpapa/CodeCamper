@@ -43,7 +43,7 @@
                 execute: function (complete) {
                     var callback = function () {
                         complete();
-                        logger.success('Refreshed');
+                        logger.success(config.toasts.retreivedData);
                     };
                     getSpeaker(callback, true);
                 },

@@ -77,7 +77,7 @@
                         route: /.*/,
                         title: '',
                         callback: function () {
-                            logger.error('invalid route');
+                            logger.error(config.toasts.invalidRoute);
                         },
                         view: ''
                     }

@@ -45,6 +45,15 @@
                 speaker: '#speaker-view',
                 speakers: '#speakers-view'
             },
+            
+            toasts = {
+                changesPending: 'Please save or cancel your changes before leaving the page.',
+                errorSavingData: 'Data could not be saved. Please check the logs.',
+                errorGettingData: 'Could not retrieve data.  Please check the logs.',
+                invalidRoute: 'Cannot navigate. Invalid route',
+                retreivedData: 'Data retrieved successfully',
+                savedData: 'Data saved successfully'
+            },
 
             // methods
             //-----------------
@@ -92,6 +101,7 @@
             storeExpirationMs: storeExpirationMs,
             throttle: throttle,
             title: title,
+            toasts: toasts,
             useMocks: useMocks,
             viewIds: viewIds,
             window: window

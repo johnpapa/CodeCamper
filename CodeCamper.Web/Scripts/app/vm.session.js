@@ -54,7 +54,7 @@
                 execute: function (complete) {
                     var callback = function () {
                         complete();
-                        logger.success('Refreshed');
+                        logger.success(config.toasts.retreivedData);
                     };
                     canEditSession() ? getSession(callback, true) : getAttendance(callback, true);
                 },

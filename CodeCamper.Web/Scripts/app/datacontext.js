@@ -90,7 +90,7 @@
                                         def.resolve(dtoList);
                                     },
                                     error: function() {
-                                        logger.error('oops! data could not be retrieved'); 
+                                        logger.error(config.toasts.errorGettingData);
                                         def.reject();
                                     }
                                 }, param);
@@ -118,7 +118,7 @@
 
                             updateFunction({
                                 success: function(response) {
-                                    logger.success('Updated entity!');
+                                    logger.success(config.toasts.savedData);
                                     if (callbacks && callbacks.success) {
                                         entity.dirtyFlag().reset();
                                         def.resolve(response);
@@ -126,7 +126,7 @@
                                     }
                                 },
                                 error: function(response) {
-                                    logger.error('oops! data could not be posted'); //TODO: revise error message
+                                    logger.error(config.toasts.errorSavingData);
                                     if (callbacks && callbacks.error) {
                                         def.reject(response);
                                         callbacks.error();
@@ -167,7 +167,7 @@
                     dataservice.attendance.addAttendance({
                         success: function (dto) {
                             if (!dto) {
-                                logger.error('oops! data could not be posted'); //TODO: revise error message
+                                logger.error(config.toasts.errorSavingData);
                                 if (callbacks && callbacks.error) { callbacks.error(); }
                                 def.reject();
                                 return;
@@ -175,14 +175,14 @@
                             var newAtt = modelmapper.attendance.fromDto(dto); // Map DTO to Model
                             attendance.add(newAtt); // Add to the datacontext
                             sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
-                            logger.success('Added attendance!'); //TODO: 
+                            logger.success(config.toasts.savedData);
                             if (callbacks && callbacks.success) {
                                 def.resolve(dto);
                                 callbacks.success(newAtt);
                             }
                         },
                         error: function (response) {
-                            logger.error('oops! data could not be posted'); //TODO: revise error message
+                            logger.error(config.toasts.errorSavingData);
                             if (callbacks && callbacks.error) {
                                 def.reject(response);
                                 callbacks.error();
@@ -201,7 +201,7 @@
                 return $.Deferred(function(def) {
                     dataservice.attendance.updateAttendance({
                         success: function(response) {
-                            logger.success('Updated attendance!');
+                            logger.success(config.toasts.savedData);
                             if (callbacks && callbacks.success) {
                                 attendanceModel.dirtyFlag().reset();
                                 def.resolve(response);
@@ -209,7 +209,7 @@
                             }
                         },
                         error: function(response) {
-                            logger.error('oops! data could not be posted'); //TODO: revise error message
+                            logger.error(config.toasts.errorSavingData);
                             if (callbacks && callbacks.error) {
                                 def.reject(response);
                                 callbacks.error();
@@ -227,14 +227,14 @@
                         success: function (response) {
                             attendance.removeById(attendanceModel.id());
                             sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
-                            logger.success('Deleted attendance!'); //TODO: 
+                            logger.success(config.toasts.savedData); 
                             if (callbacks && callbacks.success) {
                                 def.resolve(response);
                                 callbacks.success();
                             }
                         },
                         error: function (response) {
-                            logger.error('oops! data could not be deleted'); //TODO: revise error message
+                            logger.error(config.toasts.errorSavingData);
                             if (callbacks && callbacks.error) {
                                 def.reject(response);
                                 callbacks.error();
