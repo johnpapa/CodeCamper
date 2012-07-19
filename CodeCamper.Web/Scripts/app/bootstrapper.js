@@ -138,7 +138,7 @@
                     .done(function () {
                         logger.success('Fetched data for: '
                             + '<div>' + data.rooms().length + ' rooms </div>'
-                            + '<div>' + data.tracks().length + ' rooms </div>'
+                            + '<div>' + data.tracks().length + ' tracks </div>'
                             + '<div>' + data.timeslots().length + ' timeslots </div>'
                             + '<div>' + data.attendance().length + ' attendance </div>'
                             + '<div>' + data.persons().length + ' persons </div>'
