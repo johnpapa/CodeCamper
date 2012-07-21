@@ -48,9 +48,9 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\WebGrease.1.0.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="dotless.Core, Version=1.3.0.4, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+    <Reference Include="dotless.Core, Version=1.3.0.5, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\dotless.1.3.0.4\lib\dotless.Core.dll</HintPath>
+      <HintPath>..\packages\dotless.1.3.0.5\lib\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -105,7 +105,7 @@
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0-beta2\lib\net40\System.Web.Optimization.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0-beta3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -262,6 +262,19 @@
     <Content Include="Scripts\lib\TrafficCop.min.js">
       <DependentUpon>TrafficCop.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\lib\sammy.js" />
+    <Content Include="Scripts\lib\sammy.min.js">
+      <DependentUpon>sammy.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\lib\sammy.title.js" />
+    <Content Include="Scripts\lib\sammy.title.min.js">
+      <DependentUpon>sammy.title.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\lib\moment.js" />
+    <Content Include="Scripts\lib\moment.min.js">
+      <DependentUpon>moment.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\toastr.js" />
     <Content Include="Test\webapi.person-cud.tests.html" />
     <Content Include="Test\webapi.person-cud.tests.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />
@@ -273,7 +286,6 @@
     <Content Include="Scripts\lib\json2.js" />
     <Content Include="Scripts\lib\json2.min.js" />
     <Content Include="Scripts\lib\require.js" />
-    <Content Include="Scripts\lib\sammy.title.js" />
     <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Scripts\lib\underscore.min.js" />
     <Content Include="Test\webapi.get-result.tests.html" />
@@ -311,12 +323,7 @@
     <Content Include="Scripts\lib\jquery-1.7.2.min.js" />
     <Content Include="Scripts\lib\jquery.mockjson.js" />
     <Content Include="Scripts\lib\modernizr-2.5.3.js" />
-    <Content Include="Scripts\lib\moment.js" />
-    <Content Include="Scripts\lib\moment.min.js">
-      <DependentUpon>moment.js</DependentUpon>
-    </Content>
     <Content Include="Test\qunit\qunit.js" />
-    <Content Include="Scripts\lib\sammy.js" />
     <Content Include="Scripts\lib\toastr.js" />
     <Content Include="Test\webapi.endpoint.tests.js" />
     <Content Include="Tmpl\_sessions.filterbox.tmpl.html" />
