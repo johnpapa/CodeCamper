@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\NinjectDependencyScope.cs" />
     <Compile Include="App_Start\GlobalConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -274,7 +275,6 @@
     <Content Include="Scripts\lib\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\toastr.js" />
     <Content Include="Test\webapi.person-cud.tests.html" />
     <Content Include="Test\webapi.person-cud.tests.js" />
     <Content Include="Test\webapi.session-cud.tests.html" />
