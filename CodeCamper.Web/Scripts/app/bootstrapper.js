@@ -1,21 +1,8 @@
 ﻿define('bootstrapper',
-    ['jquery', 'ko', 'config', 'router', 'presenter', 'model', 'datacontext', 'dataprimer', 'vm', 'store'],
-    function ($, ko, config, router, presenter, model, datacontext, dataprimer, vm, store) {
+    ['jquery', 'config', 'router', 'presenter', 'dataprimer', 'vm', 'binder', 'store'],
+    function ($, config, router, presenter, dataprimer, vm, binder, store) {
         var
             logger = config.logger,
-            
-            bindViewModelsToViews = function () {
-                ko.applyBindings(vm.shell, getView(config.viewIds.shellTop));
-                ko.applyBindings(vm.favorites, getView(config.viewIds.favorites));
-                ko.applyBindings(vm.session, getView(config.viewIds.session));
-                ko.applyBindings(vm.sessions, getView(config.viewIds.sessions));
-                ko.applyBindings(vm.speaker, getView(config.viewIds.speaker));
-                ko.applyBindings(vm.speakers, getView(config.viewIds.speakers));
-            },
-            
-            getView = function (viewName) {
-                return $(viewName).get(0);
-            },
 
             registerRoutes = function () {
 
@@ -101,7 +88,7 @@
                 config.dataserviceInit(); // prime the data services and eager load the lookups
                 
                 $.when(dataprimer.fetch())
-                .done(bindViewModelsToViews)
+                .done(binder.bind)
                 .done(registerRoutes)
                 .always(function () {
                     presenter.toggleActivity(false);

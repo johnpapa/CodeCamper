@@ -214,6 +214,8 @@
     <Content Include="Content\images\photos\ward_bell.jpg" />
     <Content Include="Content\images\heart-checked.png" />
     <Content Include="Content\images\heart-black.png" />
+    <Content Include="Scripts\app\binder.js" />
+    <Content Include="Scripts\app\dataprimer.js" />
     <Content Include="Scripts\app\store.js" />
     <Content Include="Scripts\app\datacontext.speaker-sessions.js" />
     <Content Include="Scripts\app\vm.speaker.js" />

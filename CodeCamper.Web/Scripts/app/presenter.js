@@ -1,17 +1,3 @@
-// Conventions
-//  1) all HTML tags that represent views must use the CSS class .view
-//      Active views will have .view-active class added to them.
-//  2) all immediate parent containers of all nav links/routes must have 
-//      a class to group them, so they can be styled. 
-//      ex: route-top or route-left
-//      Active routes will have .viewroute active class added to them.
-//
-// Example:
-// 	$('#showA').click(function() { presenter.transitionTo('#A') } );
-// 	$('#showB').click(function() { presenter.transitionTo('#B') } );
-// 	presenter.transitionTo('#A');
-//
-// ----------------------------------------------
 define('presenter',
 ['jquery'],
     function($) {
@@ -59,17 +45,12 @@ define('presenter',
                 }
 
                 // Reset top level nav links
-                //var $prevNavElements = $('nav > ul > li > a[href="' + route + '"]')
-                //    .closest('nav')
-                //    .find('a.route-active')
-                //    .removeClass('route-active');
-                // Find all NAV links by CSS classname instead. "It's impenetrable and brittle"
+                // Find all NAV links by CSS classname 
                 var $group = $(group);
                 if ($group) {
                     $(group + '.route-active').removeClass('route-active');
                     if (route) {
                         // Highlight the selected nav that matches the route
-                        //$('nav > ul > li > a[href="' + route + '"]').addClass('route-active');
                         $group.has('a[href="' + route + '"]').addClass('route-active');
                     }
                 }
