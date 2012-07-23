@@ -5,8 +5,7 @@
             run = function () {
                 presenter.toggleActivity(true);
 
-                //PAPA: Set up the dataservice for "how it is going to roll" ... Ward Bell
-                config.dataserviceInit(); // prime the data services and eager load the lookups
+                config.dataserviceInit(); 
                 
                 $.when(dataprimer.fetch())
                 .done(binder.bind)
