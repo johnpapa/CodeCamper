@@ -1,6 +1,6 @@
 ﻿define('bootstrapper',
-    ['jquery', 'ko', 'config', 'router', 'model', 'datacontext', 'vm', 'store'],
-    function ($, ko, config, router, model, datacontext, vm, store) {
+    ['jquery', 'ko', 'config', 'router', 'presenter', 'model', 'datacontext', 'dataprimer', 'vm', 'store'],
+    function ($, ko, config, router, presenter, model, datacontext, dataprimer, vm, store) {
         var
             logger = config.logger,
             
@@ -95,64 +95,17 @@
             },
             
             run = function () {
-                var currentUserId = config.currentUserId;
-
-                $('#busyindicator').activity(true);
+                presenter.toggleActivity(true);
 
                 //PAPA: Set up the dataservice for "how it is going to roll" ... Ward Bell
                 config.dataserviceInit(); // prime the data services and eager load the lookups
                 
-                // TODO: TESTING 
-                // We don't actually use this data, 
-                // we just get it so we can see that something was fetched.
-                var data = {
-                    rooms: ko.observable(),
-                    tracks: ko.observable(),
-                    timeslots: ko.observable(),
-                    attendance: ko.observable(),
-                    persons: ko.observable(),
-                    sessions: ko.observable()
-                };
-                // TODO: END TESTING 
-
-                $.when(datacontext.rooms.getData({results: data.rooms}),
-                    datacontext.timeslots.getData({ results: data.timeslots }),
-                    datacontext.tracks.getData({ results: data.tracks }),
-                    datacontext.attendance.getData({ param: currentUserId, results: data.attendance }),
-                    datacontext.persons.getSpeakers({ results: data.persons }),
-                    datacontext.sessions.getData({ results: data.sessions }),
-                    datacontext.persons.getFullPersonById(currentUserId,
-                        {
-                            success: function (person) {
-                                config.currentUser(person);
-                            }
-                        }, true)
-                    )
-
-                    .pipe(function () {
-                        // Need sessions and speakers in cache before we can make speakerSessions
-                        datacontext.speakerSessions.refreshLocal();
-                    })
-
-                    // TODO: TESTING 
-                    .done(function () {
-                        logger.success('Fetched data for: '
-                            + '<div>' + data.rooms().length + ' rooms </div>'
-                            + '<div>' + data.tracks().length + ' tracks </div>'
-                            + '<div>' + data.timeslots().length + ' timeslots </div>'
-                            + '<div>' + data.attendance().length + ' attendance </div>'
-                            + '<div>' + data.persons().length + ' persons </div>'
-                            + '<div>' + data.sessions().length + ' sessions </div>'
-                            + '<div>' + (config.currentUser().isNullo ? 0 : 1) + ' user profile </div>'
-                            );
-                    })
-                    // TODO: END TESTING 
-
-                    .done(bindViewModelsToViews)
-                    .done(registerRoutes)
-                    .always(function () {
-                        $('#busyindicator').activity(false);
-                    });
+                $.when(dataprimer.fetch())
+                .done(bindViewModelsToViews)
+                .done(registerRoutes)
+                .always(function () {
+                    presenter.toggleActivity(false);
+                });
             };
 
         return {
