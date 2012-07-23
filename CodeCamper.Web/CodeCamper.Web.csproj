@@ -215,6 +215,7 @@
     <Content Include="Content\images\heart-checked.png" />
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Scripts\app\binder.js" />
+    <Content Include="Scripts\app\route-config.js" />
     <Content Include="Scripts\app\dataprimer.js" />
     <Content Include="Scripts\app\store.js" />
     <Content Include="Scripts\app\datacontext.speaker-sessions.js" />
