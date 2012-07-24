@@ -2,17 +2,17 @@
 
 namespace CodeCamper.Model
 {
-    public class Session
+    public class Session : SessionBrief
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Code { get; set; }
-        public int SpeakerId { get; set; }
-        public int TrackId { get; set; }
-        public int TimeSlotId { get; set; }
-        public int RoomId { get; set; }
-        public string Level { get; set; }
-        public string Tags { get; set; }
+        //public int Id { get; set; }
+        //public string Title { get; set; }
+        //public string Code { get; set; }
+        //public int SpeakerId { get; set; }
+        //public int TrackId { get; set; }
+        //public int TimeSlotId { get; set; }
+        //public int RoomId { get; set; }
+        //public string Level { get; set; }
+        //public string Tags { get; set; }
         public string Description { get; set; }
 
         public virtual Person Speaker { get; set; }
