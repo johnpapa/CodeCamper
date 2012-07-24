@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using CodeCamper.Model;
 
 namespace CodeCamper.Data
 {

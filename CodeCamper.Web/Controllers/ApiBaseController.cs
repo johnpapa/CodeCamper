@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using CodeCamper.Model;
+using CodeCamper.Data;
 
 
 namespace CodeCamper.Web.Controllers

@@ -64,6 +64,11 @@
   <ItemGroup>
     <Compile Include="CodeCamperDbContext.cs" />
     <Compile Include="CodeCamperUow.cs" />
+    <Compile Include="Contracts\IAttendanceRepository.cs" />
+    <Compile Include="Contracts\ICodeCamperUow.cs" />
+    <Compile Include="Contracts\IPersonsRepository.cs" />
+    <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="Contracts\ISessionsRepository.cs" />
     <Compile Include="RepositoryFactories.cs" />
     <Compile Include="PersonsRepository.cs" />
     <Compile Include="PredicateBuilder.cs" />
