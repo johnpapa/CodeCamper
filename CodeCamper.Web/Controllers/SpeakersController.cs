@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CodeCamper.Data;
+using CodeCamper.Data.Contracts;
 using CodeCamper.Model;
 
 namespace CodeCamper.Web.Controllers

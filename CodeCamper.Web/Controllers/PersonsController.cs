@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CodeCamper.Data;
+using CodeCamper.Data.Contracts;
 using CodeCamper.Model;
 
 namespace CodeCamper.Web.Controllers
@@ -35,7 +35,7 @@ namespace CodeCamper.Web.Controllers
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
         }
 
-        // GET /api/persons/?firstname=\'Hans\''
+        // OData: GET /api/persons/?firstname=\'Hans\''
         // With OData query syntax we would not need such methods
         // /api/persons/getbyfirstname?value=Joe1
         [ActionName("getbyfirstname")]

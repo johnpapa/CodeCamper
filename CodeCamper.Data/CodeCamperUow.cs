@@ -1,4 +1,5 @@
 using System;
+using CodeCamper.Data.Contracts;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data

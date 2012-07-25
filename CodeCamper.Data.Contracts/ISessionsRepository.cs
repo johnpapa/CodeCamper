@@ -2,7 +2,7 @@
 using System.Linq;
 using CodeCamper.Model;
 
-namespace CodeCamper.Data
+namespace CodeCamper.Data.Contracts
 {
     public interface ISessionsRepository : IRepository<Session>
     {

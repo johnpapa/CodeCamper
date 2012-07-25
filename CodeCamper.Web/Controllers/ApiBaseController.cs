@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using CodeCamper.Data;
+using CodeCamper.Data.Contracts;
 
 
 namespace CodeCamper.Web.Controllers

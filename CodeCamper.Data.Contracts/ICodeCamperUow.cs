@@ -1,6 +1,6 @@
 using CodeCamper.Model;
 
-namespace CodeCamper.Data
+namespace CodeCamper.Data.Contracts
 {
     /// <summary>
     /// Interface for the Code Camper "Unit of Work"

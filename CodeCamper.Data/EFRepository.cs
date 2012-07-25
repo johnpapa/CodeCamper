@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using CodeCamper.Data.Contracts;
 
 namespace CodeCamper.Data
 {
@@ -31,7 +32,8 @@ namespace CodeCamper.Data
 
         public virtual T GetById(int id)
         {
-            return DbSet.FirstOrDefault(PredicateBuilder.GetByIdPredicate<T>(id));
+            //return DbSet.FirstOrDefault(PredicateBuilder.GetByIdPredicate<T>(id));
+            return DbSet.Find(id);
         }
 
         public virtual void Add(T entity)

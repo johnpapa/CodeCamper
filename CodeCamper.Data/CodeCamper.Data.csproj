@@ -64,11 +64,6 @@
   <ItemGroup>
     <Compile Include="CodeCamperDbContext.cs" />
     <Compile Include="CodeCamperUow.cs" />
-    <Compile Include="Contracts\IAttendanceRepository.cs" />
-    <Compile Include="Contracts\ICodeCamperUow.cs" />
-    <Compile Include="Contracts\IPersonsRepository.cs" />
-    <Compile Include="Contracts\IRepository.cs" />
-    <Compile Include="Contracts\ISessionsRepository.cs" />
     <Compile Include="Helpers\RepositoryFactories.cs" />
     <Compile Include="PersonsRepository.cs" />
     <Compile Include="Helpers\PredicateBuilder.cs" />
@@ -88,6 +83,10 @@
     <Compile Include="SampleData\TagsGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeCamper.Data.Contracts\CodeCamper.Data.Contracts.csproj">
+      <Project>{0b06a6da-fcfb-46f7-a666-54add0910f4b}</Project>
+      <Name>CodeCamper.Data.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeCamper.Model\CodeCamper.Model.csproj">
       <Project>{F4931817-0522-4814-A629-88D47230C8FA}</Project>
       <Name>CodeCamper.Model</Name>

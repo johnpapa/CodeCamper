@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using CodeCamper.Data.Contracts;
 using CodeCamper.Model;
 
 namespace CodeCamper.Data

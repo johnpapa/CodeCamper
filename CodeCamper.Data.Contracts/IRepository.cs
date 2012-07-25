@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace CodeCamper.Data
+namespace CodeCamper.Data.Contracts
 {
     public interface IRepository<T> where T : class
     {

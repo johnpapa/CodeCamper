@@ -359,6 +359,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeCamper.Data.Contracts\CodeCamper.Data.Contracts.csproj">
+      <Project>{0b06a6da-fcfb-46f7-a666-54add0910f4b}</Project>
+      <Name>CodeCamper.Data.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeCamper.Data\CodeCamper.Data.csproj">
       <Project>{fb5fb387-614f-4968-94ab-a68c2c7ae335}</Project>
       <Name>CodeCamper.Data</Name>

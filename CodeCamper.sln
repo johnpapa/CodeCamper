@@ -11,12 +11,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoremIpsumGenerator", "Lore
 		LoremIpsumGenerator\NLipsum.Core.dll = LoremIpsumGenerator\NLipsum.Core.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCamper.Data.Contracts", "CodeCamper.Data.Contracts\CodeCamper.Data.Contracts.csproj", "{0B06A6DA-FCFB-46F7-A666-54ADD0910F4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B06A6DA-FCFB-46F7-A666-54ADD0910F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B06A6DA-FCFB-46F7-A666-54ADD0910F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B06A6DA-FCFB-46F7-A666-54ADD0910F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B06A6DA-FCFB-46F7-A666-54ADD0910F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{48D49037-9595-49BB-BCFB-01BB2D6706FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48D49037-9595-49BB-BCFB-01BB2D6706FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48D49037-9595-49BB-BCFB-01BB2D6706FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
