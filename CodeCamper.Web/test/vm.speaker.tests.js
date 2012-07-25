@@ -15,7 +15,7 @@
         //    };
         //fakeConfig = config;
         config.useMocks(true); // this helps me NOT mock datacontext
-        config.currentUserId = 1;
+        config.currentUserId = 3;
         config.currentUser = function () { return { id: function () { return 4; } }; };
         config.logger = { success: doNothing };
         config.dataserviceInit();

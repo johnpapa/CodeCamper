@@ -15,7 +15,7 @@ namespace CodeCamper.Data.SampleData
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
             _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman,
             _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard,
-            _daveWard;
+            _daveWard, _mikeCallaghan;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -272,6 +272,17 @@ namespace CodeCamper.Data.SampleData
                 Gender = "M",
                 Bio = "Microsoft Regional Director",
             });
+
+            _theChosen.Add(_mikeCallaghan = new Person
+            {
+                FirstName = "Mike",
+                LastName = "Callaghan",
+                Email = "mcallaghan@contoso.com",
+                Blog = "http://mcallaghan.contoso.com",
+                Twitter = "@walkingriver",
+                Gender = "M",
+                Bio = "Mike has been developing software professionally since 1995, primarily in Microsoft environments.",
+            });
             
 
             _theChosen.ForEach(p => p.ImageSource = 
@@ -364,7 +375,7 @@ namespace CodeCamper.Data.SampleData
                         return availableTimeSlotIds[nextSlotIx];
                     };
 
-            Func<Person, int> getRoomId = choosenOne => roomsForSessions[_theChosen.IndexOf(choosenOne)].Id;
+            Func<Person, int> getRoomId = choosenOne => roomsForSessions[_theChosen.IndexOf(choosenOne) % roomsForSessions.Count].Id;
 
             // Adds session to Sessions and optionally to ChoosenAttendeeSessions
             Func<bool, Session, Session> addSession =
@@ -752,14 +763,14 @@ namespace CodeCamper.Data.SampleData
             // Fritz Onion
             addSession(true, new Session
             {
-                Title = "What's New in ASP.NET 4",
-                Code = "ASP141",
+                Title = "What's New in the world of UX",
+                Code = "DSN141",
                 SpeakerId = _fritzOnion.Id,
-                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                TrackId = tracks.First(t => t.Name == "Design").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_fritzOnion),
                 Level = levels[1],
-                Tags = "ASP.NET|Web",
+                Tags = "Design",
                 Description = "TBD",
             });
 
@@ -832,6 +843,20 @@ namespace CodeCamper.Data.SampleData
                 Level = levels[1],
                 Tags = "NuGet",
                 Description = "TBD",
+            });
+
+            // Mike Callaghan
+            addSession(true, new Session
+            {
+                Title = "Database CRUD using SignalR",
+                Code = "ASP129",
+                SpeakerId = _mikeCallaghan.Id,
+                TrackId = tracks.First(t => t.Name == "ASP.NET").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_mikeCallaghan),
+                Level = levels[1],
+                Tags = "Web | SignalR",
+                Description = "Learn how to build a multidimensional universal transporter using SignalR. Not really ... but we will cover some cool SignalR code.",
             });
 
             return sessions;

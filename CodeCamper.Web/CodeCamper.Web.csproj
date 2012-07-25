@@ -173,6 +173,7 @@
     <Content Include="Content\images\invalid.png" />
     <Content Include="Content\images\photos\glenn_block.jpg" />
     <Content Include="Content\images\photos\julie_lerman.jpg" />
+    <Content Include="Content\images\photos\mike_callaghan.jpg" />
     <Content Include="Content\images\photos\pete_brown.jpg" />
     <Content Include="Content\images\photos\scott_hanselman.jpg" />
     <Content Include="Content\images\photos\shawn_wildermuth.jpg" />
@@ -330,6 +331,10 @@
     <Content Include="Test\qunit\qunit.js" />
     <Content Include="Scripts\lib\toastr.js" />
     <Content Include="Test\webapi.endpoint.tests.js" />
+    <Content Include="Test\crazy.testsuite.html" />
+    <Content Include="Test\main.tests.js" />
+    <Content Include="Test\vm.speaker.tests.js" />
+    <Content Include="Test\vm.speakers.tests.js" />
     <Content Include="Tmpl\_sessions.filterbox.tmpl.html" />
     <Content Include="Tmpl\_sessions.view.tmpl.html" />
     <Content Include="Tmpl\_speakers.view.tmpl.html" />
@@ -351,6 +356,8 @@
     <Content Include="Views\sessions.cshtml" />
     <Content Include="Views\speaker.cshtml" />
     <Content Include="Views\speakers.cshtml" />
+    <Content Include="Test\vm.speaker.tests.cshtml" />
+    <Content Include="Test\vm.speakers.tests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
