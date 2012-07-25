@@ -1,6 +1,5 @@
 ﻿using System.Web.Http;
 using CodeCamper.Data;
-using CodeCamper.Model;
 using Ninject;
 
 namespace CodeCamper.Web
