@@ -66,7 +66,6 @@
     <Compile Include="CodeCamperUow.cs" />
     <Compile Include="Helpers\RepositoryFactories.cs" />
     <Compile Include="PersonsRepository.cs" />
-    <Compile Include="Helpers\PredicateBuilder.cs" />
     <Compile Include="Configuration\SessionConfiguration.cs" />
     <Compile Include="Configuration\AttendanceConfiguration.cs" />
     <Compile Include="SessionsRepository.cs" />
