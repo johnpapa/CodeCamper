@@ -158,7 +158,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\TestsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\boilerplate-style.css" />
@@ -280,11 +279,11 @@
     <Content Include="Scripts\lib\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\toastr.js" />
-    <Content Include="Test\webapi.person-cud.tests.html" />
-    <Content Include="Test\webapi.person-cud.tests.js" />
-    <Content Include="Test\webapi.session-cud.tests.html" />
-    <Content Include="Test\webapi.session-cud.tests.js" />
+    <Content Include="Scripts\lib\toastr.js" />
+    <Content Include="Test\web api\webapi.person-cud.tests.html" />
+    <Content Include="Test\web api\webapi.person-cud.tests.js" />
+    <Content Include="Test\web api\webapi.session-cud.tests.html" />
+    <Content Include="Test\web api\webapi.session-cud.tests.js" />
     <Content Include=".htaccess" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
@@ -294,12 +293,12 @@
     <Content Include="Scripts\lib\require.js" />
     <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Scripts\lib\underscore.min.js" />
-    <Content Include="Test\webapi.get-result.tests.html" />
-    <Content Include="Test\webapi.get-result.tests.js" />
-    <Content Include="Test\webapi.attendance-cud.tests.js" />
+    <Content Include="Test\web api\webapi.get-result.tests.html" />
+    <Content Include="Test\web api\webapi.get-result.tests.js" />
+    <Content Include="Test\web api\webapi.attendance-cud.tests.js" />
     <Content Include="Test\qunit-utils.js" />
-    <Content Include="Test\webapi.endpoint.tests.html" />
-    <Content Include="Test\webapi.testsuite.html" />
+    <Content Include="Test\web api\webapi.endpoint.tests.html" />
+    <Content Include="Test\web api\webapi.testsuite.html" />
     <Content Include="Test\dataservice.test.js" />
     <Content Include="Test\dataservice.test.html" />
     <Content Include="Test\qunit\qunit-composite.css" />
@@ -308,7 +307,7 @@
     <Content Include="Content\images\search.png" />
     <Content Include="Content\toastr-responsive.css" />
     <Content Include="Global.asax" />
-    <Content Include="Test\webapi.attendance-cud.tests.html" />
+    <Content Include="Test\web api\webapi.attendance-cud.tests.html" />
     <Content Include="Scripts\app\bootstrapper.js" />
     <Content Include="Scripts\app\vm.session.js" />
     <Content Include="Scripts\app\model.js" />
@@ -329,9 +328,8 @@
     <Content Include="Scripts\lib\jquery.mockjson.js" />
     <Content Include="Scripts\lib\modernizr-2.5.3.js" />
     <Content Include="Test\qunit\qunit.js" />
-    <Content Include="Scripts\lib\toastr.js" />
-    <Content Include="Test\webapi.endpoint.tests.js" />
-    <Content Include="Test\crazy.testsuite.html" />
+    <Content Include="Test\web api\webapi.endpoint.tests.js" />
+    <Content Include="Test\viewmodel.testsuite.html" />
     <Content Include="Test\main.tests.js" />
     <Content Include="Test\vm.speaker.tests.js" />
     <Content Include="Test\vm.speakers.tests.js" />

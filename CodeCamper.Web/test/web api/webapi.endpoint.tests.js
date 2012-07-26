@@ -26,8 +26,8 @@
         // Find the Attendance with personId==2 && sessionId==1
         '/api/attendance/?pid=2&sid=1', // preferred
         
-        // TESTING ONLY
-        '/api/tests/testsessions' 
+        //// TESTING ONLY
+        //'/api/tests/testsessions' 
 
         // These variations rely on Web API OData support (Future)
 

@@ -1,10 +1,10 @@
-// By: Hans Fjï¿½llemark and John Papa
-// https://github.com/CodeSeven/toastr
+// By: Hans Fjällemark and John Papa
+// https://github.com/KnockedUp/toastr
 // 
 // Modified to support css styling instead of inline styling
-// Inspired by https://github.com/Srirangan/notifer.js/
+// Based on original version at https://github.com/Srirangan/notifer.js/
 
-;(function(window, $) {
+(function(window, $) {
     window.toastr = (function() {
         var 
             defaults = {
@@ -14,7 +14,6 @@
                 debug: false,
                 fadeIn: 300,
                 fadeOut: 1000,
-                extendedTimeOut: 1000,
                 iconClasses: {
                     error: 'toast-error',
                     info: 'toast-info',
@@ -90,9 +89,6 @@
                 }
 
                 var fadeAway = function() {
-                    if ($(':focus', $toastElement).length > 0)
-                		return
-                	
                     var fade = function() {
                         return $toastElement.fadeOut(options.fadeOut)
                     }
@@ -106,13 +102,6 @@
                             $container.remove()
                     })
                 }
-
-                var delayedFadeAway = function()
-                {
-                    intervalId = setTimeout(fadeAway, options.extendedTimeOut)
-                }
-
-
 
                 var stickAround = function() {
                     clearTimeout(intervalId)
@@ -128,8 +117,7 @@
                     intervalId = setTimeout(fadeAway, options.timeOut)
                 }
 
-                //$toastElement.hover(stickAround, fadeAway);
-                $toastElement.hover(stickAround, delayedFadeAway)
+                $toastElement.hover(stickAround, fadeAway)
 
                 if (options.tapToDismiss) {
                     $toastElement.click(fadeAway)
@@ -165,4 +153,4 @@
             warning: warning
         }
     })()
-} (window, jQuery));
+} (window, jQuery))
