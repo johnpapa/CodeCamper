@@ -1,5 +1,5 @@
 ﻿define(
-    'testFn',
+    'vm-speaker-tests-function',
     ['ko', 'datacontext', 'config'],
     function (ko, datacontext, config) {
 
@@ -56,10 +56,12 @@
 
                     //ASSERT
                     equal(speaker.firstName(), 'John', 'Got speaker John Papa');
-                    ok(!speaker.isDirty(), 'Speaker is NOT dirty');
+                    ok(!speaker.isDirty(), 'Verified that speaker is NOT dirty yet');
                     speaker.email('new@email.com');
                     ok(speaker.isDirty(), 'Speaker is dirty');
                 });
             }
         );
+
+
     });

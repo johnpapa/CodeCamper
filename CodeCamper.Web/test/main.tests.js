@@ -60,7 +60,11 @@
     
     function boot() {
 
-        require(['testFn']);
+        //require([
+        //    'vm-speaker-tests-function',
+        //    'vm-speaker2-tests-function'
+        //]);
+
         //require('testFn');
 
         

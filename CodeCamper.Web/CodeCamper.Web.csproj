@@ -332,7 +332,7 @@
     <Content Include="Test\viewmodel.testsuite.html" />
     <Content Include="Test\main.tests.js" />
     <Content Include="Test\vm.speaker.tests.js" />
-    <Content Include="Test\vm.speakers.tests.js" />
+    <Content Include="Test\vm.speaker2.tests.js" />
     <Content Include="Tmpl\_sessions.filterbox.tmpl.html" />
     <Content Include="Tmpl\_sessions.view.tmpl.html" />
     <Content Include="Tmpl\_speakers.view.tmpl.html" />
@@ -355,7 +355,7 @@
     <Content Include="Views\speaker.cshtml" />
     <Content Include="Views\speakers.cshtml" />
     <Content Include="Test\vm.speaker.tests.cshtml" />
-    <Content Include="Test\vm.speakers.tests.cshtml" />
+    <Content Include="Test\vm.speaker2.tests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
