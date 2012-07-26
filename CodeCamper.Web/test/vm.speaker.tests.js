@@ -58,7 +58,7 @@
                     equal(speaker.firstName(), 'John', 'Got speaker John Papa');
                     ok(!speaker.isDirty(), 'Verified that speaker is NOT dirty yet');
                     speaker.email('new@email.com');
-                    ok(speaker.isDirty(), 'Speaker is dirty');
+                    ok(speaker.isDirty(), 'Emailed changed and speaker is dirty');
                 });
             }
         );
