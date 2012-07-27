@@ -69,9 +69,12 @@
                     },
                     routeData = {};
 
-                vmSpeakers.speakersFilter.searchText = ko.observable();
-                //vmSpeakers.speakersFilter.searchText = ko.observable().extend({ throttle: 0 });
-                
+                // Because we have a throttle, I can either remove it
+                // or I can subscribe to the observable. 
+                // This means we have to reshapre our test so it waits
+                // for the throttle to kick in.
+                //vmSpeakers.speakersFilter.searchText = ko.observable();
+
                 $.when(
                     datacontext.persons.getSpeakers({ results: data.persons }),
                     datacontext.sessions.getData({ results: data.sessions })
@@ -80,22 +83,26 @@
                 .done(function () {
 
                     //ACT
-                    vmSpeakers.speakersFilter.searchText('John');
-                    vmSpeakers.activate(routeData, function () {
+                    var performTest = function(val) {
+                        vmSpeakers.activate(routeData, function() {
 
-                        var speakers = vmSpeakers.speakers();
+                            var speakers = vmSpeakers.speakers();
 
-                        //ASSERT
-                        var onlyJohn = _.all(speakers, function (item) {
-                            return item.firstName() === 'John';
+                            //ASSERT
+                            var onlyJohn = _.all(speakers, function(item) {
+                                return item.firstName() === 'John';
+                            });
+
+                            ok(onlyJohn, 'Filtered properly');
+
+                            start();
                         });
+                    };
+                    vmSpeakers.speakersFilter.searchText.subscribe(performTest);
 
-                        ok(onlyJohn, 'Filtered properly');
-                    });
+                    vmSpeakers.speakersFilter.searchText('John');
+                    
                 })
-                .always(function () {
-                    start();
-                });
             }
         );
 
