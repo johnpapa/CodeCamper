@@ -43,7 +43,7 @@
                 }
             },
             
-            synchSelectedDateWithIsSelected = function () {
+            synchSelectedDateWithIsSelected = function (val) {
                 // keeping nav in synch too
                 for (var i = 0, len = days().length; i < len; i++) {
                     var day = days()[i];
@@ -103,7 +103,7 @@
 
             restoreFilter = function () {
                 var val = store.fetch(stateKey.searchText);
-                if (val !== sessionsFilter.searchText) {
+                if (val !== sessionsFilter.searchText()) {
                     sessionsFilter.searchText(store.fetch(stateKey.searchText));
                 }
             },
@@ -126,8 +126,8 @@
                 sessionsFilter.searchText('');
             },
 
-            onFilterChange= function () {
-                store.save(stateKey.searchText, sessionsFilter.searchText());
+            onFilterChange= function (val) {
+                store.save(stateKey.searchText, val);
                 activate();
             },
 

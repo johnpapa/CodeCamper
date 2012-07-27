@@ -1,21 +1,22 @@
 ﻿define('vm.speakers',
-    ['ko', 'datacontext', 'config', 'router', 'messenger', 'filter', 'sort', 'store'],
-    function (ko, datacontext, config, router, messenger, filter, sort, store) {
-            var
-            speakersFilter = new filter.SpeakersFilter(),
+    ['ko', 'underscore', 'datacontext', 'config', 'router', 'messenger', 'filter', 'sort', 'store'],
+    function (ko, _, datacontext, config, router, messenger, filter, sort, store) {
+        var speakersFilter = new filter.SpeakersFilter(),
             speakers = ko.observableArray(),
             stateKey = { searchText: 'vm.speakers.searchText' },
-
             tmplName = 'speakers.view',
-
-            getSpeakers = function (callback) {
+            
+            getSpeakers = function(callback) {
                 datacontext.speakerSessions.getLocalSpeakers(speakers, {
                     filter: speakersFilter,
                     sortFunction: sort.speakerSort
                 });
-                if (callback) { callback(); }
+                //TODO: Find all callback calls, and use _.isFunction()
+                if (_.isFunction(callback)) {
+                    callback();
+                }
             },
-            
+
             refresh = function (callback) {
                 restoreFilter();
                 getSpeakers(callback);
@@ -31,12 +32,12 @@
             },
 
             forceRefresh = ko.asyncCommand({
-                execute: function (complete) {
+                execute: function(complete) {
                     datacontext.speakerSessions.forceDataRefresh()
-                    .done(refresh)
-                    .always(complete);
+                        .done(refresh)
+                        .always(complete);
                 },
-                canExecute: function (isExecuting) {
+                canExecute: function(isExecuting) {
                     return true;
                 }
             }),
@@ -55,13 +56,13 @@
 
             restoreFilter = function () {
                 var val = store.fetch(stateKey.searchText);
-                if (val !== speakersFilter.searchText) {
+                if (val !== speakersFilter.searchText()) {
                     speakersFilter.searchText(store.fetch(stateKey.searchText));
                 }
             },
 
-            onFilterChange = function () {
-                store.save(stateKey.searchText, speakersFilter.searchText());
+            onFilterChange = function (val) {
+                store.save(stateKey.searchText, val);
                 refresh();
             },
 

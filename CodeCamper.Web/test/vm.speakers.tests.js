@@ -1,7 +1,7 @@
 ﻿define(
     'vm-speakers-tests-function',
-    ['jquery', 'ko', 'datacontext', 'config', 'filter', 'sort'],
-    function ($, ko, datacontext, config, filter, sort) {
+    ['jquery', 'underscore', 'ko', 'datacontext', 'config', 'filter', 'sort'],
+    function ($, _, ko, datacontext, config, filter, sort) {
         
         var doNothing = function(){};
 
@@ -21,12 +21,12 @@
 
         var fakeStore = {
             clear: doNothing,
-            fetch: doNothing,
+            fetch: function (){ return 'John';}, //doNothing,
             save: doNothing
         };
 
         var findVm = function() {
-            return window.testFn(ko, datacontext, config, fakeRouter, fakeMessenger, filter, sort, fakeStore);
+            return window.testFn(ko, _, datacontext, config, fakeRouter, fakeMessenger, filter, sort, fakeStore);
         };
 
         module('speakers viewmodel tests');
@@ -51,6 +51,46 @@
                     vmSpeakers.activate(routeData, function () {
                         //ASSERT
                         ok(vmSpeakers.speakers().length > 0, 'Speakers exist');
+                    });
+                })
+                .always(function () {
+                    start();
+                });
+            }
+        );
+
+        asyncTest('Filter viewmodel by Name',
+            function () {
+                //ARRANGE
+                var vmSpeakers = findVm(),
+                    data = {
+                        persons: ko.observable(),
+                        sessions: ko.observable()
+                    },
+                    routeData = {};
+
+                vmSpeakers.speakersFilter.searchText = ko.observable();
+                //vmSpeakers.speakersFilter.searchText = ko.observable().extend({ throttle: 0 });
+                
+                $.when(
+                    datacontext.persons.getSpeakers({ results: data.persons }),
+                    datacontext.sessions.getData({ results: data.sessions })
+                )
+                .pipe(datacontext.speakerSessions.refreshLocal)
+                .done(function () {
+
+                    //ACT
+                    vmSpeakers.speakersFilter.searchText('John');
+                    vmSpeakers.activate(routeData, function () {
+
+                        var speakers = vmSpeakers.speakers();
+
+                        //ASSERT
+                        var onlyJohn = _.all(speakers, function (item) {
+                            return item.firstName() === 'John';
+                        });
+
+                        ok(onlyJohn, 'Filtered properly');
                     });
                 })
                 .always(function () {
