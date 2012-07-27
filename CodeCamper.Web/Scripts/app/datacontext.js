@@ -174,7 +174,7 @@
                             }
                             var newAtt = modelmapper.attendance.fromDto(dto); // Map DTO to Model
                             attendance.add(newAtt); // Add to the datacontext
-                            sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
+                            sessionModel.isFavoriteRefresh.valueHasMutated(); // Trigger re-evaluation of isFavorite
                             logger.success(config.toasts.savedData);
                             if (callbacks && callbacks.success) {
                                 def.resolve(dto);
@@ -226,7 +226,7 @@
                     dataservice.attendance.deleteAttendance({
                         success: function (response) {
                             attendance.removeById(attendanceModel.id());
-                            sessionModel.isFavoriteRefresh.notifySubscribers(); // Trigger re-evaluation of isFavorite
+                            sessionModel.isFavoriteRefresh.valueHasMutated(); // Trigger re-evaluation of isFavorite
                             logger.success(config.toasts.savedData); 
                             if (callbacks && callbacks.success) {
                                 def.resolve(response);

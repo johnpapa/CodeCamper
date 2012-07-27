@@ -7,7 +7,7 @@
 
             demoUsers = ko.observableArray([]),
 
-            activate = function () {
+            activate = function (routeData) {
                 //_.each(config.demoUserIds, function (id) {
                 //    demoUsers.push(datacontext.persons.getLocalById(id));
                 //});

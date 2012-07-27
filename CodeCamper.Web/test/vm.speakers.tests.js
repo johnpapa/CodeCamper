@@ -38,21 +38,24 @@
                     data = {
                         persons: ko.observable(),
                         sessions: ko.observable()
-                    };
+                    },
+                    routeData = {};
+                
                 $.when(
                     datacontext.persons.getSpeakers({ results: data.persons }),
-                    datacontext.sessions.getData({ results: data.sessions }))
-                    .pipe(datacontext.speakerSessions.refreshLocal)
-                    .done(function () {
-                        //ACT
-                        vmSpeakers.activate(function () {
-                            //ASSERT
-                            ok(vmSpeakers.speakers().length > 0, 'Speakers exist');
-
-                            //RESET
-                            start();
-                        });
+                    datacontext.sessions.getData({ results: data.sessions })
+                )
+                .pipe(datacontext.speakerSessions.refreshLocal)
+                .done(function () {
+                    //ACT
+                    vmSpeakers.activate(routeData, function () {
+                        //ASSERT
+                        ok(vmSpeakers.speakers().length > 0, 'Speakers exist');
                     });
+                })
+                .always(function () {
+                    start();
+                });
             }
         );
 

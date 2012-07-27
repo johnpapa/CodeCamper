@@ -25,7 +25,7 @@
                 return true;
             },
 
-            activate = function (callback) {
+            activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 refresh(callback);
             },

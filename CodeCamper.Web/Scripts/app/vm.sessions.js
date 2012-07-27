@@ -43,7 +43,7 @@
                 return true; 
             },
 
-            activate = function () {
+            activate = function (routeData) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getSpeakers();
                 getTimeslots();

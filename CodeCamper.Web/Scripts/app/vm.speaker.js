@@ -103,8 +103,9 @@
                         success: function (s) {
                             speaker(s);
                             // Cause the speakerSession computed to reevaluate
-                            speaker().personRefresh.notifySubscribers();
-                            //getLocalSpeakerSessions();
+                            //speaker().personRefresh.valueHasMutated();
+                            // TODO: test this. i removed the above line and instead used 
+                            // TODO: deferEvaluation: true on speakerSessions computed.
                             callback();
                         },
                         error: function () {

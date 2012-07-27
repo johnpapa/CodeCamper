@@ -217,7 +217,7 @@
         // ----------------------------------------------
         var Person = function () {
             var self = this;
-            self.personRefresh = ko.observable(); // This exists so we can notify the speakerSessions to reevaluate
+            //self.personRefresh = ko.observable(); // This exists so we can notify the speakerSessions to reevaluate
             self.id = ko.observable();
             self.firstName = ko.observable().extend({ required: true });
             self.lastName = ko.observable().extend({ required: true });
@@ -256,9 +256,14 @@
                 return config.hashes.speakers + '/' + self.id();
             });
 
-            self.speakerSessions = ko.computed(function () {
-                self.personRefresh(); // Use this to force reevaluation
-                return self.id() ? datacontext().persons.getLocalSpeakerSessions(self.id()): [];
+            self.speakerSessions = ko.computed({
+                read: function () {
+                    //self.personRefresh(); // Use this to force reevaluation
+                    return self.id() ? datacontext().persons.getLocalSpeakerSessions(self.id()) : [];
+                },
+
+                // Delay the eval til the data needed for the computed is ready
+                deferEvaluation: true
             });
 
             self.isBrief = ko.observable(true);

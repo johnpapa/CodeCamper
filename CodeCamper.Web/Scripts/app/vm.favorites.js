@@ -87,10 +87,10 @@
                 return true;
             },
 
-            activate = function (data) {
+            activate = function (routeData) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getTimeslots();
-                setSelectedDay(data);
+                setSelectedDay(routeData);
                 restoreFilter();
                 refresh();
             },
