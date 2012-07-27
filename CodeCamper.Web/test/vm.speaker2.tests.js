@@ -33,31 +33,28 @@
         //QUnit.start();
 
         var
-            //vmSpeaker, // = window.testFn(ko, datacontext, config, fakeMessenger, fakeRouter),
             testPersonId = config.currentUserId,
             testRouteData = { id: testPersonId };
 
         module('speaker viewmodel tests',
             {
                 setup: function () {
-                    //vmSpeaker = window.testFn(ko, datacontext, config, fakeMessenger, fakeRouter);
                 },
                 teardown: function () {
-                    //vmSpeaker.cancel();
-                    //vmSpeaker = null;
-                    ok(true, 'teardown');
                 }
             });
 
-        test('Update speaker and viewmodel is dirty',
+        asyncTest('Update speaker and viewmodel is dirty',
             function() {
                 console.log('about to stop-1');
-                stop();
                 
-                vmSpeaker = window.testFn(ko, datacontext, config, fakeMessenger, fakeRouter);
+                //ARRANGE
+                var vmSpeaker = window.testFn(ko, datacontext, config, fakeMessenger, fakeRouter);
                 vmSpeaker.activate(testRouteData, function () {
-                    //ARRANGE
-                    var speaker = vmSpeaker.speaker();
+
+                    var
+                        speaker = vmSpeaker.speaker(),
+                        originalEmail = speaker.email();
 
                     //ACT
                     speaker.email('new@email.com');
@@ -65,20 +62,21 @@
                     //ASSERT
                     ok(speaker.isDirty(), 'Emailed changed and speaker is dirty');
                     console.log('about to start-2');
-                    vmSpeaker.cancel();
+                    
+                    //RESET
+                    speaker.email(originalEmail);
                     start();
                 });
             }
         );
 
-        test('Get speaker and viewmodel is NOT dirty',
+        asyncTest('Get speaker and viewmodel is NOT dirty',
             function () {
                 console.log('about to stop-3');
-                stop();
                 
+                //ARRANGE
                 var vmSpeaker = window.testFn(ko, datacontext, config, fakeMessenger, fakeRouter);
                 vmSpeaker.activate(testRouteData, function () {
-                    //ARRANGE
 
                     //ACT
                     var speaker = vmSpeaker.speaker();
@@ -86,7 +84,8 @@
                     //ASSERT
                     ok(!speaker.isDirty(), 'Verified that speaker is NOT dirty yet');
                     console.log('about to start-4');
-                    vmSpeaker.cancel();
+                    
+                    //RESET
                     start();
                 });
             }

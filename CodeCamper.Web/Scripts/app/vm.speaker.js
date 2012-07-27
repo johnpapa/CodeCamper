@@ -122,11 +122,11 @@
 
         return {
             activate: activate,
-            cancel: cancel,
+            cancel: cancel, //Command
             canEdit: canEdit,
             canLeave: canLeave,
             goBack: goBack,
-            save: save,
+            save: save, //Command
             speaker: speaker,
             speakerSessions: speakerSessions,
             tmplName: tmplName,
