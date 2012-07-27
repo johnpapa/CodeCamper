@@ -1,6 +1,6 @@
 ﻿define('vm.speaker',
-    ['ko', 'datacontext', 'config', 'messenger', 'router'],
-    function (ko, datacontext, config, messenger, router) {
+    ['ko', 'datacontext', 'config', 'router', 'messenger'],
+    function (ko, datacontext, config, router, messenger) {
 
         var
             logger = config.logger,

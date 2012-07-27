@@ -1,32 +1,33 @@
 ﻿define('vm.speakers',
-    ['ko', 'router', 'datacontext', 'filter', 'sort', 'messenger', 'config', 'store'],
-    function (ko, router, datacontext, filter, sort, messenger, config, store) {
-        var
+    ['ko', 'datacontext', 'config', 'router', 'messenger', 'filter', 'sort', 'store'],
+    function (ko, datacontext, config, router, messenger, filter, sort, store) {
+            var
             speakersFilter = new filter.SpeakersFilter(),
             speakers = ko.observableArray(),
             stateKey = { searchText: 'vm.speakers.searchText' },
 
             tmplName = 'speakers.view',
 
-            getSpeakers = function () {
+            getSpeakers = function (callback) {
                 datacontext.speakerSessions.getLocalSpeakers(speakers, {
                     filter: speakersFilter,
                     sortFunction: sort.speakerSort
                 });
+                if (callback) { callback(); }
             },
             
-            refresh = function () {
+            refresh = function (callback) {
                 restoreFilter();
-                getSpeakers();
+                getSpeakers(callback);
             },
 
             canLeave = function () {
                 return true;
             },
 
-            activate = function () {
+            activate = function (callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-                refresh();
+                refresh(callback);
             },
 
             forceRefresh = ko.asyncCommand({

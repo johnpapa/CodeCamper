@@ -82,6 +82,7 @@
                 if (_useMocks) {
                     dataserviceInit = mock.dataserviceInit;
                 }
+                dataserviceInit();
 
                 toastr.options.timeOut = toastrTimeout;
                 configureExternalTemplates();

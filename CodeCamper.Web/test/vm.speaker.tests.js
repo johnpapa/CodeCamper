@@ -3,23 +3,13 @@
     ['ko', 'datacontext', 'config'],
     function (ko, datacontext, config) {
 
-        function doNothing() { };
+        var doNothing = function () { };
 
-        // Overriding part of config
-        //var
-        //    fakeConfig = {
-        //        useMocks: true, // this helps me NOT mock datacontext
-        //        currentUserId: 4,
-        //        currentUser: function () { return { id: function () { return 4; } }; },
-        //        logger: { success: doNothing } //,
-        //    };
-        //fakeConfig = config;
         config.useMocks(true); // this helps me NOT mock datacontext
         config.currentUserId = 3;
-        config.currentUser = function () { return { id: function () { return 4; } }; };
+        config.currentUser = function () { return { id: function () { return 3; } }; };
         config.logger = { success: doNothing };
         config.dataserviceInit();
-
 
         var fakeMessenger = {
             publish: { viewModelActivated: doNothing }
@@ -29,39 +19,57 @@
             navigateBack: doNothing
         };
 
-        //QUnit.config.testTimeout = 10000;
-        //QUnit.config.autostart = false;
-        //QUnit.start();
-
         var
-            vmSpeaker = window.testFn(ko, datacontext, config, fakeMessenger, fakeRouter),
             testPersonId = config.currentUserId,
-            testRouteData = { id: testPersonId };
+            testRouteData = { id: testPersonId },
+            fakeEmail = 'fake@contoso.com';
 
-        module('speaker viewmodel tests',
-            {
-                setup: function () {
-                }
-            });
+        var findVm = function () {
+            return window.testFn(ko, datacontext, config, fakeRouter, fakeMessenger);
+        };
 
-        test('Update speaker and viewmodel is dirty',
+        module('speaker viewmodel tests');
+
+        asyncTest('Update speaker and viewmodel is dirty',
             function () {
                 //ARRANGE
-                stop();
+                var vmSpeaker = findVm();
+                
                 vmSpeaker.activate(testRouteData, function () {
+
+                    var
+                        speaker = vmSpeaker.speaker(),
+                        originalEmail = speaker.email();
+
+                    //ACT
+                    speaker.email(fakeEmail);
+
+                    //ASSERT
+                    ok(speaker.isDirty(), 'Emailed changed and speaker is dirty');
+
+                    //RESET
+                    speaker.email(originalEmail);
                     start();
+                });
+            }
+        );
+
+        asyncTest('Get speaker and viewmodel is NOT dirty',
+            function () {
+                //ARRANGE
+                var vmSpeaker = findVm();
+
+                vmSpeaker.activate(testRouteData, function () {
 
                     //ACT
                     var speaker = vmSpeaker.speaker();
 
                     //ASSERT
-                    equal(speaker.firstName(), 'John', 'Got speaker John Papa');
                     ok(!speaker.isDirty(), 'Verified that speaker is NOT dirty yet');
-                    speaker.email('new@email.com');
-                    ok(speaker.isDirty(), 'Emailed changed and speaker is dirty');
+
+                    //RESET
+                    start();
                 });
             }
         );
-
-
     });

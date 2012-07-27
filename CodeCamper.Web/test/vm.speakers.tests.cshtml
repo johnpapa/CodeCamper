@@ -42,19 +42,19 @@
         window.defineSaved = window.define;
         
         window.define = function (a, b, c) {
-            a === 'vm.speaker' ? window.testFn = c : defineSaved(a, b, c);
+            a === 'vm.speakers' ? window.testFn = c : defineSaved(a, b, c);
         };
     </script>
 
-    <script type="text/javascript" src="~/Scripts/app/vm.speaker.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/vm.speakers.js"></script>
 
     <script src="main.tests.js" type="text/javascript"></script>
 
-    <script type="text/javascript" src="vm.speaker2.tests.js"></script>
+    <script type="text/javascript" src="vm.speakers.tests.js"></script>
     
     <script type="text/javascript">
         require([
-            'vm-speaker2-tests-function'
+            'vm-speakers-tests-function'
         ]);
     </script>
 </html>

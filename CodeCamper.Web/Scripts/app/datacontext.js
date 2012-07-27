@@ -319,10 +319,18 @@
 
             // extend Persons entitySet 
             persons.getSpeakers = function (options) {
-                _.extend(options, {
-                    getFunctionOverride: dataservice.person.getSpeakers
-                });
-                return persons.getData(options);
+                return $.Deferred(function(def) {
+                    _.extend(options, {
+                        getFunctionOverride: dataservice.person.getSpeakers
+                    });
+                    $.when(persons.getData(options))
+                        .done(function() {
+                            def.resolve();
+                        })
+                        .fail(function() {
+                            def.reject();
+                        });
+                }).promise();
             },
 
             persons.getFullPersonById = function (id, callbacks, forceRefresh) {
