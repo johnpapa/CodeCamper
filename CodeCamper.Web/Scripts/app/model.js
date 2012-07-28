@@ -192,7 +192,6 @@
                 },
 
                 speaker = function () {
-                    //TODO: do i get from persons or speakers?
                     return datacontext().persons.getLocalById(this.speakerId());
                 },
 

@@ -3,7 +3,7 @@ using CodeCamper.Model;
 
 namespace CodeCamper.Data
 {
-    class AttendanceConfiguration : EntityTypeConfiguration<Attendance>
+    public class AttendanceConfiguration : EntityTypeConfiguration<Attendance>
     {
         public AttendanceConfiguration()
         {

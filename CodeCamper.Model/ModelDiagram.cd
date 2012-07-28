@@ -1,69 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="CodeCamper.Model.Lookups">
-    <Position X="7.75" Y="0.5" Width="1.5" />
+  <Class Name="CodeCamper.Model.Lookups" Collapsed="true">
+    <Position X="0.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAAAAAAAAABCAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Lookups.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.Person">
-    <Position X="0.5" Y="2.5" Width="1.5" />
+  <Class Name="CodeCamper.Model.Person" Collapsed="true">
+    <Position X="0.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACIAAgAACAAAACACAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AACKAEgAACAAAACACAEAAAAAAAAAACAAAAAAAAAAAAg=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.Room">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+  <Class Name="CodeCamper.Model.Room" Collapsed="true">
+    <Position X="2.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Room.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.Session">
-    <Position X="4.25" Y="3.5" Width="1.5" />
+  <Class Name="CodeCamper.Model.Session" Collapsed="true">
+    <Position X="4.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAEAgAAAAABAAAABAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Session.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.SessionBrief">
-    <Position X="4.25" Y="0.5" Width="1.5" />
+  <Class Name="CodeCamper.Model.SessionBrief" Collapsed="true">
+    <Position X="4.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAACAAAAAEAAAABgAAAAAAAEAUABAAAAAAAAAAA=</HashCode>
       <FileName>SessionBrief.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.Speaker">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="CodeCamper.Model.Speaker" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAEAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>Speaker.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.TagGroup">
-    <Position X="6" Y="0.5" Width="1.5" />
+  <Class Name="CodeCamper.Model.TagGroup" Collapsed="true">
+    <Position X="8.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TagGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.TimeSlot">
-    <Position X="7.75" Y="2.25" Width="1.5" />
+  <Class Name="CodeCamper.Model.TimeSlot" Collapsed="true">
+    <Position X="2.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACACAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TimeSlot.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.Track">
-    <Position X="9.5" Y="2.25" Width="1.5" />
+  <Class Name="CodeCamper.Model.Track" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Track.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CodeCamper.Model.Attendance">
+  <Class Name="CodeCamper.Model.Attendance" Collapsed="true">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAQAEAAAAAAAIAAAAAAEAAAAACAAAAAA=</HashCode>

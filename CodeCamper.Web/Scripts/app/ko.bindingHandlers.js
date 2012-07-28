@@ -79,12 +79,6 @@ function ($, ko) {
             enable ? $el.removeClass('locked') : $el.addClass('locked');
         }
     };
-    //data-bind="favoriteCheckbox: {enabled: isUnlocked, checked: isFavorite}"
-    //
-    //data-bind="
-    //attr: { title: !isUnlocked() ? 'locked' : (isFavorite() ? 'remove favorite' : 'mark as favorite') },
-    //css: { locked: !isUnlocked(), selected: isFavorite },
-    //enable: isUnlocked"></button>
 
     ko.bindingHandlers.starRating = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {

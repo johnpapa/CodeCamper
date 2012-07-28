@@ -3,7 +3,7 @@ using CodeCamper.Model;
 
 namespace CodeCamper.Data
 {
-    class SessionConfiguration : EntityTypeConfiguration<Session>
+    public class SessionConfiguration : EntityTypeConfiguration<Session>
     {
         public SessionConfiguration()
         {
