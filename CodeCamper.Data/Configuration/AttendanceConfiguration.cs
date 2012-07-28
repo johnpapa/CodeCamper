@@ -7,16 +7,19 @@ namespace CodeCamper.Data
     {
         public AttendanceConfiguration()
         {
-            HasKey(ps => new { ps.SessionId, ps.PersonId });
+            // Attendance has a composite key: SessionId and PersonId
+            HasKey(a => new { a.SessionId, a.PersonId });
 
-            HasRequired(ps => ps.Session)
+            // Attendance has 1 Session, Sessions have many Attendance records
+            HasRequired(a => a.Session)
                 .WithMany(s => s.AttendanceList)
-                .HasForeignKey(ps => ps.SessionId)
+                .HasForeignKey(a => a.SessionId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(ps => ps.Person)
+            // Attendance has 1 Person, Persons have many Attendance records
+            HasRequired(a => a.Person)
                 .WithMany(p => p.AttendanceList)
-                .HasForeignKey(ps => ps.PersonId)
+                .HasForeignKey(a => a.PersonId)
                 .WillCascadeOnDelete(false);
         }
     }
