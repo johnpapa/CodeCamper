@@ -135,6 +135,7 @@
                     // and sets the computed = true (not the function)
                     return;
                 },
+                
                 owner: self
             }),
 

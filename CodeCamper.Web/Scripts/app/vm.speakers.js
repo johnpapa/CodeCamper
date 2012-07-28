@@ -11,7 +11,6 @@
                     filter: speakersFilter,
                     sortFunction: sort.speakerSort
                 });
-                //TODO: Find all callback calls, and use _.isFunction()
                 if (_.isFunction(callback)) {
                     callback();
                 }

@@ -69,6 +69,9 @@
                     },
                     routeData = {};
 
+                //store subscriptions in array
+                var subscription;
+
                 // Because we have a throttle, I can either remove it
                 // or I can subscribe to the observable. 
                 // This means we have to reshapre our test so it waits
@@ -80,7 +83,7 @@
                     datacontext.sessions.getData({ results: data.sessions })
                 )
                 .pipe(datacontext.speakerSessions.refreshLocal)
-                .done(function () {
+                .done(function() {
 
                     //ACT
                     var performTest = function(val) {
@@ -95,14 +98,18 @@
 
                             ok(onlyJohn, 'Filtered properly');
 
+                            // RESET
+                            subscription.dispose(); 
+
                             start();
                         });
                     };
-                    vmSpeakers.speakersFilter.searchText.subscribe(performTest);
+                    
+                    subscription = vmSpeakers.speakersFilter.searchText.subscribe(performTest)
 
                     vmSpeakers.speakersFilter.searchText('John');
-                    
-                })
+
+                });
             }
         );
 
