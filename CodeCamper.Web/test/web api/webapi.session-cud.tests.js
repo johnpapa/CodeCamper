@@ -159,7 +159,7 @@
     );
     
     function deleteAddedTestSession(session) {
-        var deleteUrl = '/api/tests/testsession/?id=' + session.id,
+        var deleteUrl = '/api/sessions/' + session.id,
             msgPrefix = 'DELETE api call: ' + deleteUrl;
         $.ajax({
             type: 'DELETE',

@@ -61,5 +61,13 @@ namespace CodeCamper.Web.Controllers
             Uow.Commit();
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
+
+        // DELETE /api/sessions/5
+        public HttpResponseMessage Delete(int id)
+        {
+            Uow.Sessions.Delete(id);
+            Uow.Commit();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
     }
 }
