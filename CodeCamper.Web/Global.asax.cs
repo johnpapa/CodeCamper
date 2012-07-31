@@ -14,10 +14,6 @@ namespace CodeCamper.Web
         {
             AreaRegistration.RegisterAllAreas();
 
-            //PAPA: Commented out next 2 lines because we use our own DB and repository
-            //   Use LocalDB for Entity Framework by default
-            //   Database.DefaultConnectionFactory = new SqlConnectionFactory("Data Source=(localdb)\v11.0; Integrated Security=True; MultipleActiveResultSets=True");
-
             // Tell WebApi to use our custom Ioc (Ninject)
             IocConfig.RegisterIoc(GlobalConfiguration.Configuration);   
 
