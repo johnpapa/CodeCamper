@@ -145,6 +145,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\ValidationActionFilter.cs" />
     <Compile Include="Controllers\SessionBriefsController.cs" />
     <Compile Include="Controllers\FavoritesController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
@@ -282,6 +283,8 @@
     <Content Include="Scripts\lib\toastr.js" />
     <Content Include="Test\web api\webapi.person-cud.tests.html" />
     <Content Include="Test\web api\webapi.person-cud.tests.js" />
+    <Content Include="Test\web api\webapi.session-cud-validation.tests.html" />
+    <Content Include="Test\web api\webapi.session-cud-validation.tests.js" />
     <Content Include="Test\web api\webapi.session-cud.tests.html" />
     <Content Include="Test\web api\webapi.session-cud.tests.js" />
     <Content Include=".htaccess" />

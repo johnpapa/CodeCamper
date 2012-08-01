@@ -18,6 +18,9 @@ namespace CodeCamper.Web
             var json = config.Formatters.JsonFormatter;
             json.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
+
+            // Add model validation, globally
+            config.Filters.Add(new ValidationActionFilter());
         }
     }
 }
