@@ -5,7 +5,7 @@ using System.Web.Http.Dependencies;
 using Ninject;
 using Ninject.Syntax;
 
-namespace CodeCamper.Web.App_Start
+namespace CodeCamper.Web
 {
     public class NinjectDependencyScope : IDependencyScope
     {

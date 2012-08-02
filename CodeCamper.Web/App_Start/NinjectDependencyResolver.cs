@@ -1,5 +1,4 @@
 ﻿using System.Web.Http.Dependencies;
-using CodeCamper.Web.App_Start;
 using Ninject;
 
 namespace CodeCamper.Web

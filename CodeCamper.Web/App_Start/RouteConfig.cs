@@ -20,6 +20,7 @@ namespace CodeCamper.Web
             // It finds the method on the controller using WebAPI conventions
             // The template has no parameters.
             //
+            // ex: api/sessionbriefs
             // ex: api/sessions
             // ex: api/persons
             routes.MapHttpRoute(
