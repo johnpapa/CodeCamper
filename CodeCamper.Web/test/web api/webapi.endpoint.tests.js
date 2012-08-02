@@ -1,13 +1,11 @@
 ﻿(function () {
     QUnit.config.testTimeout = 10000;
-    
-    var okAsync = QUnit.okAsync,
-        stringformat = QUnit.stringformat;
-    
+
+    var stringformat = QUnit.stringformat;
+
     module('Web API GET Endpoints respond successfully');
-    
+
     var apiUrls = [
-       // '/api/BAD_ENDPOINT',
         '/api/lookups/all',
         '/api/lookups/rooms',
         '/api/lookups/tracks',
@@ -15,7 +13,6 @@
 
         '/api/persons/',
         '/api/persons/1',
-        '/api/persons/getbyfirstname/?value=Hans',
         '/api/favorites/1',
         '/api/speakers',
 
@@ -24,10 +21,7 @@
         '/api/sessionbriefs',
 
         // Find the Attendance with personId==2 && sessionId==1
-        '/api/attendance/?pid=2&sid=1', // preferred
-        
-        //// TESTING ONLY
-        //'/api/tests/testsessions' 
+        '/api/attendance/?pid=2&sid=1'
 
         // These variations rely on Web API OData support (Future)
 
@@ -45,19 +39,19 @@
 
     // Test only that the Web API responded to the request with 'success'
     var endpointTest = function (url) {
-        stop();
         $.ajax({
             url: url,
             dataType: 'json',
             success: function (result) {
                 ok(true, 'GET succeeded for ' + url);
-                okAsync(!!result, 'GET retrieved some data');
+                ok(!!result, 'GET retrieved some data');
                 start();
             },
             error: function (result) {
-                okAsync(false,
+                ok(false,
                     stringformat('GET on \'{0}\' failed with status=\'{1}\': {2}',
                         url, result.status, result.responseText));
+                start();
             }
         });
     };
@@ -70,7 +64,8 @@
     // Test each endpoint in apiUrls
     for (var i = 0; i < apiUrlslen; i++) {
         var apiUrl = apiUrls[i];
-        test(apiUrl, endpointTestGenerator(apiUrl));
-    }
-    ;
+        asyncTest(
+            'API can be reached: ' + apiUrl,
+            endpointTestGenerator(apiUrl));
+    };
 })();
