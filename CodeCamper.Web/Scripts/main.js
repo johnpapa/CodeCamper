@@ -1,5 +1,4 @@
 ﻿(function () {
-    
     // Establish the root object, `window` in the browser, or `global` on the server.
     var root = this;
     
@@ -12,7 +11,7 @@
          
             // List paths to js files that are not in the baseUrl and not in bundles.
             // If we use the non-amd versions of 3rd libs we can bundle them instead.
-            // In which case we don;t need the paths.
+            // In which case we don't need the paths.
             // Example:
             //paths: {
             //    'knockout.changetracker': '../lib/knockout.changetracker-amd',

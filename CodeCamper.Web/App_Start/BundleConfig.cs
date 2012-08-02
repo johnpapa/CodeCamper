@@ -33,9 +33,9 @@ namespace CodeCamper.Web
                 .IncludeDirectory("~/Scripts/app/mock", "*.js", searchSubdirectories: false));
 
 
-            // Modernizr goes separate since its a shiv
+            // Modernizr goes separate since it loads first
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
-                .Include("~/Scripts/lib/modernizr-*"));
+                .Include("~/Scripts/lib/modernizr-2.5.3.min.js"));
 
             // 3rd Party JavaScript files
             bundles.Add(new ScriptBundle("~/bundles/jsextlibs")
@@ -55,19 +55,18 @@ namespace CodeCamper.Web
                     "~/Scripts/lib/knockout-2.1.0.js",
                     "~/Scripts/lib/knockout.validation.js",
                     "~/Scripts/lib/koExternalTemplateEngine.js",
-
+                    
+                    // Other 3rd party libraries
                     "~/Scripts/lib/underscore.min.js",
                     "~/Scripts/lib/moment.js",
-
                     "~/Scripts/lib/sammy.*",
-
                     "~/Scripts/lib/amplify.*",
-                    
                     "~/Scripts/lib/toastr.js"
                     ));
 
             // 3rd Party CSS files
             bundles.Add(new StyleBundle("~/Content/css")
+                .Include("~/Content/boilerplate-styles.css")
                 .Include("~/Content/toastr.css")
                 .Include("~/Content/toastr-responsive.css"));
 

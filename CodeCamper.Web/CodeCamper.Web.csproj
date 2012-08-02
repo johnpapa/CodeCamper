@@ -161,7 +161,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\boilerplate-style.css" />
+    <Content Include="Content\boilerplate-styles.css" />
     <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\photos\dave_ward.jpg" />
     <Content Include="Content\images\photos\eric_barnard.jpg" />
@@ -244,6 +244,9 @@
     <Content Include="Scripts\lib\koExternalTemplateEngine.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine.min.js">
       <DependentUpon>koExternalTemplateEngine.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\lib\modernizr-2.5.3.min.js">
+      <DependentUpon>modernizr-2.5.3.js</DependentUpon>
     </Content>
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\app\mock\mock.js" />
