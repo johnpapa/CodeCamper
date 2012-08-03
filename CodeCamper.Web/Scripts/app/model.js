@@ -2,11 +2,7 @@
 ['require', 'ko', 'config'],
     function (require, ko, config) {
 
-        var imageBasePath = '../content/images/photos/',
-            unknownPersonImageSource = 'unknown_person.jpg',
-            twitterUrl = 'http://twitter.com/',
-            twitterRegEx = /[@]([A-Za-z0-9_]{1,15})/i,
-            urlRegEx = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i;
+        var settings = config.modelSettings;
 
         // To avoid a circular model/datacontext reference
         // model.datacontext is set in Bootstrapper
@@ -229,26 +225,26 @@
             self.blog = ko.observable().extend({
                 pattern: {
                     message: 'Not a valid url',
-                    params: urlRegEx
+                    params: settings.urlRegEx
                 }
             });
             self.twitter = ko.observable().extend({
                 pattern: {
                     message: 'Not a valid twitter id',
-                    params: twitterRegEx
+                    params: settings.twitterRegEx
                 }
             });
             self.twitterLink = ko.computed(function () {
-                return self.twitter() ? twitterUrl + self.twitter() : '';
+                return self.twitter() ? settings.twitterUrl + self.twitter() : '';
             });
             self.gender = ko.observable();
             self.imageSource = ko.observable();
             self.imageName = ko.computed(function () {
                 var source = self.imageSource();
                 if (!source) {
-                    source = unknownPersonImageSource;
+                    source = settings.unknownPersonImageSource;
                 }
-                return imageBasePath + source;
+                return settings.imageBasePath + source;
             }, self);
             self.bio = ko.observable();
 
@@ -347,9 +343,6 @@
         Track.isNullo = true;
 
         return {
-            imageBasePath: imageBasePath,
-            unknownPersonImageSource: unknownPersonImageSource,
-
             datacontext: datacontext,
 
             Attendance: Attendance,

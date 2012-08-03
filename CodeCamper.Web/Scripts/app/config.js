@@ -19,6 +19,13 @@
             messages = {
                 viewModelActivated: 'viewmodel-activation'
             },
+            modelSettings = {
+                imageBasePath: '../content/images/photos/',
+                unknownPersonImageSource: 'unknown_person.jpg',
+                twitterUrl: 'http://twitter.com/',
+                twitterRegEx: /[@]([A-Za-z0-9_]{1,15})/i,
+                urlRegEx: /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i
+            },
             stateKeys = {
                 lastView: 'state.active-hash'
             },
@@ -98,6 +105,7 @@
             hashes: hashes,
             logger: logger,
             messages: messages,
+            modelSettings: modelSettings,
             stateKeys: stateKeys,
             storeExpirationMs: storeExpirationMs,
             throttle: throttle,
