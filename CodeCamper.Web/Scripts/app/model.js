@@ -86,7 +86,7 @@
         var Session = function () {
             var self = this;
             self.id = ko.observable();
-            self.title = ko.observable().extend({required: true});
+            self.title = ko.observable().extend({ required: true });
             self.code = ko.observable().extend({ required: true });
             self.speakerId = ko.observable();
             self.trackId = ko.observable();
@@ -165,7 +165,7 @@
         var sessionNullo = new Session()
             .id(0)
             .title('Not a Session')
-            .code('XYZ123')
+            .code('')
             .speakerId(0)
             .trackId(0)
             .timeslotId(0)
@@ -254,7 +254,6 @@
 
             self.speakerSessions = ko.computed({
                 read: function () {
-                    //self.personRefresh(); // Use this to force reevaluation
                     return self.id() ? datacontext().persons.getLocalSpeakerSessions(self.id()) : [];
                 },
 
@@ -289,11 +288,7 @@
         personNullo.dirtyFlag().reset();
 
         Person.prototype = function() {
-            //var attendanceList = function () {
-            //        return this.datacontext().attendance.getByPersonId(this.personId());
-            //}
             return {
-                //attendanceList: attendanceList,
                 isNullo: false
             };
         }();
@@ -323,7 +318,7 @@
 
         var timeSlotNullo = new TimeSlot()
             .id(0)
-            .start(new Date(2012, 4, 18, 1, 0, 0, 0))
+            .start(new Date(1900, 1, 1, 1, 0, 0, 0))
             .duration(60);
         timeSlotNullo.isNullo = true;
 

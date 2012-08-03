@@ -102,10 +102,6 @@
                     currentSpeakerId(), {
                         success: function (s) {
                             speaker(s);
-                            // Cause the speakerSession computed to reevaluate
-                            //speaker().personRefresh.valueHasMutated();
-                            // TODO: test this. i removed the above line and instead used 
-                            // TODO: deferEvaluation: true on speakerSessions computed.
                             callback();
                         },
                         error: function () {
@@ -127,10 +123,11 @@
             canEdit: canEdit,
             canLeave: canLeave,
             goBack: goBack,
+            isDirty: isDirty,
+            isValid: isValid,
             save: save, //Command
             speaker: speaker,
             speakerSessions: speakerSessions,
-            tmplName: tmplName,
-            isDirty: isDirty
+            tmplName: tmplName
         };
     });

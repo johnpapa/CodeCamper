@@ -217,6 +217,7 @@
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
     <Content Include="Scripts\app\binder.js" />
+    <Content Include="Scripts\app\model.js" />
     <Content Include="Scripts\app\route-config.js" />
     <Content Include="Scripts\app\dataprimer.js" />
     <Content Include="Scripts\app\store.js" />
@@ -284,6 +285,7 @@
       <DependentUpon>moment.js</DependentUpon>
     </Content>
     <Content Include="Scripts\lib\toastr.js" />
+    <Content Include="Test\vm.session.tests.js" />
     <Content Include="Test\web api\webapi.person-cud.tests.html" />
     <Content Include="Test\web api\webapi.person-cud.tests.js" />
     <Content Include="Test\web api\webapi.session-cud-validation.tests.html" />
@@ -316,7 +318,6 @@
     <Content Include="Test\web api\webapi.attendance-cud.tests.html" />
     <Content Include="Scripts\app\bootstrapper.js" />
     <Content Include="Scripts\app\vm.session.js" />
-    <Content Include="Scripts\app\model.js" />
     <Content Include="Scripts\app\presenter.js" />
     <Content Include="Scripts\app\vm.sessions.js" />
     <Content Include="Scripts\app\vm.favorites.js" />
@@ -362,6 +363,7 @@
     <Content Include="Views\speakers.cshtml" />
     <Content Include="Test\vm.speaker.tests.cshtml" />
     <Content Include="Test\vm.speakers.tests.cshtml" />
+    <Content Include="Test\vm.session.tests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

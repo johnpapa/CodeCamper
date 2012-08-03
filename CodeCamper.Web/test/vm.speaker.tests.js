@@ -72,4 +72,54 @@
                 });
             }
         );
+
+        asyncTest('Update speaker last name to empty string and viewmodel is invalid',
+            function () {
+                //ARRANGE
+                var vmSpeaker = findVm();
+
+                vmSpeaker.activate(testRouteData, function () {
+
+                    var
+                        speaker = vmSpeaker.speaker(),
+                        originalLastName = speaker.lastName();
+
+                    //ACT
+                    speaker.lastName('');
+
+                    //ASSERT
+                    ok(!speaker.isValid(), 'Last name changed to empty string and speaker is invalid');
+
+                    //RESET
+                    speaker.lastName(originalLastName);
+                    start();
+                });
+            }
+        );
+
+        asyncTest('Update speaker last name to valid value and viewmodel is valid',
+            function () {
+                //ARRANGE
+                var vmSpeaker = findVm();
+
+                vmSpeaker.activate(testRouteData, function () {
+
+                    var
+                        speaker = vmSpeaker.speaker(),
+                        originalLastName = speaker.lastName();
+
+                    //ACT
+                    speaker.lastName('ValidName');
+
+                    //ASSERT
+                    ok(speaker.isValid(), 'Last name changed to valid value and speaker is valid');
+
+                    //RESET
+                    speaker.lastName(originalLastName);
+                    start();
+                });
+            }
+        );
+
+
     });

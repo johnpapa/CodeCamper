@@ -1,6 +1,6 @@
 ﻿define('vm.session',
-    ['ko', 'datacontext', 'config', 'messenger', 'sort', 'router'],
-    function (ko, datacontext, config, messenger, sort, router) {
+    ['ko', 'datacontext', 'config', 'router', 'messenger', 'sort'],
+    function (ko, datacontext, config, router, messenger, sort) {
 
         var
             logger = config.logger,
@@ -101,14 +101,14 @@
                 return !isDirty() && isValid;
             },
 
-            activate = function (routeData) {
+            activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
 
                 currentSessionId(routeData.id);
-                getSession();
                 getRooms();
                 getTimeslots();
                 getTracks();
+                getSession(callback);
             },
             
             getSession = function (completeCallback, forceRefresh) {
@@ -218,13 +218,14 @@
             canEditEval: canEditEval,
             canLeave: canLeave,
             goBack: goBack,
+            isDirty: isDirty,
+            isValid: isValid,
             rooms: rooms,
             session: session,
             save: save,
             saveFavorite: saveFavorite,
             timeslots: timeslots,
             tmplName: tmplName,
-            isDirty: isDirty,
             tracks: tracks
         };
     });
