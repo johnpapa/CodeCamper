@@ -1,5 +1,7 @@
 ﻿<section id="sessions-view" class="view">
+    
     <nav>
+        
         <label for="track">Track</label>
         <select id="track" data-bind="options: tracks, value: sessionsFilter.track, optionsText: 'name', optionsCaption:'All'">
         </select>
@@ -15,9 +17,11 @@
         <button data-bind="checkboxImage: {checked: sessionsFilter.favoriteOnly}"></button>
 
         <button class="clear-trash" data-bind="click: clearAllFilters">Clear Filters</button>
+
     </nav>
 
     <div data-bind="template: {name: filterTmpl}"></div>
     
     <div class="view-list" data-bind="template: {name: tmplName, foreach: sessions}"></div>
+
 </section>
