@@ -3,6 +3,7 @@
     function (amplify) {
         var
             init = function () {
+                
                 amplify.request.define('favorites', 'ajax', {
                     url: '/api/favorites/{personId}',
                     dataType: 'json',

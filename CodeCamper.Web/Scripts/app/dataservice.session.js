@@ -3,6 +3,7 @@
     function (amplify) {
         var
             init = function () {
+                
                 amplify.request.define('sessions', 'ajax', {
                     url: '/api/sessions',
                     dataType: 'json',

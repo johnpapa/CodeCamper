@@ -14,7 +14,6 @@
         },
 
         speakerSort = function (speakerA, speakerB) {
-            // sort first then last
             return speakerA.fullName() > speakerB.fullName() ? 1 : -1;
         },
         

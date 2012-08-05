@@ -1,10 +1,10 @@
 ﻿define('vm.favorites',
-    ['jquery', 'ko', 'datacontext', 'router', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger', 'store'],
+    ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger', 'store'],
     function ($, ko, datacontext, router, filter, sort, group, utils, config, eventDelegates, messenger, store) {
         var
             isBusy = false,
             selectedDate = ko.observable(),
-            sessionsFilter = new filter.SessionsFilter(),
+            sessionsFilter = new filter.Sessions(),
             timeslots = ko.observableArray(),
             sessions = ko.observableArray(), //.trackReevaluations(),
             filterTmpl = 'sessions.filterbox',

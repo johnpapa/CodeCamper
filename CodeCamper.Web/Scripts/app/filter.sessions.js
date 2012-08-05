@@ -2,7 +2,6 @@
     ['ko', 'utils', 'config'],
     function(ko, utils, config) {
 
-        // Ctor for a SessionsFilter
         var Sessions = function() {
             var self = this;
             self.favoriteOnly = ko.observable(false);

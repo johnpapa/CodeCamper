@@ -22,7 +22,7 @@ define('presenter',
             entranceThemeTransition = function($view) {
                 $view.css({
                     display: 'block',
-                    visibility: "visible"
+                    visibility: 'visible'
                 }).addClass('view-active').animate({
                     marginLeft: 0,
                     opacity: 1

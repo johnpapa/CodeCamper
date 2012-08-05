@@ -1,6 +1,6 @@
 ﻿define(
     'vm-speakers-tests-function',
-    ['jquery', 'underscore', 'ko', 'datacontext', 'config', 'filter', 'sort'],
+    ['jquery', 'underscore', 'ko', 'datacontext', 'config', 'filter.speakers', 'sort'],
     function ($, _, ko, datacontext, config, filter, sort) {
         
         var doNothing = function(){};

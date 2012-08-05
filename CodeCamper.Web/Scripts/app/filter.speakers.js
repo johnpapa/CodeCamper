@@ -2,7 +2,6 @@
     ['ko', 'utils', 'config'],
     function (ko, utils, config) {
 
-        // Ctor for a SpeakersFilter
         var Speakers = function() {
             var self = this;
             self.searchText = ko.observable().extend({ throttle: config.throttle });

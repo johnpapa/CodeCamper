@@ -1,7 +1,8 @@
 ﻿define('vm.speakers',
-    ['ko', 'underscore', 'datacontext', 'config', 'router', 'messenger', 'filter', 'sort', 'store'],
+    ['ko', 'underscore', 'datacontext', 'config', 'router', 'messenger', 'filter.speakers', 'sort', 'store'],
     function (ko, _, datacontext, config, router, messenger, filter, sort, store) {
-        var speakersFilter = new filter.SpeakersFilter(),
+        var
+            speakersFilter = new filter.Speakers(),
             speakers = ko.observableArray(),
             stateKey = { searchText: 'vm.speakers.searchText' },
             tmplName = 'speakers.view',

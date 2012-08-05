@@ -1,10 +1,10 @@
 ﻿define('vm.sessions',
-    ['jquery', 'ko', 'datacontext', 'router', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
+    ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
     function ($, ko, datacontext, router, filter, sort, eventDelegates, utils, messenger, config, store) {
         var
             isBusy = false,
             isRefreshing = false,
-            sessionsFilter = new filter.SessionsFilter(),
+            sessionsFilter = new filter.Sessions(),
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
             stateKey = { filter: 'vm.sessions.filter' },
