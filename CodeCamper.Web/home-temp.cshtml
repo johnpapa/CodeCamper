@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+
+<!-- HTML5 Boilerplate -->
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<!-- Replaced default html tag-- >
+<!-- <html lang="en"> -->
+
+<head>
+    <meta charset="utf-8" />
+
+    <!-- Mobile viewport optimized: h5bp.com/viewport -->
+    <meta name="viewport" content="width=device-width">
+    <title>Code Camper</title>
+    <link href="/Content/boilerplate-styles.css" rel="stylesheet" />
+    <link href="/Content/toastr.css" rel="stylesheet" />
+    <link href="/Content/toastr-responsive.css" rel="stylesheet" />
+    <link href="/Content/styles.less" rel="stylesheet" />
+
+    <!-- All JavaScript at the bottom, except this Modernizr build.
+       Modernizr enables HTML5 elements & feature detects for optimal performance.
+       Create your own custom Modernizr build: www.modernizr.com/download/ -->
+    <script src="/Scripts/lib/modernizr-2.5.3.js"></script>
+</head>
+<body>
+    <div id="busyindicator"></div>
+
+    <header>
+        <h1>Code Camper</h1>
+        <nav id="shellTop-view" class="main-nav">
+            <div class="accent-top" data-bind="text: currentUser().fullName"></div>
+            <div class="accent-left"></div>
+            <ul data-bind="if: $data">
+                <li class="route-top"><a href="#/favorites">Favorites</a></li>
+                <li class="route-top"><a href="#/sessions">Sessions</a></li>
+                <li class="route-top"><a href="#/speakers">Speakers</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="main">
+        
+        @RenderPage("Views/favorites.cshtml")
+        @RenderPage("Views/speakers.cshtml")
+        @RenderPage("Views/sessions.cshtml")
+        @RenderPage("Views/session.cshtml")
+        @RenderPage("Views/speaker.cshtml")
+
+    </section>
+    
+    <!-- JavaScript at the bottom for fast page loading -->
+
+    <!--
+    Good rule of thumb is to load in this sequence:
+    1) shivs and jQuery
+    2) 3rd party libraries
+    3) require.js
+    4) your app libraries
+    5) main.js (if using require.js)
+    -->
+
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+@*    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="scripts/lib/jquery-1.7.2.min.js"><\/script>')</script>*@
+    
+    <script src="/Scripts/lib/jquery-1.7.2.min.js"></script>
+    <script src="/Scripts/lib/activity-indicator.js"></script>
+    <script src="/Scripts/lib/amplify.core.js"></script>
+    <script src="/Scripts/lib/amplify.request.js"></script>
+    <script src="/Scripts/lib/amplify.store.js"></script>
+    <script src="/Scripts/lib/infuser.js"></script>
+    <script src="/Scripts/lib/jquery.mockjson.js"></script>
+    <script src="/Scripts/lib/json2.js"></script>
+    <script src="/Scripts/lib/knockout-2.1.0.js"></script>
+    <script src="/Scripts/lib/knockout.validation.js"></script>
+    <script src="/Scripts/lib/koExternalTemplateEngine.js"></script>
+    <script src="/Scripts/lib/moment.js"></script>
+    <script src="/Scripts/lib/sammy.js"></script>
+    <script src="/Scripts/lib/sammy.title.js"></script>
+    <script src="/Scripts/lib/toastr.js"></script>
+    <script src="/Scripts/lib/TrafficCop.js"></script>
+    <script src="/Scripts/lib/underscore.js"></script>
+    <script src="/Scripts/lib/require.js"></script>
+    
+    <script src="/Scripts/app/binder.js"></script>
+    <script src="/Scripts/app/bootstrapper.js"></script>
+    <script src="/Scripts/app/config.js"></script>
+    <script src="/Scripts/app/datacontext.js"></script>
+    <script src="/Scripts/app/datacontext.speaker-sessions.js"></script>
+    <script src="/Scripts/app/dataprimer.js"></script>
+    <script src="/Scripts/app/dataservice.attendance.js"></script>
+    <script src="/Scripts/app/dataservice.js"></script>
+    <script src="/Scripts/app/dataservice.lookup.js"></script>
+    <script src="/Scripts/app/dataservice.person.js"></script>
+    <script src="/Scripts/app/dataservice.session.js"></script>
+    <script src="/Scripts/app/event.delegates.js"></script>
+    <script src="/Scripts/app/filter.sessions.js"></script>
+    <script src="/Scripts/app/filter.speakers.js"></script>
+    <script src="/Scripts/app/group.js"></script>
+    <script src="/Scripts/app/jquery.activity-ex.js"></script>
+    <script src="/Scripts/app/ko.asyncCommand.js"></script>
+    <script src="/Scripts/app/ko.bindingHandlers.activity.js"></script>
+    <script src="/Scripts/app/ko.bindingHandlers.command.js"></script>
+    <script src="/Scripts/app/ko.bindingHandlers.js"></script>
+    <script src="/Scripts/app/ko.debug.helpers.js"></script>
+    <script src="/Scripts/app/ko.dirtyFlag.js"></script>
+    <script src="/Scripts/app/ko.utils.js"></script>
+    <script src="/Scripts/app/messenger.js"></script>
+    <script src="/Scripts/app/model.js"></script>
+    <script src="/Scripts/app/model.mapper.js"></script>
+    <script src="/Scripts/app/presenter.js"></script>
+    <script src="/Scripts/app/route-config.js"></script>
+    <script src="/Scripts/app/route-mediator.js"></script>
+    <script src="/Scripts/app/router.js"></script>
+    <script src="/Scripts/app/sort.js"></script>
+    <script src="/Scripts/app/store.js"></script>
+    <script src="/Scripts/app/utils.js"></script>
+    <script src="/Scripts/app/vm.favorites.js"></script>
+    <script src="/Scripts/app/vm.js"></script>
+    <script src="/Scripts/app/vm.session.js"></script>
+    <script src="/Scripts/app/vm.sessions.js"></script>
+    <script src="/Scripts/app/vm.shell.js"></script>
+    <script src="/Scripts/app/vm.speaker.js"></script>
+    <script src="/Scripts/app/vm.speakers.js"></script>
+    
+    
+    <script src="/Scripts/app/mock/mock.dataservice.attendance.js"></script>
+    <script src="/Scripts/app/mock/mock.dataservice.lookup.js"></script>
+    <script src="/Scripts/app/mock/mock.dataservice.person.js"></script>
+    <script src="/Scripts/app/mock/mock.dataservice.session.js"></script>
+    <script src="/Scripts/app/mock/mock.generator.js"></script>
+    <script src="/Scripts/app/mock/mock.js"></script>
+    
+    
+    <script src="/Scripts/main.js"></script>
+
+    <!-- scripts concatenated and minified via build script -->
+    <!-- Now we grab the 3rd party libraries, some of which depend on jquery. 
+        Others we need before we depend on them later -->
+@*    @Scripts.Render("~/bundles/jsextlibs")
+
+    @Scripts.Render("~/Scripts/lib/require.js");*@
+
+    @*<script src='@Scripts.Url("~/Scripts/lib/require.js")' type="text/javascript"></script>*@
+
+    <!-- Load the custom libraries for our app before we run main.js which kicks off bootstrapper -->
+@*    @Scripts.Render("~/bundles/jsapplibs")
+
+    @Scripts.Render("~/bundles/jsmocks")
+
+    <script src='@Scripts.Url("~/Scripts/main.js")' type="text/javascript"></script>*@
+    <!-- end scripts -->
+
+</body>
+</html>
