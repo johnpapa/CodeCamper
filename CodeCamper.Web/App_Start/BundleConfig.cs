@@ -7,7 +7,7 @@ namespace CodeCamper.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             // Force optimization to be on or off, regardless of web.config setting
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
             bundles.UseCdn = true;
        
             // .debug.js, -vsdoc.js and .intellisense.js files 
@@ -24,14 +24,33 @@ namespace CodeCamper.Web
                 .Include("~/Scripts/lib/modernizr-{version}.js"));
 
             // jQuery
-            bundles.Add(new ScriptBundle("~/bundles/jquery",
-                "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
-                .Include("~/Scripts/lib/jquery-{version}.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery", "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
+                .Include("~/Scripts/lib/jquery-{version}.js"));
 
             // 3rd Party JavaScript files
             bundles.Add(new ScriptBundle("~/bundles/jsextlibs")
-                .IncludeDirectory("~/Scripts/lib", "*.js", searchSubdirectories: false));
+                //.IncludeDirectory("~/Scripts/lib", "*.js", searchSubdirectories: false));
+                .Include(
+                    "~/Scripts/lib/json2.js", // IE7 needs this
 
+                    // jQuery plugins
+                    "~/Scripts/lib/activity-indicator.js",
+                    "~/Scripts/lib/jquery.mockjson.js",
+                    "~/Scripts/lib/TrafficCop.js",
+                    "~/Scripts/lib/infuser.js", // depends on TrafficCop
+
+                    // Knockout and its plugins
+                    "~/Scripts/lib/knockout-{version}.js",
+                    "~/Scripts/lib/knockout.validation.js",
+                    "~/Scripts/lib/koExternalTemplateEngine.js",
+                    
+                    // Other 3rd party libraries
+                    "~/Scripts/lib/underscore.js",
+                    "~/Scripts/lib/moment.js",
+                    "~/Scripts/lib/sammy.*",
+                    "~/Scripts/lib/amplify.*",
+                    "~/Scripts/lib/toastr.js"
+                    ));
             bundles.Add(new ScriptBundle("~/bundles/jsmocks")
                 .IncludeDirectory("~/Scripts/app/mock", "*.js", searchSubdirectories: false));
 
