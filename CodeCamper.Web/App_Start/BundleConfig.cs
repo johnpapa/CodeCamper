@@ -7,15 +7,53 @@ namespace CodeCamper.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             // Force optimization to be on or off, regardless of web.config setting
-            //BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
+            bundles.UseCdn = true;
        
             // .debug.js, -vsdoc.js and .intellisense.js files 
             // are in BundleTable.Bundles.IgnoreList by default.
             // Clear out the list and add back the ones we want to ignore.
             // Don't add back .debug.js.
-            bundles.IgnoreList.Clear();
-            bundles.IgnoreList.Ignore("*-vsdoc.js");
-            bundles.IgnoreList.Ignore("*intellisense.js");
+            //bundles.IgnoreList.Clear();
+            //bundles.IgnoreList.Ignore("*-vsdoc.js");
+            //bundles.IgnoreList.Ignore("*intellisense.js");
+
+            // Modernizr goes separate since it loads first
+            bundles.Add(new ScriptBundle("~/bundles/modernizr")
+                .Include("~/Scripts/lib/modernizr-{version}.js"));
+
+            // Modernizr goes separate since it loads first
+            // jQuery and its plugins
+            bundles.Add(new ScriptBundle("~/bundles/jquery", 
+                "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
+                .Include("~/Scripts/lib/jquery-{version}.min.js"));
+
+            // 3rd Party JavaScript files
+            bundles.Add(new ScriptBundle("~/bundles/jsextlibs")
+                .Include(
+                    "~/Scripts/lib/json2.js", // IE7 needs this
+
+                    // jQuery plugins
+                    "~/Scripts/lib/activity-indicator.js",
+                    "~/Scripts/lib/jquery.mockjson.js",
+                    "~/Scripts/lib/TrafficCop.js",
+                    "~/Scripts/lib/infuser.js", // depends on TrafficCop
+
+                    // Knockout and its plugins
+                    "~/Scripts/lib/knockout-{version}.js",
+                    "~/Scripts/lib/knockout.validation.js",
+                    "~/Scripts/lib/koExternalTemplateEngine.js",
+                    
+                    // Other 3rd party libraries
+                    "~/Scripts/lib/underscore.js",
+                    "~/Scripts/lib/moment.js",
+                    "~/Scripts/lib/sammy.*",
+                    "~/Scripts/lib/amplify.*",
+                    "~/Scripts/lib/toastr.js"
+                    ));
+
+            bundles.Add(new ScriptBundle("~/bundles/jsmocks")
+                .IncludeDirectory("~/Scripts/app/mock", "*.js", searchSubdirectories: false));
 
             // All application JS files (except mocks")
             bundles.Add(new ScriptBundle("~/bundles/jsapplibs")
@@ -25,44 +63,9 @@ namespace CodeCamper.Web
                 // which we would exclude anyway in production.
                 .IncludeDirectory("~/Scripts/app/", "*.js", searchSubdirectories: false));
 
-                // the following equivalent file-pattern alternative 
-                // could not consider subdirectories if we wanted those
-                //.Include("~/Scripts/app/*.js")); 
-
-            bundles.Add(new ScriptBundle("~/bundles/jsmocks")
-                .IncludeDirectory("~/Scripts/app/mock", "*.js", searchSubdirectories: false));
-
-
-            // Modernizr goes separate since it loads first
-            bundles.Add(new ScriptBundle("~/bundles/modernizr")
-                .Include("~/Scripts/lib/modernizr-2.5.3.min.js"));
-
-            // 3rd Party JavaScript files
-            bundles.Add(new ScriptBundle("~/bundles/jsextlibs")
-                .Include(
-                    "~/Scripts/lib/json2.min.js", // IE7 needs this
-
-                    // jQuery and its plugins
-                    //"~/Scripts/lib/jquery-1.7.2.min.js", // use CDN instead
-
-                    // jQuery plugins
-                    "~/Scripts/lib/activity-indicator.js",
-                    "~/Scripts/lib/jquery.mockjson.js",
-                    "~/Scripts/lib/TrafficCop.js",
-                    "~/Scripts/lib/infuser.js", // depends on TrafficCop
-
-                    // Knockout and its plugins
-                    "~/Scripts/lib/knockout-2.1.0.js",
-                    "~/Scripts/lib/knockout.validation.js",
-                    "~/Scripts/lib/koExternalTemplateEngine.js",
-                    
-                    // Other 3rd party libraries
-                    "~/Scripts/lib/underscore.min.js",
-                    "~/Scripts/lib/moment.js",
-                    "~/Scripts/lib/sammy.*",
-                    "~/Scripts/lib/amplify.*",
-                    "~/Scripts/lib/toastr.js"
-                    ));
+            // the following equivalent file-pattern alternative 
+            // could not consider subdirectories if we wanted those
+            //.Include("~/Scripts/app/*.js")); 
 
             // 3rd Party CSS files
             bundles.Add(new StyleBundle("~/Content/css")
@@ -71,11 +74,8 @@ namespace CodeCamper.Web
                 .Include("~/Content/toastr-responsive.css"));
 
             // Custom LESS files
-            var lessBundle = new Bundle("~/Content/Less")
-                .Include("~/Content/styles.less");
-            lessBundle.Transforms.Add(new LessTransform());
-            lessBundle.Transforms.Add(new CssMinify());
-            bundles.Add(lessBundle);
+            bundles.Add(new Bundle("~/Content/Less", new LessTransform(), new CssMinify())
+                .Include("~/Content/styles.less"));
         }
     }
 }
