@@ -1,6 +1,6 @@
 ﻿define('vm.sessions',
-    ['ko', 'router', 'datacontext', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'jquery', 'config', 'store'],
-    function (ko, router, datacontext, filter, sort, eventDelegates, utils, messenger, $, config, store) {
+    ['jquery', 'ko', 'datacontext', 'router', 'filter', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
+    function ($, ko, datacontext, router, filter, sort, eventDelegates, utils, messenger, config, store) {
         var
             isBusy = false,
             isRefreshing = false,

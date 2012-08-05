@@ -1,6 +1,6 @@
 ﻿define('vm.favorites',
-    ['jquery', 'ko', 'router', 'datacontext', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger', 'store'],
-    function ($, ko, router, datacontext, filter, sort, group, utils, config, eventDelegates, messenger, store) {
+    ['jquery', 'ko', 'datacontext', 'router', 'filter', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger', 'store'],
+    function ($, ko, datacontext, router, filter, sort, group, utils, config, eventDelegates, messenger, store) {
         var
             isBusy = false,
             selectedDate = ko.observable(),
