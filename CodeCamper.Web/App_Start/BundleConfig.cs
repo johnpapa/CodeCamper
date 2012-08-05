@@ -18,54 +18,26 @@ namespace CodeCamper.Web
             //bundles.IgnoreList.Ignore("*-vsdoc.js");
             //bundles.IgnoreList.Ignore("*intellisense.js");
 
+
             // Modernizr goes separate since it loads first
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
                 .Include("~/Scripts/lib/modernizr-{version}.js"));
 
-            // Modernizr goes separate since it loads first
-            // jQuery and its plugins
-            bundles.Add(new ScriptBundle("~/bundles/jquery", 
+            // jQuery
+            bundles.Add(new ScriptBundle("~/bundles/jquery",
                 "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
                 .Include("~/Scripts/lib/jquery-{version}.min.js"));
 
             // 3rd Party JavaScript files
             bundles.Add(new ScriptBundle("~/bundles/jsextlibs")
-                .Include(
-                    "~/Scripts/lib/json2.js", // IE7 needs this
-
-                    // jQuery plugins
-                    "~/Scripts/lib/activity-indicator.js",
-                    "~/Scripts/lib/jquery.mockjson.js",
-                    "~/Scripts/lib/TrafficCop.js",
-                    "~/Scripts/lib/infuser.js", // depends on TrafficCop
-
-                    // Knockout and its plugins
-                    "~/Scripts/lib/knockout-{version}.js",
-                    "~/Scripts/lib/knockout.validation.js",
-                    "~/Scripts/lib/koExternalTemplateEngine.js",
-                    
-                    // Other 3rd party libraries
-                    "~/Scripts/lib/underscore.js",
-                    "~/Scripts/lib/moment.js",
-                    "~/Scripts/lib/sammy.*",
-                    "~/Scripts/lib/amplify.*",
-                    "~/Scripts/lib/toastr.js"
-                    ));
+                .IncludeDirectory("~/Scripts/lib", "*.js", searchSubdirectories: false));
 
             bundles.Add(new ScriptBundle("~/bundles/jsmocks")
                 .IncludeDirectory("~/Scripts/app/mock", "*.js", searchSubdirectories: false));
 
-            // All application JS files (except mocks")
+            // All application JS files (except mocks)
             bundles.Add(new ScriptBundle("~/bundles/jsapplibs")
-                // Include all files in the named directory that match "*.js";
-                // Could include subdirs too by flipping the flag
-                // but not doing so because the only subdir holds mocks
-                // which we would exclude anyway in production.
                 .IncludeDirectory("~/Scripts/app/", "*.js", searchSubdirectories: false));
-
-            // the following equivalent file-pattern alternative 
-            // could not consider subdirectories if we wanted those
-            //.Include("~/Scripts/app/*.js")); 
 
             // 3rd Party CSS files
             bundles.Add(new StyleBundle("~/Content/css")
