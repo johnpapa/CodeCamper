@@ -7,7 +7,7 @@ namespace CodeCamper.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             // Force optimization to be on or off, regardless of web.config setting
-            BundleTable.EnableOptimizations = false;
+            //BundleTable.EnableOptimizations = false;
             bundles.UseCdn = true;
        
             // .debug.js, -vsdoc.js and .intellisense.js files 
@@ -17,7 +17,6 @@ namespace CodeCamper.Web
             //bundles.IgnoreList.Clear();
             //bundles.IgnoreList.Ignore("*-vsdoc.js");
             //bundles.IgnoreList.Ignore("*intellisense.js");
-
 
             // Modernizr goes separate since it loads first
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
