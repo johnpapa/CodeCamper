@@ -1,15 +1,13 @@
 ﻿define('utils',
 ['moment'],
     function (moment) {
-        var
-            endOfDay = function (day) {
-                return moment(new Date(day))
-                    .add('days', 1)
-                    .add('seconds', -1)
-                    .toDate();
-            },
-            
-            hasProperties = function (obj) {
+        var endOfDay = function(day) {
+            return moment(new Date(day))
+                .add('days', 1)
+                .add('seconds', -1)
+                .toDate();
+        },
+            hasProperties = function(obj) {
                 for (var prop in obj) {
                     if (obj.hasOwnProperty(prop)) {
                         return true;
@@ -17,8 +15,7 @@
                 }
                 return false;
             },
-            
-            mapMemoToArray = function (items) {
+            mapMemoToArray = function(items) {
                 var underlyingArray = [];
                 for (var prop in items) {
                     if (items.hasOwnProperty(prop)) {
@@ -27,17 +24,30 @@
                 }
                 return underlyingArray;
             },
-            
-            regExEscape = function (text) {
+            regExEscape = function(text) {
                 // Removes regEx characters from search filter boxes in our app
                 return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+            },
+            restoreFilter = function (rawProperty, filterProperty, fetchMethod) {
+                if (rawProperty && filterProperty() !== rawProperty) {
+                    if (fetchMethod) {
+                        var obj = fetchMethod(rawProperty.id);
+                        if (obj) {
+                            filterProperty(obj);
+                        }
+                    } else {
+                        filterProperty(rawProperty);
+                    }
+                }
             };
+
 
         return {
             endOfDay: endOfDay,
             hasProperties: hasProperties,
             mapMemoToArray: mapMemoToArray,
-            regExEscape: regExEscape
+            regExEscape: regExEscape,
+            restoreFilter: restoreFilter
         };
     });
 

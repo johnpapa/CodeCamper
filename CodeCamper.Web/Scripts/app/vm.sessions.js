@@ -86,35 +86,26 @@
                 }
             },
 
-            restoreFilterProperty = function (rawProperty, filterProperty, fetchMethod) {
-                if (rawProperty && filterProperty() !== rawProperty) {
-                    if(fetchMethod) {
-                        var obj = fetchMethod(rawProperty.id);
-                        if (obj) { filterProperty(obj); }
-                    }else {
-                        filterProperty(rawProperty);
-                    }
-                }
-            },
-
             restoreFilter = function () {
-                var localFilter = store.fetch(stateKey.filter);
+                var localFilter = store.fetch(stateKey.filter),
+                    restore = utils.restoreFilter;
                 if (!localFilter) { return; }
-                restoreFilterProperty(
+                
+                restore(
                     localFilter.favoriteOnly,
                     sessionFilter.favoriteOnly);
-                restoreFilterProperty(
+                restore(
                     localFilter.searchText,
                     sessionFilter.searchText);
-                restoreFilterProperty(
+                restore(
                     localFilter.speaker,
                     sessionFilter.speaker,
                     datacontext.persons.getLocalById);
-                restoreFilterProperty(
+                restore(
                     localFilter.timeslot,
                     sessionFilter.timeslot,
                     datacontext.timeslots.getLocalById);
-                restoreFilterProperty(
+                restore(
                     localFilter.track,
                     sessionFilter.track,
                     datacontext.tracks.getLocalById);
