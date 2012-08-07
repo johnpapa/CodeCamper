@@ -55,27 +55,27 @@
     -->
 
     <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <!-- 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="scripts/lib/jquery-1.7.2.min.js"><\/script>')</script>
+    -->
 
     <!-- scripts concatenated and minified via build script -->
     <!-- Now we grab the 3rd party libraries, some of which depend on jquery. 
         Others we need before we depend on them later -->
-    @Scripts.Render("~/bundles/jsextlibs")
+    @*@Scripts.Render("~/bundles/jsextlibs")*@
+    @*@Scripts.Render("~/Scripts/lib/require.js")*@
 
-    @Scripts.Render("~/Scripts/lib/require.js")
-
-    @*<script src='@Scripts.Url("~/Scripts/lib/require.js")' type="text/javascript"></script>*@
+    <!-- <script src='@Scripts.Url("~/Scripts/lib/require.js")' type="text/javascript"></script> -->
 
     <!-- Load the custom libraries for our app before we run main.js which kicks off bootstrapper -->
-    @Scripts.Render("~/bundles/jsapplibs")
+    @*@Scripts.Render("~/bundles/jsapplibs")*@
 
-    @Scripts.Render("~/bundles/jsmocks")
+    @*@Scripts.Render("~/bundles/jsmocks")*@
 
-    <script src='@Scripts.Url("~/Scripts/main.js")' type="text/javascript"></script>
+    <!-- <script src='@Scripts.Url("~/Scripts/main.js")' type="text/javascript"></script> -->
     <!-- end scripts -->
  
-    @*
     @Scripts.Render(
         "~/bundles/jquery", 
         "~/bundles/jsextlibs", 
@@ -84,8 +84,6 @@
         "~/bundles/jsmocks",
         "~/Scripts/main.js"
     )
-    *@
-
 
 </body>
 </html>

@@ -8,7 +8,7 @@ namespace CodeCamper.Web
         {
             // Force optimization to be on or off, regardless of web.config setting
             //BundleTable.EnableOptimizations = false;
-            bundles.UseCdn = true;
+            bundles.UseCdn = false;
        
             // .debug.js, -vsdoc.js and .intellisense.js files 
             // are in BundleTable.Bundles.IgnoreList by default.
@@ -23,8 +23,9 @@ namespace CodeCamper.Web
                 .Include("~/Scripts/lib/modernizr-{version}.js"));
 
             // jQuery
-            bundles.Add(new ScriptBundle("~/bundles/jquery", "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
-                .Include("~/Scripts/lib/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery", 
+                "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
+                .Include("~/Scripts/lib/jquery-{version}.min.js"));
 
             // 3rd Party JavaScript files
             bundles.Add(new ScriptBundle("~/bundles/jsextlibs")
