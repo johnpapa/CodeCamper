@@ -14,9 +14,9 @@ namespace CodeCamper.Web
             // are in BundleTable.Bundles.IgnoreList by default.
             // Clear out the list and add back the ones we want to ignore.
             // Don't add back .debug.js.
-            //bundles.IgnoreList.Clear();
-            //bundles.IgnoreList.Ignore("*-vsdoc.js");
-            //bundles.IgnoreList.Ignore("*intellisense.js");
+            bundles.IgnoreList.Clear();
+            bundles.IgnoreList.Ignore("*-vsdoc.js");
+            bundles.IgnoreList.Ignore("*intellisense.js");
 
             // Modernizr goes separate since it loads first
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
@@ -25,7 +25,7 @@ namespace CodeCamper.Web
             // jQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery", 
                 "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
-                .Include("~/Scripts/lib/jquery-{version}.min.js"));
+                .Include("~/Scripts/lib/jquery-{version}.js"));
 
             // 3rd Party JavaScript files
             bundles.Add(new ScriptBundle("~/bundles/jsextlibs")
@@ -59,10 +59,10 @@ namespace CodeCamper.Web
                 .IncludeDirectory("~/Scripts/app/", "*.js", searchSubdirectories: false));
 
             // 3rd Party CSS files
-            bundles.Add(new StyleBundle("~/Content/css")
-                .Include("~/Content/boilerplate-styles.css")
-                .Include("~/Content/toastr.css")
-                .Include("~/Content/toastr-responsive.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/boilerplate-styles.css",
+                "~/Content/toastr.css",
+                "~/Content/toastr-responsive.css"));
 
             // Custom LESS files
             bundles.Add(new Bundle("~/Content/Less", new LessTransform(), new CssMinify())
