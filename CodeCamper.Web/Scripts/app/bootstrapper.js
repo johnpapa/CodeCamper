@@ -8,11 +8,11 @@
                 config.dataserviceInit(); 
                 
                 $.when(dataprimer.fetch())
-                .done(binder.bind)
-                .done(routeConfig.register)
-                .always(function () {
-                    presenter.toggleActivity(false);
-                });
+                    .done(binder.bind)
+                    .done(routeConfig.register)
+                    .always(function () {
+                        presenter.toggleActivity(false);
+                    });
             };
 
         return {

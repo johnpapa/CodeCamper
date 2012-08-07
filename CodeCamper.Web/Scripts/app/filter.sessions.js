@@ -65,7 +65,8 @@
                         && timeSlotTest(self.minDate(), self.maxDate(), session)
                         && modelTest(self.timeslot(), self.speaker(), self.track(), session);
                     return match;
-                    //PAPA: testing only
+
+                    //PAPA: testing only. 
                     //var matchSearch = searchTest(self.searchText(), session),
                     //    matchFav = favoriteTest(self.favoriteOnly(), session),
                     //    matchTime = timeSlotTest(self.minDate(), self.maxDate(), session),

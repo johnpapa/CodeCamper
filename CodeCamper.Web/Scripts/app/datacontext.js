@@ -1,14 +1,11 @@
 ﻿define('datacontext', 
     ['jquery', 'underscore', 'ko', 'model', 'model.mapper', 'dataservice', 'config', 'utils', 'datacontext.speaker-sessions'],
     function ($, _, ko, model, modelmapper, dataservice, config, utils, SpeakerSessions) {
-        var
-            logger = config.logger,
-
-            getCurrentUserId = function () {
+        var logger = config.logger,
+            getCurrentUserId = function() {
                 return config.currentUser().id();
             },
-
-            itemsToArray = function (items, observableArray, filter, sortFunction) {
+            itemsToArray = function(items, observableArray, filter, sortFunction) {
                 if (!observableArray) return;
 
                 var underlyingArray = utils.mapMemoToArray(items);
@@ -25,10 +22,9 @@
                 //logger.info('Fetched, filtered and sorted ' + underlyingArray.length + ' records');
                 observableArray(underlyingArray);
             },
-
-            mapToContext = function (dtoList, items, results, mapper, filter, sortFunction) {
+            mapToContext = function(dtoList, items, results, mapper, filter, sortFunction) {
                 // Loop through the raw dto list and populate a dictionary of the items
-                items = _.reduce(dtoList, function (memo, dto) {
+                items = _.reduce(dtoList, function(memo, dto) {
                     // ToDo: Just like mapDtoToContext ... refactor it
                     var id = mapper.getDtoId(dto);
                     var existingItem = items[id];
@@ -39,37 +35,29 @@
                 //logger.success('received with ' + dtoList.length + ' elements');
                 return items; // must return these
             },
-
             EntitySet = function(getFunction, mapper, nullo, updateFunction) {
-                var
-                    items = {},
-
+                var items = {},
                     // returns the model item produced by merging dto into context
-                    mapDtoToContext = function (dto) {
+                    mapDtoToContext = function(dto) {
                         var id = mapper.getDtoId(dto);
                         var existingItem = items[id];
                         items[id] = mapper.fromDto(dto, existingItem);
                         return items[id];
                     },
-
-                    add = function (newObj) {
+                    add = function(newObj) {
                         items[newObj.id()] = newObj;
                     },
-
-                    removeById = function (id) {
+                    removeById = function(id) {
                         delete items[id];
                     },
-
-                    getLocalById = function (id) {
+                    getLocalById = function(id) {
                         // This is the only place we set to NULLO
                         return !!id && !!items[id] ? items[id] : nullo;
                     },
-
-                    getAllLocal = function () {
+                    getAllLocal = function() {
                         return utils.mapMemoToArray(items);
-                    },
-                    
-                    getData = function (options) {
+                    },                    
+                    getData = function(options) {
                         return $.Deferred(function(def) {
                             var results = options && options.results,
                                 sortFunction = options && options.sortFunction,
@@ -89,7 +77,7 @@
                                         items = mapToContext(dtoList, items, results, mapper, filter, sortFunction);
                                         def.resolve(dtoList);
                                     },
-                                    error: function() {
+                                    error: function (response) {
                                         logger.error(config.toasts.errorGettingData);
                                         def.reject();
                                     }
@@ -100,13 +88,11 @@
                             }
                         }).promise();
                     },
+                    updateData = function(entity, callbacks) {
 
-                    updateData = function (entity, callbacks) {
+                        var entityJson = ko.toJSON(entity);
 
-                        var
-                            entityJson = ko.toJSON(entity);
-
-                        return $.Deferred(function (def) {
+                        return $.Deferred(function(def) {
                             if (!updateFunction) {
                                 logger.error('updateData method not implemented'); //TODO: revise error message
                                 if (callbacks && callbacks.error) {
@@ -136,7 +122,7 @@
                             }, entityJson);
                         }).promise();
                     };
-                
+
                 return {
                     mapDtoToContext: mapDtoToContext,
                     add: add,
@@ -147,13 +133,14 @@
                     updateData: updateData
                 };
             },
-
-            attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.attendanceNullo),
-            rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.roomNullo),
-            sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.sessionNullo, dataservice.session.updateSession),
-            persons = new EntitySet(dataservice.person.getPersons, modelmapper.person, model.personNullo, dataservice.person.updatePerson),
-            timeslots = new EntitySet(dataservice.lookup.getTimeslots, modelmapper.timeSlot, model.timeSlotNullo),
-            tracks = new EntitySet(dataservice.lookup.getTracks, modelmapper.track, model.trackNullo),
+            
+        
+            attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.Attendance.Nullo),
+            rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.Room.Nullo),
+            sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.Session.Nullo, dataservice.session.updateSession),
+            persons = new EntitySet(dataservice.person.getPersons, modelmapper.person, model.Person.Nullo, dataservice.person.updatePerson),
+            timeslots = new EntitySet(dataservice.lookup.getTimeslots, modelmapper.timeSlot, model.TimeSlot.Nullo),
+            tracks = new EntitySet(dataservice.lookup.getTracks, modelmapper.track, model.Track.Nullo),
             speakerSessions = new SpeakerSessions.SpeakerSessions(persons, sessions);
 
             // Attendance extensions
@@ -366,7 +353,7 @@
                 return speakerSessions.getLocalSessionsBySpeakerId(personId);
             };
 
-        return {
+        var datacontext = {
             attendance: attendance,
             persons: persons,
             rooms: rooms,
@@ -374,5 +361,10 @@
             speakerSessions: speakerSessions,
             timeslots: timeslots,
             tracks: tracks
-    };
+        };
+        
+        // We did this so we can access the datacontext during its construction
+        model.setDataContext(datacontext);
+
+        return datacontext;
 });

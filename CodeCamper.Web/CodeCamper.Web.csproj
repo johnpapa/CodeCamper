@@ -216,6 +216,12 @@
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
     <Content Include="Scripts\app\binder.js" />
+    <Content Include="Scripts\app\model.session.js" />
+    <Content Include="Scripts\app\model.person.js" />
+    <Content Include="Scripts\app\model.attendance.js" />
+    <Content Include="Scripts\app\model.timeslot.js" />
+    <Content Include="Scripts\app\model.track.js" />
+    <Content Include="Scripts\app\model.room.js" />
     <Content Include="Scripts\app\model.js" />
     <Content Include="Scripts\app\route-config.js" />
     <Content Include="Scripts\app\dataprimer.js" />
