@@ -2,7 +2,7 @@
     ['ko', 'utils', 'config'],
     function(ko, utils, config) {
 
-        var Sessions = function() {
+        var SessionFilter = function() {
             var self = this;
             self.favoriteOnly = ko.observable(false);
             self.minDate = ko.observable();
@@ -14,11 +14,11 @@
             return self;
         };
 
-        Sessions.prototype = function () {
+        SessionFilter.prototype = function () {
             var tagDelimiter = '|',
                 escapedTagDelimiter = '\\|',
                 searchTest = function(searchText, session) {
-                    try {
+                    //try {
                         if (!searchText) return true; // always succeeds if no search text
                         var srch = utils.regExEscape(searchText.toLowerCase());
                         if (session.title().toLowerCase().search(srch) !== -1) return true;
@@ -28,10 +28,10 @@
                         if (session.room().name().toLowerCase().search(srch) !== -1) return true;
                         if ((tagDelimiter + session.tags().toLowerCase() + tagDelimiter)
                             .search(escapedTagDelimiter + srch + escapedTagDelimiter) !== -1) return true;
-                    } catch(err) {
-                        //PAPA: testing only. Can remove the try/catch
-                        config.logger.error('filter failed for expression ' + searchText + '. ' + err.message);
-                    }
+                    //} catch(err) {
+                    //    //PAPA: testing only. Can remove the try/catch
+                    //    config.logger.error('filter failed for expression ' + searchText + '. ' + err.message);
+                    //}
                     return false;
                 },
                 favoriteTest = function(favoriteOnly, session) {
@@ -84,7 +84,5 @@
             };
         }();
 
-        return {
-            Sessions: Sessions
-        };
+        return SessionFilter;
     });

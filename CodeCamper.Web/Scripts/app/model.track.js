@@ -12,7 +12,5 @@
         Track.Nullo = new Track().id(0).name('Not a track');
         Track.Nullo.isNullo = true;
 
-        return {
-            Track: Track
-        };
+        return Track;
 });

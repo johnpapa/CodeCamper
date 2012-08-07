@@ -1,10 +1,10 @@
 ﻿define('vm.sessions',
     ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
-    function ($, ko, datacontext, router, filter, sort, eventDelegates, utils, messenger, config, store) {
+    function ($, ko, datacontext, router, SessionFilter, sort, eventDelegates, utils, messenger, config, store) {
         var
             isBusy = false,
             isRefreshing = false,
-            sessionsFilter = new filter.Sessions(),
+            sessionFilter = new SessionFilter(),
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
             stateKey = { filter: 'vm.sessions.filter' },
@@ -56,7 +56,7 @@
                     $.when(
                         datacontext.sessions.getData({
                             results: sessions,
-                            filter: sessionsFilter,
+                            filter: sessionFilter,
                             sortFunction: sort.sessionSort,
                             forceRefresh: true
                         })
@@ -73,7 +73,7 @@
                     restoreFilter();
                     datacontext.sessions.getData({
                         results: sessions,
-                        filter: sessionsFilter,
+                        filter: sessionFilter,
                         sortFunction: sort.sessionSort
                     });
                     isRefreshing = false;
@@ -102,21 +102,21 @@
                 if (!localFilter) { return; }
                 restoreFilterProperty(
                     localFilter.favoriteOnly,
-                    sessionsFilter.favoriteOnly);
+                    sessionFilter.favoriteOnly);
                 restoreFilterProperty(
                     localFilter.searchText,
-                    sessionsFilter.searchText);
+                    sessionFilter.searchText);
                 restoreFilterProperty(
                     localFilter.speaker,
-                    sessionsFilter.speaker,
+                    sessionFilter.speaker,
                     datacontext.persons.getLocalById);
                 restoreFilterProperty(
                     localFilter.timeslot,
-                    sessionsFilter.timeslot,
+                    sessionFilter.timeslot,
                     datacontext.timeslots.getLocalById);
                 restoreFilterProperty(
                     localFilter.track,
-                    sessionsFilter.track,
+                    sessionFilter.track,
                     datacontext.tracks.getLocalById);
             },
 
@@ -138,11 +138,11 @@
             },
 
             clearFilter = function () {
-                sessionsFilter.searchText('');
+                sessionFilter.searchText('');
             },
 
             clearAllFilters = function () {
-                sessionsFilter
+                sessionFilter
                     .favoriteOnly(false)
                     .speaker(null)
                     .timeslot(null)
@@ -152,16 +152,16 @@
             },
             
             addFilterSubscriptions = function () {
-                sessionsFilter.searchText.subscribe(onFilterChange);
-                sessionsFilter.speaker.subscribe(onFilterChange);
-                sessionsFilter.timeslot.subscribe(onFilterChange);
-                sessionsFilter.track.subscribe(onFilterChange);
-                sessionsFilter.favoriteOnly.subscribe(onFilterChange);
+                sessionFilter.searchText.subscribe(onFilterChange);
+                sessionFilter.speaker.subscribe(onFilterChange);
+                sessionFilter.timeslot.subscribe(onFilterChange);
+                sessionFilter.track.subscribe(onFilterChange);
+                sessionFilter.favoriteOnly.subscribe(onFilterChange);
             },
 
             onFilterChange = function () {
                 if (!isRefreshing) {
-                    var o = ko.toJS(sessionsFilter);
+                    var o = ko.toJS(sessionFilter);
                     store.save(stateKey.filter, o);
                     refresh();
                 }
@@ -174,11 +174,6 @@
 
                 // Subscribe to specific changes of observables
                 addFilterSubscriptions();
-
-                //TODO: Workaround til they fix their bug
-                //$(function () {
-                //    $(':wijmo-wijcheckbox').wijcheckbox('refresh');
-                //});
             };
 
             init();
@@ -190,7 +185,7 @@
             clearAllFilters: clearAllFilters,
             filterTmpl: filterTmpl,
             forceRefresh: forceRefresh,
-            sessionsFilter: sessionsFilter,
+            sessionFilter: sessionFilter,
             sessions: sessions,
             speakers: speakers,
             timeslots: timeslots,

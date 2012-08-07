@@ -2,13 +2,13 @@
     ['ko', 'utils', 'config'],
     function (ko, utils, config) {
 
-        var Speakers = function() {
+        var SpeakerFilter = function() {
             var self = this;
             self.searchText = ko.observable().extend({ throttle: config.throttle });
             return self;
         };
 
-        Speakers.prototype = function () {
+        SpeakerFilter.prototype = function () {
             var
                 searchTest = function (searchText, speaker) {
                     try {
@@ -35,7 +35,5 @@
             };
         }();
         
-    return {
-        Speakers: Speakers
-    };
+    return SpeakerFilter;
 })

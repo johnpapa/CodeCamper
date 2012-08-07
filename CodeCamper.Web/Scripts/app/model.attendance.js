@@ -65,8 +65,6 @@
             };
         }();
 
-        return {
-            Attendance: Attendance
-        };
+        return Attendance;
 });
 

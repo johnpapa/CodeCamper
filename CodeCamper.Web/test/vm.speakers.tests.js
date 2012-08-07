@@ -76,7 +76,7 @@
                 // or I can subscribe to the observable. 
                 // This means we have to reshapre our test so it waits
                 // for the throttle to kick in.
-                //vmSpeakers.speakersFilter.searchText = ko.observable();
+                //vmSpeakers.speakerFilter.searchText = ko.observable();
 
                 $.when(
                     datacontext.persons.getSpeakers({ results: data.persons }),
@@ -105,9 +105,9 @@
                         });
                     };
                     
-                    subscription = vmSpeakers.speakersFilter.searchText.subscribe(performTest)
+                    subscription = vmSpeakers.speakerFilter.searchText.subscribe(performTest)
 
-                    vmSpeakers.speakersFilter.searchText('John');
+                    vmSpeakers.speakerFilter.searchText('John');
 
                 });
             }

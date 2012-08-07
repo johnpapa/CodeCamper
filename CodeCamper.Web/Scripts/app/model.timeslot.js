@@ -28,7 +28,5 @@
             .duration(60);
         TimeSlot.Nullo.isNullo = true;
 
-        return {
-            TimeSlot: TimeSlot
-        };
+        return TimeSlot;
 });

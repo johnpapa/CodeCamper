@@ -12,7 +12,5 @@
         Room.Nullo = new Room().id(0).name('Not a room');
         Room.Nullo.isNullo = true;
 
-        return {
-            Room: Room
-        };
+        return Room;
 });

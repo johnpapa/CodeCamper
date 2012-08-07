@@ -10,15 +10,17 @@
     function (attendance, person, room, session, timeslot, track) {
         var
             model = {
-                Attendance: attendance.Attendance,
-                Person: person.Person,
-                Room: room.Room,
-                Session: session.Session,
-                TimeSlot: timeslot.TimeSlot,
-                Track: track.Track
+                Attendance: attendance,
+                Person: person,
+                Room: room,
+                Session: session,
+                TimeSlot: timeslot,
+                Track: track
             };
 
-        model.setDataContext = function(dc) {
+        model.setDataContext = function (dc) {
+            // Model's that have navigation properties 
+            // need a reference to the datacontext.
             model.Attendance.datacontext(dc);
             model.Person.datacontext(dc);
             model.Session.datacontext(dc);

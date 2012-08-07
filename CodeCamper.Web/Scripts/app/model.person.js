@@ -94,7 +94,5 @@
             return _dc;
         };
 
-        return {
-            Person: Person
-        };
+        return Person;
 });

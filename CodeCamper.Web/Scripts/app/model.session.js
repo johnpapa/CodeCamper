@@ -135,7 +135,5 @@
             };
         }();
 
-        return {
-            Session: Session
-        };
+        return Session;
 });

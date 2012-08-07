@@ -1,10 +1,10 @@
 ﻿define('vm.favorites',
     ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger', 'store'],
-    function ($, ko, datacontext, router, filter, sort, group, utils, config, eventDelegates, messenger, store) {
+    function ($, ko, datacontext, router, SessionFilter, sort, group, utils, config, eventDelegates, messenger, store) {
         var
             isBusy = false,
             selectedDate = ko.observable(),
-            sessionsFilter = new filter.Sessions(),
+            sessionFilter = new SessionFilter(),
             timeslots = ko.observableArray(),
             sessions = ko.observableArray(), //.trackReevaluations(),
             filterTmpl = 'sessions.filterbox',
@@ -26,7 +26,7 @@
 
             setFilter = function () {
                 var day = new Date(selectedDate());
-                sessionsFilter
+                sessionFilter
                     .minDate(day)
                     .maxDate(utils.endOfDay(day))
                     .favoriteOnly(true);
@@ -62,7 +62,7 @@
                     $.when(
                         datacontext.sessions.getData({
                             results: sessions,
-                            filter: sessionsFilter,
+                            filter: sessionFilter,
                             sortFunction: sort.sessionSort,
                             forceRefresh: true
                         })
@@ -78,7 +78,7 @@
 
                 datacontext.sessions.getData({
                     results: sessions,
-                    filter: sessionsFilter,
+                    filter: sessionFilter,
                     sortFunction: sort.sessionSort
                 });
             },
@@ -103,8 +103,8 @@
 
             restoreFilter = function () {
                 var val = store.fetch(stateKey.searchText);
-                if (val !== sessionsFilter.searchText()) {
-                    sessionsFilter.searchText(store.fetch(stateKey.searchText));
+                if (val !== sessionFilter.searchText()) {
+                    sessionFilter.searchText(store.fetch(stateKey.searchText));
                 }
             },
             
@@ -123,7 +123,7 @@
             },
 
             clearFilter = function () {
-                sessionsFilter.searchText('');
+                sessionFilter.searchText('');
             },
 
             onFilterChange= function (val) {
@@ -137,7 +137,7 @@
                 eventDelegates.favoritesFavorite(saveFavorite);
                 
                 // Subscribe to specific changes of observables
-                sessionsFilter.searchText.subscribe(onFilterChange);
+                sessionFilter.searchText.subscribe(onFilterChange);
                 selectedDate.subscribe(synchSelectedDateWithIsSelected);
             };
 
@@ -153,7 +153,7 @@
             forceRefresh: forceRefresh,
             gotoDetails: gotoDetails,
             activate: activate,
-            sessionsFilter: sessionsFilter,
+            sessionFilter: sessionFilter,
             sessions: sessions,
             timeslots: timeslots,
             tmplName: tmplName

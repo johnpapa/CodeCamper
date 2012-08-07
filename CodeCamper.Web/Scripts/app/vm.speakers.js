@@ -1,15 +1,15 @@
 ﻿define('vm.speakers',
     ['ko', 'underscore', 'datacontext', 'config', 'router', 'messenger', 'filter.speakers', 'sort', 'store'],
-    function (ko, _, datacontext, config, router, messenger, filter, sort, store) {
+    function (ko, _, datacontext, config, router, messenger, SpeakerFilter, sort, store) {
         var
-            speakersFilter = new filter.Speakers(),
+            speakerFilter = new SpeakerFilter(),
             speakers = ko.observableArray(),
             stateKey = { searchText: 'vm.speakers.searchText' },
             tmplName = 'speakers.view',
             
             getSpeakers = function(callback) {
                 datacontext.speakerSessions.getLocalSpeakers(speakers, {
-                    filter: speakersFilter,
+                    filter: speakerFilter,
                     sortFunction: sort.speakerSort
                 });
                 if (_.isFunction(callback)) {
@@ -49,15 +49,15 @@
             },
 
             clearFilter = function () {
-                if (speakersFilter.searchText().length) {
-                    speakersFilter.searchText('');
+                if (speakerFilter.searchText().length) {
+                    speakerFilter.searchText('');
                 }
             },
 
             restoreFilter = function () {
                 var val = store.fetch(stateKey.searchText);
-                if (val !== speakersFilter.searchText()) {
-                    speakersFilter.searchText(store.fetch(stateKey.searchText));
+                if (val !== speakerFilter.searchText()) {
+                    speakerFilter.searchText(store.fetch(stateKey.searchText));
                 }
             },
 
@@ -67,7 +67,7 @@
             },
 
             init = function () {
-                speakersFilter.searchText.subscribe(onFilterChange);
+                speakerFilter.searchText.subscribe(onFilterChange);
             };
 
         init();
@@ -78,7 +78,7 @@
             clearFilter: clearFilter,
             forceRefresh: forceRefresh,
             gotoDetails: gotoDetails,
-            speakersFilter: speakersFilter,
+            speakerFilter: speakerFilter,
             speakers: speakers,
             tmplName: tmplName
         };
