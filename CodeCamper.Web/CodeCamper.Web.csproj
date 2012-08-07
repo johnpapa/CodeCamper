@@ -267,6 +267,7 @@
     <Content Include="Scripts\lib\sammy.title.js" />
     <Content Include="Scripts\lib\moment.js" />
     <Content Include="Scripts\lib\toastr.js" />
+    <Content Include="Test\Copy of dataservice.session.tests.js" />
     <Content Include="Test\vm.session.tests.js" />
     <Content Include="Test\web api\webapi.person-cud.tests.html" />
     <Content Include="Test\web api\webapi.person-cud.tests.js" />
@@ -285,11 +286,11 @@
     <Content Include="Test\web api\webapi.get-result.tests.html" />
     <Content Include="Test\web api\webapi.get-result.tests.js" />
     <Content Include="Test\web api\webapi.attendance-cud.tests.js" />
-    <Content Include="Test\qunit-utils.js" />
+    <Content Include="Test\web api\qunit-utils.js" />
     <Content Include="Test\web api\webapi.endpoint.tests.html" />
     <Content Include="Test\web api\webapi.testsuite.html" />
-    <Content Include="Test\dataservice.test.js" />
-    <Content Include="Test\dataservice.test.html" />
+    <Content Include="Test\dataservice.session.tests.js" />
+    <None Include="Test\dataservice.session.tests.cshtml" />
     <Content Include="Test\qunit\qunit-composite.css" />
     <Content Include="Test\qunit\qunit-composite.js" />
     <Content Include="Test\qunit\qunit.css" />
@@ -368,7 +369,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="home.cshtml" />
+    <Content Include="index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

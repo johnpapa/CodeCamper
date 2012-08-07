@@ -1,14 +1,16 @@
 ﻿@using System.Web.Optimization
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Code Camper vm.speaker Tests</title>
+
+    <title>Code Camper Tests</title>
+
     @Styles.Render("~/Content/css", "~/Content/less")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" type="text/css" href="qunit/qunit.css" />
 </head>
 <body>
-    <h1 id="qunit-header">Code Camper vm.speaker Tests</h1>
+    <h1 id="qunit-header">Code Camper dataservice.session Tests</h1>
     <h2 id="qunit-banner"></h2>
     <div id="qunit-testrunner-toolbar"></div>
     <h2 id="qunit-userAgent"></h2>
@@ -24,16 +26,23 @@
         window.defineSaved = window.define;
 
         window.define = function (a, b, c) {
-            a === 'vm.speakers' ? window.testFn = c : defineSaved(a, b, c);
+            a === 'dataservice.session' ? window.testFn = c : defineSaved(a, b, c);
         };
     </script>
 
-    <script type="text/javascript" src="~/Scripts/app/vm.speakers.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/dataservice.session.js"></script>
     <script src="main.tests.js" type="text/javascript"></script>
-    <script type="text/javascript" src="vm.speakers.tests.js"></script>
+    <script type="text/javascript" src="dataservice.session.tests.js"></script>
 
     <script type="text/javascript">
-        require(['vm-speakers-tests-function']);
+        require(['dataservice.session-tests-function']);
     </script>
+
+    <!--<script type="text/javascript" src="../Scripts/app/utils.js"></script>
+<script type="text/javascript" src="../Scripts/app/dataservice.lookup.js"></script>
+<script type="text/javascript" src="../Scripts/app/dataservice.person.js"></script>
+<script type="text/javascript" src="../Scripts/app/dataservice.session.js"></script>-->
+
 </body>
+
 </html>

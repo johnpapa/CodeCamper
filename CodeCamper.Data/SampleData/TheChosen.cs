@@ -401,7 +401,7 @@ namespace CodeCamper.Data.SampleData
                 RoomId = getRoomId(_scottGuthrie),
                 Level = levels[1],
                 Tags = "Keynote",
-                Description = "",
+                Description = "Change the World",
             });
             
             // John Papa
