@@ -1,6 +1,6 @@
 ﻿define('utils',
-['moment'],
-    function (moment) {
+['underscore', 'moment'],
+    function (_, moment) {
         var endOfDay = function(day) {
             return moment(new Date(day))
                 .add('days', 1)
@@ -28,18 +28,68 @@
                 // Removes regEx characters from search filter boxes in our app
                 return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
             },
-            restoreFilter = function (rawProperty, filterProperty, fetchMethod) {
-                if (rawProperty && filterProperty() !== rawProperty) {
-                    if (fetchMethod) {
-                        var obj = fetchMethod(rawProperty.id);
-                        if (obj) {
-                            filterProperty(obj);
+
+            restoreFilter = function (filterData) {
+                var stored = filterData.stored,
+                    filter = filterData.filter,
+                    dc = filterData.datacontext;
+
+                // Create a list of the 5 filters to process
+                var filterList = [
+                    { raw: stored.favoriteOnly, filter: filter.favoriteOnly },
+                    { raw: stored.searchText, filter: filter.searchText },
+                    { raw: stored.speaker, filter: filter.speaker, fetch: dc.persons.getLocalById },
+                    { raw: stored.timeslot, filter: filter.timeslot, fetch: dc.timeslots.getLocalById },
+                    { raw: stored.track, filter: filter.track, fetch: dc.tracks.getLocalById }
+                ];
+
+                // For each filter, set the filter to the stored value, or get it from the DC
+                _.each(filterList, function (map) {
+                    var rawProperty = map.raw, // POJO
+                        filterProperty = map.filter, // observable
+                        fetchMethod = map.fetch;
+                    if (rawProperty && filterProperty() !== rawProperty) {
+                        if (fetchMethod) {
+                            var obj = fetchMethod(rawProperty.id);
+                            if (obj) {
+                                filterProperty(obj);
+                            }
+                        } else {
+                            filterProperty(rawProperty);
                         }
-                    } else {
-                        filterProperty(rawProperty);
                     }
-                }
+                });
             };
+
+            //restoreFilter = function (filterList) {
+            //    _.each(filterList, function (map) {
+            //        var rawProperty = map.raw, // POJO
+            //            filterProperty = map.filter, // observable
+            //            fetchMethod = map.fetch;
+            //        if (rawProperty && filterProperty() !== rawProperty) {
+            //            if (fetchMethod) {
+            //                var obj = fetchMethod(rawProperty.id);
+            //                if (obj) {
+            //                    filterProperty(obj);
+            //                }
+            //            } else {
+            //                filterProperty(rawProperty);
+            //            }
+            //        }
+            //    });
+            //};
+            //restoreFilter = function (rawProperty, filterProperty, fetchMethod) {
+            //    if (rawProperty && filterProperty() !== rawProperty) {
+            //        if (fetchMethod) {
+            //            var obj = fetchMethod(rawProperty.id);
+            //            if (obj) {
+            //                filterProperty(obj);
+            //            }
+            //        } else {
+            //            filterProperty(rawProperty);
+            //        }
+            //    }
+            //};
 
 
         return {

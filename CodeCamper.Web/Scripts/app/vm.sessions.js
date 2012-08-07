@@ -87,28 +87,13 @@
             },
 
             restoreFilter = function () {
-                var localFilter = store.fetch(stateKey.filter),
-                    restore = utils.restoreFilter;
-                if (!localFilter) { return; }
-                
-                restore(
-                    localFilter.favoriteOnly,
-                    sessionFilter.favoriteOnly);
-                restore(
-                    localFilter.searchText,
-                    sessionFilter.searchText);
-                restore(
-                    localFilter.speaker,
-                    sessionFilter.speaker,
-                    datacontext.persons.getLocalById);
-                restore(
-                    localFilter.timeslot,
-                    sessionFilter.timeslot,
-                    datacontext.timeslots.getLocalById);
-                restore(
-                    localFilter.track,
-                    sessionFilter.track,
-                    datacontext.tracks.getLocalById);
+                var stored = store.fetch(stateKey.filter);
+                if (!stored) { return; }
+                utils.restoreFilter({
+                    stored: stored,
+                    filter: sessionFilter,
+                    datacontext: datacontext
+                });
             },
 
             saveFavorite = function (selectedSession) {
@@ -133,12 +118,8 @@
             },
 
             clearAllFilters = function () {
-                sessionFilter
-                    .favoriteOnly(false)
-                    .speaker(null)
-                    .timeslot(null)
-                    .track(null)
-                    .searchText('');
+                sessionFilter.favoriteOnly(false).speaker(null)
+                    .timeslot(null).track(null).searchText('');
                 refresh();
             },
             
