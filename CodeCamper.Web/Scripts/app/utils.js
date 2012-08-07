@@ -61,37 +61,6 @@
                 });
             };
 
-            //restoreFilter = function (filterList) {
-            //    _.each(filterList, function (map) {
-            //        var rawProperty = map.raw, // POJO
-            //            filterProperty = map.filter, // observable
-            //            fetchMethod = map.fetch;
-            //        if (rawProperty && filterProperty() !== rawProperty) {
-            //            if (fetchMethod) {
-            //                var obj = fetchMethod(rawProperty.id);
-            //                if (obj) {
-            //                    filterProperty(obj);
-            //                }
-            //            } else {
-            //                filterProperty(rawProperty);
-            //            }
-            //        }
-            //    });
-            //};
-            //restoreFilter = function (rawProperty, filterProperty, fetchMethod) {
-            //    if (rawProperty && filterProperty() !== rawProperty) {
-            //        if (fetchMethod) {
-            //            var obj = fetchMethod(rawProperty.id);
-            //            if (obj) {
-            //                filterProperty(obj);
-            //            }
-            //        } else {
-            //            filterProperty(rawProperty);
-            //        }
-            //    }
-            //};
-
-
         return {
             endOfDay: endOfDay,
             hasProperties: hasProperties,

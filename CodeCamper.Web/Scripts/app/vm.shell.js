@@ -1,6 +1,6 @@
 ﻿define('vm.shell',
-    ['ko', 'underscore', 'datacontext', 'config'],
-    function (ko, _, datacontext, config) {
+    ['ko', 'config'],
+    function (ko, config) {
 
         var
             currentUser = config.currentUser,
@@ -8,16 +8,13 @@
             demoUsers = ko.observableArray([]),
 
             activate = function (routeData) {
-                //_.each(config.demoUserIds, function (id) {
-                //    demoUsers.push(datacontext.persons.getLocalById(id));
-                //});
+                //No-Op for now
             },
             
             init = function () {
                 activate();
             };
 
-        // Initialization
         init();
 
         return {
