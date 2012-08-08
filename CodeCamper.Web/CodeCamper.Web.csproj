@@ -267,7 +267,6 @@
     <Content Include="Scripts\lib\sammy.title.js" />
     <Content Include="Scripts\lib\moment.js" />
     <Content Include="Scripts\lib\toastr.js" />
-    <Content Include="Test\old.dataservice.session.tests.js" />
     <Content Include="Test\vm.session.tests.js" />
     <Content Include="Test\web api\webapi.person-cud.tests.html" />
     <Content Include="Test\web api\webapi.person-cud.tests.js" />
