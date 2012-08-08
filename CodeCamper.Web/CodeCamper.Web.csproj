@@ -240,7 +240,7 @@
     <Content Include="Scripts\app\route-mediator.js" />
     <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
-    <Content Include="Scripts\Copy of main.js" />
+    <Content Include="Scripts\main.readme.txt" />
     <Content Include="Scripts\lib\infuser.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine.js" />
     <Content Include="Scripts\lib\modernizr-2.5.3.js" />
