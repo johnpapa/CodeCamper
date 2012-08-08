@@ -1,33 +1,12 @@
 ﻿(function () {
-    // Establish the root object, `window` in the browser, or `global` on the server.
     var root = this;
-    
-    requirejs.config(
-        {
-            // Let require.js load all app/custom modules asynchronously as needed.
-            // They are all in this folder.
-            // If we bundle this foler, this is not needed. But if we don't bundle, we need this.
-            baseUrl: 'scripts/app' /* script default location */
-         
-            // List paths to js files that are not in the baseUrl and not in bundles.
-            // If we use the non-amd versions of 3rd libs we can bundle them instead.
-            // In which case we don't need the paths.
-            // Example:
-            //paths: {
-            //    'knockout.changetracker': '../lib/knockout.changetracker-amd',
-            //}
-        }
-    );
 
-    // Load the 3rd party libraries
-    registerNonAmdLibs();
-    // Load our app/custom plug-ins and bootstrap the app
-    loadExtensionsAndBoot();
+    define3rdPartyModules();
+    loadPluginsAndBoot();
 
-    function registerNonAmdLibs() {
-        // Load the 3rd party libraries that the app needs.
-        // These are in the bundle (BundleConfig.cs).
-        // These are the core libraries that many others depend on.
+    function define3rdPartyModules() {
+        // These are already loaded via bundles. 
+        // We define them and put them in the root object.
         define('jquery', [], function () { return root.jQuery; });
         define('ko', [], function () { return root.ko; });
         define('amplify', [], function () { return root.amplify; });
@@ -38,31 +17,22 @@
         define('underscore', [], function () { return root._; });
     }
     
-    // Load our app/custom plug-ins and bootstrap the app
-    function loadExtensionsAndBoot() {
-        // Require that these custom plugins be loaded now
-        // so that we don't have to name them specifically in 
-        // the modules that make use of them because
-        // we don't want those modules to know that they use plugins.
+    function loadPluginsAndBoot() {
+        // Plugins must be loaded after jQuery and Knockout, 
+        // since they depend on them.
         requirejs([
-                // These plugins use "define" and we need to load them, so we kick them off here.
-                'jquery.activity-ex',           // AMD jquery plugin that self-installs; loaded in bundle
-                'ko.asyncCommand',              // Knockout custom asyncCommand
-                'ko.bindingHandlers',           // Knockout custom binding handlers
-                'ko.bindingHandlers.activity',  // Knockout custom binding handlers
-                'ko.bindingHandlers.command',   // Knockout custom binding handlers
-                'ko.debug.helpers',             // Knockout debugging plugin for the app
-                'ko.dirtyFlag',                 // Knockout dirtyFlag
-                'ko.utils'                      // Knockout custom utilities
+                'jquery.activity-ex',           
+                'ko.asyncCommand',              
+                'ko.bindingHandlers',           
+                'ko.bindingHandlers.activity',  
+                'ko.bindingHandlers.command',   
+                'ko.debug.helpers',             
+                'ko.dirtyFlag',                 
+                'ko.utils'                      
         ], boot);
     }
     
     function boot() {
-        // Start-up the app, now that all prerequisites are in place.
-        require(['bootstrapper'],
-            function (bs) {
-                bs.run();
-            });
+        require(['bootstrapper'], function (bs) { bs.run(); });
     }
-    
 })();
