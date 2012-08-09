@@ -215,6 +215,7 @@
     <Content Include="Content\images\heart-checked.png" />
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
+    <Content Include="Require.JS - LICENSE.txt" />
     <Content Include="Scripts\app\binder.js" />
     <Content Include="Scripts\app\model.session.js" />
     <Content Include="Scripts\app\model.person.js" />
@@ -268,6 +269,7 @@
     <Content Include="Scripts\lib\sammy.title.js" />
     <Content Include="Scripts\lib\moment.js" />
     <Content Include="Scripts\lib\toastr.js" />
+    <Content Include="Scripts\lib\require.js" />
     <Content Include="Test\vm.session.tests.js" />
     <Content Include="Test\web api\webapi.person-cud.tests.html" />
     <Content Include="Test\web api\webapi.person-cud.tests.js" />
@@ -282,7 +284,6 @@
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
     <Content Include="Scripts\lib\activity-indicator.js" />
     <Content Include="Scripts\lib\json2.js" />
-    <Content Include="Scripts\lib\require.js" />
     <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Test\web api\webapi.get-result.tests.html" />
     <Content Include="Test\web api\webapi.get-result.tests.js" />
