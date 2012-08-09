@@ -276,7 +276,8 @@
     <Content Include="Test\web api\webapi.session-cud.tests.html" />
     <Content Include="Test\web api\webapi.session-cud.tests.js" />
     <Content Include=".htaccess" />
-    <Content Include="home-temp.cshtml" />
+    <Content Include="index.cshtml.info.only.txt" />
+    <Content Include="index.cshtml.readme.txt" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
     <Content Include="Scripts\lib\activity-indicator.js" />

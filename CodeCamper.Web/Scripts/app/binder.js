@@ -2,13 +2,15 @@
     ['jquery', 'ko', 'config', 'vm'],
     function ($, ko, config, vm) {
         var
+            ids = config.viewIds,
+
             bind = function () {
-                ko.applyBindings(vm.shell, getView(config.viewIds.shellTop));
-                ko.applyBindings(vm.favorites, getView(config.viewIds.favorites));
-                ko.applyBindings(vm.session, getView(config.viewIds.session));
-                ko.applyBindings(vm.sessions, getView(config.viewIds.sessions));
-                ko.applyBindings(vm.speaker, getView(config.viewIds.speaker));
-                ko.applyBindings(vm.speakers, getView(config.viewIds.speakers));
+                ko.applyBindings(vm.shell, getView(ids.shellTop));
+                ko.applyBindings(vm.favorites, getView(ids.favorites));
+                ko.applyBindings(vm.session, getView(ids.session));
+                ko.applyBindings(vm.sessions, getView(ids.sessions));
+                ko.applyBindings(vm.speaker, getView(ids.speaker));
+                ko.applyBindings(vm.speakers, getView(ids.speakers));
             },
             
             getView = function (viewName) {

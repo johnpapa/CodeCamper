@@ -3,12 +3,10 @@
     function (ko, datacontext, config) {
 
         var logger = config.logger,
+            
             fetch = function() {
                 return $.Deferred(function (def) {
 
-                    // TODO: TESTING 
-                    // We don't actually use this data, 
-                    // we just get it so we can see that something was fetched.
                     var data = {
                         rooms: ko.observable(),
                         tracks: ko.observable(),
@@ -17,9 +15,9 @@
                         persons: ko.observable(),
                         sessions: ko.observable()
                     };
-                    // TODO: END TESTING 
 
-                    $.when(datacontext.rooms.getData({ results: data.rooms }),
+                    $.when(
+                        datacontext.rooms.getData({ results: data.rooms }),
                         datacontext.timeslots.getData({ results: data.timeslots }),
                         datacontext.tracks.getData({ results: data.tracks }),
                         datacontext.attendance.getData({ param: config.currentUserId, results: data.attendance }),
@@ -34,11 +32,11 @@
                     )
 
                     .pipe(function () {
-                        // Need sessions and speakers in cache before we can make speakerSessions
+                        // Need sessions and speakers in cache before
+                        // speakerSessions models can be made (client model only)
                         datacontext.speakerSessions.refreshLocal();
                     })
 
-                    // TODO: TESTING 
                     .pipe(function() {
                         logger.success('Fetched data for: '
                             + '<div>' + data.rooms().length + ' rooms </div>'
@@ -51,13 +49,9 @@
                         );
                     })
 
-                    .fail(function () {
-                        def.reject();
-                    })
+                    .fail(function () { def.reject(); })
 
-                    .done(function () {
-                        def.resolve();
-                    });
+                    .done(function () { def.resolve(); });
 
                 }).promise();
             };

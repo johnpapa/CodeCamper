@@ -1,5 +1,5 @@
 define('presenter',
-['jquery'],
+    ['jquery'],
     function($) {
         var
             transitionOptions = {

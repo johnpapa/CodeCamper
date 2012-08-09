@@ -7,8 +7,10 @@
             register = function() {
 
                 var routeData = [
+
                     // Favorites routes
                     {
+                        view: config.viewIds.favorites,
                         routes: [
                             {
                                 isDefault: true,
@@ -16,57 +18,58 @@
                                 title: 'Favorites',
                                 callback: vm.favorites.activate,
                                 group: '.route-top'
-                            },
-                            {
+                            },{
                                 route: config.hashes.favoritesByDate + '/:date',
                                 title: 'Favorites',
                                 callback: vm.favorites.activate,
                                 group: '.route-left'
                             }
-                        ],
-                        view: config.viewIds.favorites
+                        ]
                     },
+
                     // Sessions routes
                     {
+                        view: config.viewIds.sessions,
                         routes:
                             [{
                                 route: config.hashes.sessions,
                                 title: 'Sessions',
                                 callback: vm.sessions.activate,
                                 group: '.route-top'
-                            }],
-                        view: config.viewIds.sessions
+                            }]
                     },
+
                     // Session details routes
                     {
+                        view: config.viewIds.session,
                         route: config.hashes.sessions + '/:id',
                         title: 'Session',
                         callback: vm.session.activate,
-                        view: config.viewIds.session,
                         group: '.route-left'
                     },
+
                     // Speaker and speaker details routes
                     {
+                        view: config.viewIds.speakers,
                         route: config.hashes.speakers,
                         title: 'Speakers',
                         callback: vm.speakers.activate,
-                        view: config.viewIds.speakers,
                         group: '.route-top'
-                    },
-                    {
+                    },{
+                        view: config.viewIds.speaker,
                         route: config.hashes.speakers + '/:id',
                         title: 'Speaker',
-                        callback: vm.speaker.activate,
-                        view: config.viewIds.speaker
+                        callback: vm.speaker.activate
                     },
-                    // Catch invalid routes
+
+                    // Invalid routes
                     {
+                        view: '',
                         route: /.*/,
                         title: '',
                         callback: function() {
                             logger.error(config.toasts.invalidRoute);
-                        },
-                        view: ''
+                        }
                     }
                 ];
 
