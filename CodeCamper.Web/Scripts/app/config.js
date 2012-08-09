@@ -28,7 +28,7 @@
             title = 'CodeCamper > ',
             toastrTimeout = 2000,
 
-            _useMocks = true, // Set this to toggle mocks
+            _useMocks = false, // Set this to toggle mocks
             useMocks = function (val) {
                 if(val) {
                     _useMocks = val;
