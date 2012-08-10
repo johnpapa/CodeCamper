@@ -215,7 +215,6 @@
     <Content Include="Content\images\heart-checked.png" />
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
-    <Content Include="Require.JS - LICENSE.txt" />
     <Content Include="Scripts\app\binder.js" />
     <Content Include="Scripts\app\model.session.js" />
     <Content Include="Scripts\app\model.person.js" />
