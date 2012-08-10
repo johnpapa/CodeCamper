@@ -7,7 +7,28 @@
             stateKey = { searchText: 'vm.speakers.searchText' },
             tmplName = 'speakers.view',
             
-            getSpeakers = function(callback) {
+            activate = function (routeData, callback) {
+                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
+                refresh(callback);
+            },
+
+            canLeave = function () {
+                return true;
+            },
+
+            clearFilter = function () {
+                speakerFilter.searchText('');
+            },
+
+            forceRefresh = ko.asyncCommand({
+                execute: function (complete) {
+                    datacontext.speakerSessions.forceDataRefresh()
+                        .done(refresh)
+                        .always(complete);
+                }
+            }),
+
+            getSpeakers = function (callback) {
                 datacontext.speakerSessions.getLocalSpeakers(speakers, {
                     filter: speakerFilter,
                     sortFunction: sort.speakerSort
@@ -17,38 +38,20 @@
                 }
             },
 
-            refresh = function (callback) {
-                restoreFilter();
-                getSpeakers(callback);
-            },
-
-            canLeave = function () {
-                return true;
-            },
-
-            activate = function (routeData, callback) {
-                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-                refresh(callback);
-            },
-
-            forceRefresh = ko.asyncCommand({
-                execute: function(complete) {
-                    datacontext.speakerSessions.forceDataRefresh()
-                        .done(refresh)
-                        .always(complete);
-                }
-            }),
-
             gotoDetails = function (selectedSpeaker) {
                 if (selectedSpeaker && selectedSpeaker.id()) {
                     router.navigateTo(config.hashes.speakers + '/' + selectedSpeaker.id());
                 }
             },
 
-            clearFilter = function () {
-                if (speakerFilter.searchText().length) {
-                    speakerFilter.searchText('');
-                }
+            onFilterChange = function (val) {
+                store.save(stateKey.searchText, val);
+                refresh();
+            },
+
+            refresh = function (callback) {
+                restoreFilter();
+                getSpeakers(callback);
             },
 
             restoreFilter = function () {
@@ -56,11 +59,6 @@
                 if (val !== speakerFilter.searchText()) {
                     speakerFilter.searchText(store.fetch(stateKey.searchText));
                 }
-            },
-
-            onFilterChange = function (val) {
-                store.save(stateKey.searchText, val);
-                refresh();
             },
 
             init = function () {

@@ -8,7 +8,7 @@
                     url: '/api/speakers',
                     dataType: 'json',
                     type: 'GET'
-                    //cache:
+                    //cache: true
                 }),
 
                 amplify.request.define('persons', 'ajax', {

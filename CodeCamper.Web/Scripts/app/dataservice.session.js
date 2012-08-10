@@ -15,7 +15,7 @@
                     url: '/api/sessionbriefs',
                     dataType: 'json',
                     type: 'GET'
-                    //cache:
+                    //cache: true
                 });
 
                 amplify.request.define('session', 'ajax', {

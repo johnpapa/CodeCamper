@@ -2,92 +2,37 @@
     ['ko', 'datacontext', 'config', 'router', 'messenger'],
     function (ko, datacontext, config, router, messenger) {
 
-        var
+        var currentSpeakerId = ko.observable(),
             logger = config.logger,
-            currentSpeakerId = ko.observable(),
             speaker = ko.observable(),
             speakerSessions = ko.observableArray(),
-            
-            tmplName = function() {
-                return canEdit() ? 'speaker.edit' : 'speaker.view';
-            },
-            
-            canEdit = ko.computed(function () {
-                return speaker() && config.currentUser() && config.currentUser().id() === speaker().id();
-            }),
-
             validationErrors = ko.observableArray([]), // Override this after we get a session
 
-            isValid = ko.computed(function () {
-                return canEdit() ? validationErrors().length === 0 : true;
-            }),
-
-            isDirty = ko.computed(function () {
-                if (canEdit()) {
-                    return speaker().dirtyFlag().isDirty();
-                }
-                return false;
-            }),
-
-            goBack = ko.asyncCommand({
-                execute: function (complete) {
-                    router.navigateBack();
-                    complete();
-                },
-                canExecute: function (isExecuting) {
-                    return !isDirty();
-                }
-            }),
-
+            activate = function(routeData, callback) {
+                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
+                currentSpeakerId(routeData.id);
+                getSpeaker(callback);
+            },
             cancel = ko.asyncCommand({
-                execute: function (complete) {
-                    var callback = function () {
+                execute: function(complete) {
+                    var callback = function() {
                         complete();
                         logger.success(config.toasts.retreivedData);
                     };
                     getSpeaker(callback, true);
                 },
-                canExecute: function (isExecuting) {
+                canExecute: function(isExecuting) {
                     return isDirty();
                 }
             }),
-
-            save = ko.asyncCommand({
-                execute: function (complete) {
-                    if (canEdit()) {
-                        $.when(
-                            datacontext.persons.updateData(
-                                speaker(), {
-                                    success: function () { },
-                                    error: function () { }
-                                }
-                            )
-                        ).always(function () {
-                            complete();
-                        });
-                        return;
-                    } else {
-                        complete();
-                    }
-                },
-                canExecute: function (isExecuting) {
-                    return isDirty() && isValid();
-                }
+            canEdit = ko.computed(function() {
+                return speaker() && config.currentUser() && config.currentUser().id() === speaker().id();
             }),
-
-            canLeave = function () {
+            canLeave = function() {
                 return canEdit() ? !isDirty() && isValid() : true;
             },
-
-            activate = function (routeData, callback) {
-                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-
-                currentSpeakerId(routeData.id);
-                getSpeaker(callback);
-            },
-            
-            getSpeaker = function (completeCallback, forceRefresh) {
-                var callback = function () {
+            getSpeaker = function(completeCallback, forceRefresh) {
+                var callback = function() {
                     if (completeCallback) {
                         completeCallback();
                     }
@@ -96,22 +41,62 @@
 
                 datacontext.persons.getFullPersonById(
                     currentSpeakerId(), {
-                        success: function (s) {
+                        success: function(s) {
                             speaker(s);
                             callback();
                         },
-                        error: function () {
+                        error: function() {
                             callback();
                         }
                     },
                     forceRefresh
                 );
             },
-            
-            init = function () {
+            goBack = ko.asyncCommand({
+                execute: function(complete) {
+                    router.navigateBack();
+                    complete();
+                },
+                canExecute: function(isExecuting) {
+                    return !isDirty();
+                }
+            }),
+            isDirty = ko.computed(function() {
+                if (canEdit()) {
+                    return speaker().dirtyFlag().isDirty();
+                }
+                return false;
+            }),
+            isValid = ko.computed(function() {
+                return canEdit() ? validationErrors().length === 0 : true;
+            }),
+            save = ko.asyncCommand({
+                execute: function(complete) {
+                    if (canEdit()) {
+                        $.when(
+                            datacontext.persons.updateData(
+                                speaker(), {
+                                    success: function() {
+                                    },
+                                    error: function() {
+                                    }
+                                }
+                            )
+                        ).always(function() {
+                            complete();
+                        });
+                        return;
+                    } else {
+                        complete();
+                    }
+                },
+                canExecute: function(isExecuting) {
+                    return isDirty() && isValid();
+                }
+            }),
+            tmplName = function() {
+                return canEdit() ? 'speaker.edit' : 'speaker.view';
             };
-
-        init();
 
         return {
             activate: activate,
