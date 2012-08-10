@@ -47,9 +47,6 @@
                     $.when(
                         datacontext.sessions.getData(dataOptions(true))
                     ).always(complete);
-                },
-                canExecute: function (isExecuting) {
-                    return true;
                 }
             }),
 

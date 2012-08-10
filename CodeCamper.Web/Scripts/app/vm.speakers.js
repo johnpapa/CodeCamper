@@ -36,9 +36,6 @@
                     datacontext.speakerSessions.forceDataRefresh()
                         .done(refresh)
                         .always(complete);
-                },
-                canExecute: function(isExecuting) {
-                    return true;
                 }
             }),
 

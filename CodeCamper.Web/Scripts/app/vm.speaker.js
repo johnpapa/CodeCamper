@@ -76,11 +76,7 @@
             }),
 
             canLeave = function () {
-                if (canEdit()) {
-                    return !isDirty() && isValid();
-                } else {
-                    return true;
-                }
+                return canEdit() ? !isDirty() && isValid() : true;
             },
 
             activate = function (routeData, callback) {

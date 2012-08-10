@@ -2,6 +2,7 @@
     ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
     function ($, ko, datacontext, router, SessionFilter, sort, eventDelegates, utils, messenger, config, store) {
         var
+            filterTmpl = 'sessions.filterbox',
             isBusy = false,
             isRefreshing = false,
             sessionFilter = new SessionFilter(),
@@ -9,9 +10,55 @@
             speakers = ko.observableArray(),
             stateKey = { filter: 'vm.sessions.filter' },
             timeslots = ko.observableArray(),
-            tracks = ko.observableArray(),
             tmplName = 'sessions.view',
-            filterTmpl = 'sessions.filterbox',
+            tracks = ko.observableArray(),
+
+            activate = function (routeData) {
+                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
+                getSpeakers();
+                getTimeslots();
+                getTracks();
+                refresh();
+            },
+
+            addFilterSubscriptions = function () {
+                sessionFilter.searchText.subscribe(onFilterChange);
+                sessionFilter.speaker.subscribe(onFilterChange);
+                sessionFilter.timeslot.subscribe(onFilterChange);
+                sessionFilter.track.subscribe(onFilterChange);
+                sessionFilter.favoriteOnly.subscribe(onFilterChange);
+            },
+
+            canLeave = function () {
+                return true;
+            },
+
+            clearAllFilters = function () {
+                sessionFilter.favoriteOnly(false).speaker(null)
+                    .timeslot(null).track(null).searchText('');
+                refresh();
+            },
+
+            clearFilter = function () {
+                sessionFilter.searchText('');
+            },
+            
+            dataOptions = function (force) {
+                return {
+                    results: sessions,
+                    filter: sessionFilter,
+                    sortFunction: sort.sessionSort,
+                    forceRefresh: force
+                };
+            },
+
+            forceRefresh = ko.asyncCommand({
+                execute: function (complete) {
+                    $.when(
+                        datacontext.sessions.getData(dataOptions(true))
+                    ).always(complete);
+                }
+            }),
 
             getSpeakers = function () {
                 if (!speakers().length) {
@@ -39,50 +86,25 @@
                 }
             },
 
-            canLeave = function () {
-                return true; 
-            },
-
-            activate = function (routeData) {
-                messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-                getSpeakers();
-                getTimeslots();
-                getTracks();
-                refresh();
-            },
-
-            forceRefresh = ko.asyncCommand({
-                execute: function (complete) {
-                    $.when(
-                        datacontext.sessions.getData({
-                            results: sessions,
-                            filter: sessionFilter,
-                            sortFunction: sort.sessionSort,
-                            forceRefresh: true
-                        })
-                    ).always(complete);
-                },
-                canExecute: function (isExecuting) {
-                    return true;
+            gotoDetails = function (selectedSession) {
+                if (selectedSession && selectedSession.id()) {
+                    router.navigateTo(config.hashes.sessions + '/' + selectedSession.id());
                 }
-            }),
+            },
+
+            onFilterChange = function () {
+                if (!isRefreshing) {
+                    store.save(stateKey.filter, ko.toJS(sessionFilter));
+                    refresh();
+                }
+            },
 
             refresh = function () {
                 if (!isRefreshing) {
                     isRefreshing = true;
                     restoreFilter();
-                    datacontext.sessions.getData({
-                        results: sessions,
-                        filter: sessionFilter,
-                        sortFunction: sort.sessionSort
-                    });
+                    datacontext.sessions.getData(dataOptions(false));
                     isRefreshing = false;
-                }
-            },
-
-            gotoDetails = function (selectedSession) {
-                if (selectedSession && selectedSession.id()) {
-                    router.navigateTo(config.hashes.sessions + '/' + selectedSession.id());
                 }
             },
 
@@ -113,31 +135,6 @@
                     );
             },
 
-            clearFilter = function () {
-                sessionFilter.searchText('');
-            },
-
-            clearAllFilters = function () {
-                sessionFilter.favoriteOnly(false).speaker(null)
-                    .timeslot(null).track(null).searchText('');
-                refresh();
-            },
-            
-            addFilterSubscriptions = function () {
-                sessionFilter.searchText.subscribe(onFilterChange);
-                sessionFilter.speaker.subscribe(onFilterChange);
-                sessionFilter.timeslot.subscribe(onFilterChange);
-                sessionFilter.track.subscribe(onFilterChange);
-                sessionFilter.favoriteOnly.subscribe(onFilterChange);
-            },
-
-            onFilterChange = function () {
-                if (!isRefreshing) {
-                    store.save(stateKey.filter, ko.toJS(sessionFilter));
-                    refresh();
-                }
-            },
-
             init = function () {
                 // Bind jQuery delegated events
                 eventDelegates.sessionsListItem(gotoDetails);
@@ -160,7 +157,7 @@
             sessions: sessions,
             speakers: speakers,
             timeslots: timeslots,
-            tracks: tracks,
-            tmplName: tmplName
+            tmplName: tmplName,
+            tracks: tracks
         };
     });
