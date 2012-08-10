@@ -8,11 +8,27 @@
             speakerSessions = ko.observableArray(),
             validationErrors = ko.observableArray([]), // Override this after we get a session
 
-            activate = function(routeData, callback) {
+            canEdit = ko.computed(function () {
+                return speaker() && config.currentUser() && config.currentUser().id() === speaker().id();
+            }),
+
+            isDirty = ko.computed(function () {
+                if (canEdit()) {
+                    return speaker().dirtyFlag().isDirty();
+                }
+                return false;
+            }),
+
+            isValid = ko.computed(function () {
+                return canEdit() ? validationErrors().length === 0 : true;
+            }),
+
+            activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 currentSpeakerId(routeData.id);
                 getSpeaker(callback);
             },
+
             cancel = ko.asyncCommand({
                 execute: function(complete) {
                     var callback = function() {
@@ -25,13 +41,12 @@
                     return isDirty();
                 }
             }),
-            canEdit = ko.computed(function() {
-                return speaker() && config.currentUser() && config.currentUser().id() === speaker().id();
-            }),
-            canLeave = function() {
+
+            canLeave = function () {
                 return canEdit() ? !isDirty() && isValid() : true;
             },
-            getSpeaker = function(completeCallback, forceRefresh) {
+
+            getSpeaker = function (completeCallback, forceRefresh) {
                 var callback = function() {
                     if (completeCallback) {
                         completeCallback();
@@ -52,6 +67,7 @@
                     forceRefresh
                 );
             },
+
             goBack = ko.asyncCommand({
                 execute: function(complete) {
                     router.navigateBack();
@@ -61,27 +77,12 @@
                     return !isDirty();
                 }
             }),
-            isDirty = ko.computed(function() {
-                if (canEdit()) {
-                    return speaker().dirtyFlag().isDirty();
-                }
-                return false;
-            }),
-            isValid = ko.computed(function() {
-                return canEdit() ? validationErrors().length === 0 : true;
-            }),
+
             save = ko.asyncCommand({
                 execute: function(complete) {
                     if (canEdit()) {
                         $.when(
-                            datacontext.persons.updateData(
-                                speaker(), {
-                                    success: function() {
-                                    },
-                                    error: function() {
-                                    }
-                                }
-                            )
+                            datacontext.persons.updateData(speaker())
                         ).always(function() {
                             complete();
                         });
@@ -94,7 +95,8 @@
                     return isDirty() && isValid();
                 }
             }),
-            tmplName = function() {
+
+            tmplName = function () {
                 return canEdit() ? 'speaker.edit' : 'speaker.view';
             };
 

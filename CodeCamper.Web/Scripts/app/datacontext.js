@@ -95,28 +95,22 @@
                         return $.Deferred(function(def) {
                             if (!updateFunction) {
                                 logger.error('updateData method not implemented'); //TODO: revise error message
-                                if (callbacks && callbacks.error) {
-                                    def.reject();
-                                    callbacks.error();
-                                }
+                                if (callbacks && callbacks.error) { callbacks.error(); }
+                                def.reject();
                                 return;
                             }
 
                             updateFunction({
                                 success: function(response) {
                                     logger.success(config.toasts.savedData);
-                                    if (callbacks && callbacks.success) {
-                                        entity.dirtyFlag().reset();
-                                        def.resolve(response);
-                                        callbacks.success();
-                                    }
+                                    entity.dirtyFlag().reset();
+                                    if (callbacks && callbacks.success) { callbacks.success(); }
+                                    def.resolve(response);
                                 },
                                 error: function(response) {
                                     logger.error(config.toasts.errorSavingData);
-                                    if (callbacks && callbacks.error) {
-                                        def.reject(response);
-                                        callbacks.error();
-                                    }
+                                    if (callbacks && callbacks.error) { callbacks.error(); }
+                                    def.reject(response);
                                     return;
                                 }
                             }, entityJson);
@@ -133,7 +127,6 @@
                     updateData: updateData
                 };
             },
-            
         
             attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.Attendance.Nullo),
             rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.Room.Nullo),
@@ -163,17 +156,13 @@
                             attendance.add(newAtt); // Add to the datacontext
                             sessionModel.isFavoriteRefresh.valueHasMutated(); // Trigger re-evaluation of isFavorite
                             logger.success(config.toasts.savedData);
-                            if (callbacks && callbacks.success) {
-                                def.resolve(dto);
-                                callbacks.success(newAtt);
-                            }
+                            if (callbacks && callbacks.success) { callbacks.success(newAtt); }
+                            def.resolve(dto);
                         },
                         error: function (response) {
                             logger.error(config.toasts.errorSavingData);
-                            if (callbacks && callbacks.error) {
-                                def.reject(response);
-                                callbacks.error();
-                            }
+                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            def.reject(response);
                             return;
                         }
                     }, attendanceModelJson);
@@ -189,18 +178,14 @@
                     dataservice.attendance.updateAttendance({
                         success: function(response) {
                             logger.success(config.toasts.savedData);
-                            if (callbacks && callbacks.success) {
-                                attendanceModel.dirtyFlag().reset();
-                                def.resolve(response);
-                                callbacks.success();
-                            }
+                            attendanceModel.dirtyFlag().reset();
+                            if (callbacks && callbacks.success) { callbacks.success(); }
+                            def.resolve(response);
                         },
                         error: function(response) {
                             logger.error(config.toasts.errorSavingData);
-                            if (callbacks && callbacks.error) {
-                                def.reject(response);
-                                callbacks.error();
-                            }
+                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            def.reject(response);
                             return;
                         }
                     }, attendanceModelJson);
@@ -215,17 +200,13 @@
                             attendance.removeById(attendanceModel.id());
                             sessionModel.isFavoriteRefresh.valueHasMutated(); // Trigger re-evaluation of isFavorite
                             logger.success(config.toasts.savedData); 
-                            if (callbacks && callbacks.success) {
-                                def.resolve(response);
-                                callbacks.success();
-                            }
+                            if (callbacks && callbacks.success) { callbacks.success(); }
+                            def.resolve(response);
                         },
                         error: function (response) {
                             logger.error(config.toasts.errorSavingData);
-                            if (callbacks && callbacks.error) {
-                                def.reject(response);
-                                callbacks.error();
-                            }
+                            if (callbacks && callbacks.error) { callbacks.error(); }
+                            def.reject(response);
                             return;
                         }
                     }, attendanceModel.personId(), attendanceModel.sessionId());
@@ -311,12 +292,8 @@
                         getFunctionOverride: dataservice.person.getSpeakers
                     });
                     $.when(persons.getData(options))
-                        .done(function() {
-                            def.resolve();
-                        })
-                        .fail(function() {
-                            def.reject();
-                        });
+                        .done(function() { def.resolve(); })
+                        .fail(function() { def.reject(); });
                 }).promise();
             },
 

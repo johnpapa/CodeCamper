@@ -10,6 +10,31 @@
             tracks = ko.observableArray(),
             validationErrors = ko.observableArray([]), // Override this after we get a session
 
+            canEditSession = ko.computed(function () {
+                return session() && config.currentUser() && config.currentUser().id() === session().speakerId();
+            }),
+
+            canEditEval = ko.computed(function () {
+                return session() && config.currentUser() && config.currentUser().id() !== session().speakerId();
+            }),
+
+            isDirty = ko.computed(function () {
+                if (canEditSession()) {
+                    return session().dirtyFlag().isDirty();
+                }
+                if (canEditEval()) {
+                    if (session() && session().attendance && session().attendance()) {
+                        return session().attendance().dirtyFlag().isDirty();
+                    }
+                }
+                return false;
+            }),
+
+            isValid = ko.computed(function () {
+                return (canEditEval() || canEditSession()) ? validationErrors().length === 0 : true;
+            }),
+
+
             activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
 
@@ -33,14 +58,6 @@
                 }
             }),
 
-            canEditSession = ko.computed(function () {
-                return session() && config.currentUser() && config.currentUser().id() === session().speakerId();
-            }),
-
-            canEditEval = ko.computed(function () {
-                return session() && config.currentUser() && config.currentUser().id() !== session().speakerId();
-            }),
-
             goBack = ko.asyncCommand({
                 execute: function (complete) {
                     router.navigateBack();
@@ -48,57 +65,6 @@
                 },
                 canExecute: function (isExecuting) {
                     return !isDirty();
-                }
-            }),
-
-            isDirty = ko.computed(function () {
-                if (canEditSession()) {
-                    return session().dirtyFlag().isDirty();
-                }
-                if (canEditEval()) {
-                    if (session() && session().attendance && session().attendance()) {
-                        return session().attendance().dirtyFlag().isDirty();
-                    }
-                }
-                return false;
-            }),
-
-
-            isValid = ko.computed(function () {
-                return (canEditEval() || canEditSession()) ? validationErrors().length === 0 : true;
-            }),
-
-            save = ko.asyncCommand({
-                execute: function(complete) {
-                    if (canEditSession()) {
-                        $.when(
-                            datacontext.sessions.updateData(
-                                session(), {
-                                    success: function() { },
-                                    error: function() { }
-                                }
-                            )
-                        ).always(function() {
-                            complete();
-                        });
-                        return;
-                    }
-                    if (canEditEval()) {
-                        $.when(
-                            datacontext.attendance.updateData(
-                                session(), {
-                                    success: function() { },
-                                    error: function() { }
-                                }
-                            )
-                        ).always(function() {
-                            complete();
-                        });
-                        return;
-                    }
-                },
-                canExecute: function(isExecuting) {
-                    return isDirty() && isValid;
                 }
             }),
 
@@ -169,6 +135,30 @@
                     });
                 }
             },
+
+            save = ko.asyncCommand({
+                execute: function (complete) {
+                    if (canEditSession()) {
+                        $.when(
+                            datacontext.sessions.updateData(session())
+                        ).always(function () {
+                            complete();
+                        });
+                        return;
+                    }
+                    if (canEditEval()) {
+                        $.when(
+                            datacontext.attendance.updateData(session())
+                        ).always(function () {
+                            complete();
+                        });
+                        return;
+                    }
+                },
+                canExecute: function (isExecuting) {
+                    return isDirty() && isValid;
+                }
+            }),
 
             saveFavorite = ko.asyncCommand({
                 execute: function(complete) {
