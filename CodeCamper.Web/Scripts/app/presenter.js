@@ -3,10 +3,10 @@ define('presenter',
     function($) {
         var
             transitionOptions = {
+                ease: 'swing',
                 fadeOut: 100,
                 floatIn: 500,
-                offset: '15px',
-                ease: 'swing'
+                offset: '15px'
             },
             
             toggleActivity = function (show) {

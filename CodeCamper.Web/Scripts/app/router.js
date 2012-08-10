@@ -7,11 +7,11 @@ define('router',
     function ($, _, Sammy, presenter, config, routeMediator, store) {
         var
             currentHash = '',
-            window = config.window,
-            logger = config.logger,
-            isRedirecting = false,
             defaultRoute = '',
+            isRedirecting = false,
+            logger = config.logger,
             startupUrl = '',
+            window = config.window,
 
             sammy = new Sammy.Application(function () {
                 if (Sammy.Title) {

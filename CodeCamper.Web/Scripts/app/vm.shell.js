@@ -1,7 +1,6 @@
 ﻿define('vm.shell',
     ['ko', 'config'],
     function (ko, config) {
-
         var
             currentUser = config.currentUser,
 
@@ -18,8 +17,8 @@
         init();
 
         return {
+            activate: activate,
             currentUser: currentUser,
-            demoUsers: demoUsers,
-            activate: activate
+            demoUsers: demoUsers
         };
     });

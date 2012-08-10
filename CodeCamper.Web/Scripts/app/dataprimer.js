@@ -4,7 +4,8 @@
 
         var logger = config.logger,
             
-            fetch = function() {
+            fetch = function () {
+                
                 return $.Deferred(function (def) {
 
                     var data = {
