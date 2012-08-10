@@ -6,8 +6,7 @@
             // properties
             //-----------------
             
-            //currentUserId = 1, // Default user - has favorites
-            currentUserId = 3, // John Papa - no favorites      
+            currentUserId = 3, // John Papa 
             currentUser = ko.observable(),
             hashes = {
                 favorites: '#/favorites',
