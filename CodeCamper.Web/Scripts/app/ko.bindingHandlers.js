@@ -43,7 +43,7 @@ function ($, ko) {
                 enable = (settings.enable !== undefined) ? unwrap(settings.enable()) : true,
                 checked = (settings.checked !== undefined) ? unwrap(settings.checked()) : true;
 
-            $el.enable = enable;
+            $el.prop('disabled', !enable);
 
             checked ? $el.addClass('selected') : $el.removeClass('selected');
         }
@@ -64,7 +64,7 @@ function ($, ko) {
                 enable = (valAccessor.enable !== undefined) ? unwrap(valAccessor.enable()) : true,
                 checked = (valAccessor.checked !== undefined) ? unwrap(valAccessor.checked()) : true;
 
-            $el.enable = enable;
+            $el.prop('disabled', !enable);
             if (checked) {
                 if (enable) {
                     $el.attr('title', 'remove favorite');

@@ -133,8 +133,7 @@
 
             onFilterChange = function () {
                 if (!isRefreshing) {
-                    var o = ko.toJS(sessionFilter);
-                    store.save(stateKey.filter, o);
+                    store.save(stateKey.filter, ko.toJS(sessionFilter));
                     refresh();
                 }
             },

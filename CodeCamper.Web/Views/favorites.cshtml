@@ -10,24 +10,19 @@
         </ul>
     </nav>
 
-    <!-- Knockout Debugging -->
-    <!-- TODO: remove -->
-    <!-- Reevaluation Count: <span data-bind="text: sessions.reevaluationCount"></span> -->
-    <!-- Knockout Debugging -->
-    
     <div data-bind="template: {name: filterTmpl}"></div>
 
     <div class="view-list" data-bind="template: {name: tmplName, foreach: sessions}"></div>
 
     <!-- Knockout Debugging -->
     <!-- TODO: remove -->
-    <!--
+    
         <div style="display:block">
             <h4 class="caption">Sessions JSON</h4>
             <pre data-bind="text:debugInfo">
         </pre>
         </div>
-        -->
+        
     <!-- Knockout Debugging -->
 
 </section>
