@@ -19,7 +19,12 @@
                 }
                 return false;
             },
-            mapMemoToArray = function(items) {
+            invokeFunctionIfExists = function (callback) {
+                if (_.isFunction(callback)) {
+                    callback();
+                }
+            },
+            mapMemoToArray = function (items) {
                 var underlyingArray = [];
                 for (var prop in items) {
                     if (items.hasOwnProperty(prop)) {
@@ -69,6 +74,7 @@
             endOfDay: endOfDay,
             getFirstTimeslot: getFirstTimeslot,
             hasProperties: hasProperties,
+            invokeFunctionIfExists: invokeFunctionIfExists,
             mapMemoToArray: mapMemoToArray,
             regExEscape: regExEscape,
             restoreFilter: restoreFilter

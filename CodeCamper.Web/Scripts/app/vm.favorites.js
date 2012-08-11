@@ -17,12 +17,12 @@
             }),
 
             // Methods
-            activate = function (routeData) {
+            activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getTimeslots();
                 setSelectedDay(routeData);
                 restoreFilter();
-                refresh();
+                refresh(callback);
             },
 
             canLeave = function () {
@@ -71,9 +71,10 @@
                 refresh();
             },
 
-            refresh = function () {
+            refresh = function (callback) {
                 setFilter();
-                datacontext.sessions.getData(dataOptions(false));
+                $.when(datacontext.sessions.getData(dataOptions(false)))
+                    .always(utils.invokeFunctionIfExists(callback));
             },
 
             restoreFilter = function () {

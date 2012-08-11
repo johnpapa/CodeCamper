@@ -1,6 +1,6 @@
 ﻿define('vm.sessions',
-    ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
-    function ($, ko, datacontext, router, SessionFilter, sort, eventDelegates, utils, messenger, config, store) {
+    ['jquery', 'underscore', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
+    function ($, _, ko, datacontext, router, SessionFilter, sort, eventDelegates, utils, messenger, config, store) {
         var
             filterTemplate = 'sessions.filterbox',
             isBusy = false,
@@ -13,12 +13,12 @@
             timeslots = ko.observableArray(),
             tracks = ko.observableArray(),
 
-            activate = function (routeData) {
+            activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getSpeakers();
                 getTimeslots();
                 getTracks();
-                getSessions();
+                getSessions(callback);
             },
 
             addFilterSubscriptions = function () {
@@ -59,13 +59,15 @@
                 }
             }),
 
-            getSessions = function () {
+            getSessions = function (callback) {
                 if (!isRefreshing) {
                     isRefreshing = true;
                     restoreFilter();
-                    datacontext.sessions.getData(dataOptions(false));
+                    $.when(datacontext.sessions.getData(dataOptions(false)))
+                        .always(utils.invokeFunctionIfExists(callback));
                     isRefreshing = false;
                 } 
+                
             },
 
             getSpeakers = function () {

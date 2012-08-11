@@ -104,8 +104,8 @@
                             start();
                         });
                     };
-                    
-                    subscription = vmSpeakers.speakerFilter.searchText.subscribe(performTest)
+
+                    subscription = vmSpeakers.speakerFilter.searchText.subscribe(performTest);
 
                     vmSpeakers.speakerFilter.searchText('John');
 
