@@ -1,7 +1,7 @@
 ﻿<article class="article-right-content">
     <!-- data-bind="click: $parent.gotoDetails" -->
     <div class="session-brief" title="Go to session details">
-        <img data-bind="attr: {src: speaker().imageName}"/>
+        <img data-bind="attr: {src: speaker().imageName2}"/>
         <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
         <small data-bind="text:level" style="float: right"></small>
         <small data-bind="text:track().name" style="clear: right; float: right"></small>
@@ -22,5 +22,11 @@
             enable: isUnlocked"></button>
 -->
 
+<!--    
+        <div style="border:white dotted thin">
+            <h4>Session JSON</h4>
+            <pre data-bind="text:ko.utils.debugInfo(speaker())"></pre>
+        </div>
+-->
 
 </article>
