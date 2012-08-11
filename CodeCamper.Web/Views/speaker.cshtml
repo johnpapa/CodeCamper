@@ -1,15 +1,15 @@
 ﻿<section id="speaker-view" class="view">
     
     <button class="button-back" 
-            data-bind="command: goBack, activity: goBack.isExecuting"></button>
+            data-bind="command: goBackCmd, activity: goBackCmd.isExecuting"></button>
 
     <div class="save-cancel-button-bar" data-bind="if:canEdit">
         
         <button class="button-cancel" 
-                data-bind="command: cancel, activity: cancel.isExecuting">Cancel</button>
+                data-bind="command: cancelCmd, activity: cancelCmd.isExecuting">Cancel</button>
         
         <button class="button-save" 
-                data-bind="command: save, activity: save.isExecuting">Save</button>
+                data-bind="command: saveCmd, activity: saveCmd.isExecuting">Save</button>
 
     </div>
 

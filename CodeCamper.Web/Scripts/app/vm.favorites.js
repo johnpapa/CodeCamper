@@ -2,15 +2,21 @@
     ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'group', 'utils', 'config', 'event.delegates', 'messenger', 'store'],
     function ($, ko, datacontext, router, SessionFilter, sort, group, utils, config, eventDelegates, messenger, store) {
         var
-            filterTmpl = 'sessions.filterbox',
+            filterTemplate = 'sessions.filterbox',
             isBusy = false,
             selectedDate = ko.observable(),
             sessionFilter = new SessionFilter(),
             sessions = ko.observableArray(), //.trackReevaluations(),
             stateKey = { searchText: 'vm.favorites.searchText' },
             timeslots = ko.observableArray(),
-            tmplName = 'sessions.view',
+            sessionTemplate = 'sessions.view',
             
+            // Knockout Computeds
+            days = ko.computed(function () {
+                return group.timeslotsToDays(timeslots());
+            }),
+
+            // Methods
             activate = function (routeData) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 getTimeslots();
@@ -36,11 +42,7 @@
                 };
             },
 
-            days = ko.computed(function () {
-                return group.timeslotsToDays(timeslots());
-            }),
-
-            forceRefresh = ko.asyncCommand({
+            forceRefreshCmd = ko.asyncCommand({
                 execute: function (complete) {
                     setFilter();
 
@@ -141,12 +143,12 @@
             canLeave: canLeave,
             clearFilter: clearFilter,
             days: days,
-            filterTmpl: filterTmpl,
-            forceRefresh: forceRefresh,
+            filterTemplate: filterTemplate,
+            forceRefreshCmd: forceRefreshCmd,
             gotoDetails: gotoDetails,
             sessionFilter: sessionFilter,
+            sessionTemplate: sessionTemplate,
             sessions: sessions,
-            timeslots: timeslots,
-            tmplName: tmplName
+            timeslots: timeslots
         };
     });

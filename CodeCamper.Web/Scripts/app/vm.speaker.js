@@ -30,7 +30,7 @@
                 getSpeaker(callback);
             },
 
-            cancel = ko.asyncCommand({
+            cancelCmd = ko.asyncCommand({
                 execute: function(complete) {
                     var callback = function() {
                         complete();
@@ -65,7 +65,7 @@
                 );
             },
 
-            goBack = ko.asyncCommand({
+            goBackCmd = ko.asyncCommand({
                 execute: function(complete) {
                     router.navigateBack();
                     complete();
@@ -75,7 +75,7 @@
                 }
             }),
 
-            save = ko.asyncCommand({
+            saveCmd = ko.asyncCommand({
                 execute: function(complete) {
                     if (canEdit()) {
                         $.when(datacontext.persons.updateData(speaker()))
@@ -95,13 +95,13 @@
 
         return {
             activate: activate,
-            cancel: cancel, //Command
+            cancelCmd: cancelCmd,
             canEdit: canEdit,
             canLeave: canLeave,
-            goBack: goBack,
+            goBackCmd: goBackCmd,
             isDirty: isDirty,
             isValid: isValid,
-            save: save, //Command
+            saveCmd: saveCmd,
             speaker: speaker,
             speakerSessions: speakerSessions,
             tmplName: tmplName

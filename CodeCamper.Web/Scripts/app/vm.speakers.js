@@ -20,7 +20,7 @@
                 speakerFilter.searchText('');
             },
 
-            forceRefresh = ko.asyncCommand({
+            forceRefreshCmd = ko.asyncCommand({
                 execute: function (complete) {
                     datacontext.speakerSessions.forceDataRefresh()
                         .done(refresh)
@@ -33,9 +33,7 @@
                     filter: speakerFilter,
                     sortFunction: sort.speakerSort
                 });
-                if (_.isFunction(callback)) {
-                    callback();
-                }
+                if (_.isFunction(callback)) { callback(); }
             },
 
             gotoDetails = function (selectedSpeaker) {
@@ -71,7 +69,7 @@
             activate: activate,
             canLeave: canLeave,
             clearFilter: clearFilter,
-            forceRefresh: forceRefresh,
+            forceRefreshCmd: forceRefreshCmd,
             gotoDetails: gotoDetails,
             speakerFilter: speakerFilter,
             speakers: speakers,

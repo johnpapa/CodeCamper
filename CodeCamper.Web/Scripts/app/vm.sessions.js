@@ -2,15 +2,15 @@
     ['jquery', 'ko', 'datacontext', 'router', 'filter.sessions', 'sort', 'event.delegates', 'utils', 'messenger', 'config', 'store'],
     function ($, ko, datacontext, router, SessionFilter, sort, eventDelegates, utils, messenger, config, store) {
         var
-            filterTmpl = 'sessions.filterbox',
+            filterTemplate = 'sessions.filterbox',
             isBusy = false,
             isRefreshing = false,
             sessionFilter = new SessionFilter(),
+            sessionTemplate = 'sessions.view',
             sessions = ko.observableArray(),
             speakers = ko.observableArray(),
             stateKey = { filter: 'vm.sessions.filter' },
             timeslots = ko.observableArray(),
-            tmplName = 'sessions.view',
             tracks = ko.observableArray(),
 
             activate = function (routeData) {
@@ -52,7 +52,7 @@
                 };
             },
 
-            forceRefresh = ko.asyncCommand({
+            forceRefreshCmd = ko.asyncCommand({
                 execute: function (complete) {
                     $.when(datacontext.sessions.getData(dataOptions(true)))
                         .always(complete);
@@ -147,13 +147,13 @@
             canLeave: canLeave,
             clearFilter: clearFilter,
             clearAllFilters: clearAllFilters,
-            filterTmpl: filterTmpl,
-            forceRefresh: forceRefresh,
+            filterTemplate: filterTemplate,
+            forceRefreshCmd: forceRefreshCmd,
             sessionFilter: sessionFilter,
             sessions: sessions,
             speakers: speakers,
+            sessionTemplate: sessionTemplate,
             timeslots: timeslots,
-            tmplName: tmplName,
             tracks: tracks
         };
     });

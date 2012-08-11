@@ -44,7 +44,7 @@
                 getSession(callback);
             },
 
-            cancel = ko.asyncCommand({
+            cancelCmd = ko.asyncCommand({
                 execute: function (complete) {
                     var callback = function () {
                         complete();
@@ -57,7 +57,7 @@
                 }
             }),
 
-            goBack = ko.asyncCommand({
+            goBackCmd = ko.asyncCommand({
                 execute: function (complete) {
                     router.navigateBack();
                     complete();
@@ -131,7 +131,7 @@
                 }
             },
 
-            save = ko.asyncCommand({
+            saveCmd = ko.asyncCommand({
                 execute: function (complete) {
                     if (canEditSession()) {
                         $.when(datacontext.sessions.updateData(session()))
@@ -149,7 +149,7 @@
                 }
             }),
 
-            saveFavorite = ko.asyncCommand({
+            saveFavoriteCmd = ko.asyncCommand({
                 execute: function(complete) {
                     var
                         wrapper = function () { saveFavoriteDone(complete); },
@@ -180,17 +180,17 @@
 
         return {
             activate: activate,
-            cancel: cancel,
+            cancelCmd: cancelCmd,
             canEditSession: canEditSession,
             canEditEval: canEditEval,
             canLeave: canLeave,
-            goBack: goBack,
+            goBackCmd: goBackCmd,
             isDirty: isDirty,
             isValid: isValid,
             rooms: rooms,
             session: session,
-            save: save,
-            saveFavorite: saveFavorite,
+            saveCmd: saveCmd,
+            saveFavoriteCmd: saveFavoriteCmd,
             timeslots: timeslots,
             tmplName: tmplName,
             tracks: tracks
