@@ -80,7 +80,7 @@
             restoreFilter = function () {
                 var val = store.fetch(stateKey.searchText);
                 if (val !== sessionFilter.searchText()) {
-                    sessionFilter.searchText(store.fetch(stateKey.searchText));
+                    sessionFilter.searchText(val);
                 }
             },
 
