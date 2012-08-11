@@ -31,48 +31,6 @@
 
         module('favorites viewmodel tests');
 
-        asyncTest('Activate viewmodel and has favorites',
-            function() {
-                //ARRANGE
-                var vmFavorites = findVm(),
-                    routeData = { date: '05-19-2013' };
-
-                var data = {
-                    rooms: ko.observable(),
-                    tracks: ko.observable(),
-                    timeslots: ko.observable(),
-                    attendance: ko.observable(),
-                    persons: ko.observable(),
-                    sessions: ko.observable()
-                };
-
-                $.when(
-                    datacontext.rooms.getData({ results: data.rooms }),
-                    datacontext.timeslots.getData({ results: data.timeslots }),
-                    datacontext.tracks.getData({ results: data.tracks }),
-                    datacontext.attendance.getData({ param: config.currentUserId, results: data.attendance }),
-                    datacontext.persons.getSpeakers({ results: data.persons }),
-                    datacontext.sessions.getData({ results: data.sessions }),
-                    datacontext.persons.getFullPersonById(config.currentUserId,
-                        {
-                            success: function (person) {
-                                config.currentUser(person);
-                            }
-                        }, true)
-                )
-            .done(function () {
-                    //ACT
-                    vmFavorites.activate(routeData, function () {
-                        //ASSERT
-                        ok(vmFavorites.sessions().length > 0, 'Favorites exist');
-                    });
-                })
-                .always(function () {
-                    start();
-                });
-            }
-        );
-
         asyncTest('Filter viewmodel by Title',
             function () {
                 //ARRANGE
@@ -111,8 +69,8 @@
                             }
                         }, true)
                 )
-            .done(function () {
 
+                .pipe(function () {
                     //ACT
                     var performTest = function(val) {
                         vmFavorites.activate(routeData, function() {

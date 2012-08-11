@@ -60,13 +60,15 @@
                             }
                         }, true)
                 )
-            .done(function () {
+
+                .pipe(function () {
                     //ACT
                     vmSessions.activate(routeData, function () {
                         //ASSERT
                         ok(vmSessions.sessions().length > 0, 'Sessions exist');
                     });
                 })
+                
                 .always(function () {
                     start();
                 });
@@ -111,7 +113,8 @@
                             }
                         }, true)
                 )
-            .done(function () {
+
+                .pipe(function () {
 
                     //ACT
                     var performTest = function(val) {
