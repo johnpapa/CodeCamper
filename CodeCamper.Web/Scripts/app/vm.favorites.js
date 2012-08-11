@@ -44,9 +44,8 @@
                 execute: function (complete) {
                     setFilter();
 
-                    $.when(
-                        datacontext.sessions.getData(dataOptions(true))
-                    ).always(complete);
+                    $.when(datacontext.sessions.getData(dataOptions(true)))
+                        .always(complete);
                 }
             }),
 
@@ -90,9 +89,11 @@
                 var cudMethod = selectedSession.isFavorite()
                     ? datacontext.attendance.deleteData
                     : datacontext.attendance.addData;
-                cudMethod(
-                        selectedSession,
-                        { success: function () { isBusy = false; }, error: function () { isBusy = false; } }
+                cudMethod(selectedSession,
+                        {
+                            success: function () { isBusy = false; },
+                            error: function () { isBusy = false; }
+                        }
                     );
             },
 
@@ -136,14 +137,13 @@
             init();
 
         return {
+            activate: activate,
             canLeave: canLeave,
             clearFilter: clearFilter,
             days: days,
-            debugInfo: ko.utils.debugInfo(sessions),
             filterTmpl: filterTmpl,
             forceRefresh: forceRefresh,
             gotoDetails: gotoDetails,
-            activate: activate,
             sessionFilter: sessionFilter,
             sessions: sessions,
             timeslots: timeslots,

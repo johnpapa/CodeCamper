@@ -2,7 +2,8 @@
     ['ko', 'datacontext', 'config', 'router', 'messenger', 'sort'],
     function (ko, datacontext, config, router, messenger, sort) {
 
-        var currentSessionId = ko.observable(),
+        var
+            currentSessionId = ko.observable(),
             logger = config.logger,
             rooms = ko.observableArray(),
             session = ko.observable(),
@@ -34,10 +35,8 @@
                 return (canEditEval() || canEditSession()) ? validationErrors().length === 0 : true;
             }),
 
-
             activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
-
                 currentSessionId(routeData.id);
                 getRooms();
                 getTimeslots();
@@ -74,9 +73,7 @@
 
             getSession = function (completeCallback, forceRefresh) {
                 var callback = function() {
-                    if (completeCallback) {
-                        completeCallback();
-                    }
+                    if (completeCallback) { completeCallback(); }
                     validationErrors = ko.validation.group(session());
                 };
 
@@ -86,9 +83,7 @@
                             session(s);
                             callback();
                         },
-                        error: function() {
-                            callback();
-                        }
+                        error: callback
                     },
                     forceRefresh
                 );
@@ -139,19 +134,13 @@
             save = ko.asyncCommand({
                 execute: function (complete) {
                     if (canEditSession()) {
-                        $.when(
-                            datacontext.sessions.updateData(session())
-                        ).always(function () {
-                            complete();
-                        });
+                        $.when(datacontext.sessions.updateData(session()))
+                            .always(complete);
                         return;
                     }
                     if (canEditEval()) {
-                        $.when(
-                            datacontext.attendance.updateData(session())
-                        ).always(function () {
-                            complete();
-                        });
+                        $.when(datacontext.attendance.updateData(session()))
+                            .always(complete);
                         return;
                     }
                 },
@@ -162,15 +151,14 @@
 
             saveFavorite = ko.asyncCommand({
                 execute: function(complete) {
-                    var wrapper = function() {
-                        saveFavoriteDone(complete);
-                    };
-                    var cudMethod = session().isFavorite()
-                        ? datacontext.attendance.deleteData
-                        : datacontext.attendance.addData;
+                    var
+                        wrapper = function () { saveFavoriteDone(complete); },
 
-                    cudMethod(
-                        session(),
+                        cudMethod = session().isFavorite()
+                            ? datacontext.attendance.deleteData
+                            : datacontext.attendance.addData;
+
+                    cudMethod(session(),
                         {
                             success: wrapper,
                             error: wrapper

@@ -2,27 +2,28 @@
     ['ko', 'datacontext', 'config', 'router', 'messenger'],
     function (ko, datacontext, config, router, messenger) {
 
-        var currentSpeakerId = ko.observable(),
+        var
+            // Properties
+            currentSpeakerId = ko.observable(),
             logger = config.logger,
             speaker = ko.observable(),
             speakerSessions = ko.observableArray(),
-            validationErrors = ko.observableArray([]), // Override this after we get a session
+            validationErrors = ko.observableArray(), // Override this after we get a session
 
+            // Knockout Computeds
             canEdit = ko.computed(function () {
                 return speaker() && config.currentUser() && config.currentUser().id() === speaker().id();
             }),
 
             isDirty = ko.computed(function () {
-                if (canEdit()) {
-                    return speaker().dirtyFlag().isDirty();
-                }
-                return false;
+                return canEdit() ? speaker().dirtyFlag().isDirty() : false;
             }),
 
             isValid = ko.computed(function () {
                 return canEdit() ? validationErrors().length === 0 : true;
             }),
 
+            // Methods
             activate = function (routeData, callback) {
                 messenger.publish.viewModelActivated({ canleaveCallback: canLeave });
                 currentSpeakerId(routeData.id);
@@ -48,9 +49,7 @@
 
             getSpeaker = function (completeCallback, forceRefresh) {
                 var callback = function() {
-                    if (completeCallback) {
-                        completeCallback();
-                    }
+                    if (completeCallback) { completeCallback(); }
                     validationErrors = ko.validation.group(speaker());
                 };
 
@@ -60,9 +59,7 @@
                             speaker(s);
                             callback();
                         },
-                        error: function() {
-                            callback();
-                        }
+                        error: callback
                     },
                     forceRefresh
                 );
@@ -81,12 +78,8 @@
             save = ko.asyncCommand({
                 execute: function(complete) {
                     if (canEdit()) {
-                        $.when(
-                            datacontext.persons.updateData(speaker())
-                        ).always(function() {
-                            complete();
-                        });
-                        return;
+                        $.when(datacontext.persons.updateData(speaker()))
+                            .always(complete);
                     } else {
                         complete();
                     }

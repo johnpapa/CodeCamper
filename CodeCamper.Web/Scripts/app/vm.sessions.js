@@ -18,7 +18,7 @@
                 getSpeakers();
                 getTimeslots();
                 getTracks();
-                refresh();
+                getSessions();
             },
 
             addFilterSubscriptions = function () {
@@ -36,7 +36,7 @@
             clearAllFilters = function () {
                 sessionFilter.favoriteOnly(false).speaker(null)
                     .timeslot(null).track(null).searchText('');
-                refresh();
+                getSessions();
             },
 
             clearFilter = function () {
@@ -54,11 +54,19 @@
 
             forceRefresh = ko.asyncCommand({
                 execute: function (complete) {
-                    $.when(
-                        datacontext.sessions.getData(dataOptions(true))
-                    ).always(complete);
+                    $.when(datacontext.sessions.getData(dataOptions(true)))
+                        .always(complete);
                 }
             }),
+
+            getSessions = function () {
+                if (!isRefreshing) {
+                    isRefreshing = true;
+                    restoreFilter();
+                    datacontext.sessions.getData(dataOptions(false));
+                    isRefreshing = false;
+                } 
+            },
 
             getSpeakers = function () {
                 if (!speakers().length) {
@@ -95,16 +103,7 @@
             onFilterChange = function () {
                 if (!isRefreshing) {
                     store.save(stateKey.filter, ko.toJS(sessionFilter));
-                    refresh();
-                }
-            },
-
-            refresh = function () {
-                if (!isRefreshing) {
-                    isRefreshing = true;
-                    restoreFilter();
-                    datacontext.sessions.getData(dataOptions(false));
-                    isRefreshing = false;
+                    getSessions();
                 }
             },
 
@@ -119,15 +118,12 @@
             },
 
             saveFavorite = function (selectedSession) {
-                if (isBusy) {
-                    return; // Already in the middle of a save on this session
-                }
+                if (isBusy) { return; }
                 isBusy = true;
                 var cudMethod = selectedSession.isFavorite()
                     ? datacontext.attendance.deleteData
                     : datacontext.attendance.addData;
-                cudMethod(
-                        selectedSession,
+                cudMethod(selectedSession,
                         {
                             success: function () { isBusy = false; },
                             error: function () { isBusy = false; }
