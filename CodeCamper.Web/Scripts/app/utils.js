@@ -1,12 +1,16 @@
 ﻿define('utils',
 ['underscore', 'moment'],
     function (_, moment) {
-        var endOfDay = function(day) {
-            return moment(new Date(day))
-                .add('days', 1)
-                .add('seconds', -1)
-                .toDate();
-        },
+        var
+            endOfDay = function (day) {
+                return moment(new Date(day))
+                    .add('days', 1)
+                    .add('seconds', -1)
+                    .toDate();
+            },
+            getFirstTimeslot = function (timeslots) {
+                return moment(timeslots()[0].start()).format('MM-DD-YYYY');
+            },
             hasProperties = function(obj) {
                 for (var prop in obj) {
                     if (obj.hasOwnProperty(prop)) {
@@ -63,6 +67,7 @@
 
         return {
             endOfDay: endOfDay,
+            getFirstTimeslot: getFirstTimeslot,
             hasProperties: hasProperties,
             mapMemoToArray: mapMemoToArray,
             regExEscape: regExEscape,

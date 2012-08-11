@@ -105,18 +105,14 @@
             },
 
             setSelectedDay = function (data) {
-                selectedDate(data && data.date ? data.date : selectedDate());
-                if (!selectedDate()) {
-                    // Get the first date
-                    selectedDate(moment(timeslots()[0].start()).format('MM-DD-YYYY'));
-                }else {
-                    // force mutation, so subscribers will be notified (for the nav synch)
-                    selectedDate.valueHasMutated();
-                }
+                var value = data.date || selectedDate() || utils.getFirstTimeslot(timeslots);
+                selectedDate(value);
+                // force mutation, so subscribers will be notified (for the nav synch)
+                selectedDate.valueHasMutated();
             },
             
-            synchSelectedDateWithIsSelected = function (val) {
-                // keeping nav in synch too
+            synchSelectedDateWithIsSelected = function (value) {
+                // keeping date nav in synch
                 for (var i = 0, len = days().length; i < len; i++) {
                     var day = days()[i];
                     day.isSelected(false);
