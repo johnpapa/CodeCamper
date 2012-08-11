@@ -31,7 +31,7 @@
             useMocks = function (val) {
                 if(val) {
                     _useMocks = val;
-                    dataserviceInit();
+                    init();
                 }
                 return _useMocks;
             },
