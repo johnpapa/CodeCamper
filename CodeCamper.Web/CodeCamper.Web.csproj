@@ -280,7 +280,6 @@
     <Content Include="index.cshtml.readme.txt" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
-    <Content Include="Scripts\lib\activity-indicator.js" />
     <Content Include="Scripts\lib\json2.js" />
     <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Test\web api\webapi.get-result.tests.html" />
