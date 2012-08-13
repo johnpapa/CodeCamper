@@ -21,14 +21,9 @@
         // Plugins must be loaded after jQuery and Knockout, 
         // since they depend on them.
         requirejs([
-                'jquery.activity-ex',           
-                'ko.asyncCommand',              
-                'ko.bindingHandlers',           
-                'ko.bindingHandlers.activity',  
-                'ko.bindingHandlers.command',   
-                'ko.debug.helpers',             
-                'ko.dirtyFlag',                 
-                'ko.utils'                      
+                'ko.bindingHandlers', 
+                'ko.debug.helpers', 
+                'ko.utils' 
         ], boot);
     }
     

@@ -1,4 +1,7 @@
-﻿// Knockout.DirtyFlag
+﻿// By: Hans Fjällemark and John Papa
+// https://github.com/CodeSeven/KoLite
+//
+// Knockout.DirtyFlag
 //
 // John Papa 
 //          http://johnpapa.net
@@ -26,8 +29,7 @@
 //          Optionally, you can pass your own hashFunction for state tracking.
 //
 ////////////////////////////////////////////////////////////////////////////////////////
-define('ko.dirtyFlag', ['ko'],
-    function (ko) {
+;(function (ko) {
         ko.DirtyFlag = function (objectToTrack, isInitiallyDirty, hashFunction) {
 
             hashFunction = hashFunction || ko.toJSON;
@@ -54,4 +56,4 @@ define('ko.dirtyFlag', ['ko'],
             
             return result;
         };
-    });
+    })(ko);

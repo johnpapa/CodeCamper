@@ -230,16 +230,15 @@
     <Content Include="Scripts\app\vm.speaker.js" />
     <Content Include="Scripts\app\vm.shell.js" />
     <Content Include="Scripts\app\ko.utils.js" />
-    <Content Include="Scripts\app\jquery.activity-ex.js" />
-    <Content Include="Scripts\app\ko.bindingHandlers.activity.js" />
     <Content Include="Scripts\app\ko.bindingHandlers.js" />
     <Content Include="Scripts\app\config.js" />
-    <Content Include="Scripts\app\ko.asyncCommand.js" />
-    <Content Include="Scripts\app\ko.bindingHandlers.command.js" />
     <Content Include="Scripts\app\messenger.js" />
     <Content Include="Scripts\app\route-mediator.js" />
     <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
+    <Content Include="Scripts\lib\knockout.activity.js" />
+    <Content Include="Scripts\lib\knockout.asyncCommand.js" />
+    <Content Include="Scripts\lib\knockout.dirtyFlag.js" />
     <Content Include="Scripts\main.readme.txt" />
     <Content Include="Scripts\lib\infuser.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine.js" />
@@ -261,7 +260,6 @@
     <Content Include="Scripts\app\sort.js" />
     <Content Include="Scripts\app\utils.js" />
     <Content Include="Scripts\app\vm.js" />
-    <Content Include="Scripts\app\ko.dirtyFlag.js" />
     <Content Include="Scripts\lib\knockout.validation.js" />
     <Content Include="Scripts\lib\TrafficCop.js" />
     <Content Include="Scripts\lib\sammy.js" />
