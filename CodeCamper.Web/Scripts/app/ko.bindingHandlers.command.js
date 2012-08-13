@@ -23,7 +23,8 @@ function ($, ko) {
                 return;
             }
 
-            ko.bindingHandlers.enable.update(element, ko.utils.wrapAccessor(canExecute()), allBindingsAccessor, viewModel);
+            //ko.bindingHandlers.enable.update(element, ko.utils.wrapAccessor(canExecute()), allBindingsAccessor, viewModel);
+            ko.bindingHandlers.enable.update(element, canExecute, allBindingsAccessor, viewModel);
         }
     };
 });

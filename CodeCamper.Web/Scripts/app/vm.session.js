@@ -9,7 +9,7 @@
             session = ko.observable(),
             timeslots = ko.observableArray(),
             tracks = ko.observableArray(),
-            validationErrors = ko.observableArray([]), // Override this after we get a session
+            validationErrors = ko.observableArray([]),
 
             canEditSession = ko.computed(function () {
                 return session() && config.currentUser() && config.currentUser().id() === session().speakerId();
@@ -53,7 +53,7 @@
                     canEditSession() ? getSession(callback, true) : getAttendance(callback, true);
                 },
                 canExecute: function (isExecuting) {
-                    return isDirty();
+                    return !isExecuting && isDirty();
                 }
             }),
 
@@ -63,7 +63,7 @@
                     complete();
                 },
                 canExecute: function (isExecuting) {
-                    return !isDirty();
+                    return !isExecuting && !isDirty();
                 }
             }),
 
@@ -145,7 +145,7 @@
                     }
                 },
                 canExecute: function (isExecuting) {
-                    return isDirty() && isValid;
+                    return !isExecuting && isDirty() && isValid;
                 }
             }),
 
@@ -165,7 +165,7 @@
                         });
                 },
                 canExecute: function(isExecuting) {
-                    return session() && session().isUnlocked();
+                    return !isExecuting && session() && session().isUnlocked();
                 }
             }),
 

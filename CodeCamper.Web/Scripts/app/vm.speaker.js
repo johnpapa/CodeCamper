@@ -39,7 +39,7 @@
                     getSpeaker(callback, true);
                 },
                 canExecute: function(isExecuting) {
-                    return isDirty();
+                    return !isExecuting && isDirty();
                 }
             }),
 
@@ -71,7 +71,7 @@
                     complete();
                 },
                 canExecute: function(isExecuting) {
-                    return !isDirty();
+                    return !isExecuting && !isDirty();
                 }
             }),
 
@@ -85,7 +85,7 @@
                     }
                 },
                 canExecute: function(isExecuting) {
-                    return isDirty() && isValid();
+                    return !isExecuting && isDirty() && isValid();
                 }
             }),
 

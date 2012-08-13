@@ -37,7 +37,6 @@
                     return !!match;
                 },
 
-                // Chicken and the egg kind of situation (attendance or datacontext are setup later)
                 // The 'deferEvalation' flag will prevent it from running immediately
                 // and it will wait until something actually tries to access its value.
                 deferEvaluation: true,
