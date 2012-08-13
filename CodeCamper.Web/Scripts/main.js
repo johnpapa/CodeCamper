@@ -22,8 +22,7 @@
         // since they depend on them.
         requirejs([
                 'ko.bindingHandlers', 
-                'ko.debug.helpers', 
-                'ko.utils' 
+                'ko.debug.helpers'
         ], boot);
     }
     

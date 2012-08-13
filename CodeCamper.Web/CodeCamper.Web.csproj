@@ -229,7 +229,6 @@
     <Content Include="Scripts\app\datacontext.speaker-sessions.js" />
     <Content Include="Scripts\app\vm.speaker.js" />
     <Content Include="Scripts\app\vm.shell.js" />
-    <Content Include="Scripts\app\ko.utils.js" />
     <Content Include="Scripts\app\ko.bindingHandlers.js" />
     <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\messenger.js" />
