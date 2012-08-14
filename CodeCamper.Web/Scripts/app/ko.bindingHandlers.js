@@ -3,6 +3,8 @@
 function ($, ko) {
     var unwrap = ko.utils.unwrapObservable;
 
+    // escape
+    //---------------------------
     ko.bindingHandlers.escape = {
         update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var command = valueAccessor();
@@ -14,6 +16,8 @@ function ($, ko) {
         }
     };
 
+    // hidden
+    //---------------------------
     ko.bindingHandlers.hidden = {
         update: function (element, valueAccessor) {
             var value = unwrap(valueAccessor());
@@ -21,6 +25,8 @@ function ($, ko) {
         }
     };
 
+    // checboxImage
+    //---------------------------
     ko.bindingHandlers.checkboxImage = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var $el = $(element),
@@ -49,6 +55,8 @@ function ($, ko) {
         }
     };
 
+    // favoriteCheckbox
+    //---------------------------
     ko.bindingHandlers.favoriteCheckbox = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             var $el = $(element);
@@ -80,6 +88,8 @@ function ($, ko) {
         }
     };
 
+    // starRating
+    //---------------------------
     ko.bindingHandlers.starRating = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
             // Create the span's (only do in init)
