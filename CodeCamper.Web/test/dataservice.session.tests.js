@@ -39,6 +39,27 @@
                 });
             });
 
+        asyncTest('$.ajax call to getSessions returns data', 
+            function (){
+                var url = '/api/sessions';
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    success: function (result) {
+                        ok(true, 'GET succeeded for ' + url);
+                        ok(!!result, 'GET retrieved some data');
+                        //debugger;
+                        start();
+                    },
+                    error: function (result) {
+                        ok(false,
+                            stringformat('GET on \'{0}\' failed with status=\'{1}\': {2}',
+                                url, result.status, result.responseText));
+                        start();
+                    }
+                });
+            });
+
         asyncTest('getSessions returns array Session objects',
             function () {
                 //ARRANGE
