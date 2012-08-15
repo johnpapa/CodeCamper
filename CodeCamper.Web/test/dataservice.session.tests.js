@@ -41,7 +41,7 @@
 
         asyncTest('$.ajax call to getSessions returns data', 
             function (){
-                var url = '/api/sessions2';
+                var url = '/api/sessions';
                 $.ajax({
                     url: url,
                     dataType: 'json',
