@@ -41,7 +41,7 @@
 
         asyncTest('$.ajax call to getSessions returns data', 
             function (){
-                var url = '/api/sessions';
+                var url = '/api/sessions2';
                 $.ajax({
                     url: url,
                     dataType: 'json',
@@ -52,9 +52,7 @@
                         start();
                     },
                     error: function (result) {
-                        ok(false,
-                            stringformat('GET on \'{0}\' failed with status=\'{1}\': {2}',
-                                url, result.status, result.responseText));
+                        ok(false, 'Failed ajax call to ' + url + ' with error: ' + result.responseText);
                         start();
                     }
                 });
