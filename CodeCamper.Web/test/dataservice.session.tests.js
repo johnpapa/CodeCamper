@@ -1,7 +1,7 @@
 ﻿define(
     'dataservice.session-tests-function',
-    ['amplify', 'config'],
-    function (amplify, config) {
+    ['jquery', 'amplify', 'config', ],
+    function ($, amplify, config) {
 
         var doNothing = function () { };
 
@@ -15,6 +15,7 @@
 
         var findDs = function () {
             return window.testFn(amplify);
+            //return window.testFn($); // purely for the course to test the non amplify version
         };
 
         module('Session Data Services return data');
