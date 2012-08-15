@@ -14,11 +14,15 @@
                 if (!memo.index[day.toString()]) {
                     // This is created so i dont have to loop through the array each time again
                     memo.index[day.toString()] = true;
+
+                    // We will return an array of objects with 
+                    // the properties: date, day, isSelected
                     memo.slots.push({
                         date: date,
                         day: day,
                         isSelected: ko.observable()
                     });
+                    
                 }
                 return memo;
             }, { index: {}, slots: [] }),
