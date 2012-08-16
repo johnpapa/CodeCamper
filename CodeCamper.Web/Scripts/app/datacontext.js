@@ -5,9 +5,12 @@
             getCurrentUserId = function() {
                 return config.currentUser().id();
             },
-            itemsToArray = function(items, observableArray, filter, sortFunction) {
+            itemsToArray = function (items, observableArray, filter, sortFunction) {
+                // Maps the memo to an observableArray, 
+                // then returns the observableArray
                 if (!observableArray) return;
 
+                // Create an array from the memo object
                 var underlyingArray = utils.mapMemoToArray(items);
 
                 if (filter) {
@@ -128,6 +131,13 @@
                 };
             },
         
+            //----------------------------------
+            // Repositories
+            //
+            // Pass: 
+            //  dataservice's 'get' method
+            //  model mapper
+            //----------------------------------
             attendance = new EntitySet(dataservice.attendance.getAttendance, modelmapper.attendance, model.Attendance.Nullo),
             rooms = new EntitySet(dataservice.lookup.getRooms, modelmapper.room, model.Room.Nullo),
             sessions = new EntitySet(dataservice.session.getSessionBriefs, modelmapper.session, model.Session.Nullo, dataservice.session.updateSession),
