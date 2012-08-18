@@ -1,5 +1,4 @@
 ﻿(function () {
-    
     // Establish the root object, `window` in the browser, or `global` on the server.
     var root = this;
     
@@ -9,14 +8,6 @@
             // They are all in this folder.
             // If we bundle this folder, this is not needed. But if we don't bundle, we need this.
             baseUrl: '../scripts/app' /* script default location */
-         
-            // List paths to js files that are not in the baseUrl and not in bundles.
-            // If we use the non-amd versions of 3rd libs we can bundle them instead.
-            // In which case we don;t need the paths.
-            // Example:
-            //paths: {
-            //    'knockout.changetracker': '../lib/knockout.changetracker-amd',
-            //}
         }
     );
 
@@ -47,32 +38,13 @@
         // we don't want those modules to know that they use plugins.
         requirejs([
                 // These plugins use "define" and we need to load them, so we kick them off here.
-                'jquery.activity-ex',           // AMD jquery plugin that self-installs; loaded in bundle
-                'ko.asyncCommand',              // Knockout custom asyncCommand
-                'ko.bindingHandlers',           // Knockout custom binding handlers
-                'ko.bindingHandlers.activity',  // Knockout custom binding handlers
-                'ko.bindingHandlers.command',   // Knockout custom binding handlers
-                'ko.debug.helpers',             // Knockout debugging plugin for the app
-                'ko.dirtyFlag',                 // Knockout dirtyFlag
-                'ko.utils'                      // Knockout custom utilities
+                'ko.bindingHandlers',
+                'ko.debug.helpers'
         ], boot);
     }
     
     function boot() {
-
-        //require([
-        //    'vm-speaker-tests-function',
-        //    'vm-speaker2-tests-function'
-        //]);
-
-        //require('testFn');
-
-        
-        // Start-up the app, now that all prerequisites are in place.
-        //require(['bootstrapper'],
-        //    function (bs) {
-        //        //bs.run();
-        //    });
+        // no op
     }
     
 })();

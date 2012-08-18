@@ -3,8 +3,8 @@
     <div class="session-brief" title="Go to session details">
         <img data-bind="attr: {src: speaker().imageName}"/>
         <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
-        <small data-bind="text:level" style="float: right"></small>
-        <small data-bind="text:track().name" style="clear: right; float: right"></small>
+        <small data-bind="text:level" class="right"></small>
+        <small data-bind="text:track().name" class="right"></small>
         <h1 data-bind="text: title"></h1>
         <address data-bind="text: speaker().fullName"></address>
         <small data-bind="text:tagsFormatted"></small>
