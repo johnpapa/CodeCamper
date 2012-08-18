@@ -10,11 +10,14 @@
                     type: 'GET'
                 });
 
+                // Pass Resource Id, Request Type, and Settings
                 amplify.request.define('session-briefs', 'ajax', {
                     url: '/api/sessionbriefs',
                     dataType: 'json',
                     type: 'GET'
                     //cache: true
+                    //cache: 60000 // 1 minute
+                    //cache: 'persist'
                 });
 
                 amplify.request.define('session', 'ajax', {
@@ -81,7 +84,7 @@
 //        var
 //            root = '/api/',
             
-//            getSessionBriefsRaw = function (callbacks) {
+//            getSessionBriefsAjax = function (callbacks) {
 //                // Using $.ajax and callbacks
 //                var url = root + 'sessionbriefs';
 //                $.ajax({
@@ -91,7 +94,6 @@
 //                        callbacks.success(result);
 //                    },
 //                    error: function(result) {
-//                        debugger;
 //                        callbacks.error(result);
 //                    }
 //                });
@@ -134,7 +136,7 @@
 
 //    return {
 //        getSessions: getSessions,
-//        getSessionBriefs: getSessionBriefsRaw,
+//        getSessionBriefs: getSessionBriefsAjax,
 //        getSession: getSession
 //    };
 //});
