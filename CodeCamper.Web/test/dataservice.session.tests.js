@@ -7,14 +7,15 @@
 
         var retrievalTestSessionId = 1; // Keynote / KEY001
 
-        config.useMocks(true); // this helps me NOT mock datacontext
         config.currentUserId = 3;
         config.currentUser = function () { return { id: function () { return 3; } }; };
         config.logger = { success: doNothing };
         config.dataserviceInit();
 
         var findDs = function () {
-            return window.testFn(amplify);
+            var ds = window.testFn(amplify);
+            config.useMocks(true); // this helps me NOT mock datacontext
+            return ds;
             //return window.testFn($); // purely for the course to test the non amplify version
         };
 
@@ -24,7 +25,7 @@
             function () {
                 //ARRANGE
                 var ds = findDs();
-                
+
                 //ACT
                 ds.getSessionBriefs({
 
@@ -70,7 +71,7 @@
 
                     //ASSERT
                     success: function (result) {
-                        ok(result && result.code === 'KEY001', 'Got 1 Session, the Keynote');
+                        ok(result && result.title === 'Single Page Apps', 'Got 1 Session, the SPA');
                         start();
                     },
                     error: function (result) {
@@ -124,7 +125,7 @@
                                                 start();
                                             }
                                         }, 
-                                        retrievalTestSessionId)
+                                        retrievalTestSessionId);
                                 }, 
                                 error: function (result) {
                                     ok(false, 'Failed with: ' + result.responseText);

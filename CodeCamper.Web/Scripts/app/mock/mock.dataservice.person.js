@@ -16,7 +16,11 @@
 		        settings.success(model.generatePersons().persons[0]);
 		    });
 		    
+		    amplify.request.define('personUpdate', function (settings) {
+		        settings.success();
+		    });
 		};
+        
         return {
             defineApi: defineApi
         };

@@ -15,6 +15,10 @@
             amplify.request.define('session', function (settings) {
                 settings.success(model.generateSessions().sessions[0]);
             });
+
+            amplify.request.define('sessionUpdate', function (settings) {
+                settings.success();
+            });
         };
         
         return {
