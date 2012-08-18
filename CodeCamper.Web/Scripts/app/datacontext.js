@@ -78,7 +78,7 @@
                                 getFunction({
                                     success: function(dtoList) {
                                         items = mapToContext(dtoList, items, results, mapper, filter, sortFunction);
-                                        def.resolve(dtoList);
+                                        def.resolve(results);
                                     },
                                     error: function (response) {
                                         logger.error(config.toasts.errorGettingData);
