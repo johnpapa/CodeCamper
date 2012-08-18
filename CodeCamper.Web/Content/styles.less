@@ -358,10 +358,12 @@ button {
 
         &.selected {
             background: @favorite-checked;
+			.square-background-container;
         }
 
         &.locked {
             background: @favorite-locked;
+        	.square-background-container;
             -moz-opacity: 1;
             opacity: 1;
         }
@@ -887,6 +889,13 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 	button {
 		&.markfavorite {
 			.square-background-container(24px);
+			&.selected {
+				.square-background-container(24px);
+			}
+
+			&.locked {
+				.square-background-container(24px);
+			}
 		}
 	}
 
@@ -968,6 +977,14 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 	button {
 		&.markfavorite {
 			.square-background-container(16px);
+
+			&.selected {
+				.square-background-container(16px);
+			}
+
+			&.locked {
+				.square-background-container(16px);
+			}
 		}
 	}
 
