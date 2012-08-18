@@ -114,6 +114,7 @@ body {
     font-size: 18px;
     margin: 3% auto;
     max-width: 1100px;
+
     > header > h1 {
         background: url(images/icon-light-blue.png) no-repeat left center;
         -moz-background-size: 45px;
@@ -565,14 +566,19 @@ select {
 
 nav label,
 small {
-	color: @text-color-subtle;
-	text-transform: uppercase;
+    color: @text-color-subtle;
+    text-transform: uppercase;
 
-	&.tips {
-		text-transform: none;
-		font-size: 80%;
-		color: @accent-color;
-	}
+    &.tips {
+        text-transform: none;
+        font-size: 80%;
+        color: @accent-color;
+    }
+
+    &.right {
+		clear:right;
+		float:right;
+    }
 }
 
 nav {
