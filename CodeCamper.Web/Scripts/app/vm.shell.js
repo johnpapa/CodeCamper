@@ -4,7 +4,7 @@
         var
             currentUser = config.currentUser,
 
-            demoUsers = ko.observableArray([]),
+            menuHashes = config.hashes,
 
             activate = function (routeData) {
                 //No-Op for now
@@ -19,6 +19,6 @@
         return {
             activate: activate,
             currentUser: currentUser,
-            demoUsers: demoUsers
+            menuHashes: menuHashes
         };
     });

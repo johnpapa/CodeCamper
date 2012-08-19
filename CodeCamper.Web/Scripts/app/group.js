@@ -1,10 +1,12 @@
 ﻿define('group',
-    ['underscore', 'ko', 'moment'],
-    function(_, ko, moment) {
+    ['underscore', 'ko', 'moment', 'config'],
+    function(_, ko, moment, config) {
 
      var timeslotsToDays = function(timeslots) {
 
          var
+             hash = config.hashes.favoritesByDate,
+             
              result = _.reduce(timeslots, function (memo, slot) {
                  var
                     slotStart = slot.start(),
@@ -20,6 +22,7 @@
                     memo.slots.push({
                         date: date,
                         day: day,
+                        hash: hash + '/' + date,
                         isSelected: ko.observable()
                     });
                     

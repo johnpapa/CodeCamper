@@ -28,10 +28,10 @@
         <nav id="shellTop-view" class="main-nav">
             <div class="accent-top" data-bind="text: currentUser().fullName"></div>
             <div class="accent-left"></div>
-            <ul data-bind="if: $data">
-                <li class="route-top"><a href="#/favorites">Favorites</a></li>
-                <li class="route-top"><a href="#/sessions">Sessions</a></li>
-                <li class="route-top"><a href="#/speakers">Speakers</a></li>
+            <ul data-bind="with: menuHashes">
+                <li class="route-top"><a data-bind="attr: {href: favorites}">Favorites</a></li>
+                <li class="route-top"><a data-bind="attr: {href: sessions}">Sessions</a></li>
+                <li class="route-top"><a data-bind="attr: {href: speakers}">Speakers</a></li>
             </ul>
         </nav>
     </header>
