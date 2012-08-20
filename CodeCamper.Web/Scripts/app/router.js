@@ -26,6 +26,7 @@ define('router',
 
             register = function (options) {
                 if (options.routes) {
+                    // Register a list of routes
                     _.each(options.routes, function (route) {
                         registerRoute({
                             route: route.route,
@@ -39,49 +40,40 @@ define('router',
                     return;
                 }
 
+                // Register 1 route
                 registerRoute(options);
             },
 
             registerRoute = function (options) {
-                var route = options.route,
-                    title = options.title,
-                    callback = options.callback,
-                    view = options.view,
-                    group = options.group,
-                    isDefault = options.isDefault;
-
-                if (!callback) {
+                if (!options.callback) {
                     throw Error('callback must be specified.');
                 }
 
-                if (isDefault) {
-                    defaultRoute = route;
+                if (options.isDefault) {
+                    defaultRoute = options.route;
                 }
 
-                //var hash = new RegExp('#\\/' + route + '.*')
-                //var hash = new RegExp('\\^' + route + '$.*')
-
-                sammy.get(route, function (context) {
+                sammy.get(options.route, function (context) { //context is 'this'
                     store.save(config.stateKeys.lastView, context.path);
-                    //context is 'this'
-                    callback(context.params);
-                    $('.view').hide(); // Hide all views
-                    presenter.transitionTo($(view), context.path, group);
-                    //context.$element().append('<h1>hello</h1>') //PAPA: for testing
+                    options.callback(context.params); // Activate the viewmodel
+                    $('.view').hide();
+                    presenter.transitionTo(
+                        $(options.view),
+                        context.path,
+                        options.group
+                    );
                     if (this.title) {
-                        this.title(title);
+                        this.title(options.title);
                     }
                 });
             },
 
             navigateTo = function (url) {
-                //window.location.href = url;
                 sammy.setLocation(url);
             },
 
             registerBeforeLeaving = function () {
                 sammy.before(/.*/, function () {
-                    // Can cancel the route if this returns false
                     var
                         context = this,
                         response = routeMediator.canLeave();
@@ -96,6 +88,7 @@ define('router',
                         isRedirecting = false;
                         currentHash = context.app.getLocation();
                     }
+                    // Cancel the route if this returns false
                     return response.val;
                 });
             },

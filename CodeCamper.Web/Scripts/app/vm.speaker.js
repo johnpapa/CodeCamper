@@ -52,10 +52,9 @@
                     if (completeCallback) { completeCallback(); }
                     validationErrors = ko.validation.group(speaker());
                 };
-
                 datacontext.persons.getFullPersonById(
                     currentSpeakerId(), {
-                        success: function(s) {
+                        success: function (s) {
                             speaker(s);
                             callback();
                         },

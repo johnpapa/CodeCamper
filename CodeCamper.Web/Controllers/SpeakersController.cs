@@ -12,7 +12,7 @@ namespace CodeCamper.Web.Controllers
             Uow = uow;
         }
 
-        #region OData Future: IQuerable<T>
+        #region OData Future: IQueryable<T>
         // http://localhost:1922/api/speakers/?$filter=FirstName%20eq%20Hans
         //[Queryable]
         //public IQueryable<Speaker> Get()

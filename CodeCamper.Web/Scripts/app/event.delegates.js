@@ -2,9 +2,11 @@
     ['jquery', 'ko', 'config'],
     function ($, ko, config) {
         var
-            bindClickEventToSessionList = function (rootSelector, callback, eventName) {
+            sessionBriefSelector = '.session-brief',
+            favoriteSelector = 'button.markfavorite',
+            
+            bindEventToList = function (rootSelector, selector, callback, eventName) {
                 var eName = eventName || 'click';
-                var selector = '.session-brief';
                 $(rootSelector).on(eName, selector, function () {
                     //var context = ko.contextFor(this);
                     //var session = context.$data;
@@ -15,30 +17,19 @@
             },
 
             favoritesListItem = function (callback, eventName) {
-                bindClickEventToSessionList(config.viewIds.favorites, callback, eventName);
+                bindEventToList(config.viewIds.favorites, sessionBriefSelector, callback, eventName);
             },
 
             sessionsListItem = function (callback, eventName) {
-                bindClickEventToSessionList(config.viewIds.sessions, callback, eventName);
+                bindEventToList(config.viewIds.sessions, sessionBriefSelector, callback, eventName);
             },
-
-            bindClickEventToFavorite = function (rootSelector, callback, eventName) {
-                var eName = eventName || 'click';
-                //var selector = '.markfavorite input[type=checkbox]';
-                var selector = 'button.markfavorite';
-                $(rootSelector).on(eName, selector, function () {
-                    var session = ko.dataFor(this);
-                    callback(session);
-                    return false;
-                });
-            },
-
+            
             favoritesFavorite = function (callback, eventName) {
-                bindClickEventToFavorite(config.viewIds.favorites, callback, eventName);
+                bindEventToList(config.viewIds.favorites, favoriteSelector, callback, eventName);
             },
 
             sessionsFavorite = function (callback, eventName) {
-                bindClickEventToFavorite(config.viewIds.sessions, callback, eventName);
+                bindEventToList(config.viewIds.sessions, favoriteSelector, callback, eventName);
             };
 
         return {

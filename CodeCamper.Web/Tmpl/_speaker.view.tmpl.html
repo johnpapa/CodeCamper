@@ -24,7 +24,7 @@
             <span id="bio" class="scrollable-text" data-bind="text: bio"></span>
         </div>
     </div>
-    <div class="details-bottom">
+    <div class="details-bottom" data-bind="if: speakerSessions().length">
         <label>Sessions</label>
         <ul data-bind="foreach: speakerSessions">
             <li>
