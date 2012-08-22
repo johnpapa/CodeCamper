@@ -1,6 +1,6 @@
 ﻿define('route-config',
-    ['config', 'router', 'vm', 'store'],
-    function (config, router, vm, store) {
+    ['config', 'router', 'vm'],
+    function (config, router, vm) {
         var
             logger = config.logger,
             
@@ -77,11 +77,8 @@
                     router.register(routeData[i]);
                 }
 
-                var tombstoneView = store.fetch(config.stateKeys.lastView);
-
-                //logger.info('Reloading tombstoned route: ' + tombstoneView);
                 // Crank up the router
-                router.run(tombstoneView || null);
+                router.run();
             };
             
 
