@@ -1,9 +1,8 @@
 ﻿define('route-mediator',
-['amplify', 'config'],
-    function (amplify, config) {
+['messenger', 'config'],
+    function (messenger, config) {
         var
             canleaveCallback,
-            priority = 1,
             self = this,
 
             viewModelActivated = function (options) {
@@ -20,7 +19,11 @@
 
             subscribeToViewModelActivations = function () {
                 var context = self;
-                amplify.subscribe(config.messages.viewModelActivated, context, viewModelActivated, priority);
+                messenger.subscribe({
+                    topic: config.messages.viewModelActivated, 
+                    context: context, 
+                    callback: viewModelActivated
+                    });
             },
 
             init = function () {

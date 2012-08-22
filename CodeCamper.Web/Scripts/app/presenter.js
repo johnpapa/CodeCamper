@@ -1,6 +1,6 @@
 define('presenter',
     ['jquery'],
-    function($) {
+    function ($) {
         var
             transitionOptions = {
                 ease: 'swing',
@@ -21,6 +21,20 @@ define('presenter',
                 }, transitionOptions.floatIn, transitionOptions.ease);
             },
 
+            highlightActiveView = function (route, group) {
+                // Reset top level nav links
+                // Find all NAV links by CSS classname 
+                var $group = $(group);
+                if ($group) {
+                    $(group + '.route-active').removeClass('route-active');
+                    if (route) {
+                        // Highlight the selected nav that matches the route
+                        $group.has('a[href="' + route + '"]').addClass('route-active');
+                    }
+                }
+
+            },
+
             resetViews = function () {
                 $('.view').css({
                     marginLeft: transitionOptions.offsetLeft,
@@ -39,7 +53,7 @@ define('presenter',
                 toggleActivity(true);
 
                 if ($activeViews.length) {
-                    $activeViews.fadeOut(transitionOptions.fadeOut, function() {
+                    $activeViews.fadeOut(transitionOptions.fadeOut, function () {
                         resetViews();
                         entranceThemeTransition($view);
                     });
@@ -49,21 +63,12 @@ define('presenter',
                     entranceThemeTransition($view);
                 }
 
-                // Reset top level nav links
-                // Find all NAV links by CSS classname 
-                var $group = $(group);
-                if ($group) {
-                    $(group + '.route-active').removeClass('route-active');
-                    if (route) {
-                        // Highlight the selected nav that matches the route
-                        $group.has('a[href="' + route + '"]').addClass('route-active');
-                    }
-                }
+                highlightActiveView(route, group);
 
                 toggleActivity(false);
             };
-            
-        
+
+
         return {
             toggleActivity: toggleActivity,
             transitionOptions: transitionOptions,
