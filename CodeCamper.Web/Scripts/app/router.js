@@ -1,8 +1,4 @@
-﻿// Conventions
-//	1) All Views must have their HTML element tags
-//      include a CSS class named .view.
-// ----------------------------------------------
-define('router',
+﻿define('router',
     ['jquery', 'underscore', 'sammy', 'presenter', 'config', 'route-mediator', 'store'],
     function ($, _, Sammy, presenter, config, routeMediator, store) {
         var
@@ -24,6 +20,14 @@ define('router',
                 });
             }),
 
+            navigateBack = function () {
+                window.history.back();
+            },
+
+            navigateTo = function (url) {
+                sammy.setLocation(url);
+            },
+
             register = function (options) {
                 if (options.routes) {
                     // Register a list of routes
@@ -42,6 +46,27 @@ define('router',
 
                 // Register 1 route
                 registerRoute(options);
+            },
+
+            registerBeforeLeaving = function () {
+                sammy.before(/.*/, function () {
+                    var
+                        context = this,
+                        response = routeMediator.canLeave();
+
+                    if (!isRedirecting && !response.val) {
+                        isRedirecting = true;
+                        logger.warning(response.message);
+                        // Keep hash url the same in address bar
+                        context.app.setLocation(currentHash);
+                    }
+                    else {
+                        isRedirecting = false;
+                        currentHash = context.app.getLocation();
+                    }
+                    // Cancel the route if this returns false
+                    return response.val;
+                });
             },
 
             registerRoute = function (options) {
@@ -66,35 +91,6 @@ define('router',
                         this.title(options.title);
                     }
                 });
-            },
-
-            navigateTo = function (url) {
-                sammy.setLocation(url);
-            },
-
-            registerBeforeLeaving = function () {
-                sammy.before(/.*/, function () {
-                    var
-                        context = this,
-                        response = routeMediator.canLeave();
-
-                    if (!isRedirecting && !response.val) {
-                        isRedirecting = true;
-                        logger.warning(response.message);
-                        // Keep hash url the same in address bar
-                        context.app.setLocation(currentHash);
-                    }
-                    else {
-                        isRedirecting = false;
-                        currentHash = context.app.getLocation();
-                    }
-                    // Cancel the route if this returns false
-                    return response.val;
-                });
-            },
-
-            navigateBack = function () {
-                window.history.back();
             },
 
             run = function (url) {

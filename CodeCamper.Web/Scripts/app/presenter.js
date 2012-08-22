@@ -6,29 +6,34 @@ define('presenter',
                 ease: 'swing',
                 fadeOut: 100,
                 floatIn: 500,
-                offset: '15px'
-            },
-            
-            toggleActivity = function (show) {
-                $('#busyindicator').activity(show);
+                offsetLeft: '20px',
+                offsetRight: '-20px',
             },
 
-            resetViews = function () {
-                $('.view').css({
-                    marginLeft: transitionOptions.offset,
-                    opacity: 0
-                });
-            },
-            entranceThemeTransition = function($view) {
+            entranceThemeTransition = function ($view) {
                 $view.css({
                     display: 'block',
                     visibility: 'visible'
                 }).addClass('view-active').animate({
+                    marginRight: 0,
                     marginLeft: 0,
                     opacity: 1
                 }, transitionOptions.floatIn, transitionOptions.ease);
             },
-            transitionTo = function($view, route, group) {
+
+            resetViews = function () {
+                $('.view').css({
+                    marginLeft: transitionOptions.offsetLeft,
+                    marginRight: transitionOptions.offsetRight,
+                    opacity: 0
+                });
+            },
+
+            toggleActivity = function (show) {
+                $('#busyindicator').activity(show);
+            },
+
+            transitionTo = function ($view, route, group) {
                 var $activeViews = $('.view-active');
 
                 toggleActivity(true);
