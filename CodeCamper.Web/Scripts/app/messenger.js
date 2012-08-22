@@ -4,12 +4,10 @@
         var
             priority = 1,
             
-            viewModelActivated = function (options) {
-                amplify.publish(config.messages.viewModelActivated, options);
+            publish = function (topic, options) {
+                amplify.publish(topic, options);
             },
-            
-            publish = { viewModelActivated: viewModelActivated },
-            
+
             subscribe = function (options) {
                 amplify.subscribe(
                     options.topic,
@@ -17,6 +15,10 @@
                     options.callback,
                     priority);
             };
+
+        publish.viewModelActivated = function(options) {
+            amplify.publish(config.messages.viewModelActivated, options);
+        };
 
         return {
             publish: publish,
