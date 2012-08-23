@@ -38,16 +38,16 @@
                     results: sessions,
                     filter: sessionFilter,
                     sortFunction: sort.sessionSort,
-                    forceRefresh: force
+                    forceRefresh: force,
+                    currentUserId: config.currentUserId
+                    
                 };
             },
 
             forceRefreshCmd = ko.asyncCommand({
                 execute: function (complete) {
                     setFilter();
-
-                    $.when(datacontext.sessions.getData(dataOptions(true)),
-                        datacontext.attendance.getData({ param: config.currentUserId, forceRefresh: true }))
+                    $.when(datacontext.sessions.getSessionsAndAttendance(dataOptions(true)))
                         .always(complete);
                 }
             }),

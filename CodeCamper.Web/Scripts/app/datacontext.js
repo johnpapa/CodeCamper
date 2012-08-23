@@ -295,6 +295,21 @@
                 }).promise();
             };
 
+            sessions.getSessionsAndAttendance = function (options) {
+                return $.Deferred(function(def) {
+                    $.when(
+                        sessions.getData(options),
+                        datacontext.attendance.getData(
+                            {
+                                param: options.currentUserId,
+                                forceRefresh: options.forceRefresh
+                            })
+                        )
+                        .done(function () { def.resolve(); })
+                        .fail(function () { def.reject(); });
+                }).promise();
+            };
+        
             // extend Persons entitySet 
             persons.getSpeakers = function (options) {
                 return $.Deferred(function(def) {

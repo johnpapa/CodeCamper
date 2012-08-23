@@ -54,8 +54,7 @@
 
             forceRefreshCmd = ko.asyncCommand({
                 execute: function (complete) {
-                    $.when(datacontext.sessions.getData(dataOptions(true)),
-                        datacontext.attendance.getData({ param: config.currentUserId, forceRefresh: true}))
+                    $.when(datacontext.sessions.getSessionsAndAttendance(dataOptions(true)))
                         .always(complete);
                 }
             }),
