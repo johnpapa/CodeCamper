@@ -160,6 +160,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="amplify-GPL-LICENSE.txt" />
+    <Content Include="amplify-MIT-LICENSE.txt" />
     <Content Include="Content\boilerplate-styles.css" />
     <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\photos\dave_ward.jpg" />
@@ -215,6 +217,7 @@
     <Content Include="Content\images\heart-checked.png" />
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
+    <Content Include="Require.JS - LICENSE.txt" />
     <Content Include="Scripts\app\binder.js" />
     <Content Include="Scripts\app\model.session.js" />
     <Content Include="Scripts\app\model.person.js" />
