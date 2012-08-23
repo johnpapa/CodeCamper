@@ -95,12 +95,15 @@
         Session.Nullo.dirtyFlag().reset();
 
         var _dc = null;
+        // Static member, no access to instances of Session
         Session.datacontext = function (dc) {
             if (dc) { _dc = dc; }
             return _dc;
         };
 
 
+        // Prototype is available to all instances.
+        // It has access to the properties of the instance of Session.
         Session.prototype = function () {
             var
                 dc = Session.datacontext,
