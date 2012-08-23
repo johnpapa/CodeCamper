@@ -39,6 +39,7 @@
                         .tags(dto.tags);
                     item.dirtyFlag().reset();
                     item.isBrief(dto.description === undefined); // detect if brief or full session
+                    item.isFavoriteRefresh.valueHasMutated(); // when we reload sessions, favorites may have changed. 
                     return item;
                 }
             },

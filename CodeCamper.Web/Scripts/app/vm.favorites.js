@@ -46,7 +46,8 @@
                 execute: function (complete) {
                     setFilter();
 
-                    $.when(datacontext.sessions.getData(dataOptions(true)))
+                    $.when(datacontext.sessions.getData(dataOptions(true)),
+                        datacontext.attendance.getData({ param: config.currentUserId, forceRefresh: true }))
                         .always(complete);
                 }
             }),
