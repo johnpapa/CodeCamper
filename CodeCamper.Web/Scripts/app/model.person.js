@@ -89,6 +89,7 @@
         Person.Nullo.isBrief = function () { return false; }; // nullo is never brief
         Person.Nullo.dirtyFlag().reset();
 
+        // static member
         Person.datacontext = function (dc) {
             if (dc) { _dc = dc; }
             return _dc;
