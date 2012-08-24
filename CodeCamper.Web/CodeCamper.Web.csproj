@@ -160,8 +160,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="amplify-GPL-LICENSE.txt" />
-    <Content Include="amplify-MIT-LICENSE.txt" />
     <Content Include="Content\boilerplate-styles.css" />
     <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\photos\dave_ward.jpg" />
@@ -217,7 +215,6 @@
     <Content Include="Content\images\heart-checked.png" />
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
-    <Content Include="Require.JS - LICENSE.txt" />
     <Content Include="Scripts\app\binder.js" />
     <Content Include="Scripts\app\model.session.js" />
     <Content Include="Scripts\app\model.person.js" />
@@ -241,7 +238,6 @@
     <Content Include="Scripts\lib\knockout.activity.js" />
     <Content Include="Scripts\lib\knockout.asyncCommand.js" />
     <Content Include="Scripts\lib\knockout.dirtyFlag.js" />
-    <Content Include="Scripts\main.readme.txt" />
     <Content Include="Scripts\lib\infuser.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine.js" />
     <Content Include="Scripts\lib\modernizr-2.5.3.js" />
@@ -280,8 +276,12 @@
     <Content Include="Test\web api\webapi.session-cud.tests.html" />
     <Content Include="Test\web api\webapi.session-cud.tests.js" />
     <Content Include=".htaccess" />
-    <Content Include="index.cshtml.info.only.txt" />
-    <Content Include="index.cshtml.readme.txt" />
+    <Content Include="_docs\amplify-GPL-LICENSE.txt" />
+    <Content Include="_docs\amplify-MIT-LICENSE.txt" />
+    <Content Include="_docs\index.cshtml.info.only.txt" />
+    <Content Include="_docs\index.cshtml.readme.txt" />
+    <Content Include="_docs\main.readme.txt" />
+    <Content Include="_docs\Require.JS - LICENSE.txt" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <Content Include="Scripts\lib\knockout-2.1.0.js" />
     <Content Include="Scripts\lib\json2.js" />
