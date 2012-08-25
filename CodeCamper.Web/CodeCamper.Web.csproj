@@ -276,6 +276,7 @@
     <Content Include="Test\web api\webapi.session-cud.tests.html" />
     <Content Include="Test\web api\webapi.session-cud.tests.js" />
     <Content Include=".htaccess" />
+    <Content Include="_docs\_sessions.view.tmpl.html.readme.txt" />
     <Content Include="_docs\amplify-GPL-LICENSE.txt" />
     <Content Include="_docs\amplify-MIT-LICENSE.txt" />
     <Content Include="_docs\index.cshtml.info.only.txt" />

@@ -1,5 +1,5 @@
 ﻿<article class="article-right-content">
-    
+    <!-- data-bind="click: $parent.gotoDetails" -->
     <div class="session-brief" title="Go to session details">
         <img data-bind="attr: {src: speaker().imageName}"/>
         <span data-bind="text:timeslot().shortStart"></span> at <span data-bind="text:room().name"></span>
@@ -11,5 +11,22 @@
     </div>
 
     <button data-bind="favoriteCheckbox: {enable: isUnlocked, checked: isFavorite}"></button>
+
+    <!-- Without a binding handler -->
+<!--    
+    <button
+        class="markfavorite" style="margin-right:50px"
+        data-bind="
+            attr: { title: !isUnlocked() ? 'locked' : (isFavorite() ? 'remove favorite' : 'mark as favorite') },
+            css: { locked: !isUnlocked(), selected: isFavorite },
+            enable: isUnlocked"></button>
+-->
+
+<!--    
+        <div style="border:white dotted thin">
+            <h4>Session JSON</h4>
+            <pre data-bind="text:ko.utils.debugInfo(speaker())"></pre>
+        </div>
+-->
 
 </article>
