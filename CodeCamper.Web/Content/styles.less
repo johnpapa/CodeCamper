@@ -1,5 +1,4 @@
-﻿/* 01 LESS variables and MIXINs
---------------------------------------------------------- */
+﻿/* #region LESS variables */
 @font-family: "Segoe UI",Arial,Helvetica,sans-serif;
 @font-family-light: "Segoe UI Light","Segoe Light","Segoe UI","Helvetica-Light",Arial,Helvetica,sans-serif;
 
@@ -43,10 +42,9 @@
 
 @checkbox-image: url(images/checkbox-unchecked-white.png);
 @checkbox-image-checked: url(images/checkbox-checked-white.png);
+/* #endregion */
 
-
-/* MIXINs
----------------------------------------------------*/
+/* #region LESS Mixins */
 .validation-icon(@icon, @offset) {
 	background: #fff @icon no-repeat @offset center;
 }
@@ -87,20 +85,19 @@
 	padding: 4px;
 }
 
-.image-profile-size(){
-    height: 90px;
+.image-profile-size(@size: 90px){
+    height: @size;
 }
+/* #endregion */
 
-
-/* 1 RESET
---------------------------------------------------------- */
+/* #region HTML RESET */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
 font: inherit;
 margin: 0;
 }
+/* #endregion */
 
-/* 2.1 LAYOUT
---------------------------------------------------------- */
+/* #region Layout */
 html {
 	padding: 0 7%;
     color: @text-color;
@@ -122,7 +119,7 @@ body {
         font-family: @font-family;
         font-size: 300%;
         font-weight: normal;
-        letter-spacing: - 3px;
+        letter-spacing: -3px;
         margin-bottom: 2%;
         padding-left: 60px;
         padding-bottom: 4px;
@@ -452,13 +449,13 @@ button {
 
     div {
         address {
-            height: 35px;
+            height: 25px;
             margin-left: 100px;
             margin-bottom: 2%;
         }
 
         a {
-            height: 35px;
+            height: 25px;
             margin-left: 100px;
             margin-bottom: 2%;
             display: block;
@@ -523,10 +520,9 @@ span.scrollable-text {
     width: 310px;
 }
 
+/* #endregion */
 
-
-/* 2.2 LINK STYLES
---------------------------------------------------------- */
+/* #region Link Styles */
 a {
 	cursor: pointer; 
     color: @text-color;
@@ -544,9 +540,9 @@ a {
         top: 1px;
     }
 }
+/* #endregion */
 
-/* 2.3 FONTS
---------------------------------------------------------- */
+/* #region Fonts */
 body,
 button,
 input,
@@ -555,10 +551,9 @@ select {
     font-size: 100%;
 	font-family: @font-family-light;
 }
+/* #endregion */
 
-
-/* 2.4 ELEMENTS
---------------------------------------------------------- */
+/* #region Elements */
 input,
 textarea,
 select {
@@ -626,9 +621,9 @@ button {
         top: 0;
     }
 }
+/* #endregion */
 
-/* 2.5 ICONS
---------------------------------------------------------- */
+/* #region Icons */
 .refresh {
 	background-image: url(images/refresh.png);
     cursor: pointer;
@@ -670,7 +665,7 @@ button {
     width: 12px;
     height: 12px;
     font-weight: bold;
-    margin-top: -28px;
+    margin-top: -25px;
     margin-right: 10px;
 	-moz-opacity: 0.3;
     opacity: 0.3;
@@ -683,14 +678,17 @@ button {
 }
 
 .clear-trash {
-	background-image: url(images/trash.png);
+    background-image: url(images/trash.png);
+    -moz-background-size: 12px 12px;
+    -o-background-size: 12px 12px;
+    -webkit-background-size: 12px 12px;
+    background-size: 12px 12px;
     cursor: pointer;
-	margin-top: 15px;
+    margin-top: 15px;
 }
+/* #endregion */
 
-
-/* 3.0 CUSTOM
---------------------------------------------------------- */
+/* #region Nav Routes */
 .route-top > a { .route-a-base(@text-color-subtle); }
 
 .route-active.route-top > a {
@@ -719,7 +717,9 @@ button {
 .accent-left {
     .accent-left-base;
 }
+/* #endregion */
 
+/* #region Activity */
 #busyindicator {
   position: fixed;
   top: 50%;
@@ -727,7 +727,9 @@ button {
   margin-top: -8px;
   margin-left: -8px;
 }
+/* #endregion */
 
+/* #region Star Rating */
 .starRating-readonly,
 .starRating { margin: 0 2px 0 2px; clear: both; display: block; }
 
@@ -754,17 +756,15 @@ button {
 		&.hoverChosen { background-image: @star-full; }
 	}
 }
+/* #endregion */
 
-/*toastr overrides*/
+/* #region Toastr Overrides */
 .toast {
 	font-weight: bold;
 }
+/* #endregion */
 
-    
-    
-/* 3.0.2 CUSTOM VALIDATION
---------------------------------------------------------- */
-
+/* #region Validation */
 input:invalid, textarea:invalid{
 	border-width: @validation-border-width;
 }
@@ -799,8 +799,8 @@ input, textarea {
     -webkit-border-radius: 2px;
     border-radius: 2px;
     -moz-transition: @input-transition;
-    -webkit-transition: @input-transition;
     -o-transition: @input-transition;
+    -webkit-transition: @input-transition;
     transition: @input-transition;
 }
 
@@ -831,7 +831,6 @@ input:focus:invalid, textarea:focus:invalid {
     padding: 0 6px;
     z-index: 999; /* hints stay above all other elements */
     position: absolute; /* allows proper formatting if hint is two lines */
-    /*	display: none; */ /* always show it, so IE is happy */
 }
 
 .validationElement {
@@ -841,18 +840,16 @@ input:focus:invalid, textarea:focus:invalid {
 
 input:focus + .validationMessage, textarea:focus + .validationMessage {display: inline;}
 input:valid + .validationMessage, textarea:valid + .validationMessage {display: none;}
+/* #endregion */
 
-	
-
-/* 3.1 RESPONSIVENESS
---------------------------------------------------------- */
-@media only screen and (max-width: 1050px) {
+/* #region Responsive Design */
+/*@media only screen and (max-width: 1050px) {
 	.titleblock {
         width: 320px;
         
         > input { width: 190px; }
     }
-}
+}*/
 
 @media only screen and (max-width: 1000px) {
 	body { font-size: 16px; }
@@ -869,8 +866,6 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
     .accent-top {.accent-top-base(.8, .67); }
 
     .accent-left { .accent-left-base(.8); }
-
-	/*.titleblock > input { width: 300px; }*/
 }
 
 @media only screen and (max-width: 800px) {
@@ -932,8 +927,9 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 		> article > div > img { .image-profile-size; }
 	}
 
-    .clear-text { margin-top: -50px; }
-
+    .clear-text { 
+		margin-top: -50px; 
+    }
 }
 
 @media only screen and (max-width: 480px) {
@@ -950,10 +946,18 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
         }
     }
 
-    button { height: 26px; }
+	.titleblock {
+        width: 300px;
+        
+        > input { width: 160px; }
+    }
+    .refresh {
+        margin-top: 0;
+    }
+
 
 	.view-list { 
-		margin-top: 8%; 
+		margin-top: 14%; 
 		
 		> article { 
 			padding: 10px; 
@@ -967,22 +971,31 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
 	}
 
-
 	.article-container-full-width {
 		height: 110px;
 		width: 80px;
 	}
 
 	button {
+        height: 24px;
+        -moz-background-size: 12px;
+        -o-background-size: 12px;
+        -webkit-background-size: 12px;
+        background-size: 12px;
+		
+		padding-left: 30px;
+		padding-right: 14px;
+		background-position: 10px center;
+
 		&.markfavorite {
-			.square-background-container(16px);
+			.square-background-container(20px);
 
 			&.selected {
-				.square-background-container(16px);
+				.square-background-container(20px);
 			}
 
 			&.locked {
-				.square-background-container(16px);
+				.square-background-container(20px);
 			}
 		}
 	}
@@ -998,12 +1011,12 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
 
     .filter-box-container-full-width { margin: 0 0 7% 0; }
 
-    .accent-top { .accent-top-base(.6, .6); }
+    .accent-top { .accent-top-base(.5, .5); }
 
-    .accent-left { .accent-left-base(.6); }
+    .accent-left { .accent-left-base(.5); }
 
     .clear-text {
-        margin-top: - 30px;
+        margin-top: -35px;
         -moz-background-size: 10px;
         -o-background-size: 10px;
         -webkit-background-size: 10px;
@@ -1011,9 +1024,41 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
         width: 10px;
         height: 10px;
     }
+
+    .details-right {
+        textarea {
+            width: 255px;
+        }
+    }
+
+    .details-left {
+        img {
+            .image-profile-size(70px);
+        }
+
+        input {
+            width: 160px;
+        }
+
+        select {
+            width: 168px;
+        }
+
+        div {
+            address {
+                height: 15px;
+            }
+
+            a {
+                height: 15px;
+            }
+        }
+    }
+
+
 }
 
-@media only screen and (max-width: 240px) {
+@media only screen and (max-width: 320px) {
     body {
         font-size: 10px;
 
@@ -1025,9 +1070,44 @@ input:valid + .validationMessage, textarea:valid + .validationMessage {display: 
             font-size: 250%;
             padding-left: 30px;
         }
+
+        .article-right-content {
+            min-height: 80px;
+        }
+
+        small {
+            display: none;
+        }
+
+        button {
+            &.markfavorite {
+                .square-background-container(16px);
+
+                &.selected {
+                    .square-background-container(16px);
+                }
+
+                &.locked {
+                    .square-background-container(16px);
+                }
+            }
+        }
+
+        .clear-text {
+            margin-top: -30px;
+        }
+    }
+}
+
+@media only screen and (max-width: 240px) {
+    body {
+        .clear-text {
+            margin-top: -30px;
+        }
     }
 }
 
 @media only screen and (max-height: 768px) {
     .view-list { height: 330px; }
 }
+/* #endregion */
