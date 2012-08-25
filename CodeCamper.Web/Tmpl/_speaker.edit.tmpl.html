@@ -30,7 +30,9 @@
     <div class="details-right">
         <div>
             <label for="bio">Bio</label>
-            <span id="bio" class="scrollable-text" data-bind="text: bio"></span>
+            <textarea id="bio" class="scrollable-text" 
+                placeholder="Enter speaker biography"
+                data-bind="value: bio, valueUpdate: 'afterkeydown'"></textarea>
         </div>
     </div>
     <div class="details-bottom">
