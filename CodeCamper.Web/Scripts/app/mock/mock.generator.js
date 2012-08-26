@@ -1,8 +1,4 @@
-﻿//	All mock data is exposed through data property
-// 	toggle mock usage on and off through 
-//  config.useMocks() 
-// ----------------------------------------------
-define('mock/mock.generator',
+﻿define('mock/mock.generator',
     ['jquery', 'moment'],
     function($, moment) {
         var

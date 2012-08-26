@@ -42,7 +42,6 @@
                 deferEvaluation: true,
 
                 write: function (value) {
-                    //TODO:  explain this
                     // Made this a no-op because without the write, 
                     // when the checkbox is clicked it fires the click event twice 
                     // and sets the computed = true (not the function)

@@ -30,7 +30,7 @@ namespace CodeCamper.Data.SampleData
                 Blog = "http://johnp.contoso.com",
                 Twitter = "@john_papa",
                 Gender = "M",
-                Bio = "Husband, father, and Catholic enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, and author, and Pluralsight trainer.",
+                Bio = "Husband, father, and Catholic enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, author, and Pluralsight trainer.",
             });
             _theChosen.Add(_danWahlin =new Person
             {

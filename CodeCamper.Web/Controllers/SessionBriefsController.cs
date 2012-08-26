@@ -17,7 +17,6 @@ namespace CodeCamper.Web.Controllers
         // public IQueryable<SessionBrief> Get()
         #endregion
 
-
         // GET /api/sessionbriefs
         public IEnumerable<SessionBrief> Get()
         {

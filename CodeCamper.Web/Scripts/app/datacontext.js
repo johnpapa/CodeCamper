@@ -28,7 +28,6 @@
             mapToContext = function(dtoList, items, results, mapper, filter, sortFunction) {
                 // Loop through the raw dto list and populate a dictionary of the items
                 items = _.reduce(dtoList, function(memo, dto) {
-                    // ToDo: Just like mapDtoToContext ... refactor it
                     var id = mapper.getDtoId(dto);
                     var existingItem = items[id];
                     memo[id] = mapper.fromDto(dto, existingItem);
@@ -97,7 +96,7 @@
 
                         return $.Deferred(function(def) {
                             if (!updateFunction) {
-                                logger.error('updateData method not implemented'); //TODO: revise error message
+                                logger.error('updateData method not implemented'); 
                                 if (callbacks && callbacks.error) { callbacks.error(); }
                                 def.reject();
                                 return;
@@ -250,7 +249,7 @@
                                     def.resolve(dto);
                                 },
                                 error: function (response) {
-                                    logger.error('oops! could not retrieve attendance ' + sessionId); //TODO: revise error message
+                                    logger.error('oops! could not retrieve attendance ' + sessionId); 
                                     if (callbacks && callbacks.error) { callbacks.error(response); }
                                     def.reject(response);
                                 }
@@ -276,12 +275,11 @@
                                 // updates the session returned from getLocalById() above
                                 session = sessions.mapDtoToContext(dto);
                                 session.isBrief(false); // now a full session
-                                //logger.success('merged full session'); //TODO: revise message
                                 if (callbacks && callbacks.success) { callbacks.success(session); }
                                 def.resolve(dto);
                             },
                             error: function (response) {
-                                logger.error('oops! could not retrieve session ' + id); //TODO: revise error message
+                                logger.error('oops! could not retrieve session ' + id); 
                                 if (callbacks && callbacks.error) { callbacks.error(response); }
                                 def.reject(response);
                             }
@@ -336,7 +334,7 @@
                                 def.resolve(dto);
                             },
                             error: function (response) {
-                                logger.error('oops! could not retrieve person ' + id); //TODO: revise error message
+                                logger.error('oops! could not retrieve person ' + id);
                                 if (callbacks && callbacks.error) { callbacks.error(response); }
                                 def.reject(response);
                             }
