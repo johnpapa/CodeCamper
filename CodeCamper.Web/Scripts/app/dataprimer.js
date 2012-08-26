@@ -9,12 +9,12 @@
                 return $.Deferred(function (def) {
 
                     var data = {
-                        rooms: ko.observable(),
-                        tracks: ko.observable(),
-                        timeslots: ko.observable(),
-                        attendance: ko.observable(),
-                        persons: ko.observable(),
-                        sessions: ko.observable()
+                        rooms: ko.observableArray(),
+                        tracks: ko.observableArray(),
+                        timeslots: ko.observableArray(),
+                        attendance: ko.observableArray(),
+                        persons: ko.observableArray(),
+                        sessions: ko.observableArray()
                     };
 
                     $.when(
