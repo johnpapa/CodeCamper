@@ -7,7 +7,7 @@ define('presenter',
                 fadeOut: 100,
                 floatIn: 500,
                 offsetLeft: '20px',
-                offsetRight: '-20px',
+                offsetRight: '-20px'
             },
 
             entranceThemeTransition = function ($view) {
