@@ -48,7 +48,7 @@ namespace CodeCamper.Web.Controllers
             // Compose location header that tells how to get this session
             // e.g. ~/api/session/5
             response.Headers.Location =
-                new Uri(Url.Link(RouteConfig.ControllerAndId, new {id = session.Id}));
+                new Uri(Url.Link(WebApiConfig.ControllerAndId, new {id = session.Id}));
 
             return response;
         }

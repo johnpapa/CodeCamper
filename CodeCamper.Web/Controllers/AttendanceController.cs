@@ -49,7 +49,7 @@ namespace CodeCamper.Web.Controllers
             var queryString = string.Format(
                 "?pid={0}&sid={1}", attendance.PersonId, attendance.SessionId);
             response.Headers.Location =
-                new Uri(Url.Link(RouteConfig.ControllerOnly, null)+queryString);
+                new Uri(Url.Link(WebApiConfig.ControllerOnly, null) + queryString);
 
             return response;
         }

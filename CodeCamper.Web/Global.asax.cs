@@ -18,6 +18,7 @@ namespace CodeCamper.Web
             IocConfig.RegisterIoc(GlobalConfiguration.Configuration);   
 
             // Web API template created these 3
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
