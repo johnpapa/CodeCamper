@@ -28,11 +28,11 @@ define('presenter',
                 if ($group) {
                     $(group + '.route-active').removeClass('route-active');
                     if (route) {
+                        var match = route[0] === '/' ? route.substring(1) : route;
                         // Highlight the selected nav that matches the route
-                        $group.has('a[href="' + route + '"]').addClass('route-active');
+                        $group.has('a[href="' + match + '"]').addClass('route-active');
                     }
                 }
-
             },
 
             resetViews = function () {

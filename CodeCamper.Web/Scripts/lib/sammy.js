@@ -1,19 +1,30 @@
 // name: sammy
-// version: 0.6.3
+// version: 0.7.2
 
 // Sammy.js / http://sammyjs.org
 
 (function($, window) {
+  (function(factory){
+    // Support module loading scenarios
+    if (typeof define === 'function' && define.amd){
+      // AMD Anonymous Module
+      define(['jquery'], factory);
+    } else {
+      // No module loader (plain <script> tag) - put directly in global namespace
+      $.sammy = window.Sammy = factory($);
+    }
+  })(function($){
 
   var Sammy,
       PATH_REPLACER = "([^\/]+)",
       PATH_NAME_MATCHER = /:([\w\d]+)/g,
-      QUERY_STRING_MATCHER = /\?([^#]*)$/,
+      QUERY_STRING_MATCHER = /\?([^#]*)?$/,
       // mainly for making `arguments` an Array
       _makeArray = function(nonarray) { return Array.prototype.slice.call(nonarray); },
       // borrowed from jQuery
       _isFunction = function( obj ) { return Object.prototype.toString.call(obj) === "[object Function]"; },
       _isArray = function( obj ) { return Object.prototype.toString.call(obj) === "[object Array]"; },
+      _isRegExp = function( obj ) { return Object.prototype.toString.call(obj) === "[object RegExp]"; },
       _decode = function( str ) { return decodeURIComponent((str || '').replace(/\+/g, ' ')); },
       _encode = encodeURIComponent,
       _escapeHTML = function(s) {
@@ -23,6 +34,7 @@
         return function(path, callback) { return this.route.apply(this, [verb, path, callback]); };
       },
       _template_cache = {},
+      _has_history = !!(window.history && history.pushState),
       loggers = [];
 
 
@@ -43,7 +55,7 @@
   //      // returns the app at #main or a new app
   //      Sammy('#main')
   //
-  //      // equivilent to "new Sammy.Application", except appends to apps
+  //      // equivalent to "new Sammy.Application", except appends to apps
   //      Sammy();
   //      Sammy(function() { ... });
   //
@@ -64,7 +76,7 @@
           app.use(plugin);
         });
       }
-      // if the selector changes make sure the refrence in Sammy.apps changes
+      // if the selector changes make sure the reference in Sammy.apps changes
       if (app.element_selector != selector) {
         delete Sammy.apps[selector];
       }
@@ -73,7 +85,7 @@
     }
   };
 
-  Sammy.VERSION = '0.6.3';
+  Sammy.VERSION = '0.7.2';
 
   // Add to the global logger pool. Takes a function that accepts an
   // unknown number of arguments and should print them or send them somewhere
@@ -113,7 +125,7 @@
     makeArray: _makeArray,
     isFunction: _isFunction,
     isArray: _isArray
-  })
+  });
 
   // Sammy.Object is the base for all other Sammy classes. It provides some useful
   // functionality, including cloning, iterating, etc.
@@ -171,7 +183,7 @@
 
     // Checks if the object has a value at `key` and that the value is not empty
     has: function(key) {
-      return this[key] && $.trim(this[key].toString()) != '';
+      return this[key] && $.trim(this[key].toString()) !== '';
     },
 
     // convenience method to join as many arguments as you want
@@ -201,89 +213,141 @@
     }
   });
 
-  // The HashLocationProxy is the default location proxy for all Sammy applications.
+  // The DefaultLocationProxy is the default location proxy for all Sammy applications.
   // A location proxy is a prototype that conforms to a simple interface. The purpose
   // of a location proxy is to notify the Sammy.Application its bound to when the location
-  // or 'external state' changes. The HashLocationProxy considers the state to be
-  // changed when the 'hash' (window.location.hash / '#') changes. It does this in two
-  // different ways depending on what browser you are using. The newest browsers
-  // (IE, Safari > 4, FF >= 3.6) support a 'onhashchange' DOM event, thats fired whenever
-  // the location.hash changes. In this situation the HashLocationProxy just binds
-  // to this event and delegates it to the application. In the case of older browsers
-  // a poller is set up to track changes to the hash. Unlike Sammy 0.3 or earlier,
-  // the HashLocationProxy allows the poller to be a global object, eliminating the
-  // need for multiple pollers even when thier are multiple apps on the page.
-  Sammy.HashLocationProxy = function(app, run_interval_every) {
+  // or 'external state' changes.
+  //
+  // The `DefaultLocationProxy` watches for changes to the path of the current window and
+  // is also able to set the path based on changes in the application. It does this by
+  // using different methods depending on what is available in the current browser. In
+  // the latest and greatest browsers it used the HTML5 History API and the `pushState`
+  // `popState` events/methods. This allows you to use Sammy to serve a site behind normal
+  // URI paths as opposed to the older default of hash (#) based routing. Because the server
+  // can interpret the changed path on a refresh or re-entry, though, it requires additional
+  // support on the server side. If you'd like to force disable HTML5 history support, please
+  // use the `disable_push_state` setting on `Sammy.Application`. If pushState support
+  // is enabled, `DefaultLocationProxy` also binds to all links on the page. If a link is clicked
+  // that matches the current set of routes, the URL is changed using pushState instead of
+  // fully setting the location and the app is notified of the change.
+  //
+  // If the browser does not have support for HTML5 History, `DefaultLocationProxy` automatically
+  // falls back to the older hash based routing. The newest browsers (IE, Safari > 4, FF >= 3.6)
+  // support a 'onhashchange' DOM event, thats fired whenever the location.hash changes.
+  // In this situation the DefaultLocationProxy just binds to this event and delegates it to
+  // the application. In the case of older browsers a poller is set up to track changes to the
+  // hash.
+  Sammy.DefaultLocationProxy = function(app, run_interval_every) {
     this.app = app;
     // set is native to false and start the poller immediately
     this.is_native = false;
+    this.has_history = _has_history;
     this._startPolling(run_interval_every);
   };
 
-  Sammy.HashLocationProxy.prototype = {
-
+  Sammy.DefaultLocationProxy.fullPath = function(location_obj) {
+   // Bypass the `window.location.hash` attribute.  If a question mark
+    // appears in the hash IE6 will strip it and all of the following
+    // characters from `window.location.hash`.
+    var matches = location_obj.toString().match(/^[^#]*(#.+)$/);
+    var hash = matches ? matches[1] : '';
+    return [location_obj.pathname, location_obj.search, hash].join('');
+  };
+$.extend(Sammy.DefaultLocationProxy.prototype , {
     // bind the proxy events to the current app.
     bind: function() {
-      var proxy = this, app = this.app;
+      var proxy = this, app = this.app, lp = Sammy.DefaultLocationProxy;
       $(window).bind('hashchange.' + this.app.eventNamespace(), function(e, non_native) {
         // if we receive a native hash change event, set the proxy accordingly
         // and stop polling
         if (proxy.is_native === false && !non_native) {
-          Sammy.log('native hash change exists, using');
           proxy.is_native = true;
-          window.clearInterval(Sammy.HashLocationProxy._interval);
+          window.clearInterval(lp._interval);
         }
         app.trigger('location-changed');
       });
-      if (!Sammy.HashLocationProxy._bindings) {
-        Sammy.HashLocationProxy._bindings = 0;
+      if (_has_history && !app.disable_push_state) {
+        // bind to popstate
+        $(window).bind('popstate.' + this.app.eventNamespace(), function(e) {
+          app.trigger('location-changed');
+        });
+        // bind to link clicks that have routes
+        $('a').live('click.history-' + this.app.eventNamespace(), function(e) {
+          if (e.isDefaultPrevented() || e.metaKey || e.ctrlKey) {
+            return;
+          }
+          var full_path = lp.fullPath(this);
+          if (this.hostname == window.location.hostname &&
+              app.lookupRoute('get', full_path) &&
+              this.target !== '_blank') {
+            e.preventDefault();
+            proxy.setLocation(full_path);
+            return false;
+          }
+        });
       }
-      Sammy.HashLocationProxy._bindings++;
+      if (!lp._bindings) {
+        lp._bindings = 0;
+      }
+      lp._bindings++;
     },
 
     // unbind the proxy events from the current app
     unbind: function() {
       $(window).unbind('hashchange.' + this.app.eventNamespace());
-      Sammy.HashLocationProxy._bindings--;
-      if (Sammy.HashLocationProxy._bindings <= 0) {
-        window.clearInterval(Sammy.HashLocationProxy._interval);
+      $(window).unbind('popstate.' + this.app.eventNamespace());
+      $('a').die('click.history-' + this.app.eventNamespace());
+      Sammy.DefaultLocationProxy._bindings--;
+      if (Sammy.DefaultLocationProxy._bindings <= 0) {
+        window.clearInterval(Sammy.DefaultLocationProxy._interval);
       }
     },
 
     // get the current location from the hash.
     getLocation: function() {
-     // Bypass the `window.location.hash` attribute.  If a question mark
-      // appears in the hash IE6 will strip it and all of the following
-      // characters from `window.location.hash`.
-      var matches = window.location.toString().match(/^[^#]*(#.+)$/);
-      return matches ? matches[1] : '';
+      return Sammy.DefaultLocationProxy.fullPath(window.location);
     },
 
     // set the current location to `new_location`
     setLocation: function(new_location) {
-      return (window.location = new_location);
+      if (/^([^#\/]|$)/.test(new_location)) { // non-prefixed url
+        if (_has_history && !this.app.disable_push_state) {
+          new_location = '/' + new_location;
+        } else {
+          new_location = '#!/' + new_location;
+        }
+      }
+      if (new_location != this.getLocation()) {
+        // HTML5 History exists and new_location is a full path
+        if (_has_history && !this.app.disable_push_state && /^\//.test(new_location)) {
+          history.pushState({ path: new_location }, window.title, new_location);
+          this.app.trigger('location-changed');
+        } else {
+          return (window.location = new_location);
+        }
+      }
     },
 
     _startPolling: function(every) {
       // set up interval
       var proxy = this;
-      if (!Sammy.HashLocationProxy._interval) {
+      if (!Sammy.DefaultLocationProxy._interval) {
         if (!every) { every = 10; }
         var hashCheck = function() {
           var current_location = proxy.getLocation();
-          if (typeof Sammy.HashLocationProxy._last_location == 'undefined' ||
-            current_location != Sammy.HashLocationProxy._last_location) {
+          if (typeof Sammy.DefaultLocationProxy._last_location == 'undefined' ||
+            current_location != Sammy.DefaultLocationProxy._last_location) {
             window.setTimeout(function() {
               $(window).trigger('hashchange', [true]);
             }, 0);
           }
-          Sammy.HashLocationProxy._last_location = current_location;
+          Sammy.DefaultLocationProxy._last_location = current_location;
         };
         hashCheck();
-        Sammy.HashLocationProxy._interval = window.setInterval(hashCheck, every);
+        Sammy.DefaultLocationProxy._interval = window.setInterval(hashCheck, every);
       }
     }
-  };
+  });
 
 
   // Sammy.Application is the Base prototype for defining 'applications'.
@@ -304,9 +368,9 @@
     if (_isFunction(app_function)) {
       app_function.apply(this, [this]);
     }
-    // set the location proxy if not defined to the default (HashLocationProxy)
+    // set the location proxy if not defined to the default (DefaultLocationProxy)
     if (!this._location_proxy) {
-      this.setLocationProxy(new Sammy.HashLocationProxy(this, this.run_interval_every));
+      this.setLocationProxy(new Sammy.DefaultLocationProxy(this, this.run_interval_every));
     }
     if (this.debug) {
       this.bindToAllEvents(function(e, data) {
@@ -335,18 +399,22 @@
     // When set to true, logs all of the default events using `log()`
     debug: false,
 
-    // When set to true, and the error() handler is not overriden, will actually
+    // When set to true, and the error() handler is not overridden, will actually
     // raise JS errors in routes (500) and when routes can't be found (404)
     raise_errors: false,
 
     // The time in milliseconds that the URL is queried for changes
     run_interval_every: 50,
 
+    // if using the `DefaultLocationProxy` setting this to true will force the app to use
+    // traditional hash based routing as opposed to the new HTML5 PushState support
+    disable_push_state: false,
+
     // The default template engine to use when using `partial()` in an
     // `EventContext`. `template_engine` can either be a string that
     // corresponds to the name of a method/helper on EventContext or it can be a function
     // that takes two arguments, the content of the unrendered partial and an optional
-    // JS object that contains interpolation data. Template engine is only called/refered
+    // JS object that contains interpolation data. Template engine is only called/referred
     // to if the extension of the partial is null or unknown. See `partial()`
     // for more information
     template_engine: null,
@@ -395,7 +463,7 @@
     //      });
     //
     // If plugin is passed as a string it assumes your are trying to load
-    // Sammy."Plugin". This is the prefered way of loading core Sammy plugins
+    // Sammy."Plugin". This is the preferred way of loading core Sammy plugins
     // as it allows for better error-messaging.
     //
     // ### Example
@@ -430,9 +498,9 @@
     },
 
     // Sets the location proxy for the current app. By default this is set to
-    // a new `Sammy.HashLocationProxy` on initialization. However, you can set
+    // a new `Sammy.DefaultLocationProxy` on initialization. However, you can set
     // the location_proxy inside you're app function to give your app a custom
-    // location mechanism. See `Sammy.HashLocationProxy` and `Sammy.DataLocationProxy`
+    // location mechanism. See `Sammy.DefaultLocationProxy` and `Sammy.DataLocationProxy`
     // for examples.
     //
     // `setLocationProxy()` takes an initialized location proxy.
@@ -456,6 +524,12 @@
       }
     },
 
+  // provide log() override for inside an app that includes the relevant application element_selector
+    log: function() {
+      Sammy.log.apply(Sammy, Array.prototype.concat.apply([this.element_selector],arguments));
+    },
+
+
     // `route()` is the main method for defining routes within an application.
     // For great detail on routes, check out:
     // [http://sammyjs.org/docs/routes](http://sammyjs.org/docs/routes)
@@ -469,7 +543,7 @@
     //    the first argument is the path, the second is the callback and the verb
     //    is assumed to be 'any'.
     // * `path` A Regexp or a String representing the path to match to invoke this verb.
-    // * `callback` A Function that is called/evaluated whent the route is run see: `runRoute()`.
+    // * `callback` A Function that is called/evaluated when the route is run see: `runRoute()`.
     //    It is also possible to pass a string as the callback, which is looked up as the name
     //    of a method on the application.
     //
@@ -499,8 +573,8 @@
           param_names.push(path_match[1]);
         }
         // replace with the path replacement
-        path = new RegExp("^" + path.replace(PATH_NAME_MATCHER, PATH_REPLACER) + "$");
-      }
+        path = new RegExp(path.replace(PATH_NAME_MATCHER, PATH_REPLACER) + "$");
+    }
       // lookup callback
       if (typeof callback == 'string') {
         callback = app[callback];
@@ -570,7 +644,7 @@
       return ['sammy-app', this.namespace].join('-');
     },
 
-    // Works just like `jQuery.fn.bind()` with a couple noteable differences.
+    // Works just like `jQuery.fn.bind()` with a couple notable differences.
     //
     // * It binds all events to the application element
     // * All events are bound within the `eventNamespace()`
@@ -683,7 +757,7 @@
     // that take a single argument `callback` which is the entire route
     // execution path wrapped up in a closure. This means you can decide whether
     // or not to proceed with execution by not invoking `callback` or,
-    // more usefuly wrapping callback inside the result of an asynchronous execution.
+    // more usefully wrapping callback inside the result of an asynchronous execution.
     //
     // ### Example
     //
@@ -821,7 +895,7 @@
       this._running = true;
       // set last location
       this.last_location = null;
-      if (this.getLocation() == '' && typeof start_url != 'undefined') {
+      if (!(/\#(.+)/.test(this.getLocation())) && typeof start_url != 'undefined') {
         this.setLocation(start_url);
       }
       // check url
@@ -838,7 +912,7 @@
       });
 
       // bind unload to body unload
-      $(window).bind('beforeunload', function() {
+      $(window).bind('unload', function() {
         app.unload();
       });
 
@@ -847,7 +921,7 @@
     },
 
     // The opposite of `run()`, un-binds all event listeners and intervals
-    // `run()` Automaticaly binds a `onunload` event to run this when
+    // `run()` Automatically binds a `onunload` event to run this when
     // the document is closed.
     unload: function() {
       if (!this.isRunning()) { return false; }
@@ -865,6 +939,13 @@
       });
       this._running = false;
       return this;
+    },
+
+    // Not only runs `unbind` but also destroys the app reference.
+    destroy: function() {
+      this.unload();
+      delete Sammy.apps[this.element_selector];
+      return this;      
     },
 
     // Will bind a single callback function to every event that is already
@@ -896,15 +977,16 @@
     // Given a verb and a String path, will return either a route object or false
     // if a matching route can be found within the current defined set.
     lookupRoute: function(verb, path) {
-      var app = this, routed = false;
-      this.trigger('lookup-route', {verb: verb, path: path});
+      var app = this, routed = false, i = 0, l, route;
       if (typeof this.routes[verb] != 'undefined') {
-        $.each(this.routes[verb], function(i, route) {
+        l = this.routes[verb].length;
+        for (; i < l; i++) {
+          route = this.routes[verb][i];
           if (app.routablePath(path).match(route.path)) {
             routed = route;
-            return false;
+            break;
           }
-        });
+        }
       }
       return routed;
     },
@@ -913,7 +995,7 @@
     // possible URL params and then invokes the route's callback within a new
     // `Sammy.EventContext`. If the route can not be found, it calls
     // `notFound()`. If `raise_errors` is set to `true` and
-    // the `error()` has not been overriden, it will throw an actual JS
+    // the `error()` has not been overridden, it will throw an actual JS
     // error.
     //
     // You probably will never have to call this directly.
@@ -1020,7 +1102,7 @@
     //     // match against a path string
     //     app.contextMatchesOptions(context, '#/mypath'); //=> true
     //     app.contextMatchesOptions(context, '#/otherpath'); //=> false
-    //     // equivilent to
+    //     // equivalent to
     //     app.contextMatchesOptions(context, {only: {path:'#/mypath'}}); //=> true
     //     app.contextMatchesOptions(context, {only: {path:'#/otherpath'}}); //=> false
     //     // match against a path regexp
@@ -1035,19 +1117,39 @@
     //     // match all except a path
     //     app.contextMatchesOptions(context, {except: {path:'#/otherpath'}}); //=> true
     //     app.contextMatchesOptions(context, {except: {path:'#/mypath'}}); //=> false
+    //     // match multiple paths
+    //     app.contextMatchesOptions(context, {path: ['#/mypath', '#/otherpath']}); //=> true
+    //     app.contextMatchesOptions(context, {path: ['#/otherpath', '#/thirdpath']}); //=> false
+    //     // equivalent to
+    //     app.contextMatchesOptions(context, {only: {path: ['#/mypath', '#/otherpath']}}); //=> true
+    //     app.contextMatchesOptions(context, {only: {path: ['#/otherpath', '#/thirdpath']}}); //=> false
+    //     // match all except multiple paths
+    //     app.contextMatchesOptions(context, {except: {path: ['#/mypath', '#/otherpath']}}); //=> false
+    //     app.contextMatchesOptions(context, {except: {path: ['#/otherpath', '#/thirdpath']}}); //=> true
     //
     contextMatchesOptions: function(context, match_options, positive) {
-      // empty options always match
       var options = match_options;
-      if (typeof options === 'undefined' || options == {}) {
-        return true;
+      // normalize options
+      if (typeof options === 'string' || _isRegExp(options)) {
+        options = {path: options};
       }
       if (typeof positive === 'undefined') {
         positive = true;
       }
-      // normalize options
-      if (typeof options === 'string' || _isFunction(options.test)) {
-        options = {path: options};
+      // empty options always match
+      if ($.isEmptyObject(options)) {
+        return true;
+      }
+      // Do we have to match against multiple paths?
+      if (_isArray(options.path)){
+        var results, numopt, opts, len;
+        results = [];
+        for (numopt = 0, len = options.path.length; numopt < len; numopt += 1) {
+          opts = $.extend({}, options, {path: options.path[numopt]});
+          results.push(this.contextMatchesOptions(context, opts));
+        }
+        var matched = $.inArray(true, results) > -1 ? true : false;
+        return positive ? matched : !matched;
       }
       if (options.only) {
         return this.contextMatchesOptions(context, options.only, true);
@@ -1056,28 +1158,30 @@
       }
       var path_matched = true, verb_matched = true;
       if (options.path) {
-        // wierd regexp test
-        if (_isFunction(options.path.test)) {
-          path_matched = options.path.test(context.path);
-        } else {
-          path_matched = (options.path.toString() === context.path);
+        if (!_isRegExp(options.path)) {
+          options.path = new RegExp(options.path.toString() + '$');
         }
+        path_matched = options.path.test(context.path);
       }
       if (options.verb) {
-        verb_matched = options.verb === context.verb;
+        if(typeof options.verb === 'string') {
+          verb_matched = options.verb === context.verb;
+        } else {
+          verb_matched = options.verb.indexOf(context.verb) > -1;
+        }
       }
       return positive ? (verb_matched && path_matched) : !(verb_matched && path_matched);
     },
 
 
     // Delegates to the `location_proxy` to get the current location.
-    // See `Sammy.HashLocationProxy` for more info on location proxies.
+    // See `Sammy.DefaultLocationProxy` for more info on location proxies.
     getLocation: function() {
       return this._location_proxy.getLocation();
     },
 
     // Delegates to the `location_proxy` to set the current location.
-    // See `Sammy.HashLocationProxy` for more info on location proxies.
+    // See `Sammy.DefaultLocationProxy` for more info on location proxies.
     //
     // ### Arguments
     //
@@ -1096,23 +1200,29 @@
     //      var app = $.sammy(function() {
     //
     //        // implements a 'fade out'/'fade in'
-    //        this.swap = function(content) {
-    //          this.$element().hide('slow').html(content).show('slow');
-    //        }
-    //
-    //        get('#/', function() {
-    //          this.partial('index.html.erb') // will fade out and in
-    //        });
+    //        this.swap = function(content, callback) {
+    //          var context = this;
+    //          context.$element().fadeOut('slow', function() {
+    //            context.$element().html(content);
+    //            context.$element().fadeIn('slow', function() {
+    //              if (callback) {
+    //                callback.apply();
+    //              }
+    //            });
+    //          });
+    //        };
     //
     //      });
     //
-    swap: function(content) {
-      return this.$element().html(content);
+    swap: function(content, callback) {
+      var $el = this.$element().html(content);
+      if (_isFunction(callback)) { callback(content); }
+      return $el;
     },
 
     // a simple global cache for templates. Uses the same semantics as
     // `Sammy.Cache` and `Sammy.Storage` so can easily be replaced with
-    // a persistant storage that lasts beyond the current request.
+    // a persistent storage that lasts beyond the current request.
     templateCache: function(key, value) {
       if (typeof value != 'undefined') {
         return _template_cache[key] = value;
@@ -1123,10 +1233,10 @@
 
     // clear the templateCache
     clearTemplateCache: function() {
-      return _template_cache = {};
+      return (_template_cache = {});
     },
 
-    // This thows a '404 Not Found' error by invoking `error()`.
+    // This throws a '404 Not Found' error by invoking `error()`.
     // Override this method or `error()` to provide custom
     // 404 behavior (i.e redirecting to / or showing a warning)
     notFound: function(verb, path) {
@@ -1170,7 +1280,7 @@
       $_method = $form.find('input[name="_method"]');
       if ($_method.length > 0) { verb = $_method.val(); }
       if (!verb) { verb = $form[0].getAttribute('method'); }
-      if (!verb || verb == '') { verb = 'get'; }
+      if (!verb || verb === '') { verb = 'get'; }
       return $.trim(verb.toString().toLowerCase());
     },
 
@@ -1178,16 +1288,18 @@
       var $form, path, verb, params, returned;
       this.trigger('check-form-submission', {form: form});
       $form = $(form);
-      path  = $form.attr('action');
+      path  = $form.attr('action') || '';
       verb  = this._getFormVerb($form);
       this.log('_checkFormSubmission', $form, path, verb);
       if (verb === 'get') {
-        this.setLocation(path + '?' + this._serializeFormParams($form));
+        params = this._serializeFormParams($form);
+        if (params !== '') { path += '?' + params; }
+        this.setLocation(path);
         returned = false;
       } else {
         params = $.extend({}, this._parseFormParams($form));
         returned = this.runRoute(verb, path, params, form.get(0));
-      };
+      }
       return (typeof returned == 'undefined') ? false : returned;
     },
 
@@ -1222,7 +1334,7 @@
       var params = {}, parts, pairs, pair, i;
 
       parts = path.match(QUERY_STRING_MATCHER);
-      if (parts) {
+      if (parts && parts[1]) {
         pairs = parts[1].split('&');
         for (i = 0; i < pairs.length; i++) {
           pair = pairs[i].split('=');
@@ -1233,7 +1345,7 @@
     },
 
     _parseParamPair: function(params, key, value) {
-      if (params[key]) {
+      if (typeof params[key] !== 'undefined') {
         if (_isArray(params[key])) {
           params[key].push(value);
         } else {
@@ -1256,11 +1368,11 @@
   });
 
   // `Sammy.RenderContext` is an object that makes sequential template loading,
-  // rendering and interpolation seamless even when dealing with asyncronous
+  // rendering and interpolation seamless even when dealing with asynchronous
   // operations.
   //
   // `RenderContext` objects are not usually created directly, rather they are
-  // instatiated from an `Sammy.EventContext` by using `render()`, `load()` or
+  // instantiated from an `Sammy.EventContext` by using `render()`, `load()` or
   // `partial()` which all return `RenderContext` objects.
   //
   // `RenderContext` methods always returns a modified `RenderContext`
@@ -1269,7 +1381,7 @@
   // The core magic is in the `then()` method which puts the callback passed as
   // an argument into a queue to be executed once the previous callback is complete.
   // All the methods of `RenderContext` are wrapped in `then()` which allows you
-  // to queue up methods by chaining, but maintaing a guarunteed execution order
+  // to queue up methods by chaining, but maintaining a guaranteed execution order
   // even with remote calls to fetch templates.
   //
   Sammy.RenderContext = function(event_context) {
@@ -1290,9 +1402,9 @@
     // is executed immediately.
     //
     // The value returned from the callback is stored in `content` for the
-    // subsiquent operation. If you return `false`, the queue will pause, and
+    // subsequent operation. If you return `false`, the queue will pause, and
     // the next callback in the queue will not be executed until `next()` is
-    // called. This allows for the guarunteed order of execution while working
+    // called. This allows for the guaranteed order of execution while working
     // with async operations.
     //
     // If then() is passed a string instead of a function, the string is looked
@@ -1380,7 +1492,7 @@
     },
 
     // Load a template into the context.
-    // The `location` can either be a string specifiying the remote path to the
+    // The `location` can either be a string specifying the remote path to the
     // file, a jQuery object, or a DOM element.
     //
     // No interpolation happens by default, the content is stored in
@@ -1412,9 +1524,9 @@
         }
         if (callback) { this.then(callback); }
         if (typeof location === 'string') {
-          // its a path
+          // it's a path
           is_json      = (location.match(/\.json$/) || options.json);
-          should_cache = ((is_json && options.cache === true) || options.cache !== false);
+          should_cache = is_json ? options.cache === true : options.cache !== false;
           context.next_engine = context.event_context.engineFor(location);
           delete options.cache;
           delete options.json;
@@ -1429,7 +1541,7 @@
           $.ajax($.extend({
             url: location,
             data: {},
-            dataType: is_json ? 'json' : null,
+            dataType: is_json ? 'json' : 'text',
             type: 'get',
             success: function(data) {
               if (should_cache) {
@@ -1440,12 +1552,12 @@
           }, options));
           return false;
         } else {
-          // its a dom/jQuery
+          // it's a dom/jQuery
           if (location.nodeType) {
             return location.innerHTML;
           }
           if (location.selector) {
-            // its a jQuery
+            // it's a jQuery
             context.next_engine = location.attr('data-engine');
             if (options.clone === false) {
               return location.remove()[0].innerHTML.toString();
@@ -1457,7 +1569,40 @@
       });
     },
 
+    // Load partials
+    //
+    // ### Example
+    //
+    //      this.loadPartials({mypartial: '/path/to/partial'});
+    //
+    loadPartials: function(partials) {
+      var name;
+      if(partials) {
+        this.partials = this.partials || {};
+        for(name in partials) {
+          (function(context, name) {
+            context.load(partials[name])
+                   .then(function(template) {
+                     this.partials[name] = template;
+                   });
+          })(this, name);
+        }
+      }
+      return this;
+    },
+
     // `load()` a template and then `interpolate()` it with data.
+    //
+    // can be called with multiple different signatures:
+    //
+    //      this.render(callback);
+    //      this.render('/location');
+    //      this.render('/location', {some: data});
+    //      this.render('/location', callback);
+    //      this.render('/location', {some: data}, callback);
+    //      this.render('/location', {some: data}, {my: partials});
+    //      this.render('/location', callback, {my: partials});
+    //      this.render('/location', {some: data}, callback, {my: partials});
     //
     // ### Example
     //
@@ -1465,20 +1610,42 @@
     //        this.render('mytemplate.template', {name: 'test'});
     //      });
     //
-    render: function(location, data, callback) {
+    render: function(location, data, callback, partials) {
       if (_isFunction(location) && !data) {
+        // invoked as render(callback)
         return this.then(location);
       } else {
-        return this.load(location)
+        if(_isFunction(data)) {
+          // invoked as render(location, callback, [partials])
+          partials = callback;
+          callback = data;
+          data = null;
+        } else if(callback && !_isFunction(callback)) {
+          // invoked as render(location, data, partials)
+          partials = callback;
+          callback = null;
+        }
+
+        return this.loadPartials(partials)
+                   .load(location)
                    .interpolate(data, location)
                    .then(callback);
       }
     },
 
-    // `render()` the the `location` with `data` and then `swap()` the
+    // `render()` the `location` with `data` and then `swap()` the
     // app's `$element` with the rendered content.
-    partial: function(location, data) {
-      return this.render(location, data).swap();
+    partial: function(location, data, callback, partials) {
+      if (_isFunction(callback)) {
+        // invoked as partial(location, data, callback, [partials])
+        return this.render(location, data, partials).swap(callback);
+      } else if (_isFunction(data)) {
+        // invoked as partial(location, callback, [partials])
+        return this.render(location, {}, callback).swap(data);
+      } else {
+        // invoked as partial(location, data, [partials])
+        return this.render(location, data, callback).swap();
+      }
     },
 
     // defers the call of function to occur in order of the render queue.
@@ -1510,7 +1677,7 @@
       });
     },
 
-    // itterates over an array, applying the callback for each item item. the
+    // iterates over an array, applying the callback for each item item. the
     // callback takes the same style of arguments as `jQuery.each()` (index, item).
     // The return value of each callback is collected as a single string and stored
     // as `content` to be used in the next iteration of the `RenderContext`.
@@ -1553,13 +1720,21 @@
           if (callback) {
             $.each(data, function(i, value) {
               var idata = {}, engine = this.next_engine || location;
-              name ? (idata[name] = value) : (idata = value);
+              if (name) { 
+                idata[name] = value; 
+              } else { 
+                idata = value; 
+              }
               callback(value, rctx.event_context.interpolate(content, idata, engine));
             });
           } else {
             return this.collect(data, function(i, value) {
               var idata = {}, engine = this.next_engine || location;
-              name ? (idata[name] = value) : (idata = value);
+              if (name) {
+                idata[name] = value; 
+              } else {
+                idata = value;
+              }
               return this.event_context.interpolate(content, idata, engine);
             }, true);
           }
@@ -1579,15 +1754,16 @@
           engine = this.next_engine;
           this.next_engine = false;
         }
-        var rendered = context.event_context.interpolate(content, data, engine);
+        var rendered = context.event_context.interpolate(content, data, engine, this.partials);
         return retain ? prev + rendered : rendered;
       });
     },
 
-    // executes `EventContext#swap()` with the `content`
-    swap: function() {
+    // Swap the return contents ensuring order. See `Application#swap`
+    swap: function(callback) {
       return this.then(function(content) {
-        this.event_context.swap(content);
+        this.event_context.swap(content, callback);
+        return content;
       }).trigger('changed', {});
     },
 
@@ -1614,12 +1790,13 @@
     },
 
     // trigger the event in the order of the event context. Same semantics
-    // as `Sammy.EventContext#trigger()`. If data is ommitted, `content`
+    // as `Sammy.EventContext#trigger()`. If data is omitted, `content`
     // is sent as `{content: content}`
     trigger: function(name, data) {
       return this.then(function(content) {
         if (typeof data == 'undefined') { data = {content: content}; }
         this.event_context.trigger(name, data);
+        return content;
       });
     }
 
@@ -1674,10 +1851,10 @@
     // Look up a templating engine within the current app and context.
     // `engine` can be one of the following:
     //
-    // * a function: should conform to `function(content, data) { return interploated; }`
+    // * a function: should conform to `function(content, data) { return interpolated; }`
     // * a template path: 'template.ejs', looks up the extension to match to
     //   the `ejs()` helper
-    // * a string referering to the helper: "mustache" => `mustache()`
+    // * a string referring to the helper: "mustache" => `mustache()`
     //
     // If no engine is found, use the app's default `template_engine`
     //
@@ -1687,7 +1864,7 @@
       if (_isFunction(engine)) { return engine; }
       // lookup engine name by path extension
       engine = (engine || context.app.template_engine).toString();
-      if ((engine_match = engine.match(/\.([^\.\?\#]+)/))) {
+      if ((engine_match = engine.match(/\.([^\.\?\#]+)$/))) {
         engine = engine_match[1];
       }
       // set the engine to the default template engine if no match is found
@@ -1703,8 +1880,8 @@
 
     // using the template `engine` found with `engineFor()`, interpolate the
     // `data` into `content`
-    interpolate: function(content, data, engine) {
-      return this.engineFor(engine).apply(this, [content, data]);
+    interpolate: function(content, data, engine, partials) {
+      return this.engineFor(engine).apply(this, [content, data, partials]);
     },
 
     // Create and return a `Sammy.RenderContext` calling `render()` on it.
@@ -1720,8 +1897,8 @@
     //        .appendTo('ul');
     //      // appends the rendered content to $('ul')
     //
-    render: function(location, data, callback) {
-      return new Sammy.RenderContext(this).render(location, data, callback);
+    render: function(location, data, callback, partials) {
+      return new Sammy.RenderContext(this).render(location, data, callback, partials);
     },
 
     // Create and return a `Sammy.RenderContext` calling `renderEach()` on it.
@@ -1747,10 +1924,15 @@
       return new Sammy.RenderContext(this).load(location, options, callback);
     },
 
-    // `render()` the the `location` with `data` and then `swap()` the
+    // create a new `Sammy.RenderContext` calling `loadPartials()` with `partials`.
+    loadPartials: function(partials) {
+      return new Sammy.RenderContext(this).loadPartials(partials);
+    },
+
+    // `render()` the `location` with `data` and then `swap()` the
     // app's `$element` with the rendered content.
-    partial: function(location, data) {
-      return new Sammy.RenderContext(this).partial(location, data);
+    partial: function(location, data, callback, partials) {
+      return new Sammy.RenderContext(this).partial(location, data, callback, partials);
     },
 
     // create a new `Sammy.RenderContext` calling `send()` with an arbitrary
@@ -1767,22 +1949,37 @@
     // ### Example
     //
     //      redirect('#/other/route');
-    //      // equivilent to
+    //      // equivalent to
     //      redirect('#', 'other', 'route');
     //
     redirect: function() {
       var to, args = _makeArray(arguments),
-          current_location = this.app.getLocation();
-      if (args.length > 1) {
-        args.unshift('/');
-        to = this.join.apply(this, args);
+          current_location = this.app.getLocation(),
+          l = args.length;
+      if (l > 1) {
+        var i = 0, paths = [], pairs = [], params = {}, has_params = false;
+        for (; i < l; i++) {
+          if (typeof args[i] == 'string') {
+            paths.push(args[i]);
+          } else {
+            $.extend(params, args[i]);
+            has_params = true;
+          }
+        }
+        to = paths.join('/');
+        if (has_params) {
+          for (var k in params) {
+            pairs.push(this.app._encodeFormPair(k, params[k]));
+          }
+          to += '?' + pairs.join('&');
+        }
       } else {
         to = args[0];
       }
       this.trigger('redirect', {to: to});
       this.app.last_location = [this.verb, this.path];
       this.app.setLocation(to);
-      if (current_location == to) {
+      if (new RegExp(to).test(current_location)) {
         this.app.trigger('location-changed');
       }
     },
@@ -1800,8 +1997,8 @@
     },
 
     // A shortcut to app's `swap()`
-    swap: function(contents) {
-      return this.app.swap(contents);
+    swap: function(contents, callback) {
+      return this.app.swap(contents, callback);
     },
 
     // Raises a possible `notFound()` error for the current path.
@@ -1822,7 +2019,6 @@
 
   });
 
-  // An alias to Sammy
-  $.sammy = window.Sammy = Sammy;
-
+  return Sammy;
+});
 })(jQuery, window);

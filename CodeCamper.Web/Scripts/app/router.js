@@ -14,10 +14,6 @@
                     this.use(Sammy.Title);
                     this.setTitle(config.title);
                 }
-
-                this.get('', function () {
-                    this.app.runRoute('get', startupUrl);
-                });
             }),
 
             navigateBack = function () {
@@ -76,15 +72,21 @@
 
                 if (options.isDefault) {
                     defaultRoute = options.route;
+                    setupGet(options, '/');
                 }
 
-                sammy.get(options.route, function (context) { //context is 'this'
+                setupGet(options);
+            },
+            
+            setupGet = function (options, routeOverride) {
+                var route = routeOverride || options.route;
+                sammy.get(route, function (context) { //context is 'this'
                     store.save(config.stateKeys.lastView, context.path);
                     options.callback(context.params); // Activate the viewmodel
                     $('.view').hide();
                     presenter.transitionTo(
                         $(options.view),
-                        context.path,
+                        options.route, //context.path, // We want to find the route we defined in the config
                         options.group
                     );
                     if (this.title) {
@@ -100,11 +102,8 @@
                 // 2) otherwise, use the url i grabbed from storage
                 // 3) otherwise use the default route
                 startupUrl = sammy.getLocation() || url || defaultRoute;
+                startupUrl = (startupUrl === '/' || startupUrl) ? defaultRoute : startupUrl;
                 
-                if (!startupUrl) {
-                    logger.error('No route was indicated.');
-                    return;
-                }
                 sammy.run();
                 registerBeforeLeaving();
                 navigateTo(startupUrl);
