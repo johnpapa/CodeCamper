@@ -217,9 +217,9 @@
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
     <Content Include="Scripts\app\binder.js" />
-    <Content Include="Scripts\lib\sammy 0.7.1.js" />
-    <Content Include="Scripts\lib\sammy.js" />
-    <Content Include="Scripts\lib\sammy 0.6.3.js" />
+    <None Include="Scripts\lib\sammy-0.7.1-vsdoc.js" />
+    <Content Include="Scripts\lib\sammy-0.7.1.js" />
+    <Content Include="Scripts\lib\sammy-0.7.1.min.js" />
     <Content Include="_docs\dataservice.session.js.readme.txt" />
     <Content Include="Scripts\app\model.session.js" />
     <Content Include="Scripts\app\model.person.js" />

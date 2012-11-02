@@ -50,7 +50,7 @@ namespace CodeCamper.Web
                     // Other 3rd party libraries
                     "~/Scripts/lib/underscore.js",
                     "~/Scripts/lib/moment.js",
-                    "~/Scripts/lib/sammy.*",
+                    "~/Scripts/lib/sammy-{version}.js",
                     "~/Scripts/lib/amplify.*",
                     "~/Scripts/lib/toastr.js"
                     ));

@@ -1,5 +1,5 @@
 // name: sammy
-// version: 0.7.2
+// version: 0.7.1
 
 // Sammy.js / http://sammyjs.org
 
@@ -14,7 +14,6 @@
       $.sammy = window.Sammy = factory($);
     }
   })(function($){
-
   var Sammy,
       PATH_REPLACER = "([^\/]+)",
       PATH_NAME_MATCHER = /:([\w\d]+)/g,
@@ -85,7 +84,7 @@
     }
   };
 
-  Sammy.VERSION = '0.7.2';
+  Sammy.VERSION = '0.7.1';
 
   // Add to the global logger pool. Takes a function that accepts an
   // unknown number of arguments and should print them or send them somewhere
@@ -574,7 +573,7 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
         }
         // replace with the path replacement
         path = new RegExp(path.replace(PATH_NAME_MATCHER, PATH_REPLACER) + "$");
-    }
+      }
       // lookup callback
       if (typeof callback == 'string') {
         callback = app[callback];
@@ -941,13 +940,6 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
       return this;
     },
 
-    // Not only runs `unbind` but also destroys the app reference.
-    destroy: function() {
-      this.unload();
-      delete Sammy.apps[this.element_selector];
-      return this;      
-    },
-
     // Will bind a single callback function to every event that is already
     // being listened to in the app. This includes all the `APP_EVENTS`
     // as well as any custom events defined with `bind()`.
@@ -1233,7 +1225,7 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
 
     // clear the templateCache
     clearTemplateCache: function() {
-      return (_template_cache = {});
+      return _template_cache = {};
     },
 
     // This throws a '404 Not Found' error by invoking `error()`.
@@ -1280,7 +1272,7 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
       $_method = $form.find('input[name="_method"]');
       if ($_method.length > 0) { verb = $_method.val(); }
       if (!verb) { verb = $form[0].getAttribute('method'); }
-      if (!verb || verb === '') { verb = 'get'; }
+      if (!verb || verb == '') { verb = 'get'; }
       return $.trim(verb.toString().toLowerCase());
     },
 
@@ -1720,21 +1712,13 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
           if (callback) {
             $.each(data, function(i, value) {
               var idata = {}, engine = this.next_engine || location;
-              if (name) { 
-                idata[name] = value; 
-              } else { 
-                idata = value; 
-              }
+              name ? (idata[name] = value) : (idata = value);
               callback(value, rctx.event_context.interpolate(content, idata, engine));
             });
           } else {
             return this.collect(data, function(i, value) {
               var idata = {}, engine = this.next_engine || location;
-              if (name) {
-                idata[name] = value; 
-              } else {
-                idata = value;
-              }
+              name ? (idata[name] = value) : (idata = value);
               return this.event_context.interpolate(content, idata, engine);
             }, true);
           }
@@ -1922,11 +1906,6 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
     // preloading/caching the templates.
     load: function(location, options, callback) {
       return new Sammy.RenderContext(this).load(location, options, callback);
-    },
-
-    // create a new `Sammy.RenderContext` calling `loadPartials()` with `partials`.
-    loadPartials: function(partials) {
-      return new Sammy.RenderContext(this).loadPartials(partials);
     },
 
     // `render()` the `location` with `data` and then `swap()` the

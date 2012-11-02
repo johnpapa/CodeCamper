@@ -94,6 +94,10 @@
                     }
                 });
             },
+            
+            getUsableRoute = function (value) {
+                return value && value !== '/' && value !== '/#' ? value : undefined;
+            },
 
             run = function () {
                 var url = store.fetch(config.stateKeys.lastView);
@@ -101,8 +105,8 @@
                 // 1) if i browse to a location, use it
                 // 2) otherwise, use the url i grabbed from storage
                 // 3) otherwise use the default route
-                startupUrl = sammy.getLocation() || url || defaultRoute;
-                startupUrl = (startupUrl === '/' || startupUrl) ? defaultRoute : startupUrl;
+                var addressBarUrl = sammy.getLocation();
+                startupUrl = getUsableRoute(addressBarUrl) || getUsableRoute(url) || defaultRoute;
                 
                 sammy.run();
                 registerBeforeLeaving();
