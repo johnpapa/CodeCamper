@@ -8,7 +8,13 @@
             logger = config.logger,
             speaker = ko.observable(),
             speakerSessions = ko.observableArray(),
-            validationErrors = ko.observableArray(), // Override this after we get a session
+
+            validationErrors = ko.computed(function () {
+                // We don;t have a speaker early on. So we return an empty [].
+                // Once we get a speaker, we want to point to its validation errors.
+                var valArray = speaker() ? ko.validation.group(speaker())() : [];
+                return valArray;
+            })
 
             // Knockout Computeds
             canEdit = ko.computed(function () {
@@ -50,7 +56,6 @@
             getSpeaker = function (completeCallback, forceRefresh) {
                 var callback = function() {
                     if (completeCallback) { completeCallback(); }
-                    validationErrors = ko.validation.group(speaker());
                 };
                 datacontext.persons.getFullPersonById(
                     currentSpeakerId(), {
