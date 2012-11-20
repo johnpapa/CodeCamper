@@ -9,7 +9,14 @@
             session = ko.observable(),
             timeslots = ko.observableArray(),
             tracks = ko.observableArray(),
-            validationErrors = ko.observableArray([]),
+            //validationErrors = ko.observableArray([]),
+
+            validationErrors = ko.computed(function () {
+                // We don;t have a session early on. So we return an empty [].
+                // Once we get a session, we want to point to its validation errors.
+                var valArray = session() ? ko.validation.group(session())() : [];
+                return valArray;
+            }),
 
             canEditSession = ko.computed(function () {
                 return session() && config.currentUser() && config.currentUser().id() === session().speakerId();
@@ -68,13 +75,12 @@
             }),
 
             canLeave = function () {
-                return !isDirty() && isValid;
+                return !isDirty() && isValid();
             },
 
             getSession = function (completeCallback, forceRefresh) {
                 var callback = function() {
                     if (completeCallback) { completeCallback(); }
-                    validationErrors = ko.validation.group(session());
                 };
 
                 datacontext.sessions.getFullSessionById(
@@ -145,7 +151,7 @@
                     }
                 },
                 canExecute: function (isExecuting) {
-                    return !isExecuting && isDirty() && isValid;
+                    return !isExecuting && isDirty() && isValid();
                 }
             }),
 
