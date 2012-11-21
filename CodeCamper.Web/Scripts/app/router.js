@@ -96,14 +96,14 @@
             },
             
             getUsableRoute = function (value) {
-                return value && value !== '/' && value !== '/#' ? value : undefined;
+                return value.indexOf('/#') != -1 ? value : null
             },
 
             run = function () {
                 var url = store.fetch(config.stateKeys.lastView);
 
                 // 1) if i browse to a location, use it
-                // 2) otherwise, use the url i grabbed from storage
+                // 2) otherwise use the url i grabbed from storage
                 // 3) otherwise use the default route
                 var addressBarUrl = sammy.getLocation();
                 startupUrl = getUsableRoute(addressBarUrl) || getUsableRoute(url) || defaultRoute;
