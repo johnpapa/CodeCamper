@@ -220,6 +220,8 @@
     <Content Include="Content\images\heart-black.png" />
     <Content Include="Content\toastr.css" />
     <Content Include="Scripts\app\binder.js" />
+    <None Include="Properties\PublishProfiles\codecamperdemo - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\codecamperdemo - Web Deploy.pubxml" />
     <None Include="Scripts\lib\sammy-0.7.1-vsdoc.js" />
     <Content Include="Scripts\lib\knockout.activity.js" />
     <Content Include="Scripts\lib\knockout.asyncCommand.js" />
@@ -233,7 +235,6 @@
     <Content Include="Scripts\lib\moment.js" />
     <Content Include="Scripts\lib\require.js" />
     <Content Include="Scripts\lib\underscore.js" />
-    <Content Include="_docs\dataservice.session.js.readme.txt" />
     <Content Include="Scripts\app\model.session.js" />
     <Content Include="Scripts\app\model.person.js" />
     <Content Include="Scripts\app\model.attendance.js" />
@@ -286,15 +287,12 @@
     <Content Include="Test\web api\webapi.session-cud.tests.html" />
     <Content Include="Test\web api\webapi.session-cud.tests.js" />
     <Content Include=".htaccess" />
+    <Content Include="_docs\codecamper-MIT-LICENSE.txt" />
     <Content Include="_docs\Web.config.cytanium.txt" />
-    <Content Include="_docs\_sessions.view.tmpl.html.readme.txt" />
     <Content Include="_docs\amplify-GPL-LICENSE.txt" />
     <Content Include="_docs\amplify-MIT-LICENSE.txt" />
-    <Content Include="_docs\index.cshtml.info.only.txt" />
-    <Content Include="_docs\index.cshtml.readme.txt" />
     <Content Include="_docs\main.readme.txt" />
     <Content Include="_docs\Require.JS - LICENSE.txt" />
-    <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <Content Include="Scripts\lib\json2.js" />
     <Content Include="Test\web api\webapi.get-result.tests.html" />
     <Content Include="Test\web api\webapi.get-result.tests.js" />
