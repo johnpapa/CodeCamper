@@ -45,12 +45,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="dotless.Core, Version=1.3.0.5, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\dotless.1.3.0.5\lib\dotless.Core.dll</HintPath>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.Core, Version=1.3.1.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\dotless.1.3.1.0\lib\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -61,8 +62,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -112,7 +114,7 @@
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -132,8 +134,9 @@
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="WebGrease">
-      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -218,10 +221,18 @@
     <Content Include="Content\toastr.css" />
     <Content Include="Scripts\app\binder.js" />
     <None Include="Scripts\lib\sammy-0.7.1-vsdoc.js" />
+    <Content Include="Scripts\lib\knockout.activity.js" />
+    <Content Include="Scripts\lib\knockout.asyncCommand.js" />
+    <Content Include="Scripts\lib\knockout.dirtyFlag.js" />
     <Content Include="Scripts\lib\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\lib\knockout-2.2.0.js" />
     <Content Include="Scripts\lib\sammy-0.7.1.js" />
     <Content Include="Scripts\lib\sammy-0.7.1.min.js" />
+    <Content Include="Scripts\lib\toastr.js" />
+    <Content Include="Scripts\lib\modernizr-2.6.2.js" />
+    <Content Include="Scripts\lib\moment.js" />
+    <Content Include="Scripts\lib\require.js" />
+    <Content Include="Scripts\lib\underscore.js" />
     <Content Include="_docs\dataservice.session.js.readme.txt" />
     <Content Include="Scripts\app\model.session.js" />
     <Content Include="Scripts\app\model.person.js" />
@@ -242,12 +253,8 @@
     <Content Include="Scripts\app\route-mediator.js" />
     <Content Include="Scripts\app\event.delegates.js" />
     <Content Include="Scripts\app\dataservice.js" />
-    <Content Include="Scripts\lib\knockout.activity.js" />
-    <Content Include="Scripts\lib\knockout.asyncCommand.js" />
-    <Content Include="Scripts\lib\knockout.dirtyFlag.js" />
     <Content Include="Scripts\lib\infuser.js" />
     <Content Include="Scripts\lib\koExternalTemplateEngine.js" />
-    <Content Include="Scripts\lib\modernizr-2.5.3.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\app\mock\mock.js" />
     <Content Include="Scripts\app\filter.speakers.js" />
@@ -268,9 +275,6 @@
     <Content Include="Scripts\lib\knockout.validation.js" />
     <Content Include="Scripts\lib\TrafficCop.js" />
     <Content Include="Scripts\lib\sammy.title.js" />
-    <Content Include="Scripts\lib\moment.js" />
-    <Content Include="Scripts\lib\toastr.js" />
-    <Content Include="Scripts\lib\require.js" />
     <Content Include="Test\ajax.session.tests.js" />
     <Content Include="Test\vm.sessions.tests.js" />
     <Content Include="Test\vm.favorites.tests.js" />
@@ -292,7 +296,6 @@
     <Content Include="_docs\Require.JS - LICENSE.txt" />
     <None Include="Properties\PublishProfiles\Cytanium.pubxml" />
     <Content Include="Scripts\lib\json2.js" />
-    <Content Include="Scripts\lib\underscore.js" />
     <Content Include="Test\web api\webapi.get-result.tests.html" />
     <Content Include="Test\web api\webapi.get-result.tests.js" />
     <Content Include="Test\web api\webapi.attendance-cud.tests.js" />
@@ -308,7 +311,6 @@
     <Content Include="Test\qunit\qunit-composite.js" />
     <Content Include="Test\qunit\qunit.css" />
     <Content Include="Content\images\search.png" />
-    <Content Include="Content\toastr-responsive.css" />
     <Content Include="Global.asax" />
     <Content Include="Test\web api\webapi.attendance-cud.tests.html" />
     <Content Include="Scripts\app\bootstrapper.js" />
