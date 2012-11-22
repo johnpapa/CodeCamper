@@ -96,7 +96,7 @@
             },
             
             getUsableRoute = function (value) {
-                return value.indexOf('/#') != -1 ? value : null
+                return value && value.indexOf('/#') != -1 ? value : null;
             },
 
             run = function () {
