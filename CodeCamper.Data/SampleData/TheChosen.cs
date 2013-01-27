@@ -8,14 +8,15 @@ namespace CodeCamper.Data.SampleData
     public static class TheChosen
     {
         public static List<Person> _theChosen;
-        private static Person 
-            _johnPapa, _danWahlin, _wardBell, _hansFjallemark, 
+        private static Person
+            _johnPapa, _colleenPapa, _danWahlin, _wardBell,  
             _jimCowart, _ryanNiemeyer, _scottGuthrie, _steveSanderson, 
             _aaronSkonnard, _fritzOnion, _scottHunter, _howardDierking, 
             _madsKristensen, _elijahManor, _johnSmith, _estebanGarcia,
             _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman,
             _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard,
-            _daveWard, _mikeCallaghan;
+            _daveWard, _mikeCallaghan, _robEisenberg, _reyBango,
+            _hansFjallemark ;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -31,6 +32,16 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "@john_papa",
                 Gender = "M",
                 Bio = "Husband, father, and Catholic enjoying every minute with my family. Microsoft Regional Director, Evangelist, speaker, author, and Pluralsight trainer.",
+            });
+            _theChosen.Add(_colleenPapa = new Person
+            {
+                FirstName = "Colleen",
+                LastName = "Papa",
+                Email = "colleenp@contoso.com",
+                Blog = "http://colleenp.contoso.com",
+                Twitter = "@colleenpapa",
+                Gender = "F",
+                Bio = "Hard working wife and mother",
             });
             _theChosen.Add(_danWahlin =new Person
             {
@@ -202,6 +213,16 @@ namespace CodeCamper.Data.SampleData
                 Gender = "M",
                 Bio = "Microsoft XAML and blinky lights guy. Father of two, author, woodworker, C64.",
             });
+            _theChosen.Add(_robEisenberg = new Person
+            {
+                FirstName = "Rob",
+                LastName = "Eisenberg",
+                Email = "reisenberg@contoso.com",
+                Blog = "http://reisenberg.contoso.com",
+                Twitter = "@EisenbergEffect",
+                Gender = "M",
+                Bio = "Chief Architect at Blue Spire Consulting, Inc. and director of the Caliburn.Micro and Durandal projects.",
+            });
             _theChosen.Add(_timHeuer = new Person
             {
                 FirstName = "Tim",
@@ -283,7 +304,17 @@ namespace CodeCamper.Data.SampleData
                 Gender = "M",
                 Bio = "Mike has been developing software professionally since 1995, primarily in Microsoft environments.",
             });
-            
+
+            _theChosen.Add(_reyBango = new Person
+            {
+                FirstName = "Rey",
+                LastName = "Bango",
+                Email = "rbango@contoso.com",
+                Blog = "http://rbango.contoso.com",
+                Twitter = "@reybango",
+                Gender = "M",
+                Bio = "Delivering HTML5 & JavaScript babies. Web dev lover at Microsoft.",
+            });
 
             _theChosen.ForEach(p => p.ImageSource = 
                 (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
@@ -364,7 +395,8 @@ namespace CodeCamper.Data.SampleData
             var choosenAttendeeTimeSlotIds = new List<int>();
 
             // **Non-keynote** timeslot ids (the 1st is the keynote)
-            var availableTimeSlotIds = timeSlots.Skip(1).Select(ts => ts.Id).ToArray();
+            // skip 2nd slot too, for bubbling specific speakers up.
+            var availableTimeSlotIds = timeSlots.Skip(2).Select(ts => ts.Id).ToArray();
 
             var nextSlotIx = -1;
             // Deterministic way to get id of next speaker timeslot
@@ -377,7 +409,7 @@ namespace CodeCamper.Data.SampleData
 
             Func<Person, int> getRoomId = choosenOne => roomsForSessions[_theChosen.IndexOf(choosenOne) % roomsForSessions.Count].Id;
 
-            // Adds session to Sessions and optionally to ChoosenAttendeeSessions
+            // Adds session to Sessions and optionally to ChooenAttendeeSessions
             Func<bool, Session, Session> addSession =
                 (choosen, s) =>
                 {
@@ -403,35 +435,37 @@ namespace CodeCamper.Data.SampleData
                 Tags = "Keynote",
                 Description = "Change the World",
             });
-            
+
             // John Papa
             addSession(false, new Session
             {
-                Title = "Building HTML/JavaScript Apps with Knockout and MVVM",
-                Code = "JVS300",
+                Title = "SPA JumpStart",
+                Code = "JVS307",
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
+                TimeSlotId = timeSlots[1].Id, //getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_johnPapa),
-                Level = levels[2],
+                Level = levels[0],
+                Tags = "JavaScript|Knockout|MVVM|HTML5|Web",
+                Description =
+                    "Build end-to-end SPA solutions including code structure and modularity, using data binding and MVVM, abstracted remote data calls, page navigation and routing, rich data features, and responsive design for mobility. Along the way I'll also touch on popular libraries such as Knockout, Sammy, and Breeze. ",
+            });
+
+            // Colleen Papa
+            addSession(false, new Session
+            {
+                Title = "Knockout and MVVM",
+                Code = "JVS300",
+                SpeakerId = _colleenPapa.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = timeSlots[1].Id, //getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_colleenPapa),
+                Level = levels[0],
                 Tags = "JavaScript|Knockout|MVVM|HTML5|Web",
                 Description =
                     "Do you write a lot of HTML and JavaScript code to push and pull data? In this session, learn popular techniques to use data binding to bind your data to your target controls in HTML writing less code, but gaining more power. See how to consume json data, use json objects in JavaScript, use declarative binding, using KnockoutJS. Also, see how to use the MVVM pattern to write data centric JavaScript code that follows good separation patterns and creates highly maintainable code.",
             });
-            addSession(false, new Session
-            {
-                Title = "Introduction to Building Windows 8 Metro Applications",
-                Code = "WIN102",
-                SpeakerId = _johnPapa.Id,
-                TrackId = tracks.First(t => t.Name == "Windows 8").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_johnPapa),
-                Level = levels[0],
-                Tags = "Windows|Metro",
-                Description =
-                    "This session covers everything you need to know to get started building Metro apps.",
-            });
-
+            
             // Scott Guthrie
             addSession(false, new Session
             {
@@ -462,7 +496,7 @@ namespace CodeCamper.Data.SampleData
                     "Discover how Entity Framework Code First can improve your life!",
             });
 
-            // Dan Wahlin;
+            // Dan Wahlin
             addSession(false, new Session
             {
                 Title = "Building ASP.NET MVC Apps with EF Code First, HTML5, and jQuery",
@@ -490,18 +524,34 @@ namespace CodeCamper.Data.SampleData
                 Description =
                     "Build a SPA, then hang out in one.",
             });
+
+            // Colleen Papa
             addSession(false, new Session
             {
                 Title = "JsRender Fundamentals",
+                Code = "JVS201",
+                SpeakerId = _colleenPapa.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_colleenPapa),
+                Level = levels[1],
+                Tags = "JavaScript|JsRender|Web",
+                Description =
+                    "Learn how to build fast, robust, and maintainable Web applications with JavaScript, jQuery and JsRender: the successor to jQuery Templates.",
+            });
+            // John Papa
+            addSession(false, new Session
+            {
+                Title = "TypeScript Fundamentals",
                 Code = "JVS201",
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_johnPapa),
                 Level = levels[1],
-                Tags = "JavaScript|JsRender|Web",
+                Tags = "JavaScript|JsRender|Web|TypeScript",
                 Description =
-                    "Learn how to build fast, robust, and maintainable Web applications with JavaScript, jQuery and JsRender: the successor to jQuery Templates.",
+                    "Learn the key concepts and features that you need to know to get started with TypeScript, and use it to build large (and small) scale JavaScript applications.",
             });
 
             //Scott Hunter
@@ -521,11 +571,11 @@ namespace CodeCamper.Data.SampleData
             // Mads Kristensen
             addSession(true, new Session
             {
-                Title = "Be More Productive in Visual Studio 2012",
+                Title = "Do More, Write Less with Web Essentials",
                 Code = "NET282",
                 SpeakerId = _madsKristensen.Id,
                 TrackId = tracks.First(t => t.Name == ".NET").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
+                TimeSlotId = timeSlots[1].Id, //getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_madsKristensen),
                 Level = levels[1],
                 Tags = "Web Forms|ASP|Web|.NET|",
@@ -548,16 +598,16 @@ namespace CodeCamper.Data.SampleData
             });
             addSession(false, new Session
             {
-                Title = "Entity Framework for Poets",
-                Code = "DAT121",
+                Title = "Rich Data for JavaScript Apps is a Breeze",
+                Code = "JVS121",
                 SpeakerId = _wardBell.Id,
-                TrackId = tracks.First(t => t.Name == "Data").Id,
-                TimeSlotId = getNextSpeakerTimeSlotId(),
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = timeSlots[1].Id, //getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_wardBell),
                 Level = levels[0],
-                Tags = "Data|Entity Framework|ORM",
+                Tags = "Data|JavaScript|Web",
                 Description =
-                    "If you can pronounce 'O-R-M', you're on your way to a lucrative career in the fast-paced world of data processing. Discover how Entity Framework can make you a star, in the office and around town.",
+                    "Do you wanna query like LINQ, make promises async, and write JavaScript code in your sleep? CatchLearn how to do that and make bring rich data features to your web apps.",
             });
             addSession(true, new Session
             {
@@ -573,6 +623,21 @@ namespace CodeCamper.Data.SampleData
                     "You need a good set of tools to be a rock star JavaScript developer. What does Ward use to write, test and debug? Come to this session and find out.",
             });
 
+            // Rob Eisenberg
+            addSession(true, new Session
+            {
+                Title = "Durandal",
+                Code = "JVS233",
+                SpeakerId = _robEisenberg.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = timeSlots[1].Id, //getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_robEisenberg),
+                Level = levels[1],
+                Tags = "JavaScript|Web|HTML5",
+                Description =
+                    "Build a HTML5/JavaScript SPA with Durandal",
+            });
+
             // Howard Dierking
             addSession(false, new Session
             {
@@ -585,6 +650,20 @@ namespace CodeCamper.Data.SampleData
                 Level = levels[2],
                 Tags = "MVC|HTML5|Entity Framework|jQuery|Web",
                 Description = "TBD",
+            });
+            // Rey Bango
+            addSession(false, new Session
+            {
+                Title = "Introduction to Building Windows 8 Metro Applications",
+                Code = "WIN102",
+                SpeakerId = _reyBango.Id,
+                TrackId = tracks.First(t => t.Name == "Windows 8").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_reyBango),
+                Level = levels[0],
+                Tags = "Windows|Metro",
+                Description =
+                    "This session covers everything you need to know to get started building Metro apps.",
             });
 
             // Hans Fjällemark

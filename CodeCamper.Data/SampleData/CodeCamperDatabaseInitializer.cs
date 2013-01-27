@@ -67,18 +67,22 @@ namespace CodeCamper.Data.SampleData
         }
 
         private TimeSlot _keyNoteTimeSlot;
+        private TimeSlot _reservedTimeSlot;
         private List<TimeSlot> AddTimeSlots(CodeCamperDbContext context)
         {
 
-            var seed1 = new DateTime(2013, 5, 18, 8, 0, 0);
-            var seed2 = new DateTime(2013, 5, 19, 8, 0, 0);
+            var seed1 = new DateTime(2014, 3, 29, 8, 0, 0);
+            var seed2 = new DateTime(2014, 3, 30, 8, 0, 0);
             var slots = 
                 new List<TimeSlot>
                     {
-                        // Sat May 18, 2013 - Registration
+                        // Sat March 29, 2014 - Registration
                         new TimeSlot {Start = seed1, Duration = 45, IsSessionSlot = false},
+                        
                         (_keyNoteTimeSlot = new TimeSlot {Start = seed1 = seed1.AddMinutes(60), Duration = 60}),
-                        new TimeSlot {Start = seed1 = seed1.AddMinutes(70), Duration = 60},
+                        
+                        (_reservedTimeSlot = new TimeSlot {Start = seed1 = seed1.AddMinutes(70), Duration = 60}),
+                        
                         new TimeSlot {Start = seed1 = seed1.AddMinutes(70), Duration = 60},
                         // Lunch
                         new TimeSlot {Start = seed1 = seed1.AddMinutes(60), Duration = 60, IsSessionSlot = false},
@@ -88,7 +92,7 @@ namespace CodeCamper.Data.SampleData
                         // Close
                         new TimeSlot {Start = seed1.AddMinutes(70), Duration = 30, IsSessionSlot = false},
 
-                        // Sun May 19, 2013 - Registration
+                        // Sun March 30, 2014 - Registration
                         new TimeSlot {Start = seed2, Duration = 45, IsSessionSlot = false},
                         new TimeSlot {Start = seed2 = seed2.AddMinutes(60), Duration = 60},
                         new TimeSlot {Start = seed2 = seed2.AddMinutes(70), Duration = 60},
@@ -193,7 +197,7 @@ namespace CodeCamper.Data.SampleData
             }
         }
 
-        // TODO: We never use this methods
+        // TODO: We never use this method.
         // but let's keep it here just in case.
         private List<Session> AddSessions(
             CodeCamperDbContext context, 
@@ -208,6 +212,7 @@ namespace CodeCamper.Data.SampleData
 
             var sessions = new List<Session>(knownSessions);
 
+            
             AddGeneratedSessions(sessions, persons, slots , tracks);
 
             // Done populating sessions
@@ -233,7 +238,7 @@ namespace CodeCamper.Data.SampleData
             var trackCount = tracks.Count;
             var trackIx = 0;
 
-            var slots = timeSlots.Where(t => t != _keyNoteTimeSlot).ToArray();
+            var slots = timeSlots.Where(t => t != _keyNoteTimeSlot && t != _reservedTimeSlot).ToArray();
             var slotsCount = slots.Length;
  
             var personsCount = persons.Count;
@@ -263,7 +268,11 @@ namespace CodeCamper.Data.SampleData
                 {
                     do
                     {
-                        speakerIx = Rand.Next(firstCrowdIx, Math.Min(75, personsCount)); //Max speakers allowed are 75
+                        // Limit to chosen speakers
+                        speakerIx = Rand.Next(firstCrowdIx, Math.Min(75, chosenCount)); //Max speakers allowed are 75
+
+                        // Use this for adding the crowd to speakers
+                        //speakerIx = Rand.Next(firstCrowdIx, Math.Min(75, personsCount)); //Max speakers allowed are 75
                     } while (speakerIxs.Contains(speakerIx));
                 }
                 speakerIxs.Add(speakerIx);
@@ -287,7 +296,7 @@ namespace CodeCamper.Data.SampleData
                 sessions.Add(session);
 
                 // Limit to 110 sessions
-                if (sessions.Count > 110) return;
+                if (sessions.Count >= 110) return;
 
                 if (++trackIx != trackCount) continue;
 

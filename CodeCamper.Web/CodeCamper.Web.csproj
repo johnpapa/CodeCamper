@@ -166,6 +166,7 @@
   <ItemGroup>
     <Content Include="Content\boilerplate-styles.css" />
     <Content Include="Content\images\cancel.png" />
+    <Content Include="Content\images\photos\colleen_papa.jpg" />
     <Content Include="Content\images\photos\dave_ward.jpg" />
     <Content Include="Content\images\photos\eric_barnard.jpg" />
     <Content Include="Content\images\heart-locked-black.png" />
@@ -178,6 +179,8 @@
     <Content Include="Content\images\photos\julie_lerman.jpg" />
     <Content Include="Content\images\photos\mike_callaghan.jpg" />
     <Content Include="Content\images\photos\pete_brown.jpg" />
+    <Content Include="Content\images\photos\rey_bango.jpg" />
+    <Content Include="Content\images\photos\rob_eisenberg.jpg" />
     <Content Include="Content\images\photos\scott_hanselman.jpg" />
     <Content Include="Content\images\photos\shawn_wildermuth.jpg" />
     <Content Include="Content\images\photos\tim_heuer.jpg" />
