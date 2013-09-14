@@ -16,7 +16,8 @@ namespace CodeCamper.Data.SampleData
             _shawnWildermuth, _peteBrown, _timHeuer, _julieLerman,
             _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard,
             _daveWard, _mikeCallaghan, _robEisenberg, _reyBango,
-            _hansFjallemark ;
+            _hansFjallemark, _bradGreen, _igorMinar, _mikeWoodring,
+            _jonSonmez;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -72,6 +73,36 @@ namespace CodeCamper.Data.SampleData
                 Twitter = "@hfjallemark",
                 Gender = "M",
                 Bio = "Freelancing developer & designer based in Sweden. I spend most of my time implementing usable and attractive UX in HTML5 or Silverli.. no wait, just HTML5:) ",
+            });
+            _theChosen.Add(_bradGreen = new Person
+            {
+                FirstName = "Brad",
+                LastName = "Green",
+                Email = "bradg@contoso.com",
+                Blog = "http://bradg.contoso.com",
+                Twitter = "@bradlygreen",
+                Gender = "M",
+                Bio = "I work at Google where I manage AngularJS and Google's internal sales productivity applications. I run barefoot. I'm a dad.",
+            });
+            _theChosen.Add(_igorMinar = new Person
+            {
+                FirstName = "Igor",
+                LastName = "Minar",
+                Email = "igorm@contoso.com",
+                Blog = "http://igorm.contoso.com",
+                Twitter = "@igorminar",
+                Gender = "M",
+                Bio = "Software geek changing the web with angularjs.org",
+            });
+            _theChosen.Add(_mikeWoodring = new Person
+            {
+                FirstName = "Mike",
+                LastName = "Woodring",
+                Email = "mikew@contoso.com",
+                Blog = "http://mikew.contoso.com",
+                Twitter = "@mcwoodring ",
+                Gender = "M",
+                Bio = "VP of Developer Content - Enterprise Software at Pluralsight",
             });
             _theChosen.Add(_jimCowart = new Person
             {
@@ -316,6 +347,18 @@ namespace CodeCamper.Data.SampleData
                 Bio = "Delivering HTML5 & JavaScript babies. Web dev lover at Microsoft.",
             });
 
+            _theChosen.Add(_jonSonmez = new Person
+            {
+                FirstName = "Jon",
+                LastName = "Sonmez",
+                Email = "jsonmez@contoso.com",
+                Blog = "http://jsonmez.contoso.com",
+                Twitter = "@jsonmez",
+                Gender = "M",
+                Bio = "I make the complex simple.",
+            });
+
+
             _theChosen.ForEach(p => p.ImageSource = 
                 (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
 
@@ -325,7 +368,7 @@ namespace CodeCamper.Data.SampleData
         }
 
         /**
-         * Hard-coded sessions for TheChoosen people
+         * Hard-coded sessions for TheChosen people
          * 
          * Speaker:
          *   Each "Chosen" one gets own variable (e.g., _scottGuthrie)
@@ -439,16 +482,16 @@ namespace CodeCamper.Data.SampleData
             // John Papa
             addSession(false, new Session
             {
-                Title = "SPA JumpStart",
+                Title = "SPA JumpStart with Durandal",
                 Code = "JVS307",
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = timeSlots[1].Id, //getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_johnPapa),
                 Level = levels[0],
-                Tags = "JavaScript|Knockout|MVVM|HTML5|Web",
+                Tags = "JavaScript|Knockout|MVVM|HTML5|Web|Durandal",
                 Description =
-                    "Build end-to-end SPA solutions including code structure and modularity, using data binding and MVVM, abstracted remote data calls, page navigation and routing, rich data features, and responsive design for mobility. Along the way I'll also touch on popular libraries such as Knockout, Sammy, and Breeze. ",
+                    "Build end-to-end SPA solutions including code structure and modularity, using data binding and MVVM, abstracted remote data calls, page navigation and routing, rich data features, and responsive design for mobility. Along the way I'll also touch on popular libraries such as Knockout, Durandal, and Breeze. ",
             });
 
             // Colleen Papa
@@ -513,14 +556,14 @@ namespace CodeCamper.Data.SampleData
             // John Papa
             addSession(true, new Session
             {
-                Title = "Build a Custom Single Page Application",
+                Title = "Angular and Breeze",
                 Code = "JVS277",
                 SpeakerId = _johnPapa.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
                 RoomId = getRoomId(_johnPapa),
                 Level = levels[2],
-                Tags = "Knockout|JavaScript|Web",
+                Tags = "Angular|Breeze|JavaScript|Web",
                 Description =
                     "Build a SPA, then hang out in one.",
             });
@@ -680,14 +723,16 @@ namespace CodeCamper.Data.SampleData
                 Description =
                     "TBD",
             });
+
+            // Mike Woodring
             addSession(true, new Session
             {
                 Title = "Responsive Web Design with CSS3",
                 Code = "CSS233",
-                SpeakerId = _hansFjallemark.Id,
+                SpeakerId = _mikeWoodring.Id,
                 TrackId = tracks.First(t => t.Name == "CSS").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_hansFjallemark),
+                RoomId = getRoomId(_mikeWoodring),
                 Level = levels[1],
                 Tags = "CSS3|Responsive Design|Web",
                 Description =
@@ -936,6 +981,48 @@ namespace CodeCamper.Data.SampleData
                 Level = levels[1],
                 Tags = "Web | SignalR",
                 Description = "Learn how to build a multidimensional universal transporter using SignalR. Not really ... but we will cover some cool SignalR code.",
+            });
+
+            // Brad Green
+            addSession(true, new Session
+            {
+                Title = "What's New in AngularJS",
+                Code = "JVS161",
+                SpeakerId = _bradGreen.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_bradGreen),
+                Level = levels[1],
+                Tags = "Web | JavaScript | Angular",
+                Description = "Learn what's new in the latest version of AngularJS.",
+            });
+
+            // Igor Minar
+            addSession(true, new Session
+            {
+                Title = "Angular Routing Deep Dive",
+                Code = "JVS162",
+                SpeakerId = _igorMinar.Id,
+                TrackId = tracks.First(t => t.Name == "JavaScript").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_igorMinar),
+                Level = levels[1],
+                Tags = "Web | JavaScript | Angular",
+                Description = "Take a deep dive into the realm of Angular routing.",
+            });
+
+            // Jon Sonmez
+            addSession(true, new Session
+            {
+                Title = "Developing for iOS and Android",
+                Code = "MOB162",
+                SpeakerId = _jonSonmez.Id,
+                TrackId = tracks.First(t => t.Name == "Mobile").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_jonSonmez),
+                Level = levels[1],
+                Tags = "Mobile | iOS | Android",
+                Description = "Slay dragons, rescue princesses, and create awesome mobile apps.",
             });
 
             return sessions;
