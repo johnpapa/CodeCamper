@@ -295,8 +295,8 @@ namespace CodeCamper.Data.SampleData
 
                 sessions.Add(session);
 
-                // Limit to 110 sessions
-                if (sessions.Count >= 110) return;
+                // Limit the sessions
+                if (sessions.Count >= 120) return;
 
                 if (++trackIx != trackCount) continue;
 

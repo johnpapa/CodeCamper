@@ -17,7 +17,8 @@ namespace CodeCamper.Data.SampleData
             _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard,
             _daveWard, _mikeCallaghan, _robEisenberg, _reyBango,
             _hansFjallemark, _bradGreen, _igorMinar, _mikeWoodring,
-            _jonSonmez;
+            _jonSonmez, _meganRussell, _keithSparkjoy, _jasonSalmond, 
+            _craigShoemaker;
 
         /// <summary>Add the Chosen people</summary>
         public static void AddPersons(List<Person> persons)
@@ -358,6 +359,49 @@ namespace CodeCamper.Data.SampleData
                 Bio = "I make the complex simple.",
             });
 
+            _theChosen.Add(_meganRussell = new Person
+            {
+                FirstName = "Megan",
+                LastName = "Russell",
+                Email = "mrussell@contoso.com",
+                Blog = "http://mrussell.contoso.com",
+                Twitter = "@megbruss",
+                Gender = "F",
+                Bio = "Lover of all things new and creative. Advocate of education. Accepts all challenges. Fitness Junkie. Health Nut. Ballerina. Teacher. Editor. Marketing. @pluralsight",
+            });
+
+            _theChosen.Add(_craigShoemaker = new Person
+            {
+                FirstName = "Craig",
+                LastName = "Shoemaker",
+                Email = "cshoemaker@contoso.com",
+                Blog = "http://cshoemaker.contoso.com",
+                Twitter = "@craigshoemaker",
+                Gender = "M",
+                Bio = "Technical Evangelist for all things awesome. Host of Polymorphic Podcast. Author for @pluralsight & @CODEmagazine",
+            });
+
+            _theChosen.Add(_jasonSalmond = new Person
+            {
+                FirstName = "Jason",
+                LastName = "Salmond",
+                Email = "jsalmond@contoso.com",
+                Blog = "http://jsalmond.contoso.com",
+                Twitter = "@bruthafish",
+                Gender = "M",
+                Bio = "Husband to a beautiful wife, father of four boys, bass singer, Acappella junkie, Pluralsight editor, the new XML.",
+            });
+
+            _theChosen.Add(_keithSparkjoy = new Person
+            {
+                FirstName = "Keith",
+                LastName = "Sparkjoy",
+                Email = "ksparkjoy@contoso.com",
+                Blog = "http://ksparkjoy.contoso.com",
+                Twitter = "@keithbrown42",
+                Gender = "M",
+                Bio = "CTO and cofounder of Pluralsight, providing hardcore tech training for both software developers and IT pros alike.",
+            });
 
             _theChosen.ForEach(p => p.ImageSource = 
                 (p.FirstName + "_" + p.LastName + ".jpg").ToLowerInvariant());
@@ -626,6 +670,34 @@ namespace CodeCamper.Data.SampleData
                     "Scale tall buildings, defeat fire breathing dragons, and be more productive in Visual Studio!",
             });
 
+            // Megan Russell
+            addSession(false, new Session
+            {
+                Title = "Designing a Successful Course",
+                Code = "DSN326",
+                SpeakerId = _meganRussell.Id,
+                TrackId = tracks.First(t => t.Name == "Design").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_meganRussell),
+                Level = levels[2],
+                Tags = "Design|Teaching",
+                Description = "Learn how to create a super successful Pluralsight course!",
+            });
+
+            // Ward Bell
+            addSession(false, new Session
+            {
+                Title = "Make Your Own Destiny",
+                Code = "DSN421",
+                SpeakerId = _keithSparkjoy.Id,
+                TrackId = tracks.First(t => t.Name == "Design").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_keithSparkjoy),
+                Level = levels[2],
+                Tags = "Design|Career",
+                Description = "Learn how to make better decisions and handle problem solving to lead to a better career.",
+            });
+            
             // Ward Bell
             addSession(false, new Session
             {
@@ -652,14 +724,16 @@ namespace CodeCamper.Data.SampleData
                 Description =
                     "Do you wanna query like LINQ, make promises async, and write JavaScript code in your sleep? CatchLearn how to do that and make bring rich data features to your web apps.",
             });
+
+            // Jason Salmond
             addSession(true, new Session
             {
                 Title = "A JavaScript Toolbox",
                 Code = "JVS222",
-                SpeakerId = _wardBell.Id,
+                SpeakerId = _jasonSalmond.Id,
                 TrackId = tracks.First(t => t.Name == "JavaScript").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_wardBell),
+                RoomId = getRoomId(_jasonSalmond),
                 Level = levels[1],
                 Tags = "JavaScript|Web",
                 Description =
@@ -766,6 +840,21 @@ namespace CodeCamper.Data.SampleData
                 Tags = "Knockout|JavaScript|Web",
                 Description =
                     "This session guides you through model validation with Knockout",
+            });
+
+            // Craig Shoemaker
+            addSession(true, new Session
+            {
+                Title = "HTML5",
+                Code = "MOB613",
+                SpeakerId = _craigShoemaker.Id,
+                TrackId = tracks.First(t => t.Name == "Mobile").Id,
+                TimeSlotId = getNextSpeakerTimeSlotId(),
+                RoomId = getRoomId(_craigShoemaker),
+                Level = levels[0],
+                Tags = "HTML|Web",
+                Description =
+                    "The best-est most awesome-est HTML on Earth!",
             });
 
             // Shawn Wildermuth
