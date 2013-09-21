@@ -17,7 +17,7 @@ namespace CodeCamper.Data.SampleData
             _scottHanselman, _glennBlock, _jesseLiberty, _ericBarnard,
             _daveWard, _mikeCallaghan, _robEisenberg, _reyBango,
             _hansFjallemark, _bradGreen, _igorMinar, _mikeWoodring,
-            _jonSonmez, _meganRussell, _keithSparkjoy, _jasonSalmond, 
+            _johnSonmez, _meganRussell, _keithSparkjoy, _jasonSalmond, 
             _craigShoemaker;
 
         /// <summary>Add the Chosen people</summary>
@@ -348,9 +348,9 @@ namespace CodeCamper.Data.SampleData
                 Bio = "Delivering HTML5 & JavaScript babies. Web dev lover at Microsoft.",
             });
 
-            _theChosen.Add(_jonSonmez = new Person
+            _theChosen.Add(_johnSonmez = new Person
             {
-                FirstName = "Jon",
+                FirstName = "John",
                 LastName = "Sonmez",
                 Email = "jsonmez@contoso.com",
                 Blog = "http://jsonmez.contoso.com",
@@ -1100,15 +1100,15 @@ namespace CodeCamper.Data.SampleData
                 Description = "Take a deep dive into the realm of Angular routing.",
             });
 
-            // Jon Sonmez
+            // John Sonmez
             addSession(true, new Session
             {
                 Title = "Developing for iOS and Android",
                 Code = "MOB162",
-                SpeakerId = _jonSonmez.Id,
+                SpeakerId = _johnSonmez.Id,
                 TrackId = tracks.First(t => t.Name == "Mobile").Id,
                 TimeSlotId = getNextSpeakerTimeSlotId(),
-                RoomId = getRoomId(_jonSonmez),
+                RoomId = getRoomId(_johnSonmez),
                 Level = levels[1],
                 Tags = "Mobile | iOS | Android",
                 Description = "Slay dragons, rescue princesses, and create awesome mobile apps.",
