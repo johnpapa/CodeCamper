@@ -102,7 +102,7 @@
             },
 
             setFilter = function () {
-                var day = new Date(selectedDate());
+                var day = new Date(moment(selectedDate(), "MM-DD-YYYY").format());
                 sessionFilter
                     .minDate(day)
                     .maxDate(utils.endOfDay(day))
